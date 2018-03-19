@@ -101,6 +101,18 @@ view: order_items {
     sql: DATEDIFF('day',${shipped_date},${delivered_date});;
   }
 
+# adding total sales
+measure: total_sales   {
+  type:  sum
+  sql:  ${sale_price} ;;
+}
+
+
+# adding average sales
+measure: avg_sales {
+  type:  average
+  sql:  ${sale_price} ;;
+}
 
   # ----- Sets of fields for drilling ------
   set: detail {
