@@ -92,12 +92,17 @@ view: users {
 
   # adding email
 
-  measure: traffic_is_email {
+  dimension: traffic_is_email {
     type: yesno
     sql: ${traffic_source}='Email';;
   }
 
+  # adding email
 
+  measure: traffic_is_email_measure {
+    type: yesno
+    sql: ${traffic_source}='Email';;
+  }
 
 
 }
