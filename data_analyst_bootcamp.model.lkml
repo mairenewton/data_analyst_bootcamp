@@ -7,20 +7,16 @@ include: "*.view"
 include: "*.dashboard"
 
 datagroup: data_analyst_bootcamp_default_datagroup {
-  # sql_trigger: SELECT MAX(id) FROM etl_log;;
+  sql_trigger: SELECT CURRENT_DATE;;
   max_cache_age: "1 hour"
 }
 
-
-persist_with: data_analyst_bootcamp_default_datagroup
-
-
-
+#persist_with: data_analyst_bootcamp_default_datagroup
 
 explore: inventory_items {}
 
-
 explore: order_items {
+  persist_with: data_analyst_bootcamp_default_datagroup
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -38,6 +34,12 @@ explore: order_items {
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
     relationship: many_to_one
   }
+
+  join: user_order_facts {
+    type:  left_outer
+    sql_on: ${order_items.user_id} = ${user_order_facts.user_id} ;;
+    relationship: many_to_one
+  }
 }
 
 
@@ -45,3 +47,12 @@ explore: products {}
 
 
 explore: users {}
+
+explore: user_order_facts {
+  #fields: [ALL_FIELDS*, -user_order_facts.days_to_first_order, -user_order_facts.average_days_to_make_first_order]~
+  join: users {
+    type: left_outer
+    sql_on: ${user_order_facts.user_id} = ${users.id} ;;
+    relationship: one_to_one
+  }
+}
