@@ -24,6 +24,12 @@ parameter: dimension_to_aggregate {
   }
 }
 
+measure: selected_measure {
+    type: number
+    sql: case when {% parameter dimension_to_aggregate %} = 'Total Revenue
+          then ${total_sales}' ;;
+  }
+
   dimension: shipping_days {
     type: number
     sql: datediff('day',${shipped_date},${delivered_date}) ;;
