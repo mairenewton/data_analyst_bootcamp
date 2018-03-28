@@ -11,7 +11,7 @@ parameter: dimension_to_aggregate {
   type: number
   allowed_value: {
     label: "total revenue"
-    value: "total_revenue"
+    value: "total_sales"
   }
   allowed_value: {
     label: "order count"
@@ -19,7 +19,7 @@ parameter: dimension_to_aggregate {
   }
   allowed_value: {
     label: "average sale price"
-    value: "average_sale_price"
+    value: "average_sales"
   }
 }
 
