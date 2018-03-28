@@ -12,6 +12,21 @@ view: order_items {
     sql: datediff('day',${shipped_date},${delivered_date}) ;;
   }
 
+  measure: total_sales_from_new_users {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: {
+      field: users.is_new_user
+      value: "yes"
+    }
+  }
+
+  measure: average_sales_per_user {
+    type: number
+    sql: ${total_sales_from_new_users}/${users.count} ;;
+    value_format_name: usd
+  }
+
   measure: distinct_orders {
     type: count_distinct
     sql: ${order_id} ;;
