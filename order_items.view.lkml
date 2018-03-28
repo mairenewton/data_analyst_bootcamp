@@ -107,11 +107,13 @@ view: order_items {
 
   measure: totalsales {
     type: sum
+    precision:2
     sql: ${TABLE}.sale_price ;;
   }
 
   measure: averagesales {
     type: average
+    precision:2
     sql: ${TABLE}.sale_price ;;
   }
 
