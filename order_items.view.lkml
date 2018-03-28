@@ -101,8 +101,8 @@ view: order_items {
   }
 
   measure: distinct_number_of_orders {
-    type:  number
-    sql: COUNT(DISTINCT ${TABLE}.id) ;;
+    type:  count_distinct
+    sql: ${TABLE}.id ;;
   }
 
   measure: totalsales {
