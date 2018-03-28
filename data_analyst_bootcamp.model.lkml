@@ -58,6 +58,7 @@ explore: order_items {
 
 explore: products {}
 
+explore: users_extended {}
 
 explore: users {
   join: order_items {
