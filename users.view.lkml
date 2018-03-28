@@ -2,7 +2,22 @@ view: users {
   sql_table_name: public.users ;;
 
 
+  dimension: city_state {
+    type:  string
+    sql: ${city} || ', ' || ${state} ;;
+  }
 
+  dimension: traffic_source_is_email   {
+    type:  yesno
+    sql: ${traffic_source} = 'Email' ;;
+  }
+
+  dimension: age_tier {
+    type:  tier
+    sql:  ${age} ;;
+    tiers: [18,25,35,45,55,65,75,90]
+    style:  integer
+  }
 
   dimension: id {
     primary_key: yes

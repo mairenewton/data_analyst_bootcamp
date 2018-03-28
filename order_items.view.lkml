@@ -1,6 +1,11 @@
 view: order_items {
   sql_table_name: public.order_items ;;
 
+  dimension:  days_to_deliver{
+    type:  number
+    sql: DATEDIFF('day',${shipped_date},${delivered_date});;
+  }
+
   dimension: id {
     primary_key: yes
     type: number
