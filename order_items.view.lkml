@@ -9,7 +9,6 @@ view: order_items {
 
 parameter: dimension_to_aggregate {
   label: "Select a measure to view."
-  type: number
   allowed_value: {
     label: "Total Revenue"
     value: "Total Revenue"
