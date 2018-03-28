@@ -9,7 +9,7 @@ view: order_items {
 
   dimension: shipping_days {
     type: number
-    sql: datediff('day',${shipped_date},${delivered_date} ;;
+    sql: datediff('day',${shipped_date},${delivered_date}) ;;
   }
 
   measure: distinct_orders {
