@@ -8,18 +8,19 @@ view: order_items {
   }
 
 parameter: dimension_to_aggregate {
+  label: "Select a measure to view."
   type: number
   allowed_value: {
-    label: "total revenue"
-    value: "total_sales"
+    label: "Total Revenue"
+    value: "Total Revenue"
   }
   allowed_value: {
-    label: "order count"
-    value: "order_count"
+    label: "Order Count"
+    value: "Order Count"
   }
   allowed_value: {
-    label: "average sale price"
-    value: "average_sales"
+    label: "Average Sale Price"
+    value: "Average Sale Price"
   }
 }
 
