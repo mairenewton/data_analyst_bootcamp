@@ -9,7 +9,22 @@ view: order_items {
 
   dimension: shipping_days {
     type: number
-    sql: datediff(day,${shipped_date},${delivered_date} ;;
+    sql: datediff('day',${shipped_date},${delivered_date} ;;
+  }
+
+  measure: distinct_orders {
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
+  measure: total_sales {
+    type: sum
+    sql: ${sale_price} ;;
+  }
+
+  measure: average_sales {
+    type: average
+    sql: ${sale_price} ;;
   }
 
   dimension_group: created {
