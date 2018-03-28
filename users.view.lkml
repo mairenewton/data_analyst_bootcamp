@@ -55,10 +55,17 @@ view: users {
     sql: ${TABLE}.gender ;;
   }
 
+  dimension: citystate {
+    type: string
+    sql: ${TABLE}.city || ',' || ${TABLE}.state ;;
+  }
+
   dimension: last_name {
     type: string
     sql: ${TABLE}.last_name ;;
   }
+
+
 
   dimension: latitude {
     type: number
@@ -78,6 +85,17 @@ view: users {
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
+  }
+
+  dimension: emailindicator {
+    type: yesno
+    sql: ${traffic_source} = 'Email';;
+  }
+
+  dimension: agegroup {
+    type: tier
+    tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+    sql: ${age} ;;
   }
 
   dimension: zip {
