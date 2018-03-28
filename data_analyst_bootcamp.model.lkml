@@ -23,6 +23,19 @@ explore: inventory_items {}
 explore: order_items {
   sql_always_where: status = 'Complete' ;;
   sql_always_having: ${count} > 5000 ;;
+  always_filter: {
+    filters:{
+      field: created_date
+      value: "30 days"
+    }
+    }
+  conditionally_filter: {
+    filters: {
+      field: users.created_date
+      value: "90 days"
+    }
+    unless: [users.state,users.id]
+  }
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
