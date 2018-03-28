@@ -2,18 +2,13 @@ view: users {
   sql_table_name: public.users ;;
 
 
-
-
   dimension: id {
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
   }
 
-  dimension: age {
-    type: number
-    sql: ${TABLE}.age ;;
-  }
+
 
   dimension: days_since_signup {
     type: number
@@ -35,12 +30,6 @@ dimension: traffic_source_is_email {
   sql: ${traffic_source} = 'Email' ;;
 }
 
-dimension: age_buckets {
-  type: tier
-  style: integer
-  sql: ${age} ;;
-  tiers: [18,25,45,55,65,75,90]
-}
 
   dimension: city {
     type: string
@@ -72,20 +61,7 @@ dimension: age_buckets {
     sql: ${TABLE}.email ;;
   }
 
-  dimension: first_name {
-    type: string
-    sql: ${TABLE}.first_name ;;
-  }
 
-  dimension: gender {
-    type: string
-    sql: ${TABLE}.gender ;;
-  }
-
-  dimension: last_name {
-    type: string
-    sql: ${TABLE}.last_name ;;
-  }
 
   dimension: latitude {
     type: number
@@ -114,6 +90,37 @@ dimension: age_buckets {
 
   measure: count {
     type: count
-    drill_fields: [id, first_name, last_name, events.count, order_items.count]
+    drill_fields: [id, events.count, order_items.count]
+  }
+}
+
+view: users_extended {
+  extends: [users]
+
+  dimension: age {
+    type: number
+    sql: ${TABLE}.age ;;
+  }
+
+  dimension: first_name {
+    type: string
+    sql: ${TABLE}.first_name ;;
+  }
+
+  dimension: gender {
+    type: string
+    sql: ${TABLE}.gender ;;
+  }
+
+  dimension: last_name {
+    type: string
+    sql: ${TABLE}.last_name ;;
+  }
+
+  dimension: age_buckets {
+    type: tier
+    style: integer
+    sql: ${age} ;;
+    tiers: [18,25,45,55,65,75,90]
   }
 }
