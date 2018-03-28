@@ -7,6 +7,22 @@ view: order_items {
     sql: ${TABLE}.id ;;
   }
 
+parameter: dimension_to_aggregate {
+  type: number
+  allowed_value: {
+    label: "total revenue"
+    value: "total_revenue"
+  }
+  allowed_value: {
+    label: "order count"
+    value: "order_count"
+  }
+  allowed_value: {
+    label: "average sale price"
+    value: "average_sale_price"
+  }
+}
+
   dimension: shipping_days {
     type: number
     sql: datediff('day',${shipped_date},${delivered_date}) ;;
