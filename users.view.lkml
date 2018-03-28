@@ -15,6 +15,16 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  dimension: days_since_signup {
+    type: number
+    sql: datediff('day',${created_date},getdate()) ;;
+  }
+
+  dimension: is_new_user {
+    type:  yesno
+    sql: ${days_since_signup} < 90;;
+  }
+
   dimension: city_state {
     type: string
     sql: ${city} || ' ' || ${state} ;;
