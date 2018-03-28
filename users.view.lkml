@@ -2,6 +2,16 @@ view: users {
   sql_table_name: public.users ;;
 
 
+  dimension: days_since_signup {
+    type:  number
+    sql:  DATEDIFF('day', ${created_date}, GETDATE()) ;;
+  }
+
+  dimension: is_new_user {
+    type:  yesno
+    sql:  ${days_since_signup} < 90 ;;
+  }
+
   dimension: city_state {
     type:  string
     sql: ${city} || ', ' || ${state} ;;
