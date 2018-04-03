@@ -15,12 +15,36 @@ datagroup: data_analyst_bootcamp_default_datagroup {
 persist_with: data_analyst_bootcamp_default_datagroup
 
 
+explore: user_fact {
+}
 
+explore: users_with_pii {}
 
 explore: inventory_items {}
 
 
 explore: order_items {
+  # sql_always_where: ${order_items.status} = 'Complete' ;;
+  # sql_always_having: ${count} > 5000 ;;
+  # persist with stuff here
+
+#   conditionally_filter: {
+#     filters: {
+#       field: users.created_date
+#       value: "90 days"
+#     }
+#     unless: [ users.id,users.state]
+#   }
+#
+#   always_filter: {
+#     filters: {
+#       field: created_date
+#       value: "30 days"
+#     }
+#   }
+
+
+
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;

@@ -6,6 +6,31 @@ view: order_items {
     sql: DATEDIFF('day',${shipped_date},${delivered_date});;
   }
 
+  parameter: measure_selector {
+    default_value: "count"
+    allowed_value: {
+      label:"Total Revenue"
+      value: "total_sales"
+    }
+    allowed_value: {
+      label: "Order Count"
+      value: "count"
+    }
+    allowed_value: {
+      label: "Avg Sales Price"
+      value: "average_sales"
+    }
+  }
+
+  measure: selected_measure {
+    type: number
+    sql:  case when {% parameter measure_selector %} = 'total_sales' then ${total_sales}
+              when {% parameter measure_selector %} = 'count' then ${count}
+              when {% parameter measure_selector %} = 'average_sales' then ${average_sales}
+          else null
+          end;;
+  }
+
   dimension: id {
     primary_key: yes
     type: number

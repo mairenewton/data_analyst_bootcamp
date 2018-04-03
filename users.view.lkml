@@ -1,6 +1,17 @@
 view: users {
   sql_table_name: public.users ;;
 
+  dimension: age {
+    type: number
+    sql: ${TABLE}.age ;;
+  }
+
+  dimension: age_tier {
+    type:  tier
+    sql:  ${age} ;;
+    tiers: [18,25,35,45,55,65,75,90]
+    style:  integer
+  }
 
   dimension: days_since_signup {
     type:  number
@@ -22,23 +33,12 @@ view: users {
     sql: ${traffic_source} = 'Email' ;;
   }
 
-  dimension: age_tier {
-    type:  tier
-    sql:  ${age} ;;
-    tiers: [18,25,35,45,55,65,75,90]
-    style:  integer
-  }
-
   dimension: id {
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
   }
 
-  dimension: age {
-    type: number
-    sql: ${TABLE}.age ;;
-  }
 
   dimension: city {
     type: string
@@ -65,35 +65,6 @@ view: users {
     sql: ${TABLE}.created_at ;;
   }
 
-  dimension: email {
-    type: string
-    sql: ${TABLE}.email ;;
-  }
-
-  dimension: first_name {
-    type: string
-    sql: ${TABLE}.first_name ;;
-  }
-
-  dimension: gender {
-    type: string
-    sql: ${TABLE}.gender ;;
-  }
-
-  dimension: last_name {
-    type: string
-    sql: ${TABLE}.last_name ;;
-  }
-
-  dimension: latitude {
-    type: number
-    sql: ${TABLE}.latitude ;;
-  }
-
-  dimension: longitude {
-    type: number
-    sql: ${TABLE}.longitude ;;
-  }
 
   dimension: state {
     type: string
@@ -112,6 +83,6 @@ view: users {
 
   measure: count {
     type: count
-    drill_fields: [id, first_name, last_name, events.count, order_items.count]
+    drill_fields: [id, events.count, order_items.count]
   }
 }
