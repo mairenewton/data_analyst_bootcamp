@@ -95,6 +95,22 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+  measure: total_revenue{
+    type: sum
+    sql:  ${sale_price} ;;
+
+  }
+
+  measure: Average_spend_per_user {
+    type: number
+    sql: 1.0* ${total_revenue})/count(users.count)
+    value_format: "USD"
+    ;;
+
+
+  }
+
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
