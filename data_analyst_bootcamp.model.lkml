@@ -20,6 +20,13 @@ persist_with: data_analyst_bootcamp_default_datagroup
 explore: inventory_items {}
 
 
+explore: ndt_Order_facts {
+  from: order_items
+
+}
+
+
+
 explore: order_items {
   join: users {
     type: left_outer
