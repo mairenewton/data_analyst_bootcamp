@@ -19,6 +19,12 @@ dimension: full_name {
     sql: ${TABLE}.age ;;
   }
 
+dimension: age_tier {
+  type:  tier
+  tiers: [ 18,25,32,40,55]
+  sql:  ${age} ;;
+  style:  integer
+}
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
@@ -60,6 +66,19 @@ dimension: days_since_signup_tier {
 sql: ${days_since_signup} ;;
 style: integer
 }
+
+dimension: location {
+  type:  location
+  sql_latitude:  ${latitude} ;;
+  sql_longitude: ${longitude} ;;
+}
+
+dimension: zip2 {
+  type: zipcode
+  sql: ${TABLE}.zip ;;
+ map_layer_name: us_zipcode_tabulation_areas
+}
+
   dimension: email {
     type: string
     sql: ${TABLE}.email ;;
@@ -95,10 +114,22 @@ style: integer
     sql: ${TABLE}.state ;;
   }
 
+  dimension: city_state {
+    description: "combination of city and state"
+    type: string
+    sql: ${city}|| ', '  ||  ${state} ;;
+
+  }
+
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
   }
+
+dimension: is_traffic_source_email_yesno {
+  type: yesno
+  sql:  ${traffic_source} = 'Email' ;;
+}
 
   dimension: zip {
     type: zipcode
