@@ -7,6 +7,7 @@ dimension: full_name {
   sql: ${first_name} || ' ' ||  ${last_name} ;;
 }
 
+
   dimension: id {
     primary_key: yes
     type: number
@@ -43,6 +44,22 @@ dimension: full_name {
     sql: ${TABLE}.created_at ;;
   }
 
+    dimension: days_since_signup {
+    type:  number
+    sql:  datediff('day', ${created_date},current_date) ;;
+  }
+
+dimension: is_new_user {
+  type: yesno
+  sql: ${days_since_signup} <= 120 ;;
+}
+
+dimension: days_since_signup_tier {
+  type: tier
+  tiers: [30,60,90,180]
+sql: ${days_since_signup} ;;
+style: integer
+}
   dimension: email {
     type: string
     sql: ${TABLE}.email ;;
