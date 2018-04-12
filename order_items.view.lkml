@@ -36,6 +36,8 @@ view: order_items {
   }
 
 dimension: days_since_order_to_delivery {
+  label: " days since delivery"
+  description: " do u know hwat this mean?"
   type:  number
 #  sql:    ${delivered_date} - ${shipped_date} ;;
   sql:  datediff('day', ${shipped_date},${delivered_date});;
@@ -48,6 +50,7 @@ dimension: days_since_order_to_delivery {
   }
 
   dimension: order_id {
+hidden: yes
     type: number
     sql: ${TABLE}.order_id ;;
   }
@@ -67,6 +70,7 @@ dimension: days_since_order_to_delivery {
   }
 
   dimension: sale_price {
+    hidden:  yes
     type: number
     sql: ${TABLE}.sale_price ;;
   }
@@ -112,4 +116,33 @@ dimension: days_since_order_to_delivery {
       inventory_items.product_name
     ]
   }
+
+  measure: distinct_nbr_of_orders {
+    type: count_distinct
+    sql: ${order_id} ;;
+
+  }
+
+  measure: total_sales {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: "usd_0"
+  }
+
+  measure: average_sales {
+    type:  average
+    sql:  ${sale_price} ;;
+    value_format_name: "usd"
+  }
+
+measure: total_sales_new_users {
+  type: sum
+  sql:  ${sale_price} ;;
+  value_format_name: usd_0
+  filters: {
+    field: users.is_new_user
+    value: "Yes"
+  }
+}
+
 }

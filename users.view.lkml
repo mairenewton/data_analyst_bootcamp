@@ -26,11 +26,13 @@ dimension: age_tier {
   style:  integer
 }
   dimension: city {
+    group_label: "Customer Location"
     type: string
     sql: ${TABLE}.city ;;
   }
 
   dimension: country {
+    group_label: "Customer Location"
     type: string
     map_layer_name: countries
     sql: ${TABLE}.country ;;
@@ -68,6 +70,7 @@ style: integer
 }
 
 dimension: location {
+  group_label: "Customer Location"
   type:  location
   sql_latitude:  ${latitude} ;;
   sql_longitude: ${longitude} ;;
@@ -100,16 +103,19 @@ dimension: zip2 {
   }
 
   dimension: latitude {
+    hidden:  yes
     type: number
     sql: ${TABLE}.latitude ;;
   }
 
   dimension: longitude {
+    hidden:  yes
     type: number
     sql: ${TABLE}.longitude ;;
   }
 
   dimension: state {
+    group_label: "Customer Location"
     type: string
     sql: ${TABLE}.state ;;
   }
@@ -138,6 +144,26 @@ dimension: is_traffic_source_email_yesno {
 
   measure: count {
     type: count
-    drill_fields: [id, first_name, last_name, events.count, order_items.count]
+    drill_fields: [detail*]
   }
+
+  # --- set of fields for drilling ----
+  set: detail {
+    fields: [ id, first_name, last_name, events.count, order_items.count]
+  }
+
+  measure: count_male_users {
+    type:  count
+    filters: {
+      field:  gender
+      value: "Male"
+    }
+  }
+
+  measure: percentage_male_users {
+    type:  number
+    sql:  ${count_male_users} / nullif(${count}, 0) ;;
+    value_format_name: percent_1
+  }
+
 }
