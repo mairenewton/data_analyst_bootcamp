@@ -11,9 +11,14 @@ datagroup: data_analyst_bootcamp_default_datagroup {
   max_cache_age: "1 hour"
 }
 
+datagroup: order_items_datagroup {
+  sql_trigger: SELECT count(*) from public.order_items ;;
+  max_cache_age: "4 hours"
+}
 
-persist_with: data_analyst_bootcamp_default_datagroup
+#persist_with: data_analyst_bootcamp_default_datagroup
 
+persist_with:  order_items_datagroup
 
 explore: order_items {
   join: users {
@@ -49,6 +54,8 @@ explore: users {
 }
 
 explore: events {
+  persist_with: data_analyst_bootcamp_default_datagroup
+  #group_label: "Data Analyst Bootcamp events"
   join: users {
     type: left_outer
     sql_on:  ${events.user_id} = ${users.id} ;;
