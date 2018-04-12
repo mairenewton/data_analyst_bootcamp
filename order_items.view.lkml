@@ -145,4 +145,37 @@ measure: total_sales_new_users {
   }
 }
 
+measure: total_sales_from_email {
+  type:  sum
+  sql:  ${sale_price} ;;
+  value_format_name: usd_0
+  filters: {
+    field:  users.is_traffic_source_email_yesno
+    value: "Yes"
+    }
+}
+
+  measure: total_sales_from_email2 {
+    type:  sum
+    sql:  ${sale_price} ;;
+    value_format_name: usd_0
+    filters: {
+      field:  users.traffic_source
+      value: "Email"
+    }
+  }
+
+
+measure: percentage_of_sales_from_email {
+  type:  number
+  sql: ${total_sales_from_email} / nullif (${total_sales},0) ;;
+value_format_name: percent_1
+}
+
+  measure:  average_spend_per_user {
+    type:  number
+    sql:  ${total_sales} / ${users.count} ;;
+    value_format_name: usd_0
+  }
+
 }

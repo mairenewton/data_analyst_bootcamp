@@ -15,13 +15,6 @@ datagroup: data_analyst_bootcamp_default_datagroup {
 persist_with: data_analyst_bootcamp_default_datagroup
 
 
-
-
-
-
-explore: inventory_items {}
-
-
 explore: order_items {
   join: users {
     type: left_outer
@@ -46,4 +39,30 @@ explore: order_items {
 explore: products {}
 
 
-explore: users {}
+explore: users {
+  description: "Use this explore to any user information"
+  join: order_items {
+    type:  left_outer
+    sql_on:  ${users.id} = ${order_items.user_id} ;;
+    relationship: one_to_many
+  }
+}
+
+explore: events {
+  join: users {
+    type: left_outer
+    sql_on:  ${events.user_id} = ${users.id} ;;
+    relationship: many_to_one
+  }
+}
+
+
+explore: inventory_items {
+label: "Inventory"
+description: "use this explore for viewing detailed inventory and product information"
+  join: products {
+    type:  left_outer
+    sql_on:  ${inventory_items.product_id} = ${products.id} ;;
+    relationship:  many_to_one
+  }
+}

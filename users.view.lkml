@@ -166,4 +166,14 @@ dimension: is_traffic_source_email_yesno {
     value_format_name: percent_1
   }
 
+measure:  average_spend_per_user {
+  type:  number
+  sql:  order_items. ;;
+}
+
+measure: count3 {
+  type:  count
+
+}
+
 }
