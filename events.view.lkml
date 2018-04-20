@@ -1,8 +1,5 @@
-view: users {
-  sql_table_name: public.users ;;
-
-
-
+view: events {
+  sql_table_name: public.events ;;
 
   dimension: id {
     primary_key: yes
@@ -10,9 +7,9 @@ view: users {
     sql: ${TABLE}.id ;;
   }
 
-  dimension: age {
-    type: number
-    sql: ${TABLE}.age ;;
+  dimension: browser {
+    type: string
+    sql: ${TABLE}.browser ;;
   }
 
   dimension: city {
@@ -40,29 +37,14 @@ view: users {
     sql: ${TABLE}.created_at ;;
   }
 
-  dimension: email {
+  dimension: event_type {
     type: string
-    sql: ${TABLE}.email ;;
+    sql: ${TABLE}.event_type ;;
   }
 
-  dimension: full_name {
+  dimension: ip_address {
     type: string
-    sql: ${first_name} || ' ' || ${last_name} ;;
-  }
-
-  dimension: first_name {
-    type: string
-    sql: ${TABLE}.first_name ;;
-  }
-
-  dimension: gender {
-    type: string
-    sql: ${TABLE}.gender ;;
-  }
-
-  dimension: last_name {
-    type: string
-    sql: ${TABLE}.last_name ;;
+    sql: ${TABLE}.ip_address ;;
   }
 
   dimension: latitude {
@@ -75,6 +57,21 @@ view: users {
     sql: ${TABLE}.longitude ;;
   }
 
+  dimension: os {
+    type: string
+    sql: ${TABLE}.os ;;
+  }
+
+  dimension: sequence_number {
+    type: number
+    sql: ${TABLE}.sequence_number ;;
+  }
+
+  dimension: session_id {
+    type: string
+    sql: ${TABLE}.session_id ;;
+  }
+
   dimension: state {
     type: string
     sql: ${TABLE}.state ;;
@@ -85,6 +82,16 @@ view: users {
     sql: ${TABLE}.traffic_source ;;
   }
 
+  dimension: uri {
+    type: string
+    sql: ${TABLE}.uri ;;
+  }
+
+  dimension: user_id {
+    type: number
+    sql: ${TABLE}.user_id ;;
+  }
+
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
@@ -92,6 +99,6 @@ view: users {
 
   measure: count {
     type: count
-    drill_fields: [id, first_name, last_name, events.count, order_items.count]
+    drill_fields: [id]
   }
 }
