@@ -10,6 +10,11 @@ view: users {
     sql: ${TABLE}.id ;;
   }
 
+dimension: full_name {
+    type: string
+    sql:${first_name} || ' ' || ${last_name};;
+}
+
   dimension: age {
     type: number
     sql: ${TABLE}.age ;;
