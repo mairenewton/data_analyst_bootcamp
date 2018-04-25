@@ -3,6 +3,7 @@ view: order_items {
 
   dimension: id {
     primary_key: yes
+    hidden: yes
     type: number
     sql: ${TABLE}.id ;;
   }
@@ -48,7 +49,7 @@ view: order_items {
 
 
   measure: count_orders {
-    view_label: "Count of Distinct Orders"
+    label: "Count of Distinct Orders"
     type: count_distinct
     sql: ${order_id} ;;
   }
@@ -81,9 +82,38 @@ view: order_items {
     sql: ${sale_price} ;;
   }
 
+  measure: total_sales_email {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+    filters: {
+      field: users.Paolotrafficcheck
+      value: "Yes"
+    }
+  }
+
+
+  measure: percent_sales_email {
+    type: number
+    sql: 1.0*${total_sales_email}/ NULLIF(${total_sales},0) ;;
+    value_format_name: percent_1
+
+  }
+
+
+measure: avg_sale_user {
+  type:  number
+  value_format_name: usd
+  sql: ${total_sales}/NULLIF(${users.count},0) ;;
+
+
+}
+
+
   measure: avg_sales {
     type: average
     sql: ${sale_price} ;;
+    value_format_name: usd
   }
 
 

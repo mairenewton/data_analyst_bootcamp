@@ -11,7 +11,10 @@ datagroup: data_analyst_bootcamp_default_datagroup {
   max_cache_age: "1 hour"
 }
 
+datagroup: Order_items {
+  sql_trigger: SELECT count(*) FROM order_items;;
 
+}
 
 persist_with: data_analyst_bootcamp_default_datagroup
 
@@ -22,6 +25,7 @@ explore: inventory_items {}
 
 
 explore: order_items {
+  persist_with: Order_items
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -45,4 +49,10 @@ explore: order_items {
 explore: products {}
 
 
-explore: users {}
+explore: users {
+  join: order_items {
+    type: left_outer
+    sql_on: ${users.id} = ${order_items.user_id} ;;
+    relationship: one_to_many
+}
+}

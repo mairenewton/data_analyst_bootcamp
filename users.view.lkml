@@ -24,11 +24,13 @@ view: users {
 
 
   dimension: city {
+    group_label: "Location"
     type: string
     sql: ${TABLE}.city ;;
   }
 
   dimension: country {
+    group_label: "Location"
     type: string
     map_layer_name: countries
     sql: ${TABLE}.country ;;
@@ -36,6 +38,7 @@ view: users {
 
 
   dimension: PaolocityState {
+    group_label: "Location"
     type: string
     sql: city+', '+state ;;
   }
@@ -96,7 +99,7 @@ view: users {
 
   dimension: Paolotrafficcheck {
     type: yesno
-    sql: ${traffic_source}="Email";;
+    sql: ${traffic_source}='Email';;
   }
 
 
