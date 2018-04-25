@@ -84,6 +84,13 @@ view: order_items {
     sql: ${TABLE}.status ;;
   }
 
+
+  dimension: PaoloShipDays {
+    type: number
+    sql: ${TABLE}.shipped- ${TABLE}.delivered;;
+  }
+
+
   dimension: user_id {
     type: number
     # hidden: yes

@@ -15,6 +15,14 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  dimension: Paoloagegroup {
+    type: tier
+    tiers: [18,25,35,45,55,65,75,90]
+    style: integer
+    sql: ${TABLE}.age ;;
+  }
+
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
@@ -24,6 +32,12 @@ view: users {
     type: string
     map_layer_name: countries
     sql: ${TABLE}.country ;;
+  }
+
+
+  dimension: PaolocityState {
+    type: string
+    sql: ${TABLE}.city+', '+${TABLE}.city ;;
   }
 
   dimension_group: created {
@@ -79,6 +93,12 @@ view: users {
     type: string
     sql: ${TABLE}.traffic_source ;;
   }
+
+  dimension: Paolotrafficcheck {
+    type: yesno
+    sql: ${TABLE}.traffic_source="Email"
+  }
+
 
   dimension: zip {
     type: zipcode
