@@ -19,7 +19,7 @@ view: users {
     type: tier
     tiers: [18,25,35,45,55,65,75,90]
     style: integer
-    sql: ${TABLE}.age ;;
+    sql: ${age} ;;
   }
 
 
@@ -37,7 +37,7 @@ view: users {
 
   dimension: PaolocityState {
     type: string
-    sql: ${TABLE}.city+', '+${TABLE}.city ;;
+    sql: city+', '+state ;;
   }
 
   dimension_group: created {
@@ -96,7 +96,7 @@ view: users {
 
   dimension: Paolotrafficcheck {
     type: yesno
-    sql: ${TABLE}.traffic_source="Email"
+    sql: ${traffic_source}="Email";;
   }
 
 

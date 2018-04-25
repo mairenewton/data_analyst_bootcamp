@@ -46,6 +46,15 @@ view: order_items {
     sql: ${TABLE}.order_id ;;
   }
 
+
+  measure: count_orders {
+    view_label: "Count of Distinct Orders"
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
+
+
   dimension_group: returned {
     type: time
     timeframes: [
@@ -64,6 +73,19 @@ view: order_items {
     type: number
     sql: ${TABLE}.sale_price ;;
   }
+
+
+
+  measure: total_sales {
+    type: sum
+    sql: ${sale_price} ;;
+  }
+
+  measure: avg_sales {
+    type: average
+    sql: ${sale_price} ;;
+  }
+
 
   dimension_group: shipped {
     type: time
@@ -87,7 +109,7 @@ view: order_items {
 
   dimension: PaoloShipDays {
     type: number
-    sql: ${TABLE}.shipped- ${TABLE}.delivered;;
+    sql: DATEDIFF(DAYS,${shipped_date},${delivered_date});;
   }
 
 
