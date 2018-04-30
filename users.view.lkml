@@ -50,6 +50,27 @@ view: users {
     sql:${first_name} || ' ' || ${last_name} ;;
   }
 
+dimension: city_state {
+  type: string
+  sql: ${city} || ' '  || ${state} ;;
+}
+
+dimension: monts_since_signup {
+  type: number
+  sql: DATEDIFF ('month',${created_date},current_date) ;;
+}
+
+dimension: is_email_source {
+  type: yesno
+  sql: ${traffic_source} = 'Email' ;;
+}
+
+dimension: age_tier{
+  type: tier
+  tiers: [ 18, 25, 35, 45, 55, 65, 75, 90]
+  sql:  ${age} ;;
+  style: integer
+}
 
   dimension: first_name {
     type: string
