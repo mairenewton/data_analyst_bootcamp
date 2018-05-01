@@ -12,6 +12,13 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  dimension: age_groups {
+    type: tier
+    tiers: [19, 25, 35, 45, 55, 65, 80]
+    sql: ${age} ;;
+    style: integer
+  }
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
@@ -37,6 +44,11 @@ view: users {
     sql: ${TABLE}.created_at ;;
   }
 
+  dimension: days_since_signup {
+    type: number
+    sql: datediff('day', ${created_date}, current_date) ;;
+  }
+
   dimension: email {
     type: string
     sql: ${TABLE}.email ;;
@@ -57,6 +69,12 @@ view: users {
     sql: ${TABLE}.gender ;;
   }
 
+  dimension: is_new_user {
+    description: "A user who has signed up within the last 90 days"
+    type: yesno
+    sql: ${days_since_signup} <= 90 ;;
+  }
+
   dimension: last_name {
     type: string
     sql: ${TABLE}.last_name ;;
@@ -72,9 +90,16 @@ view: users {
     sql: ${TABLE}.longitude ;;
   }
 
+  dimension: location {
+    type: location
+    sql_latitude: ${latitude} ;;
+    sql_longitude: ${longitude} ;;
+  }
+
   dimension: state {
     type: string
     sql: ${TABLE}.state ;;
+    map_layer_name: us_states
   }
 
   dimension: traffic_source {
@@ -85,6 +110,7 @@ view: users {
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
+    map_layer_name: us_zipcode_tabulation_areas
   }
 
   measure: count {
