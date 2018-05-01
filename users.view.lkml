@@ -50,6 +50,17 @@ view: users {
     sql: ${TABLE}.first_name ;;
   }
 
+
+  dimension: city_state {
+    type:  string
+    sql: ${city} || ' ' || ${state} ;;
+  }
+
+  dimension: full_name {
+    type:  string
+    sql: ${first_name} || ${last_name} ;;
+  }
+
   dimension: gender {
     type: string
     sql: ${TABLE}.gender ;;
