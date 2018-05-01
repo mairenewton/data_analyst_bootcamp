@@ -52,7 +52,7 @@ view: users {
 
   dimension: full_name {
     type: string
-    sql:  ${first_name} || "" || ${last_name};;
+    sql:  ${first_name} || " " || ${last_name};;
   }
 
   dimension: gender {
