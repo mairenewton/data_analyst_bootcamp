@@ -37,7 +37,6 @@ view: order_items {
 
   dimension: inventory_item_id {
     type: number
-    # hidden: yes
     sql: ${TABLE}.inventory_item_id ;;
   }
 
@@ -86,24 +85,11 @@ view: order_items {
 
   dimension: user_id {
     type: number
-    # hidden: yes
     sql: ${TABLE}.user_id ;;
   }
 
   measure: count {
     type: count
-    drill_fields: [detail*]
   }
 
-  # ----- Sets of fields for drilling ------
-  set: detail {
-    fields: [
-      id,
-      users.id,
-      users.first_name,
-      users.last_name,
-      inventory_items.id,
-      inventory_items.product_name
-    ]
-  }
 }
