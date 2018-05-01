@@ -45,4 +45,9 @@ explore: order_items {
 explore: products {}
 
 
-explore: users {}
+explore: users {
+  join: order_items {
+    sql_on: ${users.id} = ${order_items.user_id} ;;
+    relationship: one_to_many
+  }
+}
