@@ -36,12 +36,14 @@ view: order_items {
   }
 
   dimension: inventory_item_id {
+    group_label: "ID Fields"
     type: number
-    # hidden: yes
+    hidden: yes
     sql: ${TABLE}.inventory_item_id ;;
   }
 
   dimension: order_id {
+    group_label: "ID Fields"
     type: number
     sql: ${TABLE}.order_id ;;
   }
@@ -63,6 +65,7 @@ view: order_items {
   dimension: sale_price {
     type: number
     sql: ${TABLE}.sale_price ;;
+    value_format_name: usd
   }
 
   dimension_group: shipped {
@@ -85,8 +88,9 @@ view: order_items {
   }
 
   dimension: user_id {
+    group_label: "ID Fields"
     type: number
-    # hidden: yes
+    hidden: yes
     sql: ${TABLE}.user_id ;;
   }
 
@@ -106,6 +110,7 @@ view: order_items {
     type: sum
     sql:  ${sale_price} ;;
     value_format_name:  usd
+    drill_fields: [order_detail_set*]
   }
 
   measure: average_sales {
@@ -115,6 +120,11 @@ view: order_items {
   }
 
   # ----- Sets of fields for drilling ------
+
+  set: order_detail_set {
+    fields: [order_id, user_id, status, count, total_sales]
+  }
+
   set: detail {
     fields: [
       id,
