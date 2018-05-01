@@ -113,6 +113,18 @@ view: order_items {
     drill_fields: [order_detail_set*]
   }
 
+  measure: total_sales_completed {
+    type: sum
+    sql:  ${sale_price} ;;
+    value_format_name:  usd
+    drill_fields: [order_detail_set*]
+
+    filters: {
+      field: status
+      value: "Complete"
+    }
+  }
+
   measure: average_sales {
     type: average
     sql:  ${sale_price} ;;
