@@ -22,8 +22,6 @@ explore: inventory_items {}
 
 
 explore: order_items {
-  label: "Orders, Users, and Products"
-  description: "Use this Explore to analyze order details"
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;

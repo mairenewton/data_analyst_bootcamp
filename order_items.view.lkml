@@ -42,6 +42,7 @@ view: order_items {
   }
 
   dimension: order_id {
+    group_label: "ID Fields"
     type: number
     sql: ${TABLE}.order_id ;;
   }
@@ -61,13 +62,9 @@ view: order_items {
   }
 
   dimension: sale_price {
+    hidden: yes
     type: number
     sql: ${TABLE}.sale_price ;;
-  }
-
-  dimension: profit {
-    type: number
-    sql: ${sale_price} - ${inventory_items.cost} ;;
   }
 
   dimension_group: shipped {
@@ -90,15 +87,18 @@ view: order_items {
   }
 
   dimension: user_id {
+    group_label: "ID Fields"
     type: number
     sql: ${TABLE}.user_id ;;
   }
 
   measure: count {
+    label: "Number of Items Ordered"
     type: count
   }
 
   measure: number_of_orders {
+    description: "A distinct count of the number of orders placed"
     type: count_distinct
     sql: ${order_id} ;;
   }
@@ -107,7 +107,24 @@ view: order_items {
     type: sum
     sql: ${sale_price} ;;
     value_format_name: usd
-    drill_fields: [order_detail_set*]
+    drill_fields: [order_id, order_detail_set*]
+  }
+
+  measure: total_sales_completed_orders {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+    drill_fields: [order_id, order_detail_set*]
+    filters: {
+      field: status
+      value: "Complete"
+    }
+  }
+
+  measure: percent_completed_sales {
+    type: number
+    sql: ${total_sales_completed_orders} / nullif(${total_sales}, 0) ;;
+    value_format_name: percent_2
   }
 
   measure: average_sales {
@@ -117,25 +134,14 @@ view: order_items {
     drill_fields: [order_detail_set*]
   }
 
-  measure: percent_completed_orders {
-    type: number
-    sql: (1.0*${number_of_completed_orders}) / nullif(${number_of_orders}, 0) ;;
-    value_format_name: percent_2
-    drill_fields: [order_detail_set*]
-  }
 
-  measure: number_of_completed_orders {
-    type: count_distinct
-    sql: ${order_id} ;;
-    filters: {
-      field: status
-      value: "Complete"
-    }
-  }
+set: order_detail_set {
+  fields: [user_id, status, count, total_sales]
+}
 
-  set: order_detail_set {
-    fields: [order_id, user_id, status, total_sales]
-  }
+
+
+
 
 
 

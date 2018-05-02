@@ -43,7 +43,6 @@ view: products {
   }
 
   dimension: sku {
-    label: "SKU"
     type: string
     sql: ${TABLE}.sku ;;
   }
