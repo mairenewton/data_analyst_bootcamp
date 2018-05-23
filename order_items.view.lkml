@@ -90,6 +90,13 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+  #2
+  dimension: shipping_days {
+    type: number
+    sql: datediff('day', ${shipped_date}, ${delivered_date}) ;;
+  }
+
+
   measure: count {
     type: count
     drill_fields: [detail*]
