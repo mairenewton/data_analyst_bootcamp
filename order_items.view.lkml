@@ -124,6 +124,13 @@ view: order_items {
     }
   }
 
+
+  measure: percent_email_sales {
+    type: number
+    sql: 100.0 * ${total_sales_email}/NULLIF(${total_sales},0) ;;
+    value_format: "#.00\%"
+  }
+
   measure: total_sales_completed {
     type: sum
     sql:  ${sale_price} ;;
