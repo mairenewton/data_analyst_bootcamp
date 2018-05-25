@@ -131,6 +131,11 @@ view: order_items {
     value_format_name:  usd
   }
 
+  measure: percent_completed_sales {
+    type:  number
+    sql: ${total_sales_completed} / NULLIF(${total_sales}, 0)  ;;
+  }
+
   # ----- Sets of fields for drilling ------
 
   set: order_detail_set {
