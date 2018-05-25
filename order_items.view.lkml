@@ -154,6 +154,12 @@ view: order_items {
     sql: ${total_sales_completed} / NULLIF(${total_sales}, 0)  ;;
   }
 
+  measure: average_spend_per_user {
+    type: number
+    value_format_name: usd
+    sql: 1.0 * ${total_sales} / NULLIF(${users.count},0) ;;
+  }
+
   # ----- Sets of fields for drilling ------
 
   set: order_detail_set {
