@@ -12,6 +12,26 @@ view: inventory_items {
     sql: ${TABLE}.cost ;;
   }
 
+
+measure: total_cost {
+  type: sum
+  sql: ${cost} ;;
+  value_format_name: usd
+}
+
+measure: average_cost {
+type: average
+sql:${cost}  ;;
+
+}
+
+
+measure: distinct_sku {
+  type: count_distinct
+
+}
+
+
   dimension_group: created {
     type: time
     timeframes: [
