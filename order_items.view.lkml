@@ -42,6 +42,7 @@ view: order_items {
   }
 
   dimension: order_id {
+    group_label: "ID Fields"
     type: number
     sql: ${TABLE}.order_id ;;
   }
@@ -63,6 +64,7 @@ view: order_items {
   dimension: sale_price {
     type: number
     sql: ${TABLE}.sale_price ;;
+    value_format_name: usd
   }
 
   dimension_group: shipped {
@@ -85,15 +87,70 @@ view: order_items {
   }
 
   dimension: user_id {
+    group_label: "ID Fields"
     type: number
     # hidden: yes
     sql: ${TABLE}.user_id ;;
   }
 
   measure: count {
+    label: "Number of items ordered"
     type: count
     drill_fields: [detail*]
   }
+
+  measure: number_of_orders {
+    description: "A distinct count of the number of orders placed"
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
+measure:  total_sales{
+  type: sum
+  sql: ${sale_price};;
+  value_format_name: usd
+  drill_fields: [order_detail_set*, order_id]
+}
+
+  measure:  total_sales_completed_orders{
+    type: sum
+    sql: ${sale_price};;
+    value_format_name: usd
+    drill_fields: [order_detail_set*, order_id]
+    filters: {
+      field: status
+      value: "Complete"
+    }
+  }
+
+  measure: percent_completed_sales {
+    type:  number
+    sql: ${total_sales_completed_orders} / nullif(${total_sales}, 0) ;;
+    value_format_name: percent_2
+  }
+
+measure: average_sales {
+  type: average
+  sql: ${sale_price};;
+  value_format_name: usd
+  drill_fields: [order_detail_set*]
+}
+
+  measure: average_sales_completed_orders {
+    type: average
+    sql: ${sale_price};;
+    value_format_name: usd
+    drill_fields: [order_detail_set*]
+    filters: {
+      field: status
+      value: "Complete"
+    }
+  }
+
+
+set:order_detail_set  {
+  fields: [order_id, user_id, status, count, total_sales]
+}
 
   # ----- Sets of fields for drilling ------
   set: detail {

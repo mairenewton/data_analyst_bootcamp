@@ -15,6 +15,13 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+dimension: age_groups {
+  type: tier
+  tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+  sql: ${age} ;;
+  style:  integer
+}
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
@@ -24,7 +31,25 @@ view: users {
     type: string
     map_layer_name: countries
     sql: ${TABLE}.country ;;
+    drill_fields: [city, state]
   }
+
+
+dimension: city_state {
+  type:  string
+  sql: ${city} || ',' || ${state} ;;
+}
+
+
+dimension: months_since_signup {
+  type: number
+  sql: Datediff(‘month’, ${created_date}, current_date) ;;
+}
+
+dimension: traffic_source_is_email {
+  type: yesno
+  sql:  ${traffic_source} = 'Email' ;;
+}
 
   dimension_group: created {
     type: time
@@ -96,4 +121,8 @@ view: users {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
+
+
+
+
 }

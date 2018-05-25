@@ -2,6 +2,7 @@ view: inventory_items {
   sql_table_name: public.inventory_items ;;
 
   dimension: id {
+    #hidden: yes
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
@@ -11,6 +12,23 @@ view: inventory_items {
     type: number
     sql: ${TABLE}.cost ;;
   }
+
+measure: total_cost {
+  type: sum
+  sql: ${cost} ;;
+  value_format_name: usd
+}
+
+measure: average_cost {
+  type: average
+  sql: ${cost} ;;
+  value_format_name: usd
+}
+
+measure: number_of_product_SKUs {
+  type: count_distinct
+  sql: ${product_sku} ;;
+}
 
   dimension_group: created {
     type: time
