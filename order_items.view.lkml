@@ -113,6 +113,17 @@ view: order_items {
     drill_fields: [order_detail_set*]
   }
 
+  measure: total_sales_email {
+    type: sum
+    sql:  ${sale_price} ;;
+    value_format_name:  usd
+    drill_fields: [order_detail_set*]
+    filters: {
+      field: users.traffic_source
+      value: "Email"
+    }
+  }
+
   measure: total_sales_completed {
     type: sum
     sql:  ${sale_price} ;;
