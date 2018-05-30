@@ -7,6 +7,8 @@ view: users {
     sql: ${TABLE}.id ;;
   }
 
+
+
   dimension: age {
     type: number
     sql: ${TABLE}.age ;;
