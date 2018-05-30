@@ -56,6 +56,21 @@ view: users {
     sql: datediff('day',${created_date}, current_date );;
   }
 
+  dimension: is_new_user{
+    description: "Who has signed up in the last 90 days"
+    type: yesno
+    sql: ${days_since_signup} <= 90 ;;
+  }
+
+  dimension: tier{
+    type: tier
+    sql: ${days_since_signup};;
+    tiers: [
+      30, 60, 90, 180
+    ]
+    style: integer
+  }
+
   dimension: gender {
     type: string
     sql: ${TABLE}.gender ;;
