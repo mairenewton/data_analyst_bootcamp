@@ -1,9 +1,6 @@
 view: users {
   sql_table_name: public.users ;;
 
-
-
-
   dimension: id {
     primary_key: yes
     type: number
@@ -16,15 +13,12 @@ view: users {
   }
 
   dimension: city {
-    group_label: "Location"
     type: string
     sql: ${TABLE}.city ;;
   }
 
   dimension: country {
-    group_label: "Location"
     type: string
-    map_layer_name: countries
     sql: ${TABLE}.country ;;
   }
 
@@ -63,19 +57,16 @@ view: users {
   }
 
   dimension: latitude {
-    group_label: "Location"
     type: number
     sql: ${TABLE}.latitude ;;
   }
 
   dimension: longitude {
-    group_label: "Location"
     type: number
     sql: ${TABLE}.longitude ;;
   }
 
   dimension: state {
-    group_label: "Location"
     type: string
     sql: ${TABLE}.state ;;
   }
@@ -86,7 +77,6 @@ view: users {
   }
 
   dimension: zip {
-    group_label: "Location"
     type: zipcode
     sql: ${TABLE}.zip ;;
   }
