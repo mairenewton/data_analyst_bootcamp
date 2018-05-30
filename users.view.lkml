@@ -18,8 +18,9 @@ view: users {
   }
 
   dimension: full_name {
+    label: "fullName"
     type: string
-    sql: ${first_name} ||" "|| ${last_name};;
+    sql: ${first_name} ||' '|| ${last_name};;
   }
 
   dimension: country {
