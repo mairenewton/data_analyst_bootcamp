@@ -3,21 +3,25 @@ view: users {
 
   dimension: id {
     primary_key: yes
+    hidden: yes
     type: number
     sql: ${TABLE}.id ;;
   }
 
   dimension: age {
+    group_label: "PII"
     type: number
     sql: ${TABLE}.age ;;
   }
 
   dimension: city {
+    group_label: "Location"
     type: string
     sql: ${TABLE}.city ;;
   }
 
   dimension: country {
+    group_label: "Location"
     map_layer_name: countries
     type: string
     sql: ${TABLE}.country ;;
@@ -38,16 +42,19 @@ view: users {
   }
 
   dimension: email {
+    group_label: "PII"
     type: string
     sql: ${TABLE}.email ;;
   }
 
   dimension: first_name {
+    group_label: "PII"
     type: string
     sql: INITCAP(${TABLE}.first_name) ;;
   }
 
   dimension: full_name {
+    group_label: "PII"
     type: string
     sql: (${first_name}||' '||${last_name});;
   }
@@ -73,43 +80,52 @@ view: users {
   }
 
   dimension: city_state {
+    group_label: "Location"
     type: string
     sql: ${state}||'-'||${city} ;;
   }
 
   dimension: gender {
+    group_label: "PII"
     type: string
     sql: ${TABLE}.gender ;;
   }
 
   dimension: location {
+    group_label: "Location"
     type: location
     sql_latitude: ${latitude} ;;
     sql_longitude: ${longitude} ;;
   }
 
   dimension: last_name {
+    group_label: "PII"
     type: string
     sql: INITCAP(${TABLE}.last_name );;
   }
 
   dimension: latitude {
+    group_label: "Location"
     type: number
     sql: ${TABLE}.latitude ;;
   }
 
   dimension: longitude {
+    group_label: "Location"
     type: number
     sql: ${TABLE}.longitude ;;
   }
 
   dimension: state {
+    group_label: "Location"
     map_layer_name: us_states
     type: string
     sql: ${TABLE}.state ;;
+    drill_fields: [city,zip]
   }
 
   dimension: age_group {
+    group_label: "PII"
     type: tier
     sql: ${age};;
     tiers: [
@@ -124,6 +140,7 @@ view: users {
   }
 
   dimension: zip {
+    group_label: "Location"
     map_layer_name: us_zipcode_tabulation_areas
     type: zipcode
     sql: ${TABLE}.zip ;;
@@ -131,6 +148,27 @@ view: users {
 
   measure: count {
     type: count
-    drill_fields: [id, first_name, last_name, events.count, order_items.count]
+    drill_fields: [user_detail*]
   }
+
+  measure: count_females {
+    type: count
+    filters: {
+      field: gender
+      value: "Female"
+    }
+    drill_fields: [user_detail*]
+  }
+
+  measure: woman_percentage {
+    type: number
+    sql: ${count_females}::DECIMAL(12,2)/nullif(${count},0)  ;;
+    value_format_name: percent_0
+  }
+
+
+  set: user_detail {
+    fields: [id, first_name, last_name, events.count]
+  }
+
 }

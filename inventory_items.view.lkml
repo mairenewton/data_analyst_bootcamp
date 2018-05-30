@@ -82,8 +82,27 @@ view: inventory_items {
   }
 
   measure: count {
+    label: "number of inventory items"
     type: count
     drill_fields: [id, product_name, products.id, products.name, order_items.count]
+  }
+
+  measure: number_of_SKUs{
+    label: "number of distinct inventory SKUs"
+    type: count_distinct
+    sql: ${product_sku} ;;
+    drill_fields: [id, product_name, products.id, products.name, order_items.count]
+  }
+
+  measure: total_cost {
+    type: sum
+    sql: ${cost} ;;
+  }
+
+  measure: avg_cost {
+    type: average
+    sql: ${cost} ;;
+    value_format: "$#.00;($#.00)"
   }
 
 }

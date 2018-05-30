@@ -11,7 +11,9 @@ datagroup: data_analyst_bootcamp_default_datagroup {
   max_cache_age: "1 hour"
 }
 
-
+named_value_format: currency {
+  value_format: "$#,###.00;($#.00)"
+}
 
 persist_with: data_analyst_bootcamp_default_datagroup
 
