@@ -43,7 +43,7 @@ view: users {
 
   dimension: first_name {
     type: string
-    sql: ${TABLE}.first_name ;;
+    sql: INITCAP(${TABLE}.first_name) ;;
   }
 
   dimension: full_name {
@@ -58,7 +58,7 @@ view: users {
 
   dimension: last_name {
     type: string
-    sql: ${TABLE}.last_name ;;
+    sql: INITCAP(${TABLE}.last_name );;
   }
 
   dimension: latitude {
