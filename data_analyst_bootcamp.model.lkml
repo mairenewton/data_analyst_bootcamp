@@ -22,8 +22,6 @@ explore: inventory_items {}
 
 
 explore: order_items {
-  label: "Order Items 📈"
-  view_label: "General Order Info "
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
