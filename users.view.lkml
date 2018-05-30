@@ -18,6 +18,7 @@ view: users {
   }
 
   dimension: country {
+    map_layer_name: countries
     type: string
     sql: ${TABLE}.country ;;
   }
@@ -81,6 +82,12 @@ view: users {
     sql: ${TABLE}.gender ;;
   }
 
+  dimension: location {
+    type: location
+    sql_latitude: ${latitude} ;;
+    sql_longitude: ${longitude} ;;
+  }
+
   dimension: last_name {
     type: string
     sql: INITCAP(${TABLE}.last_name );;
@@ -97,6 +104,7 @@ view: users {
   }
 
   dimension: state {
+    map_layer_name: us_states
     type: string
     sql: ${TABLE}.state ;;
   }
@@ -116,6 +124,7 @@ view: users {
   }
 
   dimension: zip {
+    map_layer_name: us_zipcode_tabulation_areas
     type: zipcode
     sql: ${TABLE}.zip ;;
   }
