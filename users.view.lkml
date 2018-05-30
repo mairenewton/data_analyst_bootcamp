@@ -71,6 +71,11 @@ view: users {
     style: integer
   }
 
+  dimension: city_state {
+    type: string
+    sql: ${state}||'-'||${city} ;;
+  }
+
   dimension: gender {
     type: string
     sql: ${TABLE}.gender ;;
@@ -94,6 +99,15 @@ view: users {
   dimension: state {
     type: string
     sql: ${TABLE}.state ;;
+  }
+
+  dimension: age_group {
+    type: tier
+    sql: ${age};;
+    tiers: [
+      18,25,35,45,55,65,75,90
+    ]
+    style: integer
   }
 
   dimension: traffic_source {
