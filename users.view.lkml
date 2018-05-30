@@ -51,6 +51,11 @@ view: users {
     sql: (${first_name}||' '||${last_name});;
   }
 
+  dimension: days_since_signup {
+    type: number
+    sql: datediff('day',${created_date}, current_date );;
+  }
+
   dimension: gender {
     type: string
     sql: ${TABLE}.gender ;;
