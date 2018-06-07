@@ -69,11 +69,6 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
-  dimension: profit {
-    type: number
-    sql: ${sale_price} - ${inventory_items.cost} ;;
-  }
-
   dimension_group: shipped {
     type: time
     timeframes: [
@@ -103,10 +98,16 @@ view: order_items {
     drill_fields: [detail*]
   }
 
-  measure: distonct_order_ids {
+  measure: number_of_orders {
     label: "Order Count"
     type: count_distinct
     sql: ${order_id} ;;
+  }
+
+  measure: orders_per_user {
+    type: number
+    sql: 1.0*(${number_of_orders})/nullif(${users.count}, 0) ;;
+    value_format_name: decimal_2
   }
 
   measure: total_sales {
@@ -115,37 +116,25 @@ view: order_items {
     value_format_name: usd
   }
 
-  measure: average_sales {
-    type: average
-    sql: ${sale_price} ;;
-    value_format_name: usd
-  }
-
-  measure: total_sales_email_users {
+  measure: total_sales_completed_orders {
     type: sum
     sql: ${sale_price} ;;
     value_format_name: usd
     filters: {
-      field: users.traffic_source
-      value: "Email"
+      field: status
+      value: "Complete"
     }
   }
 
-  measure: percentage_sales_email_users {
+  measure: percent_sales_completed_orders {
     type: number
-    sql: nullif(${total_sales_email_users}, 0)/nullif(${total_sales}, 0) ;;
+    sql: ${total_sales_completed_orders}/nullif(${total_sales}, 0) ;;
     value_format_name: percent_1
   }
 
-  measure: average_spend_per_user {
-    type: number
-    sql: ${total_sales}/nullif(${users.count}, 0) ;;
-    value_format_name: usd
-  }
-
-  measure: other_average_spend_per_user {
-    type: number
-    sql: ${total_sales}/nullif(${count_distinct_users}, 0) ;;
+  measure: average_sales {
+    type: average
+    sql: ${sale_price} ;;
     value_format_name: usd
   }
 

@@ -149,20 +149,8 @@ view: users {
     drill_fields: [users_detail*]
   }
 
-  measure: count_females {
-    type: count
-    drill_fields: [users_detail*]
-    filters: {
-      field: gender
-      value: "Female"
-    }
-  }
 
-  measure: percent_female_users {
-    type: number
-    sql: 1.0*(${count_females})/nullif(${count}, 0) ;;
-    value_format_name: percent_1
-  }
+
 
 
 
