@@ -6,19 +6,24 @@ include: "*.view"
 # include all the dashboards
 include: "*.dashboard"
 
-datagroup: data_analyst_bootcamp_default_datagroup {
-  # sql_trigger: SELECT MAX(id) FROM etl_log;;
-  max_cache_age: "1 hour"
+
+
+named_value_format: special_format {
+  value_format: "$#.00"
+}
+
+datagroup: orders_datagroup {
+  max_cache_age: "2 hours"
 }
 
 
-
-persist_with: data_analyst_bootcamp_default_datagroup
-
+persist_with: orders_datagroup
 
 
 
-explore: inventory_items {}
+
+explore: inventory_items {
+}
 
 
 explore: order_items {
@@ -43,9 +48,8 @@ explore: order_items {
 }
 
 
+explore: products {
+}
 
-
-explore: products {}
-
-
-explore: users {}
+explore: users {
+}
