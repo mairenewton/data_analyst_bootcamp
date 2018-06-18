@@ -16,12 +16,16 @@ datagroup: data_analyst_bootcamp_default_datagroup {
 persist_with: data_analyst_bootcamp_default_datagroup
 
 
-
-
 explore: inventory_items {}
 
 
 explore: order_items {
+  always_filter: {
+    filters: {
+      field: created_date
+      value: "before today"
+    }
+  }
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -48,4 +52,12 @@ explore: order_items {
 explore: products {}
 
 
-explore: users {}
+explore: users {
+  join: user_order_facts {
+    type: inner
+    sql_on: ${users.id}=${user_order_facts.id} ;;
+    relationship: one_to_one
+  }
+
+
+}
