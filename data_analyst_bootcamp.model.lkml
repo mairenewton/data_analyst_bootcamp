@@ -4,7 +4,7 @@ connection: "events_ecommerce"
 include: "*.view"
 
 # include all the dashboards
-include: "*.dashboard"
+#include: "*.dashboard"
 
 datagroup: data_analyst_bootcamp_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
