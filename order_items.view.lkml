@@ -116,3 +116,18 @@ measure: total_sales {
     ]
   }
 }
+
+
+
+#explore: order_items {
+# always_filter: {
+# filters:{
+# field: orders_items.returned.date
+# sql_always_where: {order_items.returned_date} IS NULL}
+
+
+
+
+
+
+
