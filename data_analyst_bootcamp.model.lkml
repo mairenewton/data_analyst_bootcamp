@@ -30,6 +30,15 @@ explore: inventory_items {}
 explore: products {}
 
 
+explore: order_items
+{
+  join: users {
+    type:left_outer
+    relationship: many_to_one
+    sql_on: ${order_items.user_id}=${users;;
+  }
+}
+
 explore: users {
   join: order_items {
     type: left_outer
