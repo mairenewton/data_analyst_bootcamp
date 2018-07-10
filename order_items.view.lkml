@@ -124,10 +124,3 @@ measure: total_sales {
 # filters:{
 # field: orders_items.returned.date
 # sql_always_where: {order_items.returned_date} IS NULL}
-
-
-
-
-
-
-
