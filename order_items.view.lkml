@@ -89,6 +89,18 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+  dimension: shipping_days  {
+    type: number
+    sql: DATEDIFF(day, ${shipped_date}, ${delivered_date};;
+
+      }
+
+# dimension: city_state
+# {
+#  type:  string
+#  sql: ${order_id}city} || ‘, ‘ || ${state} ;;
+#  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
