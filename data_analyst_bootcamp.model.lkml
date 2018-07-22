@@ -12,6 +12,7 @@ datagroup: data_analyst_bootcamp_default_datagroup {
 }
 
 
+
 persist_with: data_analyst_bootcamp_default_datagroup
 
 
@@ -38,7 +39,10 @@ explore: order_items {
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
     relationship: many_to_one
   }
+
 }
+
+
 
 
 explore: products {}

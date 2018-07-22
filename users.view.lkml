@@ -1,9 +1,6 @@
 view: users {
   sql_table_name: public.users ;;
 
-
-
-
   dimension: id {
     primary_key: yes
     type: number
@@ -22,7 +19,6 @@ view: users {
 
   dimension: country {
     type: string
-    map_layer_name: countries
     sql: ${TABLE}.country ;;
   }
 
