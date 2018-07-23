@@ -12,6 +12,26 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  dimension: custom_age_case_statements {
+    type:  string
+    case: {
+      when:  {
+        sql:${age}<50;;
+        label: "young"
+    }
+    else: "wise"
+    }
+  }
+
+  measure: count_wise_users {
+    type:  count
+    filters: {
+      field:  custom_age_case_statements
+      value: "wise"
+    }
+    drill_fields: [ id, age, count_wise_users]
+  }
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
@@ -54,6 +74,16 @@ view: users {
   dimension: last_name {
     type: string
     sql: ${TABLE}.last_name ;;
+  }
+
+  dimension: full_name {
+    type:   string
+    sql: ${first_name} || '-' || ${last_name} ;;
+  }
+
+  dimension: city_state {
+    type:   string
+    sql: ${city} || ',' || ${state} ;;
   }
 
   dimension: latitude {
