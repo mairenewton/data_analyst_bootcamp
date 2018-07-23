@@ -115,4 +115,9 @@ view: users {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
+
+  measure: first_order_date {
+    type: date_raw
+    sql:  min(${created_raw}) ;;
+  }
 }

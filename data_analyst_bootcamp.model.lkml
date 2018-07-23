@@ -22,6 +22,8 @@ explore: inventory_items {}
 
 
 explore: order_items {
+  sql_always_where: ${order_items.returned_date} is NULL ;;
+  sql_always_having: ${order_items.total_ammount} > 200 ;;
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -33,6 +35,7 @@ explore: order_items {
     sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;
     relationship: many_to_one
   }
+
 
   join: products {
     type: left_outer
@@ -48,4 +51,10 @@ explore: order_items {
 explore: products {}
 
 
-explore: users {}
+explore: users {
+    join: order_items {
+      type: left_outer
+      sql_on: ${order_items.user_id} = ${users.id} ;;
+      relationship: many_to_one
+    }
+}
