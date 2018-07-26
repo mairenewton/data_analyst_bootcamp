@@ -20,6 +20,7 @@ view: aggregate_user_orders {
   }
 
   dimension: order_items_user_id {
+    primary_key: yes
     type: number
     sql: ${TABLE}."order_items.user_id" ;;
   }
