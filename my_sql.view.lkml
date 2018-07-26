@@ -31,7 +31,7 @@ view: my_sql {
     sql: ${TABLE}."order_items.total_revenue" ;;
   }
 
-  dimension: first_oreer_date {
+  dimension: first_order_date {
     type: date
     sql: ${TABLE}.first_oreer_date ;;
   }
@@ -42,6 +42,6 @@ view: my_sql {
   }
 
   set: detail {
-    fields: [users_id, order_items_order_item_count, order_items_total_revenue, first_oreer_date, last_order_date]
+    fields: [users_id, order_items_order_item_count, order_items_total_revenue, first_order_date, last_order_date]
   }
 }
