@@ -97,6 +97,21 @@ dimension: shippingdays {
     drill_fields: [detail*]
   }
 
+  measure: distinct_order_count {
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
+  measure: total_sales  {
+    type: sum
+    sql: ${sale_price} ;;
+  }
+
+measure:Avg_sales  {
+  type: average
+  sql: ${sale_price} ;;
+}
+
   # ----- Sets of fields for drilling ------
 
   set: detail {
