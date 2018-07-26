@@ -22,11 +22,20 @@ explore: inventory_items {}
 
 
 explore: order_items {
+
+  always_filter: {
+    filters:{
+    field: returned_date
+    value: "not null"
+    }
+  }
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
     relationship: many_to_one
   }
+
+
 
   join: inventory_items {
     type: left_outer
@@ -41,6 +50,7 @@ explore: order_items {
   }
 
 }
+
 
 
 
