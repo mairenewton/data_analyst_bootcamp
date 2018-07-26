@@ -45,6 +45,12 @@ view: order_items {
     sql: ${TABLE}.order_id ;;
   }
 
+
+  measure: unique_order {
+      type: count_distinct
+      sql:  ${order_id} ;;
+  }
+
   dimension_group: returned {
     type: time
     timeframes: [
@@ -64,6 +70,11 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
+  measure: total_sales {
+    type:  sum
+    sql:    {$sale_price} ;;
+  }
+
   dimension_group: shipped {
     type: time
     timeframes: [
@@ -77,6 +88,12 @@ view: order_items {
     ]
     sql: ${TABLE}.shipped_at ;;
   }
+
+  dimension: shipping_days {
+    type: number
+    sql: DATEDIFF (day, ${shipped_date}, ${delivered_date} ;;
+    }
+
 
   dimension: status {
     type: string

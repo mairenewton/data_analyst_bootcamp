@@ -71,10 +71,22 @@ view: users {
     sql: ${TABLE}.state ;;
   }
 
+  dimension: city_state {
+    type: string
+    sql: ${city} ||', '|| ${state} ;;
+  }
+
+
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
   }
+
+  dimension: traffic_source_email {
+    type: yesno
+    sql:  ${traffic_source} = 'email';;
+  }
+
 
   dimension: zip {
     type: zipcode
