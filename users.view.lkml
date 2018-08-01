@@ -7,6 +7,25 @@ view: users {
     sql: ${TABLE}.id ;;
   }
 
+  dimension: age_tired {
+    type: tier
+    sql:  ${age} ;;
+    tiers: [20, 40, 60, 80]
+    style: integer
+  }
+
+  dimension: age_tiered_custom {
+    label: "Nice Age bucket"
+    type: string
+    sql:  CASE
+WHEN ${age}  < 20 THEN 'Below 20'
+WHEN ${age}  >= 20 AND users.age  < 40 THEN '20 to 39...'
+WHEN ${age}  >= 40 AND users.age  < 60 THEN '40 to 59...'
+WHEN ${age}  >= 60 AND users.age  < 80 THEN '60 to 79xxxx'
+WHEN ${age}  >= 80 THEN '80 or Above'
+ELSE 'Undefined' end ;;
+  }
+
   dimension: age {
     type: number
     sql: ${TABLE}.age ;;
