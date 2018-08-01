@@ -40,6 +40,16 @@ ELSE 'Undefined'
 END ;;
 }
 
+
+dimension: is_over_30{
+  type: yesno
+  sql:  ${age}  >30 ;;
+  }
+
+
+
+
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
@@ -48,6 +58,13 @@ END ;;
   dimension: country {
     type: string
     sql: ${TABLE}.country ;;
+  }
+
+
+  dimension: user_location{
+    type: location
+    sql_latitude: ${latitude};;
+    sql_longitude: ${longitude};;
   }
 
   dimension_group: created {
@@ -112,5 +129,13 @@ END ;;
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
+  }
+
+
+  measure: average_age {
+    type:  average
+    sql: ${age} ;;
+    value_format_name: decimal_2
+
   }
 }
