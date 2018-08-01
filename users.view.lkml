@@ -27,6 +27,17 @@ view: users {
     style: integer
   }
 
+dimension: age_tiered_custom {
+  type:  string
+  sql: CASE
+WHEN users.age  < 10 THEN 'Below 10'
+WHEN users.age  >= 10 AND users.age  < 40 THEN '10 to 39'
+WHEN users.age  >= 40 AND users.age  < 60 THEN '40 to 59'
+WHEN users.age  >= 60 AND users.age  < 80 THEN '60 to 79'
+WHEN users.age  >= 80 THEN '80 or Above'
+ELSE 'Undefined'
+END ;;
+}
 
   dimension: city {
     type: string
