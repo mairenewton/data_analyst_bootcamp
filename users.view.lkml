@@ -7,6 +7,14 @@ view: users {
     sql: ${TABLE}.id ;;
   }
 
+
+  dimension: fake_primary_key {
+    type: string
+    sql: ${id} || ${age}
+    primary_key: yes;;
+  }
+
+
   dimension: age {
     type: number
     sql: ${TABLE}.age ;;
