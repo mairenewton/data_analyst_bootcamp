@@ -30,11 +30,11 @@ view: users {
 dimension: age_tiered_custom {
   type:  string
   sql: CASE
-WHEN users.age  < 10 THEN 'Below 10'
-WHEN users.age  >= 10 AND users.age  < 40 THEN '10 to 39'
-WHEN users.age  >= 40 AND users.age  < 60 THEN '40 to 59'
-WHEN users.age  >= 60 AND users.age  < 80 THEN '60 to 79'
-WHEN users.age  >= 80 THEN '80 or Above'
+WHEN ${age}  < 10 THEN 'Below 10'
+WHEN ${age}  >= 10 AND ${age}  < 40 THEN '10 to 39'
+WHEN ${age}  >= 40 AND ${age}  < 60 THEN '40 to 59'
+WHEN ${age}  >= 60 AND ${age}  < 80 THEN '60 to 79'
+WHEN ${age}  >= 80 THEN '80 or Above'
 ELSE 'Undefined'
 END ;;
 }
