@@ -28,6 +28,7 @@ view: users {
   }
 
 dimension: age_tiered_custom {
+  label: "asdas"
   type:  string
   sql: CASE
 WHEN ${age}  < 10 THEN 'Below 10'
