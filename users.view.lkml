@@ -2,10 +2,16 @@ view: users {
   sql_table_name: public.users ;;
 
   dimension: id {
-    primary_key: yes
+#    primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
   }
+dimension: fake_primary_key{
+  type: string
+  sql: ${id} || ' '|| ${age};;
+  primary_key: yes
+  }
+
 
   dimension: age {
     type: number
