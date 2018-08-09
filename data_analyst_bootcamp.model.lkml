@@ -11,16 +11,15 @@ datagroup: data_analyst_bootcamp_default_datagroup {
   max_cache_age: "1 hour"
 }
 
-
-
-
-
 persist_with: data_analyst_bootcamp_default_datagroup
 
-
-
-
-explore: inventory_items {}
+explore: inventory_items {
+  join: products {
+    type: left_outer
+    sql_on: ${inventory_items.product_id}=${products.id} ;;
+    relationship: many_to_one
+  }
+}
 #
 
 explore: order_items {
@@ -44,10 +43,13 @@ explore: order_items {
 
 }
 
-
-
-
 explore: products {}
 
 
-explore: users {}
+explore: users {
+  join: order_items {
+    type: left_outer
+    sql_on: ${users.id} = ${order_items.user_id} ;;
+    relationship: one_to_many
+  }
+}
