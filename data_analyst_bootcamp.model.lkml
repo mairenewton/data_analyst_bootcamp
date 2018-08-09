@@ -16,17 +16,15 @@ datagroup: daily_refresh_datagroup {
   max_cache_age: "24 hours"
 }
 
-
-
-
-
 persist_with: daily_refresh_datagroup
-
-
-
 
 explore: inventory_items {
   persist_with: data_analyst_bootcamp_default_datagroup
+  join: products {
+    type: left_outer
+    sql_on: ${inventory_items.product_id}=${products.id} ;;
+    relationship: many_to_one
+  }
 }
 #
 
@@ -51,10 +49,13 @@ explore: order_items {
 
 }
 
-
-
-
 explore: products {}
 
 
-explore: users {}
+explore: users {
+  join: order_items {
+    type: left_outer
+    sql_on: ${users.id} = ${order_items.user_id} ;;
+    relationship: one_to_many
+  }
+}

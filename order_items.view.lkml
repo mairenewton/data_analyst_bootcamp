@@ -2,6 +2,7 @@ view: order_items {
   sql_table_name: public.order_items ;;
 
   dimension: id {
+    hidden: yes
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
@@ -33,6 +34,11 @@ view: order_items {
       year
     ]
     sql: ${TABLE}.delivered_at ;;
+  }
+
+  dimension: shipping_days {
+    type: number
+    sql: DATEDIFF(days, ${shipped_date}, ${delivered_date}) ;;
   }
 
   dimension: inventory_item_id {
@@ -92,6 +98,61 @@ view: order_items {
     type: count
     drill_fields: [detail*]
   }
+
+  measure: distinct_orders {
+    description: "Distinct count of orders"
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
+  measure: total_sales {
+    group_label: "Sales"
+    type: sum
+    sql: ${sale_price};;
+    drill_fields: [detail*]
+  }
+
+  measure: total_sales_new_users{
+    type: sum
+    sql: ${sale_price};;
+    filters: {
+      field: users.is_new_customer
+      value: "Yes"
+    }
+  }
+
+  measure: avg_sales {
+    group_label: "Sales"
+    label: "Average Sales"
+    description: "Average of Sale Price"
+    type: average
+    sql: ${sale_price} ;;
+    value_format_name: usd
+    drill_fields: [detail*]
+  }
+
+  measure: total_sales_email_users {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: {
+      field: users.is_email_source
+      value: "Yes"
+    }
+  }
+
+  measure: percentage_sales_email_source {
+    type: number
+    sql: ${total_sales_email_users}/${total_sales} ;;
+    value_format_name: percent_2
+  }
+
+  measure: average_spend_per_user {
+    description: "Total Sales per User"
+    type: number
+    sql: ${total_sales}/nullif(${users.count}, 0) ;;
+    value_format_name: usd
+  }
+
 
   # ----- Sets of fields for drilling ------
 
