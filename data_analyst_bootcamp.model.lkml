@@ -11,16 +11,23 @@ datagroup: data_analyst_bootcamp_default_datagroup {
   max_cache_age: "1 hour"
 }
 
+datagroup: daily_refresh_datagroup {
+  sql_trigger: SELECT current_date ;;
+  max_cache_age: "24 hours"
+}
 
 
 
 
-persist_with: data_analyst_bootcamp_default_datagroup
+
+persist_with: daily_refresh_datagroup
 
 
 
 
-explore: inventory_items {}
+explore: inventory_items {
+  persist_with: data_analyst_bootcamp_default_datagroup
+}
 #
 
 explore: order_items {

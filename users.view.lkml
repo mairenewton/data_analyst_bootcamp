@@ -12,6 +12,11 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  measure: average_age {
+    type: sum
+    sql: ${age} ;;
+  }
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
