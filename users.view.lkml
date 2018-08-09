@@ -47,6 +47,28 @@ value_format_name: decimal_1
 
 }
 
+measure: users_over_30 {
+  type: count
+ filters: {
+   field: is_over_30
+  value: "Yes"
+  }
+  }
+
+measure: percent_over_30 {
+  type: number
+  sql:1.00* ${users_over_30} / nullif(${count},0) ;;
+  value_format_name: percent_2
+
+}
+
+  measure: running_total_of_users {
+    type: running_total
+    sql: ${count} ;;
+    description: "This calculates the running total of all my users"
+  }
+
+
 
 
   dimension: city {
@@ -105,6 +127,13 @@ value_format_name: decimal_1
     sql: ${TABLE}.longitude ;;
     group_label: "Address"
   }
+
+dimension: user_location {
+  type: location
+  sql_latitude: ${latitude}  ;;
+sql_longitude:  ${longitude};;
+}
+
 
   dimension: state {
     type: string
