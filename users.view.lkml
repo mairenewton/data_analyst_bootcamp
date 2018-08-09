@@ -22,11 +22,37 @@ dimension: age_tiered {
   style: integer
 }
 
+dimension: age_bucket{
+type: string
+sql: CASE
+WHEN ${age} < 20 THEN 'kid'
+WHEN ${age}  >= 20 AND ${age}  < 40 THEN 'russæøå'
+WHEN ${age}  >= 40 AND ${age}  < 60 THEN 'mid-life-crisis'
+WHEN ${age}  >= 60 AND ${age}  < 80 THEN 'retired'
+WHEN ${age}  >= 80 THEN 'grandparent'
+ELSE 'Undefined'
+End;;
+}
+
+dimension: is_over_30{
+  type: yesno
+  sql: ${age}>30 ;;
+
+}
+
+measure: avg_age {
+type:average
+sql: ${age} ;;
+value_format_name: decimal_1
+
+}
+
 
 
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
+    group_label: "Address"
   }
 
   dimension: country {
@@ -71,16 +97,19 @@ dimension: age_tiered {
   dimension: latitude {
     type: number
     sql: ${TABLE}.latitude ;;
+    group_label: "Address"
   }
 
   dimension: longitude {
     type: number
     sql: ${TABLE}.longitude ;;
+    group_label: "Address"
   }
 
   dimension: state {
     type: string
     sql: ${TABLE}.state ;;
+    group_label: "Address"
   }
 
   dimension: traffic_source {
@@ -91,6 +120,7 @@ dimension: age_tiered {
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
+    group_label: "Address"
   }
 
   measure: count {
