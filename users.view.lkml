@@ -81,6 +81,13 @@ view: users {
     sql: ${TABLE}.zip ;;
   }
 
+
+  dimension: full_name {
+    type: string
+    sql: ${TABLE}.first_name || ${TABLE}.last_name ;;
+
+  }
+
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
