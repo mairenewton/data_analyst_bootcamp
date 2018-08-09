@@ -81,6 +81,14 @@ view: users {
     sql: ${TABLE}.zip ;;
   }
 
+  dimension: days_since_signup {
+    type: number
+    sql: DATEDIFF(day, ${created_date}, current_date) ;;
+
+
+  }
+
+
 
   dimension: full_name {
     type: string
