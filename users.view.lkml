@@ -17,6 +17,13 @@ view: users {
     sql: ${TABLE}.city ;;
   }
 
+  dimension: city_state {
+    type: string
+    sql: ${city}||', '||${state} ;;
+  }
+
+
+
   dimension: country {
     type: string
     sql: ${TABLE}.country ;;
@@ -75,6 +82,22 @@ view: users {
     type: string
     sql: ${TABLE}.traffic_source ;;
   }
+
+
+  dimension: is_email {
+    type: yesno
+    sql: ${traffic_source} like ('%Email') ;;
+  }
+
+
+dimension:  age_rangeas {
+  type:  tier
+  tiers: [18,25,35,45,55,65,75,90]
+  style: integer
+  sql: ${age} ;;
+}
+
+
 
   dimension: zip {
     type: zipcode
