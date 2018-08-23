@@ -28,7 +28,6 @@ view: users {
 
   dimension: country {
     type: string
-    map_layer_name: countries
     sql: ${TABLE}.country ;;
     drill_fields: [state, city, zip]
   }

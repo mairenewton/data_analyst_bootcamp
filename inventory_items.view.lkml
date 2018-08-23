@@ -84,25 +84,4 @@ view: inventory_items {
     type: count
   }
 
-  measure: total_cost {
-    type: sum
-    sql: ${cost} ;;
-    value_format_name: usd
-  }
-
-  measure: average_cost {
-    type: average
-    sql: ${cost} ;;
-    value_format_name: usd
-  }
-
-  measure: distinct_skus {
-    type: count_distinct
-    sql: ${product_sku} ;;
-  }
-
-
-
-
-
 }

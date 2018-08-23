@@ -4,7 +4,7 @@ connection: "events_ecommerce"
 include: "*.view"
 
 # include all the dashboards
-include: "*.dashboard"
+# include: "*.dashboard"
 
 datagroup: data_analyst_bootcamp_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
@@ -19,7 +19,7 @@ persist_with: data_analyst_bootcamp_default_datagroup
 
 
 explore: inventory_items {}
-
+#
 
 explore: order_items {
   join: users {
@@ -39,7 +39,10 @@ explore: order_items {
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
     relationship: many_to_one
   }
+
 }
+
+
 
 
 explore: products {}
