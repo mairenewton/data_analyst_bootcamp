@@ -88,6 +88,11 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+  dimension: Num_days{
+    type: number
+    sql:  ${created_date} - ${delivered_date};;
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
