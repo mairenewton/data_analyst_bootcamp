@@ -88,7 +88,7 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
-  dimension: Num_days{
+  dimension: shipping_days{
     type: number
     sql:  ${created_date} - ${delivered_date};;
   }
