@@ -102,4 +102,29 @@ view: users {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
+
+  measure: total_email_sales {
+    type: sum
+    sql: ${order_items.sale_price} ;;
+    filters: {
+      field: is_email_traffic
+      value: "YES"
+    }
+  }
+
+  measure: total_sales {
+    type: sum
+    sql: ${order_items.sale_price} ;;
+  }
+
+  measure: percentage_email_sales {
+    type: number
+    sql: ${total_email_sales} / NULLIF(${total_sales}, 0) ;;
+  }
+
+  measure: average_sales {
+    type: number
+    value_format_name: usd
+    sql: ${total_sales} / NULLIF(${count}, 0) ;;
+  }
 }
