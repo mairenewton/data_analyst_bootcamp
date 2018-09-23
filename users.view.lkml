@@ -83,12 +83,12 @@ view: users {
 
   dimension: city_state {
     type: string
-    sql: CONCAT(${city}, ', ', ${state}) ;;
+    sql: ${city} || ', ' || ${state} ;;
   }
 
   dimension: is_email_traffic {
     type: yesno
-    sql: ${TABLE}.traffic_source == 'Email' ;;
+    sql: ${TABLE}.traffic_source = 'Email' ;;
   }
 
   dimension: age_brackets {
