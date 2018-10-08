@@ -16,12 +16,38 @@ datagroup: data_analyst_bootcamp_default_datagroup {
 persist_with: data_analyst_bootcamp_default_datagroup
 
 
-
+explore: users_data {
+  from: users
+  join: order_items {
+    type: left_outer
+    sql_on: ${users_data.id} = ${order_items.user_id};;
+    relationship: one_to_many
+  }
+}
 
 explore: inventory_items {}
 #
 
 explore: order_items {
+  sql_always_where: ${status} ="complete";;
+  sql_always_having: ${total_sales}>5000 ;;
+
+  always_filter: {
+    filters: {
+      field: order_items.created_date
+      value: "last 30 days"
+    }
+  }
+
+
+  conditionally_filter: {
+    filters: {
+      field: created_date
+      value: "last 90 days"
+    }
+    unless: [users.id, users.state]
+  }
+
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -46,10 +72,4 @@ explore: order_items {
 
 explore: products {}
 
-explore: users {
-  join: order_items {
-    type: left_outer
-    sql_on: ${users.id} = ${order_items.user_id};;
-    relationship: one_to_many
-  }
-}
+explore: users {}

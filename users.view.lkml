@@ -76,14 +76,15 @@ view: users {
     sql: ${city}+', '+${state} ;;
   }
 
-  dimension: has_emailed {
-    type: yesno
-    sql: ${traffic_source} = 'Email';;
-  }
 
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
+  }
+
+  dimension: has_emailed {
+    type: yesno
+    sql: ${traffic_source} = 'Email';;
   }
 
   dimension: zip {
