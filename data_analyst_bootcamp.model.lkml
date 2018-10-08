@@ -11,6 +11,15 @@ datagroup: data_analyst_bootcamp_default_datagroup {
   max_cache_age: "1 hour"
 }
 
+datagroup: default {
+  sql_trigger: select current_date ;;
+  max_cache_age: "24 hours"
+}
+
+datagroup: order_trig {
+  sql_trigger: select MAX(created_timestamp) from order_items ;;
+}
+
 
 
 persist_with: data_analyst_bootcamp_default_datagroup
@@ -29,23 +38,14 @@ explore: inventory_items {}
 #
 
 explore: order_items {
-  sql_always_where: ${status} ="complete";;
-  sql_always_having: ${total_sales}>5000 ;;
+
+  persist_with: order_trig
 
   always_filter: {
     filters: {
       field: order_items.created_date
       value: "last 30 days"
     }
-  }
-
-
-  conditionally_filter: {
-    filters: {
-      field: created_date
-      value: "last 90 days"
-    }
-    unless: [users.id, users.state]
   }
 
   join: users {
@@ -72,4 +72,6 @@ explore: order_items {
 
 explore: products {}
 
-explore: users {}
+explore: users {
+  persist_with: default
+}
