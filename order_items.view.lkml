@@ -78,6 +78,11 @@ view: order_items {
     sql: ${TABLE}.shipped_at ;;
   }
 
+  dimension: shipping_days {
+    type: number
+    sql: ${delivered_date}-${shipped_date};;
+ }
+
   dimension: status {
     type: string
     sql: ${TABLE}.status ;;
@@ -88,9 +93,40 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+
+
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: order_count {
+    description: "# of unique orders"
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
+  measure: total_sales {
+    description: "Total sales"
+    type: sum
+    sql: ${sale_price} ;;
+  }
+
+  measure: total_sales_email_sourced {
+    description: "Total sales from users that came from email"
+    type: sum
+    sql: ${sale_price} ;;
+    filters: {
+      field: users.traffic_source
+      value: "Email"
+    }
+    value_format_name: decimal_0
+  }
+
+  measure: percent_of_email_sales {
+    type: number
+    value_format_name: percent_1
+    sql: 1.0*${total_sales_email_sourced}/NULLIF(${total_sales}, 0) ;;
   }
 
   # ----- Sets of fields for drilling ------
