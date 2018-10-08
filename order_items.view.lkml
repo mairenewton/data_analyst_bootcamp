@@ -10,7 +10,7 @@ view: order_items {
   dimension_group: created {
     type: time
     timeframes: [
-      raw,
+      raw, # non-converted date
       time,
       date,
       week,
