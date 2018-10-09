@@ -20,8 +20,6 @@ datagroup: order_trig {
   sql_trigger: select MAX(created_timestamp) from order_items ;;
 }
 
-
-
 persist_with: data_analyst_bootcamp_default_datagroup
 
 
@@ -59,10 +57,10 @@ explore: order_items {
 
 }
 
-
-
 explore: products {}
 
 explore: users {
   persist_with: default
 }
+
+explore: category_fact {}

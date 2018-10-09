@@ -16,6 +16,7 @@ view: category_fact {
 
   dimension: category {
     type: string
+    primary_key: yes
     sql: ${TABLE}.category ;;
   }
 
