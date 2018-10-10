@@ -40,6 +40,18 @@ explore: order_items {
     relationship: many_to_one
   }
 
+  join: derived_table {
+    type: left_outer
+    sql_on: ${derived_table.user_id} = ${users.id} ;;
+    relationship: one_to_one
+  }
+
+  join: derived_order {
+    type: left_outer
+    sql_on: ${derived_order.order_id} = ${order_items.order_id};;
+    relationship: one_to_one
+  }
+
 }
 
 

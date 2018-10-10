@@ -78,6 +78,11 @@ view: order_items {
     sql: ${TABLE}.shipped_at ;;
   }
 
+  dimension: shipping_days {
+    type: number
+    sql: DATEDIFF(day, ${shipped_date},${delivered_date}) ;;
+  }
+
   dimension: status {
     type: string
     sql: ${TABLE}.status ;;
@@ -91,6 +96,16 @@ view: order_items {
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: order_item_count {
+    type: count_distinct
+    sql: ${id} ;;
+  }
+
+  measure: sum_total {
+    type: sum
+    sql: ${sale_price} ;;
   }
 
   # ----- Sets of fields for drilling ------
