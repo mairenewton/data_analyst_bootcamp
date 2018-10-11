@@ -22,6 +22,13 @@ explore: inventory_items {}
 #
 
 explore: order_items {
+  always_filter: {
+    filters: {
+      field: order_items.if_returned
+      value: "No"
+    }
+  }
+
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -60,4 +67,11 @@ explore: order_items {
 explore: products {}
 
 
-explore: users {}
+explore: users {
+  description: "users and order items info"
+  join: order_items {
+    type: left_outer
+    sql_on: ${users.id} = ${order_items.user_id} ;;
+    relationship: one_to_many
+  }
+}

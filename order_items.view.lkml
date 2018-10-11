@@ -59,6 +59,11 @@ view: order_items {
     sql: ${TABLE}.returned_at ;;
   }
 
+  dimension: if_returned {
+    type: yesno
+    sql: ${TABLE}.returned_at is not null ;;
+  }
+
   dimension: sale_price {
     type: number
     sql: ${TABLE}.sale_price ;;
@@ -100,6 +105,7 @@ view: order_items {
 
   measure: order_item_count {
     type: count_distinct
+    description: "count of distinct order items"
     sql: ${id} ;;
   }
 
