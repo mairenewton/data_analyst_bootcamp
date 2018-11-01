@@ -11,6 +11,11 @@ datagroup: data_analyst_bootcamp_default_datagroup {
   max_cache_age: "1 hour"
 }
 
+datagroup: midnight {
+  sql_trigger: select CURRENT_DATE ;;
+  max_cache_age: "24 hours"
+}
+
 
 
 persist_with: data_analyst_bootcamp_default_datagroup
@@ -22,6 +27,18 @@ explore: inventory_items {}
 #
 
 explore: order_items {
+#   sql_always_where: ${order_items.status} = 'complete' ;;
+#   sql_always_having: ${order_items.count} > 5 ;;
+  conditionally_filter: {
+    filters: {
+      field: order_items.created_date
+      value: "last 2 years"
+    }
+
+    unless: [users.id]
+  }
+
+
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -48,4 +65,28 @@ explore: order_items {
 explore: products {}
 
 
-explore: users {}
+explore: users {
+#   always_filter: {
+#    filters: {
+#     field: order_items.created_date
+#     value: "before today"
+#    }
+#   }
+
+conditionally_filter: {
+  filters: {
+    field: users.created_date
+    value: "last 90 days"
+  }
+  unless: [users.id, users.state]
+}
+
+persist_with: midnight
+
+
+  join: order_items {
+    type: left_outer
+    sql_on: ${users.id} = ${order_items.user_id} ;;
+    relationship: one_to_many
+  }
+}
