@@ -17,6 +17,16 @@ view: users {
     sql: ${TABLE}.city ;;
   }
 
+  dimension: state {
+    type: string
+    sql: ${TABLE}.state ;;
+  }
+
+  dimension: city_state {
+    type: string
+    sql: ${city} || " " || ${state} ;;
+  }
+
   dimension: country {
     type: string
     sql: ${TABLE}.country ;;
@@ -64,11 +74,6 @@ view: users {
   dimension: longitude {
     type: number
     sql: ${TABLE}.longitude ;;
-  }
-
-  dimension: state {
-    type: string
-    sql: ${TABLE}.state ;;
   }
 
   dimension: traffic_source {
