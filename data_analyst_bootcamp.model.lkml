@@ -29,6 +29,8 @@ explore: order_items {
   label: "My Orders"
   view_label: "My Orders"
 
+  sql_always_where: ${returned_date} IS NULL AND ${sale_price} > 200;;
+
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -46,8 +48,6 @@ explore: order_items {
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
     relationship: many_to_one
   }
-
-  sql_always_where: ${returned_date} IS NULL AND ${sale_price} > 200;;
 }
 
 explore: users {
