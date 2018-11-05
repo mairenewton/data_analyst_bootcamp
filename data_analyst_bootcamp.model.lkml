@@ -23,6 +23,7 @@ explore: inventory_items {}
 
 explore: order_items {
   label: "My Orders"
+  view_label: "Github orders"
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -43,5 +44,11 @@ explore: order_items {
 
 }
 
-explore: products {}
-explore: users {}
+explore: users {
+  label: "Users"
+  join: order_items {
+    type:  left_outer
+    sql_on:  ${users.id} = ${order_items.user_id} ;;
+    relationship:  one_to_many
+  }
+}
