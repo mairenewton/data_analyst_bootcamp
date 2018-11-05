@@ -93,6 +93,12 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+
+  dimension: shipping_days  {
+    type:  number
+    sql:  DATEDIFF(day, ${shipped_date}, ${delivered_date}) ;;
+  }
+
   # ----- Sets of fields for drilling ------
 
   set: detail {
