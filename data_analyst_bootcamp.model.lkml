@@ -29,7 +29,11 @@ explore: order_items {
   label: "My Orders"
   view_label: "My Orders"
 
-  sql_always_where: ${returned_date} IS NULL AND ${sale_price} > 200;;
+  #sql_always_where: ${order_items.returned_date} IS NULL;;
+  #sql_always_having: ${order_items.total_sales} > 200 ;;
+
+  sql_always_where: ${order_items.status} = 'complete' ;;
+  sql_always_having:  ${order_items.count} > 5000 ;;
 
   join: users {
     type: left_outer
