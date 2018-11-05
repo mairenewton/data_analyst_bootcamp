@@ -53,6 +53,12 @@ explore: products {}
 
 
 explore: users {
+  always_filter: {
+    filters: {
+      field: order_items.created_date
+      value: "before today"
+    }
+  }
   join: order_items {
     type: left_outer
     sql_on: ${users.id} = ${order_items.user_id} ;;
