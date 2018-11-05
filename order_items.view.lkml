@@ -114,6 +114,28 @@ view: order_items {
     sql: ${sale_price} ;;
   }
 
+  measure: total_sales_users_email {
+    type: sum
+    sql: ${sale_price} ;;
+    filters:  {
+      field: users.mail_error
+      value: "Yes"
+    }
+  }
+
+  measure: percentage_email_sales {
+    type: number
+    value_format_name: percent_1
+    sql: 1.0*${total_sales_users_email}
+      /NULLIF(${total_sales}, 0) ;;
+  }
+
+  measure: average_user_spend {
+    type: number
+    value_format_name: usd
+    sql: 1.0 * ${total_sales} / NULLIF(${users.count},0) ;;
+  }
+
   # ----- Sets of fields for drilling ------
 
   set: detail {
