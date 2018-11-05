@@ -96,6 +96,8 @@ view: users {
   }
 
   dimension: is_email_source {
+    label: "Is Email Source"
+    description: " If the traffic source comes from email or not"
     type:  yesno
     sql:  ${traffic_source} = 'Email' ;;
   }
