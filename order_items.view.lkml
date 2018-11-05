@@ -120,6 +120,26 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+  measure: total_sales_from_email {
+    type:  sum
+    label: "Total Sales from Email"
+    description: "Total Sales from Email"
+    sql:  ${sale_price};;
+    value_format_name: usd
+    filters: {
+      field: users.is_email_source
+      value: "Yes"
+    }
+  }
+
+  measure: average_spend_per_user {
+    type:  number
+    label: " Average Spend per User"
+    description: "Average spend per User"
+    value_format_name: usd
+    sql:  1.0 * ${total_sales} / NULLIF(${users.count},0) ;;
+  }
+
   # ----- Sets of fields for drilling ------
 
   set: detail {
