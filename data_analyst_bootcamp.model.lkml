@@ -15,15 +15,19 @@ datagroup: data_analyst_bootcamp_default_datagroup {
 
 persist_with: data_analyst_bootcamp_default_datagroup
 
-
-
-
-explore: inventory_items {}
-#
+explore: inventory_items {
+  #label: "My Inventory Items"
+  #view_label: "My Inventory Items"
+  #join: order_items {
+  #  type:  left_outer
+  #  sql_on:  ${inventory_items.id} = ${order_items.inventory_item_id} ;;
+  #  relationship:  one_to_many
+  #}
+}
 
 explore: order_items {
   label: "My Orders"
-  view_label: "Github orders"
+  view_label: "My Orders"
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -45,7 +49,8 @@ explore: order_items {
 }
 
 explore: users {
-  label: "Users"
+  label: "My Users"
+  view_label: "My Users"
   join: order_items {
     type:  left_outer
     sql_on:  ${users.id} = ${order_items.user_id} ;;
