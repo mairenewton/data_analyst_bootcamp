@@ -51,26 +51,31 @@ view: users {
   }
 
   dimension: first_name {
+    group_label: "User Info"
     type: string
     sql: ${TABLE}.first_name ;;
   }
 
   dimension: gender {
+    group_label: "User Info"
     type: string
     sql: ${TABLE}.gender ;;
   }
 
   dimension: last_name {
+    group_label: "User Info"
     type: string
     sql: ${TABLE}.last_name ;;
   }
 
   dimension: latitude {
+    group_label: "User Info"
     type: number
     sql: ${TABLE}.latitude ;;
   }
 
   dimension: longitude {
+    group_label: "User Info"
     type: number
     sql: ${TABLE}.longitude ;;
   }
