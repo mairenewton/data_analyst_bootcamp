@@ -26,9 +26,9 @@ explore: inventory_items {
 }
 
 explore: order_items {
-  sql_always_where: ${created_date} >= '2012-01-01' ;;
   label: "My Orders"
   view_label: "My Orders"
+
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -47,6 +47,7 @@ explore: order_items {
     relationship: many_to_one
   }
 
+  sql_always_where: ${returned_date} IS NULL AND ${sale_price} > 200;;
 }
 
 explore: users {
