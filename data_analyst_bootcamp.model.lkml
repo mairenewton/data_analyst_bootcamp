@@ -26,6 +26,7 @@ explore: inventory_items {
 }
 
 explore: order_items {
+  sql_always_where: ${created_date} >= '2012-01-01' ;;
   label: "My Orders"
   view_label: "My Orders"
   join: users {
