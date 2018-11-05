@@ -12,6 +12,15 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  dimension: age_tiers {
+    label: "Age Buckets"
+    description: " aserer"
+    type:  tier
+    tiers: [ 0,15,30,40,50,80]
+    sql:  ${age} ;;
+    style:  integer
+  }
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
@@ -84,6 +93,11 @@ view: users {
   dimension: city_state {
     type:  string
     sql:  ${city} || ', ' || ${state} ;;
+  }
+
+  dimension: is_email_source {
+    type:  yesno
+    sql:  ${traffic_source} = 'Email' ;;
   }
 
   measure: count {

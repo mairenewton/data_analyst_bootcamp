@@ -99,6 +99,13 @@ view: order_items {
     sql:  DATEDIFF(days, ${shipped_date}, ${delivered_date}) ;;
   }
 
+  measure: avg_shipping_day {
+    label: "Average Shipping Days"
+    description: "Average time taken to deliver goods in days"
+    type: average
+    sql:  ${shipping_days} ;;
+  }
+
   # ----- Sets of fields for drilling ------
 
   set: detail {
