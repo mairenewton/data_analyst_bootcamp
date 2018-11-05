@@ -106,6 +106,19 @@ view: order_items {
     sql:  ${shipping_days} ;;
   }
 
+  measure: order_count {
+    label: "Distinct count of orders"
+    description: "Counts the distinct number of orders"
+    type:  count_distinct
+    sql:  ${order_id} ;;
+  }
+
+  measure: total_sales {
+    type:  sum
+    sql:  ${sale_price} ;;
+    value_format_name:  usd
+  }
+
   # ----- Sets of fields for drilling ------
 
   set: detail {
