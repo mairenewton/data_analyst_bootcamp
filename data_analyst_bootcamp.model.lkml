@@ -51,8 +51,13 @@ explore: order_items {
 
 explore: products {}
 
+datagroup: default {
+  sql_trigger: select current_date ;;
+  max_cache_age: "24 hours"
+}
 
 explore: users {
+  persist_with: default
   always_filter: {
     filters: {
       field: order_items.created_date
