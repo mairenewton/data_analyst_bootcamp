@@ -11,6 +11,11 @@ datagroup: data_analyst_bootcamp_default_datagroup {
   max_cache_age: "1 hour"
 }
 
+datagroup: order_items_default_datagroup {
+  sql_trigger: select max(created_at) from order_items ;;
+  max_cache_age: "4 hours"
+}
+
 datagroup: users_default_datagroup {
   sql_trigger: select current_date ;;
   max_cache_age: "24 hours"
@@ -31,6 +36,8 @@ explore: inventory_items {
 explore: order_items {
   label: "My Orders"
   view_label: "My Orders"
+
+  persist_with: order_items_default_datagroup
 
   #sql_always_where: ${order_items.returned_date} IS NULL;;
   #sql_always_having: ${order_items.total_sales} > 200 ;;
