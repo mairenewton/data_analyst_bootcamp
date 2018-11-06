@@ -22,6 +22,9 @@ explore: inventory_items {}
 #
 
 explore: order_items {
+#   sql_always_where: ${order_items.status} != 'returned';;
+#   sql_always_having: ${total_sales} > 200 ;;
+
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -48,4 +51,22 @@ explore: order_items {
 explore: products {}
 
 
-explore: users {}
+explore: users {
+  join: order_items {
+    type: left_outer
+    sql_on: ${users.id} = ${order_items.user_id} ;;
+    relationship: one_to_many
+  }
+
+  join: inventory_items {
+    type: left_outer
+    sql_on: ${inventory_items.id} = ${order_items.inventory_item_id};;
+    relationship: one_to_many
+  }
+
+  join: products {
+    type: left_outer
+    sql_on: ${products.id} = ${inventory_items.product_id};;
+    relationship: one_to_many
+  }
+}

@@ -88,8 +88,48 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+  dimension: shipping_days {
+    type: number
+    sql:  date_diff('days', ${shipped_date}, ${delivered_date}) ;;
+  }
+
   measure: count {
     type: count
+    drill_fields: [detail*]
+  }
+
+  measure: order_count {
+    description: "Count of distinct orders"
+    type: count_distinct
+    sql:  ${order_id};;
+  }
+
+  measure: total_sales {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
+  measure: average_sales {
+    type: average
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
+  measure: total_sales_from_email {
+    description: "total sales for only users that came to the website via the Email traffic source"
+    type: sum
+    sql: ${sale_price} ;;
+    filters: {
+      field: users.is_from_email
+      value: "Yes"
+    }
+  }
+
+  measure: average_spend_per_user {
+    type: number
+    sql: ${total_sales} / ${users.count} ;;
+    value_format_name: usd
     drill_fields: [detail*]
   }
 
