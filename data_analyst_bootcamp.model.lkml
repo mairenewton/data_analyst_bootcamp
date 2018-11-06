@@ -79,4 +79,9 @@ explore: users {
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
     relationship: many_to_one
   }
+  join: derived_table_exercise {
+    type: inner
+    sql_on: ${derived_table_exercise.user_id} = ${users.id} ;;
+    relationship: one_to_one
+  }
 }
