@@ -1,5 +1,10 @@
 view: derived_table_exercise {
   derived_table: {
+    distribution: "user_id"
+    sortkeys: ["user_id"]
+    datagroup_trigger: default
+
+
     sql: SELECT
            order_items.user_id as user_id
           ,COUNT(distinct order_items.order_id) as lifetime_order_count

@@ -44,6 +44,19 @@ explore: order_items {
     relationship: many_to_one
   }
 
+  join: derived_table_exercise {
+    type: inner
+    sql_on: ${order_items.user_id} = ${derived_table_exercise.user_id} ;;
+    relationship: many_to_one
+  }
+
+  join: more_native_things {
+    type: inner
+    sql_on: ${order_items.id} = ${more_native_things.id} ;;
+    relationship: one_to_one
+
+  }
+
 }
 
 
