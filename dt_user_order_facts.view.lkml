@@ -1,4 +1,4 @@
-view: total_lifetime_value_sql {
+view: dt_user_order_facts {
   derived_table: {
     sql: SELECT
         order_items.user_id as user_id
@@ -41,6 +41,12 @@ view: total_lifetime_value_sql {
   dimension_group: latest_order_date {
     type: time
     sql: ${TABLE}.latest_order_date ;;
+  }
+
+  measure: total_lifetime_rev {
+    type:  sum
+    sql:  ${lifetime_revenue} ;;
+    value_format_name:  usd
   }
 
   set: detail {

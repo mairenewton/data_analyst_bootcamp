@@ -77,6 +77,12 @@ explore: order_items {
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
     relationship: many_to_one
   }
+
+  #join: dt_user_order_facts {
+  #  type:  inner
+  #  sql_on: ${users.id} ;;
+  #  relationship:  one_to_many
+  #}
 }
 
 explore: users {
