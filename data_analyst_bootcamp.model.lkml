@@ -11,7 +11,10 @@ datagroup: data_analyst_bootcamp_default_datagroup {
   max_cache_age: "1 hour"
 }
 
-
+datagroup: users_default_datagroup {
+  sql_trigger: select current_date ;;
+  max_cache_age: "24 hours"
+}
 
 persist_with: data_analyst_bootcamp_default_datagroup
 
@@ -42,13 +45,13 @@ explore: order_items {
     }
   }
 
-  conditionally_filter: {
-    filters: {
-      field:  order_items.created_date
-      value: "last 2 years"
-    }
-    unless: [users.id]
-  }
+#   conditionally_filter: {
+#     filters: {
+#       field:  order_items.created_date
+#       value: "last 2 years"
+#     }
+#     unless: [users.id]
+#   }
 
   join: users {
     type: left_outer
@@ -72,6 +75,7 @@ explore: order_items {
 explore: users {
   label: "My Users"
   view_label: "My Users"
+  persist_with: users_default_datagroup
   join: order_items {
     type:  left_outer
     sql_on:  ${users.id} = ${order_items.user_id} ;;
