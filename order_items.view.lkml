@@ -95,7 +95,7 @@ view: order_items {
 
   measure: order_count {
     type:  count_distinct
-    sql:$(${order_id} ;;
+    sql: ${order_id} ;;
   }
 
   measure: total_sales_female_users {
