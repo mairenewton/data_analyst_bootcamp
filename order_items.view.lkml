@@ -98,6 +98,15 @@ view: order_items {
     sql:$(${order_id} ;;
   }
 
+  measure: total_sales_female_users {
+    type:  sum
+    sql:  ${sale_price} ;;
+    filters: {
+      field: users.gender
+      value: "Female"
+    }
+  }
+
   # ----- Sets of fields for drilling ------
 
   set: detail {
