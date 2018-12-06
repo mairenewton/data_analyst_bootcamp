@@ -7,6 +7,11 @@ view: order_items {
     sql: ${TABLE}.id ;;
   }
 
+  dimension: shipping_days{
+    type: number
+    sql: ${delivered_date} - ${shipped_date} ;;
+  }
+
   dimension_group: created {
     type: time
     timeframes: [
