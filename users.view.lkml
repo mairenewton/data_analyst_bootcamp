@@ -41,6 +41,7 @@ view: users {
     sql: ${TABLE}.email ;;
   }
 
+
   dimension: first_name {
     type: string
     sql: ${TABLE}.first_name ;;
@@ -71,10 +72,31 @@ view: users {
     sql: ${TABLE}.state ;;
   }
 
+  dimension: citystate {
+    type:  string
+  sql: ${city} || ', ' || ${state} ;;
+
+  }
+
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
   }
+
+  dimension: traffic_source_email {
+    type: yesno
+    sql: ${traffic_source} = 'Email' ;;
+}
+
+
+  dimension: age_groups {
+    type:  tier
+    tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+    style: integer
+    sql: ${age} ;;
+
+  }
+
 
   dimension: zip {
     type: zipcode

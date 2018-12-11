@@ -6,11 +6,6 @@ include: "*.view"
 
 
 
-
-
-
-
-
 # include all the dashboards
 # include: "*.dashboard"
 
@@ -23,6 +18,7 @@ datagroup: data_analyst_bootcamp_default_datagroup {
 
 persist_with: data_analyst_bootcamp_default_datagroup
 
+explore: events {}
 
 explore: inventory_items {}
 #
