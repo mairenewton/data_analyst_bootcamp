@@ -1,5 +1,5 @@
 view: users {
-  sql_table_name: public.users ;;
+  sql_table_name: public.users1 ;;
 
   dimension: id {
     primary_key: yes
