@@ -32,57 +32,64 @@ view: users {
       month,
       quarter,
       year
-    ]
-    sql: ${TABLE}.created_at ;;
-  }
+      ]
+      sql: ${TABLE}.created_at ;;
+    }
 
-  dimension: email {
-    type: string
-    sql: ${TABLE}.email ;;
-  }
+    dimension: email {
+      type: string
+      sql: ${TABLE}.email ;;
+    }
 
-  dimension: first_name {
-    type: string
-    sql: ${TABLE}.first_name ;;
-  }
+    dimension: first_name {
+      type: string
+      sql: ${TABLE}.first_name ;;
+    }
 
-  dimension: gender {
-    type: string
-    sql: ${TABLE}.gender ;;
-  }
+    dimension: gender {
+      type: string
+      sql: ${TABLE}.gender ;;
+    }
 
-  dimension: last_name {
-    type: string
-    sql: ${TABLE}.last_name ;;
-  }
+    dimension: last_name {
+      type: string
+      sql: ${TABLE}.last_name ;;
+    }
 
-  dimension: latitude {
-    type: number
-    sql: ${TABLE}.latitude ;;
-  }
+    dimension: latitude {
+      type: number
+      sql: ${TABLE}.latitude ;;
+    }
 
-  dimension: longitude {
-    type: number
-    sql: ${TABLE}.longitude ;;
-  }
+    dimension: longitude {
+      type: number
+      sql: ${TABLE}.longitude ;;
+    }
 
-  dimension: state {
-    type: string
-    sql: ${TABLE}.state ;;
-  }
+    dimension: state {
+      type: string
+      sql: ${TABLE}.state ;;
+    }
 
-  dimension: traffic_source {
-    type: string
-    sql: ${TABLE}.traffic_source ;;
-  }
 
-  dimension: zip {
-    type: zipcode
-    sql: ${TABLE}.zip ;;
-  }
+    dimension: city_state {
+      type: string
+      sql: users.city|| ' , ' || users.state ;;
+    }
 
-  measure: count {
-    type: count
-    drill_fields: [id, first_name, last_name, events.count, order_items.count]
+
+    dimension: traffic_source {
+      type: string
+      sql: ${TABLE}.traffic_source ;;
+    }
+
+    dimension: zip {
+      type: zipcode
+      sql: ${TABLE}.zip ;;
+    }
+
+    measure: count {
+      type: count
+      drill_fields: [id, first_name, last_name, events.count, order_items.count]
+    }
   }
-}
