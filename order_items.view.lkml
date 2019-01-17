@@ -7,6 +7,13 @@ view: order_items {
     sql: ${TABLE}.id ;;
   }
 
+# practice session 2
+
+  dimension: shipment_days {
+    type: number
+    sql: datediff(day,${shipped_date},${delivered_date}) ;;
+    }
+
   dimension_group: created {
     type: time
     timeframes: [

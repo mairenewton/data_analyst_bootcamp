@@ -6,12 +6,22 @@ view: users {
     type: number
     sql: ${TABLE}.id ;;
   }
+# practice session 1
 
+dimension: place {
+  type: string
+  sql:${city} || ',' ||' ' || ${state} ;;
+}
   dimension: age {
     type: number
     sql: ${TABLE}.age ;;
   }
 
+#practice session 3
+dimension: Is_source_email  {
+  type: yesno
+  sql:${traffic_source} = 'Email' ;;
+}
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
