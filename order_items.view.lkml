@@ -108,6 +108,7 @@ view: order_items {
   }
 
   measure: sum_total_sales {
+    label: "😎"
     type: sum
     sql: ${sale_price} ;;
   }
