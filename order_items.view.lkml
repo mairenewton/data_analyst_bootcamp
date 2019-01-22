@@ -93,12 +93,30 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+  measure: exercise_count {
+    type: count_distinct
+    #drill_fields: [detail*]
+    label: "Distinct Orders (for exercise)"
+  }
+
   dimension_group: shipping_duration_in {
     type: duration
     sql_start: ${shipped_date} ;;
     sql_end: ${delivered_date} ;;
     intervals: [day]
   }
+
+  measure: sum_total_sales {
+    type: sum
+    sql: ${sale_price} ;;
+  }
+
+  measure: avg_sales {
+    type: average
+    sql: ${sale_price} ;;
+  }
+
+
 
   # ----- Sets of fields for drilling ------
 
