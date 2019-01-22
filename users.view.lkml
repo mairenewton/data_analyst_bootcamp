@@ -16,6 +16,7 @@ view: users {
     type: tier
     sql: ${age};;
     tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+
   }
 
   dimension: city {
@@ -90,7 +91,7 @@ dimension: city_state  {
 
   dimension: source_was_email {
     type: yesno
-    sql: case when ${traffic_source} = 'Email' then true Else false end ;;
+    sql:${traffic_source} = 'Email' ;;
   }
 
   dimension: zip {
