@@ -12,10 +12,22 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  dimension: age_tiers {
+    type: tier
+    sql: ${age};;
+    tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+  }
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
   }
+
+dimension: city_state  {
+  type: string
+  sql: ${city} . || ', ' || ${state} ;;
+}
+
 
   dimension: country {
     type: string
@@ -74,6 +86,11 @@ view: users {
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
+  }
+
+  dimension: source_was_email {
+    type: yesno
+    sql: case when ${traffic_source} = 'Email' then true Else false end ;;
   }
 
   dimension: zip {
