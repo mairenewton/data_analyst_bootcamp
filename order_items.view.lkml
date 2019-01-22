@@ -93,7 +93,7 @@ view: order_items {
     drill_fields: [detail*]
   }
 
-  dimension_group: shipping_days {
+  dimension_group: shipping_duration_in {
     type: duration
     sql_start: ${shipped_date} ;;
     sql_end: ${delivered_date} ;;
