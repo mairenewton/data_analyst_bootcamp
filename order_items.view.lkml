@@ -96,6 +96,7 @@ view: order_items {
   measure: exercise_count {
     type: count_distinct
     #drill_fields: [detail*]
+    sql: ${order_id};;
     label: "Distinct Orders (for exercise)"
   }
 
