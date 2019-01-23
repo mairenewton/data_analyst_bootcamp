@@ -125,7 +125,7 @@ view: order_items {
 
   measure: percentage_total_sales_from_email {
     type: number
-    sql:  sum_total_sales_from_email / nullif( sum_total_sales, 0) ;;
+    sql:  ${sum_total_sales_from_email} / nullif( ${sum_total_sales}, 0) ;;
   }
 
   measure: user_total_sales{
