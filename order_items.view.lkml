@@ -113,6 +113,32 @@ view: order_items {
     sql: ${sale_price} ;;
   }
 
+  measure: sum_total_sales_from_email {
+   # label: "😎"
+    type: sum
+    sql: ${sale_price} ;;
+    filters: {
+      field: users.traffic_source
+      value: "Email"
+    }
+  }
+
+  measure: percentage_total_sales_from_email {
+    type: number
+    sql:  sum_total_sales_from_email / nullif( sum_total_sales, 0) ;;
+  }
+
+  measure: user_total_sales{
+    type: sum_distinct
+    sql: ${sale_price};;
+    sql_distinct_key: ${user_id} ;;
+  }
+
+  measure: percentage_user_total_sales {
+    type: number
+    sql:  ${user_total_sales}/${sum_total_sales} ;;
+  }
+
   measure: avg_sales {
     type: average
     sql: ${sale_price} ;;
