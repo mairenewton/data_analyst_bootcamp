@@ -126,12 +126,15 @@ view: order_items {
   measure: percentage_total_sales_from_email {
     type: number
     sql:  ${sum_total_sales_from_email} / nullif( ${sum_total_sales}, 0) ;;
+    value_format_name: usd
+
   }
 
   measure: user_total_sales{
     type: sum_distinct
     sql: ${sale_price};;
     sql_distinct_key: ${user_id} ;;
+
   }
 
   measure: percentage_user_total_sales {
