@@ -79,7 +79,7 @@ view: order_items {
   }
 
   dimension: shipping_days {
-    type: duration_day
+    type: number
     sql: datediff(day,${shipped_date},${delivered_date} ;;
 }
 
