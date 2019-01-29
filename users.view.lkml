@@ -22,6 +22,7 @@ view: users {
     sql:  ${city} || ', ' || ${state} ;;
   }
 
+
   dimension: country {
     type: string
     sql: ${TABLE}.country ;;
