@@ -5,11 +5,16 @@ view: users {
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
+    link: {
+      label: "Go to Google"
+      url: "http://www.google.com"
+    }
   }
 
   dimension: age {
     type: number
     sql: ${TABLE}.age ;;
+    #required_access_grants: [viewemailfield]
   }
 
   dimension: city {

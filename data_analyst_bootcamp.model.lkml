@@ -12,6 +12,11 @@ datagroup: data_analyst_bootcamp_default_datagroup {
 }
 persist_with: data_analyst_bootcamp_default_datagroup
 
+access_grant: viewemailfield {
+  user_attribute: email
+  allowed_values: [ "ekavanagh@emoneyadvisor.com"]
+}
+
 explore: inventory_items {}
 #
 explore: aggregated_orders {}
@@ -38,7 +43,7 @@ explore: order_items {
 
   join: aggregated_orders {
     type: left_outer
-    sql_on: &${users.id} = ${aggregated_orders.order_items_user_id} ;;
+    sql_on: ${users.id} = ${aggregated_orders.order_items_user_id} ;;
     relationship: one_to_many
   }
 
