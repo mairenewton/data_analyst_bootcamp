@@ -130,7 +130,20 @@ view: order_items {
 
   measure: sum_of_sales {
     type: sum
+    value_format: "0.00" #Added this format to have only two decimal places
     sql: ${sale_price} ;;
+  }
+
+  measure: most_recent_order_date {
+    type: date
+    sql: MAX(${created_date}) ;;
+    convert_tz: no
+  }
+
+  measure: first_order_date {
+    type: date
+    sql: MIN(${created_date}) ;;
+    convert_tz: no
   }
 
   measure: sum_of_sales_with_tax {

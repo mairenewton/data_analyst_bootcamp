@@ -14,6 +14,8 @@ persist_with: data_analyst_bootcamp_default_datagroup
 
 explore: inventory_items {}
 #
+explore: aggregated_orders {}
+#
 
 explore: order_items {
   join: users {
@@ -33,6 +35,13 @@ explore: order_items {
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
     relationship: many_to_one
   }
+
+  join: aggregated_orders {
+    type: left_outer
+    sql_on: &${users.id} = ${aggregated_orders.order_items_user_id} ;;
+    relationship: one_to_many
+  }
+
 }
 
 explore: users {
@@ -42,10 +51,16 @@ explore: users {
     relationship: one_to_many
   }
   sql_always_where: ${order_items.created_date} > '2019-01-01' ;;
+  conditionally_filter: {
+    filters: {
+      field: order_items.created_date
+      value: "7 Days"
+    }
+  }
 }
 
 
-explore: products {}
+#explore: products {}
 
 
 #explore: users {}
