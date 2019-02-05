@@ -45,6 +45,11 @@ view: order_items {
     sql: ${TABLE}.order_id ;;
   }
 
+  dimension: shipping_days {
+    type: number
+    sql: DateDiff(day,  ${shipped_date}, ${delivered_date});;
+  }
+
   dimension_group: returned {
     type: time
     timeframes: [
@@ -70,6 +75,14 @@ view: order_items {
     value_format: "0.00" #Added this format to have only two decimal places
     sql: ${sale_price} *1.1 ;;
   }
+
+  dimension: is_expensive {
+    label: "Is this Product $$$"
+    type: yesno
+    sql:  ${sale_price_with_tax} >20 ;;
+
+  }
+
 
   dimension_group: shipped {
     type: time
