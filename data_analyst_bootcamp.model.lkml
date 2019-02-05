@@ -17,6 +17,7 @@ explore: inventory_items {}
 
 explore: order_items {
   join: users {
+#     fields: [ALL_FIELDS*, -user.id]
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
     relationship: many_to_one
@@ -33,10 +34,29 @@ explore: order_items {
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
     relationship: many_to_one
   }
-
+#   sql_always_where: ${order_items.created_date} > (${order_items.created_date}-365) ;;
+#   always_filter: {
+#     filters: {
+#       field: order_items.user_id
+#       value: "<>1"
+#     }
+#   }
+#   conditionally_filter: {
+#     filters: {
+#       field: order_items.user_id
+#       value: "<>1"
+#     }
+#     unless: [order_items.created_date, order_items.status]
+#   }
 }
 
 explore: products {}
 
 
-explore: users {}
+explore: users {
+  join: order_items {
+    type: left_outer
+    sql_on: ${order_items.user_id} = ${users.id} ;;
+    relationship: one_to_many
+  }
+}
