@@ -119,6 +119,58 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+  measure: count_email_only {
+    type: count
+    filters: {
+      field: users.traffic_source
+      value: "Email"
+    }
+  }
+
+
+  measure: sum_of_sales {
+    type: sum
+    sql: ${sale_price} ;;
+  }
+
+  measure: sum_of_sales_with_tax {
+    type: sum
+    sql: ${sale_price_with_tax} ;;
+  }
+
+  measure: avg_of_sales {
+    type: average
+    sql: ${sale_price} ;;
+  }
+
+  measure: avg_of_sales_with_tax {
+    type: average
+    sql: ${sale_price_with_tax} ;;
+  }
+
+  measure: avg_sales_per_person{
+    type: number
+    sql: ${sum_of_sales} / ${users.count} ;;
+  }
+
+  #exercise 2
+  measure: distinct_orders_ex2 {
+    type: count_distinct
+    sql: ${id} ;;
+  }
+
+  measure: total_sales_ex2 {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format: "$0.00"
+  }
+
+  measure: avg_sales_ex2 {
+    type: average
+    sql: ${sale_price} ;;
+    value_format: "$0.00"
+  }
+
   # ----- Sets of fields for drilling ------
 
   set: detail {
