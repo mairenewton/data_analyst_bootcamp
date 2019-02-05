@@ -98,6 +98,25 @@ view: users {
     style: integer
   }
 
+  dimension: age_group_label {
+    type: string
+    case: {
+      when: {
+        sql: ${age} < 18 ;;
+        label: "Gen Z"
+      }
+      when: {
+        sql: ${age} < 36 ;;
+        label: "Millenials"
+      }
+      when: {
+        sql: ${age} < 50 ;;
+        label: "Gen T"
+      }
+      else: "Other"
+    }
+  }
+
 
 
   measure: count {

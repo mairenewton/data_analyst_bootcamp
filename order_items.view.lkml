@@ -45,9 +45,15 @@ view: order_items {
     sql: ${TABLE}.order_id ;;
   }
 
-  dimension: shipping_days {
+  dimension: shipping_days_sqlcalc {
     type: number
     sql: DateDiff(day,  ${shipped_date}, ${delivered_date});;
+  }
+
+  dimension: shipping_days_using_looker_function {
+    type: duration_day
+    sql_start: ${shipped_date} ;;
+    sql_end: ${delivered_date} ;;
   }
 
   dimension_group: returned {
