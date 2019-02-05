@@ -61,7 +61,14 @@ view: order_items {
 
   dimension: sale_price {
     type: number
+    value_format: "0.00" #Added this format to have only two decimal places
     sql: ${TABLE}.sale_price ;;
+  }
+
+  dimension: sale_price_with_tax {
+    type: number
+    value_format: "0.00" #Added this format to have only two decimal places
+    sql: ${sale_price} *1.1 ;;
   }
 
   dimension_group: shipped {
