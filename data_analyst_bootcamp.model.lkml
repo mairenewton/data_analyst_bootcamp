@@ -33,10 +33,19 @@ explore: order_items {
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
     relationship: many_to_one
   }
-
 }
+
+explore: users {
+  join: order_items {
+    type:  left_outer
+    sql_on:  ${users.id} = ${order_items.user_id};;
+    relationship: one_to_many
+  }
+  sql_always_where: ${order_items.created_date} > '2019-01-01' ;;
+}
+
 
 explore: products {}
 
 
-explore: users {}
+#explore: users {}
