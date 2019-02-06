@@ -11,9 +11,22 @@ datagroup: data_analyst_bootcamp_default_datagroup {
     # sql_trigger: SELECT MAX(id) FROM etl_log;;
   max_cache_age: "1 hour"
 }
-persist_with: data_analyst_bootcamp_default_datagroup
 
-explore: inventory_items {}
+datagroup: data_analyst_bootcamp_test_datagroup {
+  # SQL_TRIGGER - for Sql server and max_cache_age - is for druid - this is for how long the cache can live
+  #sql_trigger: SELECT MAX(current_date) FROM etl_log;;
+  sql_trigger: SELECT MAX(current_date) FROM calendar;;
+  # max_cache_age: "1 hour"
+}
+persist_with: data_analyst_bootcamp_test_datagroup
+
+
+# persist_with: data_analyst_bootcamp_default_datagroup
+
+explore: inventory_items {
+  # this can be added specific for just one view
+  # persist_with: data_analyst_bootcamp_default_datagroup
+}
 #
 
 explore: order_items {
