@@ -16,6 +16,13 @@ explore: inventory_items {}
 #
 
 explore: order_items {
+  conditionally_filter: {
+    filters: {
+      field:created_date
+      value: "last 2 years"
+    }
+    unless: [user_id]
+  }
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -33,10 +40,15 @@ explore: order_items {
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
     relationship: many_to_one
   }
-
 }
 
 explore: products {}
 
-
-explore: users {}
+explore: users {
+  always_filter: {
+    filters: {
+    field:created_date
+    value: "before today"
+    }
+  }
+}
