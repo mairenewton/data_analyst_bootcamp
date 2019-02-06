@@ -7,7 +7,7 @@ include: "*.view"
 # include: "*.dashboard"
 
 datagroup: data_analyst_bootcamp_default_datagroup {
-    # SQL_TRIGGER - for Sql server and max_cache_age - is for druid
+    # SQL_TRIGGER - for Sql server and max_cache_age - is for druid - this is for how long the cache can live
     # sql_trigger: SELECT MAX(id) FROM etl_log;;
   max_cache_age: "1 hour"
 }
