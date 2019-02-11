@@ -93,6 +93,39 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+  measure: dist_orders {
+    type: count_distinct
+    sql:  ${order_id} ;;
+  }
+
+  measure: total_sales {
+    type: sum
+    description: "Hello There"
+    sql:  ${sale_price} ;;
+  }
+
+  measure: average_sales {
+    type: average
+    description: "Hello There Too"
+    sql:  ${sale_price} ;;
+  }
+
+  measure: total_sales_email_users {
+    type: sum
+    description: "Hello There Too"
+    sql:  ${sale_price} ;;
+    filters: {
+      field: users.is_email_source
+      value: "Yes"
+    }
+  }
+
+  measure: percentage_sales_email_source {
+    type: number
+    description: "Hello There Too"
+    value_format_name: percent_2
+    sql: 1.0 * ${total_sales} / NULLIF(${users.count},0) ;;
+  }
   # ----- Sets of fields for drilling ------
 
   set: detail {

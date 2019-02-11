@@ -77,8 +77,25 @@ view: users {
   }
 
   dimension: zip {
-    type: zipcode
+    type: string
     sql: ${TABLE}.zip ;;
+  }
+
+  dimension: age_groups {
+    type: tier
+    tiers: [18, 25, 35, 45, 55, 65, 75]
+    sql: ${age} ;;
+    style:  integer
+
+  }
+
+  dimension: is_email_source {
+    type: yesno
+    sql: ${traffic_source} == '${email} ;;
+  }
+  dimension: shipping_days {
+    type: number
+    sql: ${city} and ${state} ;;
   }
 
   measure: count {
