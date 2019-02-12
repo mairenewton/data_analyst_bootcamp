@@ -7,6 +7,12 @@ view: users {
     sql: ${TABLE}.id ;;
   }
 
+  dimension: order_history_button {
+    label: "History Button"
+    sql: ${TABLE}.id ;;
+    html: <a href="/explore/events_ecommerce/order_items?fields=order_items.detail*&f[users.id]={{ value }}"><button>Order History</button></a> ;;
+  }
+
   dimension: age {
     type: number
     sql: ${TABLE}.age ;;
@@ -55,7 +61,12 @@ view: users {
   dimension: email {
     type: string
     sql: ${TABLE}.email ;;
+    link: {
+      label: "Category Detail Dashboard"
+      url: "/dashboards/1813?Email={{value}}"
+    }
   }
+
 
   dimension: first_name {
     type: string
