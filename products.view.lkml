@@ -52,4 +52,16 @@ view: products {
     type: count
     drill_fields: [id, name, distribution_centers.id, distribution_centers.name, inventory_items.count]
   }
+
+  measure: total_cost {
+    type:  sum
+    sql:  ${cost} ;;
+  }
+
+  measure: average_cost {
+    type:  average
+    sql:  ${cost} ;;
+  }
+
+
 }

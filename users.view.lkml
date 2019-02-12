@@ -12,6 +12,13 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  dimension: age_tier {
+    type:  tier
+    tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+    sql:  ${age} ;;
+    style:  integer
+  }
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
@@ -24,16 +31,25 @@ view: users {
 
   dimension_group: created {
     type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
+    timeframes: [raw, time, date, hour, hour_of_day, day_of_week, day_of_week_index, time_of_day, week,  month_num, month, year, quarter, quarter_of_year]
     sql: ${TABLE}.created_at ;;
+  }
+
+  dimension: days_since_signup {
+    type: number
+    sql: DATEDIFF(day, ${created_date}, current_date) ;;
+  }
+
+  dimension: is_new_user {
+    type:  yesno
+    sql:  ${days_since_signup} <= 90 ;;
+  }
+
+  dimension: days_since_signup_tier {
+    type:  tier
+    tiers: [0, 30, 90, 180, 360, 720]
+    sql:  $days_since_signup} ;;
+    style:  integer
   }
 
   dimension: email {
@@ -56,6 +72,12 @@ view: users {
     sql: ${TABLE}.last_name ;;
   }
 
+  dimension: full_name {
+    type: string
+    sql: ${first_name} || ${last_name} ;;
+  }
+
+
   dimension: latitude {
     type: number
     sql: ${TABLE}.latitude ;;
@@ -76,13 +98,38 @@ view: users {
     sql: ${TABLE}.traffic_source ;;
   }
 
+  dimension: is_email_source {
+    type:  yesno
+    sql:  ${traffic_source} = 'Email' ;;
+  }
+
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
+  }
+
+  dimension:  city_state {
+    type:  string
+    sql:  ${city} || ', ' || ${state} ;;
   }
 
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
+
+  measure: count_female_users {
+    type:  count
+    filters: {
+      field:  gender
+      value:  "Female"
+    }
+  }
+
+  measure: percentage_female_users {
+    type:  number
+    value_format_name:  percent_1
+    sql:  1.0*${count_female_users}/NULLIF(${count},0) ;;
+  }
+
 }

@@ -88,9 +88,65 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+  dimension: shipping_days {
+    type:  number
+    sql:  DATEDIFF(day, ${shipped_date},${delivered_date}) ;;
+  }
+
+  dimension: profit {
+    type:  number
+    value_format_name:  usd
+    sql:  ${sale_price} - ${inventory_items.cost} ;;
+  }
+
+  measure: total_sales_email_users {
+    type:  sum
+    sql:  ${sale_price} ;;
+    filters: {
+      field: users.is_email_source
+      value: "Yes"
+    }
+  }
+
+  measure: percentage_sales_email_source {
+    type:  number
+    value_format_name:  percent_2
+    sql:  1.0*$total_sales_email_users}/NULLIF(${total_sales},0) ;;
+  }
+
+  measure: average_spend_per_user {
+    type:  number
+    value_format_name:  usd
+    sql:  1.0*${total_sales}/NULLIF(${users.count},0) ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: order_count {
+    type: count_distinct
+    sql: {order_id} ;;
+  }
+
+  measure: average_sales {
+    type:  average
+    sql:  ${sale_price};;
+  }
+
+  measure: total_sales {
+    type:  sum
+    sql:  ${sale_price};;
+  }
+
+  measure: total_sales_new_users {
+    type:  sum
+    sql:  ${sale_price} ;;
+    filters: {
+      field:  users.is_new_user
+      value:  "Yes"
+    }
   }
 
   # ----- Sets of fields for drilling ------
