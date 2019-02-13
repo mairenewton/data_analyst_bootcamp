@@ -70,8 +70,10 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
-    sql_table_name: ${TABLE}.sale_price;;
-
+  measure: average_sales {
+    type: average
+    sql: ${TABLE}.sale_price ;;
+  }
 
 
   dimension_group: shipped {
