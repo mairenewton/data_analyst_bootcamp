@@ -6,8 +6,6 @@ view: order_items {
     type: number
     sql: ${TABLE}.id ;;
   }
-  measure: total_sales{ type: sum
-    sql: ${TABLE}.sale_price}
 
 
   dimension_group: created {
