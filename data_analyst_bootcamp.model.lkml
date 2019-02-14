@@ -47,3 +47,4 @@ explore: products {}
 
 
 explore: users {}
+explore: sql_runner_query {}
