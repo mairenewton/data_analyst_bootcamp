@@ -7,15 +7,20 @@ include: "*.view"
 # include: "*.dashboard"
 
 datagroup: data_analyst_bootcamp_default_datagroup {
-  # sql_trigger: SELECT MAX(id) FROM etl_log;;
+ sql_trigger: SELECT MAX(id) FROM etl_log;;
   max_cache_age: "1 hour"
 }
+datagroup: daily_data_group {
+  sql_trigger: select current date;;
+  max_cache_age: "24 hour"
+}
 persist_with: data_analyst_bootcamp_default_datagroup
-
+#persist_for: "360 minutes"
 explore: inventory_items {}
 #
 
 explore: order_items {
+
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -35,7 +40,9 @@ explore: order_items {
   }
 
 }
-
+datagroup: order_items_always_maxdate{
+  sql_trigger: SELECT MAX(created_at) from order_items ;;
+}
 explore: products {}
 
 
