@@ -49,6 +49,6 @@ explore: products {}
 explore: users {
   join: sql_runner_query {
     sql_on: ${users.id}=${sql_runner_query.user_id} ;;
-    relationship: one_to_one
+    relationship: one_to_many
   }
 }
