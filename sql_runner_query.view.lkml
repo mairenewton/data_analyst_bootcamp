@@ -2,7 +2,7 @@ view: sql_runner_query {
   derived_table: {
     sql: SELECT user_id, sum(sale_price), min(created_at), max(created_at), count(*) as count_of_orders
       from order_items
-      group by 1
+      group by user_id
       limit 40
  ;;
   }
