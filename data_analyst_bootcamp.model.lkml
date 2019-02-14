@@ -39,4 +39,6 @@ explore: order_items {
 explore: products {}
 
 
-explore: users {}
+explore: users {
+  fields: [ALL_FIELDS*, -users.avg_spend_user]
+}

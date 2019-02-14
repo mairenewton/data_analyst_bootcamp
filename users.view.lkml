@@ -107,4 +107,10 @@ view: users {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
+
+  measure: avg_spend_user {
+    type: number
+    sql: ${order_items.total_sales}/NULLIF(${count},0) ;;
+    value_format_name: usd
+  }
 }
