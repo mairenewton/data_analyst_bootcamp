@@ -16,6 +16,22 @@ explore: inventory_items {}
 #
 
 explore: order_items {
+  always_filter: {
+    filters: {
+      field: returned_date
+      value: "NULL"
+    }
+    filters: {
+      field: total_sales
+      value: ">200"
+    }
+    filters: {
+      field:  created_date
+      value: "last 30 days"
+    }
+  }
+
+
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -40,5 +56,27 @@ explore: products {}
 
 
 explore: users {
-  fields: [ALL_FIELDS*, -users.avg_spend_user]
+
+  description: "date filter is required unless id or state is used as a filter"
+  conditionally_filter: {
+    filters: {
+      field: created_date
+      value: "last 90 days"
+    }
+    unless: [id, state]
+  }
+
+  join: order_items {
+    type: left_outer
+    sql_on: ${order_items.user_id} = ${users.id};;
+    relationship: one_to_many
+  }
+}
+
+explore: user_summary {
+  from: derived_table_user_summary
+}
+
+explore: order_summary {
+  from: order_header
 }
