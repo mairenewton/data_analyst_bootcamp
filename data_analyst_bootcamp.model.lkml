@@ -6,6 +6,11 @@ include: "*.view"
 # include all the dashboards
 # include: "*.dashboard"
 
+
+
+
+
+
 datagroup: data_analyst_bootcamp_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
   max_cache_age: "1 hour"
@@ -16,8 +21,6 @@ datagroup: daily_refresh_datagroup {
   max_cache_age: "24 hours"
 }
 
-persist_with: daily_refresh_datagroup
-
 explore: inventory_items {
   persist_with: data_analyst_bootcamp_default_datagroup
   join: products {
@@ -26,9 +29,14 @@ explore: inventory_items {
     relationship: many_to_one
   }
 }
+
+persist_with: data_analyst_bootcamp_default_datagroup
+
+# explore: inventory_items {}
 #
 
 explore: order_items {
+  sql_always_where: 1=1 ;;
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
