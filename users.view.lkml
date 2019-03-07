@@ -81,6 +81,53 @@ view: users {
     sql: ${TABLE}.zip ;;
   }
 
+  dimension: city_and_state {
+    type: string
+    sql: ${city} || ', ' || ${state} ;;
+  }
+
+  dimension: full_name {
+    type: string
+    sql: ${first_name} || ' ' || ${last_name} ;;
+  }
+
+  dimension: days_since_signup {
+    type: number
+    sql: DATEDIFF(day, ${created_date}, current_date) ;;
+  }
+
+  dimension: is_new_customer {
+    type: yesno
+    sql: ${days_since_signup} <= 90 ;;
+  }
+
+  dimension: days_since_signup_tier {
+    type: tier
+    tiers: [0, 30, 90, 180, 360, 720]
+    sql: ${days_since_signup} ;;
+    style: integer
+  }
+
+  dimension: traffic_is_email{
+    type: yesno
+    sql: ${traffic_source} = 'Email' ;;
+  }
+
+  dimension: age_group {
+    type: tier
+    tiers: [18, 25, 35, 45, 65, 75, 90]
+    sql: ${age} ;;
+    style: integer
+  }
+
+  measure: count_of_female_users {
+    type: count
+    filters: {
+      field: gender
+      value: "Female"
+    }
+  }
+
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]

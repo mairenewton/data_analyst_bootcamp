@@ -95,10 +95,72 @@ view: order_items {
 
   measure: total_revenue  {
     type: sum
+    value_format_name: usd_0
     sql: ${sale_price} ;;
   }
 
+  measure: avg_sale_price {
+    type: average
+    value_format_name: usd_0
+    sql: ${sale_price} ;;
+  }
 
+  measure: distinct_number_orders {
+    type: count_distinct
+    description: "The distinct nunmber of orders"
+    sql: ${order_id} ;;
+  }
+
+  measure: total_sales {
+    type: sum
+    value_format_name: usd_0
+    sql: ${sale_price} ;;
+  }
+
+  measure: average_sales {
+    type: average
+    value_format_name: usd_0
+    sql: ${sale_price} ;;
+  }
+
+  dimension: shipping_days {
+    type: number
+    sql: DATEDIFF(day, ${shipped_date}, ${delivered_date}) ;;
+  }
+
+  measure: total_sales_new_users {
+  type: sum
+  value_format_name: usd_0
+  filters: {
+    field: users.is_new_customer
+    value: "Yes"
+  }
+  sql: ${sale_price} ;;
+  }
+
+  measure: total_sales_of_email_users  {
+    type: sum
+    value_format_name: usd_0
+    filters: {
+      field: users.traffic_is_email
+      value: "Yes"
+    }
+  sql: ${sale_price} ;;
+}
+
+measure: percentage_sales_of_email_source {
+  type: number
+  value_format_name: percent_2
+  sql: 1.0*${total_sales_of_email_users}
+  /NULLIF(${total_sales}, 0) ;;
+}
+
+measure: average_spend_per_user {
+  type: number
+  value_format_name: usd_0
+  sql: 1.0*${total_sales}
+  /NULLIF(${users.count}, 0);;
+}
 
   # ----- Sets of fields for drilling ------
 

@@ -13,9 +13,21 @@ datagroup: data_analyst_bootcamp_default_datagroup {
 persist_with: data_analyst_bootcamp_default_datagroup
 
 explore: inventory_items {}
-#
+
+datagroup: order_items {
+  sql_trigger: select max(created_at) from order_items ;;
+  max_cache_age: "4 hours"
+}
 
 explore: order_items {
+
+persist_with: order_items
+  always_filter: {
+    filters: {
+      field: created_date
+      value: "last 30 days"
+    }
+  }
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -36,7 +48,27 @@ explore: order_items {
 
 }
 
+datagroup: default {
+  sql_trigger: select current_date ;;
+  max_cache_age: "24 hours"
+}
+
 explore: products {}
 
 
-explore: users {}
+explore: users {
+  persist_with: default
+  conditionally_filter: {
+    filters: {
+      field: created_date
+      value: "last 90 days"
+    }
+    unless: [id, state]
+  }
+
+  join: order_items {
+    type: left_outer
+    sql:  ${users.id} = ${order_items.user_id} ;;
+    relationship: one_to_many
+  }
+}
