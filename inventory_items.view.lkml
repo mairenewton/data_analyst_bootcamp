@@ -86,4 +86,9 @@ view: inventory_items {
     drill_fields: [id, product_name, products.id, products.name, order_items.count]
   }
 
+  dimension: profit2 {
+    type: number
+    sql: ${order_items.sale_price} - ${cost};;
+  }
+
 }

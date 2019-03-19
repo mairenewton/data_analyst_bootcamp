@@ -106,6 +106,26 @@ view: order_items {
     value_format_name: gbp
   }
 
+  measure: sumnew {
+    type: sum
+    label: " sum new"
+    sql: ${sale_price} ;;
+    value_format_name: gbp
+  }
+
+  dimension: profit {
+    type: number
+    sql:  ${sale_price} - ${inventory_items.cost} ;;
+    value_format_name: gbp
+  }
+
+  measure: totprofit {
+    type: sum
+    label: " total profut"
+    sql: ${profit} ;;
+    value_format_name: gbp
+  }
+
   # ----- Sets of fields for drilling ------
 
   set: detail {
