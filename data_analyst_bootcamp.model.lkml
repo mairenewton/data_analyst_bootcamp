@@ -12,6 +12,16 @@ datagroup: data_analyst_bootcamp_default_datagroup {
 }
 persist_with: data_analyst_bootcamp_default_datagroup
 
+explore: user_orders  {
+  fields: [ALL_FIELDS*, -order_items.profit]
+  view_name: users
+  join: order_items{
+    type: left_outer
+    sql_on:  ${order_items.user_id} = ${users.id}  ;;
+    relationship:  one_to_many
+  }
+}
+
 explore: inventory_items {
   fields: [ALL_FIELDS*, -inventory_items.profit2]
 }
@@ -35,6 +45,7 @@ explore: order_items {
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
     relationship: many_to_one
   }
+
 
 }
 
