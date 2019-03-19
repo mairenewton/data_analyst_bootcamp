@@ -22,6 +22,15 @@ view: users {
     sql: ${TABLE}.country ;;
   }
 
+
+
+
+
+  dimension: diff
+  { type: number
+    sql:datediff(day,${created_date},current_date)  ;;
+  }
+
   dimension_group: created {
     type: time
     timeframes: [
@@ -84,5 +93,4 @@ view: users {
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
-  }
-}
+  }}
