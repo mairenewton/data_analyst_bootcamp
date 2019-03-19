@@ -98,6 +98,14 @@ view: order_items {
     sql:  ${order_id} ;;
   }
 
+  measure: averagerev {
+    type: average
+    label: " average rev"
+    description: "simple average"
+    sql: ${sale_price} ;;
+    value_format_name: gbp
+  }
+
   # ----- Sets of fields for drilling ------
 
   set: detail {
