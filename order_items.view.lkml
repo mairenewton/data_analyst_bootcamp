@@ -64,6 +64,34 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
+  measure: total_sale_price {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
+  measure: total_completed_revenue {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: {
+      field: status
+      value: "Complete"
+    }
+    value_format_name: usd
+  }
+
+  measure: percent_completed_revenue {
+    type: number
+    sql: ${total_completed_revenue} / ${total_sale_price} ;;
+    value_format_name: percent_2
+  }
+
+  measure: average_sale_price {
+    type: average
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
   dimension_group: shipped {
     type: time
     timeframes: [
