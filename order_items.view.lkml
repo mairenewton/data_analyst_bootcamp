@@ -21,6 +21,11 @@ view: order_items {
     sql: ${TABLE}.created_at ;;
   }
 
+  dimension: shiping_days {
+    type:  number
+    sql:  DATEDIFF(day,${shipped_date},${delivered_date}) ;;
+  }
+
   dimension_group: delivered {
     type: time
     timeframes: [

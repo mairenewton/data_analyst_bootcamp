@@ -8,17 +8,21 @@ view: users {
     sql: ${TABLE}.id ;;
   }
 
-#dimension: fake_primary_key {
-#   type: string
-#    sql:  ${id} || ${age} ;;
-#    primary_key: yes
-#}
-
   dimension: age {
     type: number
-    sql: ${TABLE}.age
-    style: integer;;
+    sql: ${TABLE}.age;;
+  }
 
+#  dimension: age_tiered
+ # type: tier
+ # tiers: [20,40,60,80]
+#  sql: ${age} ;;
+#  style:  integer
+#  }
+
+dimension: is_over_30{
+  type: yesno
+  sql: ${age} > 30;;
   }
 
   dimension: city {
