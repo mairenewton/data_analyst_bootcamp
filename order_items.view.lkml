@@ -136,6 +136,12 @@ view: order_items {
     sql: ${total_sales}/NULLIF(${users.count},0) ;;
   }
 
+  measure: average_revenue_per_item {
+    type: number
+    value_format_name: usd
+    sql: ${total_sales}/NULLIF(${count},0) ;;
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
