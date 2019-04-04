@@ -83,7 +83,7 @@ view: users {
     sql: ${TABLE}.traffic_source ;;
   }
 
-  dimension: isemail {
+  dimension: is_email {
     label: "Is Email"
     type: yesno
     sql: cast(case when upper(${traffic_source}) = upper('email') then 1 else 0 end as bool)  ;;
@@ -93,7 +93,7 @@ view: users {
     sql: ${TABLE}.zip ;;
   }
 
-  dimension: Location {
+  dimension: city_state {
     type:  string
     sql: ${city} + ', ' + ${state} ;;
   }
