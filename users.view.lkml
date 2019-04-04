@@ -12,6 +12,12 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  dimension: age_group {
+    type: tier
+    tiers: [0,18,25,32,38,42,50,100]
+    sql: ${age};;
+    style: integer
+  }
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
@@ -77,11 +83,20 @@ view: users {
     sql: ${TABLE}.traffic_source ;;
   }
 
+  dimension: isemail {
+    label: "Is Email"
+    type: yesno
+    sql: cast(case when upper(${traffic_source}) = upper('email') then 1 else 0 end as bool)  ;;
+  }
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
   }
 
+  dimension: Location {
+    type:  string
+    sql: ${city} + ', ' + ${state} ;;
+  }
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
