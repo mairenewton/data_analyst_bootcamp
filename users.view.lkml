@@ -76,6 +76,15 @@ view: users {
     sql: ${TABLE}.traffic_source ;;
   }
 
+  dimension: is_email{
+    type: yesno
+    sql:  ${traffic_source} = 'Email' ;;
+  }
+  dimension: age_tier {
+    type: tier
+    tiers: [0, 18,25,35]
+    sql: ${age} ;;
+  }
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;

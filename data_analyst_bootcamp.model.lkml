@@ -6,11 +6,12 @@ include: "*.view"
 # include all the dashboards
 # include: "*.dashboard"
 
-datagroup: data_analyst_bootcamp_default_datagroup {
-  # sql_trigger: SELECT MAX(id) FROM etl_log;;
-  max_cache_age: "1 hour"
-}
-persist_with: data_analyst_bootcamp_default_datagroup
+# datagroup: data_analyst_bootcamp_default_datagroup {
+#   # sql_trigger: SELECT MAX(id) FROM etl_log;;
+#   max_cache_age: "1 hour"
+# }
+# persist_with: data_analyst_bootcamp_default_datagroup
+#
 
 explore: inventory_items {}
 #
@@ -35,8 +36,19 @@ explore: order_items {
   }
 
 }
-
+# explore: order_items{
+#   sql_always_where:  ${order_items.status} = 'Complete';;
+#   sql_always_having: ${order_items.count} >5000 ;;
+#
+# }
+# explore : users {
+#   join: order_items {
+#     type: left_outer
+#     sql_on: ${order_items.user_id} = ${users.id} ;;
+#     relationship: one_to_many
+#   }
+# }
 explore: products {}
 
-
+explore: order_view_custom {}
 explore: users {}
