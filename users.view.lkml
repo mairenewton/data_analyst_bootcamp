@@ -14,7 +14,7 @@ view: users {
 
   dimension: age_group {
     type: tier
-    tiers: [0,18,25,32,38,42,50,100]
+    tiers: [18,25,32,38,42,50,100]
     sql: ${age};;
     style: integer
   }
@@ -83,8 +83,7 @@ view: users {
     sql: ${TABLE}.traffic_source ;;
   }
 
-  dimension: is_email {
-    label: "Is Email"
+  dimension: is_email_source {
     type: yesno
     sql: cast(case when upper(${traffic_source}) = upper('email') then 1 else 0 end as bool)  ;;
   }
