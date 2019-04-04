@@ -47,29 +47,6 @@ view: users {
     sql: ${TABLE}.first_name ;;
   }
 
-  dimension: full_name {
-    type: string
-    sql: ${first_name} || ' ' || ${last_name}  ;;
-  }
-
-  dimension: days_since_signup {
-    type: number
-    sql: DATEDIFF(day, ${created_date}, current_date);;
-  }
-
-  dimension: is_male {
-    type: yesno
-    sql: ${gender} = 'Male' ;;
-  }
-
-  dimension: age_tier {
-    type: tier
-    tiers: [10,20,30,40,50,60]
-    style: integer
-    sql: ${age} ;;
-  }
-
-
   dimension: gender {
     type: string
     sql: ${TABLE}.gender ;;
