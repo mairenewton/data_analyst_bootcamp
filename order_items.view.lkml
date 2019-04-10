@@ -108,13 +108,13 @@ view: order_items {
 
   measure: total_sales {
     type: sum
-    value_format: "#,##0"
+    value_format_name: "decimal_0"
     sql: ${sale_price} ;;
   }
 
   measure: average_sales {
     type: average
-    value_format: "#,##0"
+    value_format_name: "decimal_0"
     sql: ${sale_price} ;;
   }
 
