@@ -82,6 +82,7 @@ view: events {
   }
 
   dimension: source_is_email {
+    label: "Source is Email"
     type: yesno
     sql:  lower(${traffic_source}) = 'email' ;;
   }
