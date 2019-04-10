@@ -33,6 +33,13 @@ view: users {
     sql: ${days_since_signup}<=90 ;;
   }
 
+  dimension: days_since_signup_tier {
+    type:  tier
+    sql: ${days_since_signup} ;;
+    tiers: [0,30,60,90,180,360,720]
+    style: integer
+  }
+
   dimension_group: created {
     type: time
     timeframes: [
