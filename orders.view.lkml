@@ -4,8 +4,8 @@ view: orders {
       column: order_id {}
       column: count {}
       column: total_sales {}
-      derived_column: some_rank {
-        sql: rank() over (order by total_revenue desc) ;;
+      derived_column: sales_rank {
+        sql: rank() over (order by total_sales desc) ;;
       }
     }
   }
@@ -18,6 +18,9 @@ view: orders {
   dimension: total_sales {
     label: "Order Items Total Revenue"
     value_format_name: decimal_2
+    type: number
+  }
+  dimension: sales_rank {
     type: number
   }
 }
