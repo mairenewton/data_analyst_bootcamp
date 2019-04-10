@@ -7,6 +7,7 @@ view: users {
     sql: ${TABLE}.id ;;
   }
 
+
   dimension: age {
     type: number
     sql: ${TABLE}.age ;;
@@ -70,6 +71,12 @@ view: users {
   dimension: state {
     type: string
     sql: ${TABLE}.state ;;
+  }
+
+  dimension: city_state {
+    type: string
+    sql:  ${TABLE}.city || ', ' || ${TABLE}.state ;;
+
   }
 
   dimension: traffic_source {
