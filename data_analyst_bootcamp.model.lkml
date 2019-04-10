@@ -41,6 +41,7 @@ explore: order_items {
 
 explore: products {}
 
+explore: orders {}
 
 
 explore: users {

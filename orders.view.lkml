@@ -1,12 +1,12 @@
-# If necessary, uncomment the line below to include explore_source.
-# include: "data_analyst_bootcamp.model.lkml"
-
 view: orders {
   derived_table: {
     explore_source: order_items {
       column: order_id {}
       column: count {}
       column: total_sales {}
+      derived_column: some_rank {
+        sql: rank() over (order by total_revenue desc) ;;
+      }
     }
   }
   dimension: order_id {
@@ -19,9 +19,5 @@ view: orders {
     label: "Order Items Total Revenue"
     value_format_name: decimal_2
     type: number
-  }
-  dimension: order_revenue_rank {
-    type: number
-    sql: rank() over (order by ${total_sales} desc)  ;;
   }
 }
