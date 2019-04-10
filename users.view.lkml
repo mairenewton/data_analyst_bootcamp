@@ -94,6 +94,7 @@ view: users {
   }
 
   dimension: age_bracket {
+    label: "Age Bucket"
     type: tier
     tiers: [0, 18, 25, 35, 55, 65, 75, 90]
     sql: ${age} ;;
