@@ -95,6 +95,11 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+  measure: days_between_shipped_and_delivery {
+    type: number
+    sql: avg(DATEDIFF(day, ${delivered_date}, ${shipped_date}));;
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
