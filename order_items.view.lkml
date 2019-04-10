@@ -102,20 +102,34 @@ view: order_items {
 
   measure: distinct_count {
     label: "Distinct Order Count"
+    group_label: "Exercise"
     type: count_distinct
     sql:  ${order_id};;
   }
 
   measure: total_sales {
     type: sum
+    label: "Total Revenue"
+    group_label: "Exercise"
     value_format_name: "decimal_0"
     sql: ${sale_price} ;;
   }
 
   measure: average_sales {
     type: average
+    label: "Average Revenue"
+    group_label: "Exercise"
     value_format_name: "decimal_0"
     sql: ${sale_price} ;;
+  }
+
+  measure: email_sales {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: {
+      field: users.source_is_email
+      value: "Yes"
+    }
   }
 
   # ----- Sets of fields for drilling ------
