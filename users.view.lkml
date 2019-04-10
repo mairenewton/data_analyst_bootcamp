@@ -87,6 +87,12 @@ view: users {
     sql:  ${city} || ', ' || ${state} ;;
   }
 
+  dimension: source_is_email {
+    label: "Source is Email"
+    type: yesno
+    sql:  lower(${traffic_source}) = 'email' ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
