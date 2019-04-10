@@ -35,10 +35,26 @@ explore: order_items {
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
     relationship: many_to_one
   }
+
+  always_filter: {
+    filters: {
+      field: status
+      value: "Complete"
+        }
+  }
+
+  sql_always_having:
+    ${order_ct} > 5000;;
 }
 
 
 explore: products {}
 
 
-explore: users {}
+explore: users {
+  join: order_items {
+    type: left_outer
+    sql_on: ${users.id} = ${order_items.user_id} ;;
+    relationship: one_to_many
+    view_label: "orders"
+  }}

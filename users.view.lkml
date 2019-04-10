@@ -12,9 +12,26 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  dimension: age_bucket {
+    type: tier
+    tiers: [18,25,35,45,55,65,75,90]
+    sql: ${age} ;;
+    style:  relational
+  }
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
+  }
+
+  dimension: state {
+    type: string
+    sql: ${TABLE}.state ;;
+  }
+
+  dimension: city_state {
+    type: string
+    sql: ${TABLE}.city || ', ' || ${TABLE}.state ;;
   }
 
   dimension: country {
@@ -67,11 +84,6 @@ view: users {
     sql: ${TABLE}.longitude ;;
   }
 
-  dimension: state {
-    type: string
-    sql: ${TABLE}.state ;;
-  }
-
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
@@ -80,6 +92,11 @@ view: users {
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
+  }
+
+  dimension: source_email {
+    type: yesno
+    sql: ${traffic_source}= 'Email' ;;
   }
 
   measure: count {
