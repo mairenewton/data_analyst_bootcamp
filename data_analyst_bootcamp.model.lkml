@@ -18,6 +18,13 @@ explore: inventory_items {}
 
 
 explore: order_items {
+  always_filter: {
+    filters: {
+      field: status
+      value: "complete"
+    }
+ }
+  sql_always_having: ${order_items.unique_orders} > 5000 ;;
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
