@@ -93,6 +93,13 @@ view: users {
     sql:  lower(${traffic_source}) = 'email' ;;
   }
 
+  dimension: age_bracket {
+    type: tier
+    tiers: [0, 18, 25, 35, 55, 65, 75, 90]
+    sql: ${age} ;;
+  }
+
+
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
