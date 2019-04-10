@@ -23,6 +23,16 @@ view: users {
     sql: ${TABLE}.country ;;
   }
 
+  dimension: days_since_signup {
+    type:  number
+    sql: DATEDIFF(day, ${created_date}, current_date) ;;
+  }
+
+  dimension: is_new_customers {
+    type: yesno
+    sql: ${days_since_signup}<=90 ;;
+  }
+
   dimension_group: created {
     type: time
     timeframes: [
@@ -55,6 +65,11 @@ view: users {
   dimension: last_name {
     type: string
     sql: ${TABLE}.last_name ;;
+  }
+
+  dimension:full_name {
+    type:  string
+    sql:  $(${first_name} + ${last_name} ;;
   }
 
   dimension: latitude {
