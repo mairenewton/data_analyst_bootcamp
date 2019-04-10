@@ -17,11 +17,11 @@ view: orders {
   }
   dimension: total_sales {
     label: "Order Items Total Revenue"
-    value_format: "#,##0"
+    value_format_name: decimal_2
     type: number
   }
   dimension: order_revenue_rank {
     type: number
-    sql: rank() over (order by ${total_sales})  ;;
+    sql: rank() over (order by ${total_sales} desc)  ;;
   }
 }
