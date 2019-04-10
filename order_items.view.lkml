@@ -123,14 +123,6 @@ view: order_items {
     sql: ${sale_price} ;;
   }
 
-  measure: email_sales {
-    type: sum
-    sql: ${sale_price} ;;
-    filters: {
-      field: users.source_is_email
-      value: "Yes"
-    }
-  }
 
   # ----- Sets of fields for drilling ------
   set: detail {

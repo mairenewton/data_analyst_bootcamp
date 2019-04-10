@@ -18,6 +18,7 @@ explore: inventory_items {}
 
 
 explore: order_items {
+  sql_always_having: count(*) > 5000 ;;
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -41,10 +42,12 @@ explore: order_items {
 explore: products {}
 
 
-explore: users {
+
+explore: user_order_items {
+  from:  users
   join: order_items {
     type: left_outer
-    sql_on:  ${users.id} = ${order_items.user_id} ;;
+    sql_on:  ${user_order_items.id} = ${order_items.user_id} ;;
     relationship: one_to_many
   }
 }
