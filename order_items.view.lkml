@@ -95,6 +95,12 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+  measure: shipping_days {
+    type: number
+    sql:${TABLE}.delivered_date - ${TABLE}.shipped_date ;;
+
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
