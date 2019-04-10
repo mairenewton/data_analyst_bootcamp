@@ -18,7 +18,8 @@ explore: inventory_items {}
 
 
 explore: order_items {
-  sql_always_having: count(*) > 5000 ;;
+  sql_always_where: ${status} = 'complete' ;;
+  sql_always_having: ${count} > 5000 ;;
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
