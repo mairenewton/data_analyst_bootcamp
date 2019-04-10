@@ -97,7 +97,7 @@ view: order_items {
 
   measure: shipping_days {
     type: number
-    sql:${TABLE}.delivered_at - ${TABLE}.shipped_at ;;
+    sql:${delivered_date} - ${shipped_date} ;;
 
   }
 
