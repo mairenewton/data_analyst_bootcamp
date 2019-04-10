@@ -18,8 +18,7 @@ explore: inventory_items {}
 
 
 explore: order_items {
-  sql_always_where: ${status} = 'complete' ;;
-  sql_always_having: ${count} > 5000 ;;
+
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -44,11 +43,12 @@ explore: products {}
 
 
 
-explore: user_order_items {
-  from:  users
+explore: users {
+  sql_always_where: ${order_items.status} = 'complete' ;;
+  sql_always_having: ${order_items.distinct_count} > 5000 ;;
   join: order_items {
     type: left_outer
-    sql_on:  ${user_order_items.id} = ${order_items.user_id} ;;
+    sql_on:  ${users.id} = ${order_items.user_id} ;;
     relationship: one_to_many
   }
 }
