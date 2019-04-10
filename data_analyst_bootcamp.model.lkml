@@ -18,6 +18,12 @@ explore: inventory_items {}
 
 
 explore: order_items {
+  always_filter: {
+    filters: {
+      field: status
+      value: "Complete"
+    }
+  }
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
