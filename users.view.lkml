@@ -57,6 +57,28 @@ view: users {
     sql: ${TABLE}.last_name ;;
   }
 
+  dimension: full_name {
+    type: string
+    sql:  ${first_name} + ' ' + ${last_name} ;;
+  }
+
+  dimension:  days_since_signup {
+    type:  number
+    sql:  DATEDIFF(day, ${created_date}, current_date) ;;
+  }
+
+  dimension: is_new_customer {
+    type: yesno
+    sql: ${days_since_signup} <= 90 ;;
+  }
+
+  dimension:  days_since_signup_tier {
+    type: tier
+    sql: ${days_since_signup} ;;
+    tiers: [0, 30, 60, 90, 180, 360, 720]
+    style: integer
+  }
+
   dimension: latitude {
     type: number
     sql: ${TABLE}.latitude ;;
@@ -72,9 +94,20 @@ view: users {
     sql: ${TABLE}.state ;;
   }
 
+  dimension: city_state {
+    type: string
+    label: "City, State"
+    sql: ${city} + ', ' + ${state} ;;
+  }
+
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
+  }
+
+  dimension: is_traffic_source_email {
+    type:  yesno
+    sql: ${traffic_source} = 'Email';;
   }
 
   dimension: zip {
@@ -82,8 +115,39 @@ view: users {
     sql: ${TABLE}.zip ;;
   }
 
+  dimension: age_tier {
+    type:  tier
+    sql: ${age} ;;
+    tiers: [0, 18, 25, 35, 45, 55, 65, 75, 90]
+    style:  integer
+  }
+
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
+
+  measure: count_of_IN_IL_female_users {
+    type: count
+    filters: {
+      field: gender
+      value: "Female"
+    }
+    filters: {
+      field: state
+      value: "Indiana, Illinois"
+    }
+  }
+
+  measure: sales_total_by_email {
+    type: sum
+    sql: ${order_items.sale_price} ;;
+    filters: {
+      field: traffic_source
+      value: "Email"
+    }
+    value_format_name: usd
+  }
+
+
 }
