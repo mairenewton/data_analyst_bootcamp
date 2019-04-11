@@ -12,9 +12,31 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  dimension: agetier {
+    type: tier
+    style: integer
+    tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+    sql: ${age} ;;
+  }
+
+  dimension: is_emailornot {
+    type: yesno
+    sql: ${traffic_source} = 'Email';;
+  }
+
+  dimension: cityandstate{
+    type: string
+    sql: ${city} ||' '|| ${state} ;;
+  }
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
+  }
+
+  dimension: state {
+    type: string
+    sql: ${TABLE}.state ;;
   }
 
   dimension: country {
@@ -67,10 +89,6 @@ view: users {
     sql: ${TABLE}.longitude ;;
   }
 
-  dimension: state {
-    type: string
-    sql: ${TABLE}.state ;;
-  }
 
   dimension: traffic_source {
     type: string
@@ -85,5 +103,9 @@ view: users {
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
+  }
+
+  measure: userscount {
+    type: count
   }
 }
