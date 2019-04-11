@@ -79,6 +79,11 @@ view: order_items {
     sql: ${TABLE}.shipped_at ;;
   }
 
+  dimension: shipping_days {
+    type: number
+    sql: ABS(DATEDIFF(day,${delivered_raw},${shipped_raw})) ;;
+  }
+
   dimension: status {
     type: string
     sql: ${TABLE}.status ;;
@@ -93,6 +98,41 @@ view: order_items {
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: total_sales {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
+  measure: total_sales_by_email {
+    type: sum
+    label: "Total Sales (Email)"
+    sql: ${sale_price} ;;
+    filters: {
+      field: users.is_traffic_source_email
+      value: "Yes"
+    }
+    value_format_name: usd
+  }
+
+  measure: percent_of_email_sales {
+    type: number
+    sql: 1.0*${total_sales_by_email}/nullif(${total_sales});;
+    value_format_name: percent_2
+  }
+
+  measure: avg_sales_by_user {
+    type: number
+    sql: 1.0*${total_sales}/${users.count};;
+    value_format_name: usd
+  }
+
+  # watch out for date formatting
+  measure: first_order {
+    type: date
+    sql: min(${created_raw}) ;;
   }
 
   # ----- Sets of fields for drilling ------

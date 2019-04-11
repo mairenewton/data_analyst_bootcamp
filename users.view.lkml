@@ -26,7 +26,7 @@ view: users {
 
   dimension: city_state {
     type: string
-    sql: ${city} + ", " + ${state} ;;
+    sql: ${city} || ', ' || ${state} ;;
   }
 
   dimension: country {
@@ -113,7 +113,7 @@ view: users {
 
   dimension: is_traffic_source_email {
     type: yesno
-    sql: ${traffic_source}="email" ;;
+    sql: LOWER(${traffic_source})='email' ;;
   }
 
   dimension: zip {
