@@ -86,4 +86,35 @@ view: users {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
+
+  dimension: city_state {
+    type:  string
+    sql:  ${city} || ', ' || ${state} ;;
+  }
+
+  dimension: is_email_traffic {
+    type: yesno
+    sql: ${traffic_source} ILIKE 'Email' ;;
+  }
+
+  dimension: age_group {
+    type: tier
+    tiers: [0, 18, 25,35, 45, 65, 75, 90]
+    sql:  ${age} ;;
+    style: integer
+  }
+
+  measure: count_female_users {
+    type:  count
+    filters: {
+      field:  gender
+      value: "Female"
+    }
+  }
+
+  measure: percent_female_users {
+    type:  number
+    value_format_name: percent_0
+    sql:  1.0*${count_female_users} / NULLIF(${count} , 0) ;;
+  }
 }
