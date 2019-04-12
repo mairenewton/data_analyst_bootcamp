@@ -1,6 +1,7 @@
 view: inventory_items {
   sql_table_name: public.inventory_items ;;
 
+
   dimension: id {
     primary_key: yes
     type: number
@@ -85,10 +86,8 @@ view: inventory_items {
     type: count
     drill_fields: [id, product_name, products.id, products.name, order_items.count]
   }
-
   dimension: profit2 {
     type: number
     sql: ${order_items.sale_price} - ${cost};;
   }
-
-}
+  }
