@@ -76,12 +76,26 @@ view: users {
     type: string
     sql: ${TABLE}.traffic_source ;;
   }
-
+  dimension: sourceemail {
+    type:  yesno
+    sql: leng(${email}) > 0 ;;
+  }
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
   }
 
+  dimension: citystate {
+    type:  string
+    sql:  ${city} || ${state};;
+  }
+
+ dimension: agegroup {
+  type:  tier
+  tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+  style:  classic
+  sql: ${age} ;;
+ }
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
