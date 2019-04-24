@@ -11,34 +11,13 @@ datagroup: data_analyst_bootcamp_default_datagroup {
 
 persist_with: data_analyst_bootcamp_default_datagroup
 
+explore: users {
+  label: "henry"
+  group_label: "koolkid"
 
-
-
-explore: inventory_items {}
-
-
-explore: order_items {
-  join: users {
+  join: order_items {
     type: left_outer
-    sql_on: ${order_items.user_id} = ${users.id} ;;
-    relationship: many_to_one
-  }
-
-  join: inventory_items {
-    type: left_outer
-    sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;
-    relationship: many_to_one
-  }
-
-  join: products {
-    type: left_outer
-    sql_on: ${inventory_items.product_id} = ${products.id} ;;
-    relationship: many_to_one
+    sql_on: ${users.id} = ${order_items.user_id} ;;
+    relationship: one_to_many
   }
 }
-
-
-explore: products {}
-
-
-explore: users {}

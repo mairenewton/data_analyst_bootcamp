@@ -57,6 +57,12 @@ view: users {
     sql: ${TABLE}.last_name ;;
   }
 
+  dimension: full_name {
+    type: string
+    label: "full name"
+    sql: ${first_name} || ' ' || ${last_name} ;;
+  }
+
   dimension: latitude {
     type: number
     sql: ${TABLE}.latitude ;;
@@ -86,4 +92,44 @@ view: users {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
+
+  measure: count_female {
+    type: count_distinct
+    sql: ${id} ;;
+
+    filters: {
+      field: gender
+      value: "Female"
+    }
+  }
+
+  measure: count_21 {
+    type: count_distinct
+    sql: ${id} ;;
+
+    filters: {
+      field: age
+      value: "21"
+    }
+  }
+
+  measure: pct_21 {
+    type: number
+    sql: 1.0*${count_21} / nullif(${count}, 0) ;;
+    value_format_name: percent_2
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
