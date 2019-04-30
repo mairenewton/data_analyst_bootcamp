@@ -95,10 +95,15 @@ view: order_items {
     drill_fields: [detail*]
   }
 
-  dimension: shippingdays{
+  dimension: shipping_days{
     type: number
     sql: datediff(day,${shipped_raw},${delivered_date} ;;
   }
+
+measure: order_count {
+  type: count_distinct
+  sql: ${order_id} ;;
+}
 
   # ----- Sets of fields for drilling ------
   set: detail {
