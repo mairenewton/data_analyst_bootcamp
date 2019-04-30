@@ -82,6 +82,17 @@ view: users {
     sql: ${TABLE}.zip ;;
   }
 
+  dimension: address {
+    type: string
+    sql: ${city} || ', ' || ${state} ;;
+    }
+
+dimension: email_y_n {
+  type: yesno
+  sql: ${traffic_source} = 'Email' ;;
+}
+
+
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
