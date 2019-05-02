@@ -106,4 +106,19 @@ view: order_items {
       inventory_items.product_name
     ]
   }
+
+  measure: distinc_order {
+    type:  count_distinct
+    sql: ${order_id} ;;
+  }
+
+  measure: sum_sales {
+    type:  sum
+    sql: ${sale_price} ;;
+  }
+
+  measure: avg_sales {
+    type: average
+    sql: ${sale_price} ;;
+  }
 }
