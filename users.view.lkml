@@ -17,6 +17,12 @@ view: users {
     sql: ${TABLE}.city ;;
   }
 
+  dimension: city_state {
+    description: "test, city state combined field"
+    type:  string
+    sql: ${city}||', '||${state} ;;
+  }
+
   dimension: country {
     type: string
     map_layer_name: countries
@@ -37,6 +43,12 @@ view: users {
     sql: ${TABLE}.created_at ;;
   }
 
+  dimension: days_since_signup {
+    description: "number of days since a user signed up. This is a best practice"
+    type: number
+    sql:Datediff(day, ${created_date},current_date) ;;
+  }
+
   dimension: email {
     type: string
     sql: ${TABLE}.email ;;
@@ -45,6 +57,12 @@ view: users {
   dimension: first_name {
     type: string
     sql: ${TABLE}.first_name ;;
+  }
+
+  dimension: full_name {
+    description: "learning example of strings and concat (type of sql language may vary)"
+    type:  string
+    sql:  initcap(lower(${first_name}))||' '||${last_name} ;;
   }
 
   dimension: gender {
@@ -67,14 +85,44 @@ view: users {
     sql: ${TABLE}.longitude ;;
   }
 
+
   dimension: state {
     type: string
     sql: ${TABLE}.state ;;
   }
 
+  dimension: days_since_signup_tiered {
+    description: "created learning field, demonstrating tiers"
+    type:  tier
+    tiers: [0, 30, 90, 180, 360, 720, 900]
+    sql:  ${days_since_signup} ;;
+    style:  integer
+  }
+
+  dimension: age_bucket {
+    description: "testing the tiers on age buckets"
+    type: tier
+    tiers: [18,25,35,45,55,65,75,90]
+    sql: ${age} ;;
+    style: interval
+  }
+
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
+  }
+
+  dimension: was_email {
+    case_sensitive: no
+    description: "was this an email to target the user"
+    type: yesno
+    sql: ${traffic_source} like 'Email' ;;
+  }
+
+  dimension: is_customer_new {
+    description: "created field, definition of yesno"
+    type: yesno
+    sql: ${days_since_signup} <= 90 ;;
   }
 
   dimension: zip {
