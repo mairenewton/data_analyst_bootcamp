@@ -86,4 +86,27 @@ view: users {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
+
+  dimension: concat_city_state {
+    type:  string
+    sql: CONCAT(${city},${state} ;;
+  }
+
+  dimension: shipping_days{
+    type:  number
+    sql: DATEDIFF(${created_date},CURRENT_TIMESTAMP() or current_date,day) ;;
+  }
+
+  dimension: is_email {
+    type: yesno
+    sql: ${traffic_source} = "Email";;
+  }
+
+  dimension: age_buckets {
+    type: tier
+    tiers: [0,18,25,35,45,55,65,75,90]
+  }
+
+
+
 }
