@@ -89,6 +89,13 @@ view: order_items {
     # hidden: yes
     sql: ${TABLE}.user_id ;;
   }
+#sum: total_sales
+#avg: average_sales
+#count distinct: count_distinct_orders
+#filtered measure: total_sales_new_users
+#percent measure: percent_sales_new_users
+
+
 
   measure: count {
     type: count

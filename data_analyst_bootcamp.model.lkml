@@ -9,16 +9,22 @@ datagroup: data_analyst_bootcamp_default_datagroup {
   max_cache_age: "1 hour"
 }
 
+# datagroup: users_datagroup {
+#   sql_trigger: SELECT COUNT DISTINCT(user_id) from users ;;
+# }
+
 persist_with: data_analyst_bootcamp_default_datagroup
-
-
 
 
 explore: inventory_items {}
 
 
 explore: order_items {
+  # label: "New Explore Title"
+  # group_label: "New Explore Grouping"
+  # description: "Explore description"
   join: users {
+    # view_label: "Users View Label"
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
     relationship: many_to_one
@@ -41,4 +47,12 @@ explore: order_items {
 explore: products {}
 
 
-explore: users {}
+# explore: users {
+#   persist_with: users_datagroup
+#   join: order_items {
+#     type: left_outer
+#     relationship: one_to_many
+#     sql_on: ${users.id}=${order_items.user_id} ;;
+#   }
+
+# }

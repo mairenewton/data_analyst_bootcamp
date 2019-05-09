@@ -57,6 +57,15 @@ view: users {
     sql: ${TABLE}.last_name ;;
   }
 
+#string: full_name
+#number: days_since_signup
+#yesno: is_new_customer
+#tier: days_since_signup_tier
+
+#group_label: locations
+#hidden: first and last names
+#set: user_basic_info
+
   dimension: latitude {
     type: number
     sql: ${TABLE}.latitude ;;
