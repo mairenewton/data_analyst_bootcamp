@@ -13,10 +13,9 @@ persist_with: data_analyst_bootcamp_default_datagroup
 
 
 
-
+explore: distribution_centers {}
+explore: events {}
 explore: inventory_items {}
-
-
 explore: order_items {
   join: users {
     type: left_outer
@@ -36,9 +35,5 @@ explore: order_items {
     relationship: many_to_one
   }
 }
-
-
 explore: products {}
-
-
 explore: users {}

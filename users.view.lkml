@@ -46,6 +46,13 @@ dimension: state_city {
     sql: ${TABLE}.email ;;
   }
 
+
+dimension: email_traffic_source {
+  type: yesno
+  sql: ${traffic_source} = 'Mail' ;;
+
+}
+
   dimension: first_name {
     type: string
     sql: ${TABLE}.first_name ;;
@@ -90,4 +97,6 @@ dimension: state_city {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
+
+
 }
