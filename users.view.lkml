@@ -10,7 +10,10 @@ view: users {
     type:string
     sql:concat(${city}, "," ${state}};;
     }
-
+dimension: fonte_trafico {
+  type:yesno
+  sql: if(${email} = "Email","yes", "no"  ;;
+}
   dimension: id {
     primary_key: yes
     type: number
