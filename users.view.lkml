@@ -8,7 +8,7 @@ view: users {
 
   dimension:  CityState{
     type:string
-    sql:concat(${TABLE}.city, "," ${TABLE}.state)};;
+    sql:concat(${city}, "," ${state}};;
     }
 
   dimension: id {
