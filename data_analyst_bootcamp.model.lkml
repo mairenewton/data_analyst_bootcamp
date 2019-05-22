@@ -38,4 +38,14 @@ explore: order_items {
 explore: products {}
 
 
-explore: users {}
+explore: users {
+  label: "Explorer for all users"
+  join: order_items {
+
+    type: left_outer
+    relationship: one_to_many
+    sql_on: $(${users.id}=${order_items.user_id} ;;
+  }
+}
+
+

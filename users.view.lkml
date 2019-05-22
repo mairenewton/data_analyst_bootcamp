@@ -14,6 +14,15 @@ dimension: fonte_trafico {
   type:yesno
   sql: ${traffic_source} ="Email";;
 }
+
+dimension: age_tier {
+  type: tier
+  tiers: [18,25,35,45,55,65,75,90]
+  style: integer
+  sql: ${age} ;;
+
+
+}
   dimension: id {
     primary_key: yes
     type: number

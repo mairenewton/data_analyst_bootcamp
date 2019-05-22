@@ -39,6 +39,12 @@ dimension:  Shipping_Days{
     sql: ${TABLE}.delivered_at ;;
   }
 
+  measure:  ordens_distintas{
+    type: count_distinct
+    sql: ${order_id} ;;
+
+
+}
   dimension: inventory_item_id {
     type: number
     # hidden: yes
@@ -69,6 +75,15 @@ dimension:  Shipping_Days{
     sql: ${TABLE}.sale_price ;;
   }
 
+  measure: total_sales {
+    type: sum
+    sql: ${sale_price} ;;
+  }
+measure: average_sales{
+
+  type: average
+  sql: ${sale_price} ;;
+}
   dimension_group: shipped {
     type: time
     timeframes: [
