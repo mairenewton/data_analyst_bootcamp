@@ -87,6 +87,11 @@ view: order_items {
     #sql: DATEDIFF(day, ${order_items.shipped_date}, ${order_items.delivered_date}) ;;
   }
 
+  dimension: dst_orders {
+    type: number
+    sql: DISTINCT(${order_id});;
+  }
+
   dimension: status {
     type: string
     sql: ${TABLE}.status ;;
