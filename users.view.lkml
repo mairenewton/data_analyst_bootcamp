@@ -3,7 +3,7 @@ view:  teste{
   dimension: city_state {
     type: string
     #cconcat(${table_day},"-", ${table_month}),
-    sql: concat(${TABLE}.city, "," ${TABLE}.city ;;
+    sql: concat(${TABLE}.city, "," ${TABLE}.city) ;;
   }
 
 
