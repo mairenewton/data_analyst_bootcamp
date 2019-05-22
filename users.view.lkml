@@ -1,3 +1,14 @@
+
+view:  teste{
+  dimension: city_state {
+    type: string
+    #cconcat(${table_day},"-", ${table_month}),
+    sql: concat(${TABLE}.city, "," ${TABLE}.city ;;
+  }
+
+
+}
+
 view: users {
   sql_table_name: public.users ;;
 
