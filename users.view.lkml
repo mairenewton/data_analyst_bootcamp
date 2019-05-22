@@ -12,7 +12,7 @@ view: users {
     }
 dimension: fonte_trafico {
   type:yesno
-  sql: if(${email} = "Email","yes", "no"  ;;
+  sql: ${traffic_source} ="Email";;
 }
   dimension: id {
     primary_key: yes
