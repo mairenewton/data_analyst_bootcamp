@@ -3,22 +3,17 @@ connection: "events_ecommerce"
 # include all the views
 include: "*.view"
 
-# include all the dashboards
-# include: "*.dashboard"
 
 datagroup: data_analyst_bootcamp_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
   max_cache_age: "1 hour"
 }
 
-
-
 persist_with: data_analyst_bootcamp_default_datagroup
 
 
-explore: users2 {}
-#
 
+# This explore contains multiple views
 explore: order_items {
   join: users {
     type: left_outer
@@ -37,10 +32,7 @@ explore: order_items {
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
     relationship: many_to_one
   }
-
 }
-
-
 
 
 explore: products {}

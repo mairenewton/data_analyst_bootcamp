@@ -37,6 +37,7 @@ view: order_items {
 
   dimension: inventory_item_id {
     type: number
+    # hidden: yes
     sql: ${TABLE}.inventory_item_id ;;
   }
 
@@ -85,6 +86,7 @@ view: order_items {
 
   dimension: user_id {
     type: number
+    # hidden: yes
     sql: ${TABLE}.user_id ;;
   }
 
@@ -94,7 +96,6 @@ view: order_items {
   }
 
   # ----- Sets of fields for drilling ------
-
   set: detail {
     fields: [
       id,
