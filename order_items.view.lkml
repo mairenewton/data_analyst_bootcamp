@@ -106,7 +106,7 @@ measure: total_sales {
   sql: ${sale_price} ;;
 }
 
-measure: average_sales {
+measure: average_sales_per_line_item {
   type: average
   sql: ${sale_price} ;;
 }
