@@ -94,7 +94,7 @@ view: order_items {
     type: number
     label: "By Day"
     group_label: "Difference"
-    sql: DATEDIFF( day, ${shipped_date}, ${delivered_date}) ;;
+    sql: DATEDIFF( day, ${shipped_raw}, ${delivered_raw}) ;;
   }
 
   measure: count {
