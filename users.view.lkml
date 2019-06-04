@@ -74,6 +74,7 @@ view: users {
 
   dimension: city_state {
     type: string
+    label: "City, State"
     sql: ${city} || ', ' || ${state} ;;
   }
 
@@ -85,6 +86,17 @@ view: users {
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
+  }
+
+  dimension: email_source {
+    type: yesno
+    sql: ${traffic_source} = 'Email' ;;
+  }
+
+  dimension: age_tier {
+    type: tier
+    tiers: [18,30,40,50]
+    sql: ${age} ;;
   }
 
   measure: count {
