@@ -92,7 +92,6 @@ view: order_items {
 
   dimension: shipping_days {
     type: number
-    label: "By Day"
     group_label: "Difference"
     sql: DATEDIFF( day, ${shipped_raw}, ${delivered_raw}) ;;
   }
