@@ -95,6 +95,21 @@ dimension: shipping_days {
     sql: ${TABLE}.user_id ;;
   }
 
+measure: distinct_orders {
+  type: count_distinct
+  sql: ${order_id} ;;
+}
+
+measure: total_sales {
+  type: sum
+  sql: ${sale_price} ;;
+}
+
+measure: average_sales {
+  type: average
+  sql: ${sale_price} ;;
+}
+
   measure: count {
     type: count
     drill_fields: [detail*]
