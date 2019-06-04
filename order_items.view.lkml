@@ -97,6 +97,7 @@ dimension: shipping_days {
 
 measure: distinct_orders {
   type: count_distinct
+  description: "A count of distinct or unique orders"
   sql: ${order_id} ;;
 }
 
@@ -108,6 +109,11 @@ measure: total_sales {
 measure: average_sales {
   type: average
   sql: ${sale_price} ;;
+}
+
+measure: average_sales_per_order {
+  type: number
+  sql: ${total_sales}/${distinct_orders} ;;
 }
 
   measure: count {
