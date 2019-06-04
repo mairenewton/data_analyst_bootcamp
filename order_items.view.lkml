@@ -106,6 +106,27 @@ measure: total_sales {
   sql: ${sale_price} ;;
 }
 
+  measure: total_sales_email_source {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: {
+      field: users.email_source
+      value: "Yes"
+    }
+  }
+
+measure: email_source_perc {
+  type: number
+  value_format_name: percent_0
+  sql: 1.0*${total_sales_email_source} / nullif(${total_sales},0) ;;
+}
+
+measure: avg_spend_per_user {
+  type: number
+  value_format_name: usd_0
+  sql:  1.0*${total_sales} / nullif(${users.count},0);;
+}
+
 measure: average_sales_per_line_item {
   type: average
   sql: ${sale_price} ;;
