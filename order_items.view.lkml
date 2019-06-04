@@ -117,6 +117,11 @@ view: order_items {
     sql: ${sale_price}  ;;
   }
 
+  measure: average_sales_per_order {
+    type: number
+    sql: ${total_sales} / ${order_count} ;;
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
