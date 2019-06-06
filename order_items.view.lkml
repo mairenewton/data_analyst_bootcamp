@@ -110,6 +110,7 @@ view: order_items {
     type: sum
     sql:  ${sale_price};;
     value_format_name: usd
+    drill_fields: [order_id, user_id]
   }
 
   measure: average_sales {
@@ -134,7 +135,7 @@ view: order_items {
     group_label: "Sales Measures"
     type: number
     sql: 1.0*${total_email_source_sales} / NULLIF(${total_sales}, 0) ;;
-    value_format: "0\%"
+    value_format_name: percent_2
   }
 
   measure: average_spend_per_user {
