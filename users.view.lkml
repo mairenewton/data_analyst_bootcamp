@@ -92,7 +92,7 @@ view: users {
   dimension: is_email {
     label: "Traffic Source is Email"
     type: yesno
-    sql:  ${traffic_source} = 'email';;
+    sql:  ${traffic_source} = 'Email';;
     case_sensitive: no
   }
 
