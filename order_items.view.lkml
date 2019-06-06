@@ -129,6 +129,12 @@ view: order_items {
     sql: ${sale_price};;
   }
 
+  measure: percentage_email_source_sales {
+    group_label: "Sales Measures"
+    type: percent_of_total
+    sql: 1.0*${total_email_source_sales} / NULLIF(${total_sales}, 0) ;;
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
