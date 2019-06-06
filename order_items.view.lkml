@@ -131,8 +131,16 @@ view: order_items {
 
   measure: percentage_email_source_sales {
     group_label: "Sales Measures"
-    type: percent_of_total
+    type: number
     sql: 1.0*${total_email_source_sales} / NULLIF(${total_sales}, 0) ;;
+    value_format: "0\%"
+  }
+
+  measure: average_spend_per_user {
+    group_label: "Sales Measures"
+    type: number
+    sql: 1.0*${total_sales} / NULLIF(${users.count}, 0) ;;
+    value_format_name: usd
   }
 
   # ----- Sets of fields for drilling ------
