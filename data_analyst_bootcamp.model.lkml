@@ -12,7 +12,6 @@ datagroup: data_analyst_bootcamp_default_datagroup {
 persist_with: data_analyst_bootcamp_default_datagroup
 
 
-
 # This explore contains multiple views
 explore: order_items {
   join: users {
@@ -32,11 +31,13 @@ explore: order_items {
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
     relationship: many_to_one
   }
+
+  sql_always_where:  ${returned_raw} IS NOT NULL;;
+
+  sql_always_having:  ${sale_price} > 200;;
 }
 
-
 explore: products {}
-
 
 explore: users {
   join: order_items{
