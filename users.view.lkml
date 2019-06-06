@@ -12,6 +12,13 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  dimension: age_tier {
+    type:  tier
+    tiers: [0, 10, 20, 30, 60, 80]
+    sql:  ${age};;
+    style:interval
+  }
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
@@ -80,6 +87,13 @@ view: users {
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
+  }
+
+  dimension: is_email {
+    label: "Traffic Source is Email"
+    type: yesno
+    sql:  ${traffic_source} = 'email';;
+    case_sensitive: no
   }
 
   dimension: zip {
