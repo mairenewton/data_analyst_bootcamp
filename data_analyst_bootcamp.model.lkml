@@ -14,6 +14,11 @@ persist_with: data_analyst_bootcamp_default_datagroup
 
 # This explore contains multiple views
 explore: order_items {
+
+  sql_always_where:  ${returned_raw} IS NOT NULL;;
+
+  sql_always_having:  ${sale_price} > 200;;
+
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -32,9 +37,6 @@ explore: order_items {
     relationship: many_to_one
   }
 
-  sql_always_where:  ${returned_raw} IS NOT NULL;;
-
-  sql_always_having:  ${sale_price} > 200;;
 }
 
 explore: products {}
