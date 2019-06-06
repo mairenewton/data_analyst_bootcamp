@@ -106,4 +106,41 @@ view: order_items {
       inventory_items.product_name
     ]
   }
+
+  #datediff function sets the interval (day) and the two fields to diff-compare
+  dimension: shipping_days{
+    type: number
+    sql: datediff(day, ${shipped_raw}, ${delivered_raw}) ;;
+  }
+
+  measure: number_orders {
+    type: count_distinct
+    sql: ${order_id} ;;
+    #value_format: "#,#00"
+  }
+
+  measure: total_sales {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format: "$#,##0.00;($#,##0.00)"
+    group_label: "Sales Data"
+  }
+
+  measure: avg_sales {
+    type: average
+    sql: ${sale_price} ;;
+    #value_format: "$#,##0.00;($#,##0.00)"
+    value_format_name: usd  #can use currency-code
+    group_label: "Sales Data"
+  }
+
+  measure: sales_from_email {
+    type: sum
+    sql: ${sale_price} ;;
+    filters:  {
+      field: users.user_from_email
+      value: "Yes"
+    }
+  }
+
 }

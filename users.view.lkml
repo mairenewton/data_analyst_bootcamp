@@ -86,4 +86,24 @@ view: users {
     type: count
     drill_fields: [id, first_name, last_name, state, zip]
   }
+
+  dimension: city_state {
+    type:  string
+    sql: ${TABLE}.city || ', ' || ${TABLE}.state ;;
+  }
+
+  dimension: user_from_email {
+    type:  yesno
+    label: "Traffic Source is Email"
+    sql: ${traffic_source} = 'Email' ;;
+    case_sensitive: no  #when checking the logic, doesn't evaluate case-sensitive
+  }
+
+  dimension: age_range {
+    type: tier
+    tiers: [18, 25, 35, 45, 55, 65, 75]  #groups or tiers
+    sql:  ${age};;
+    style: interval #defines as an interval set
+  }
+
 }
