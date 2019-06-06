@@ -86,7 +86,7 @@ view: order_items {
 
   dimension: status {
     type: string
-    sql: UPPER ${TABLE}.status ;;
+    sql: ${TABLE}.status ;;
   }
 
   dimension: user_id {
