@@ -127,6 +127,7 @@ view: order_items {
       value: "Yes"
     }
     sql: ${sale_price};;
+    value_format_name: usd
   }
 
   measure: percentage_email_source_sales {
