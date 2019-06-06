@@ -17,7 +17,7 @@ explore: order_items {
 
   sql_always_having:  ${order_items.count} > 5000;;
 
-  sql_always_where: ${order_items.status} = "complete";;
+  sql_always_where: ${order_items.status} = "COMPLETE";;
 
   join: users {
     type: left_outer
