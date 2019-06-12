@@ -45,7 +45,10 @@ view: order_items {
     type: number
     sql: ${TABLE}.order_id ;;
   }
-
+measure: distinct_orders {
+  type: count_distinct
+  sql: ${order_id} ;;
+}
   dimension_group: returned {
     type: time
     timeframes: [
@@ -64,7 +67,12 @@ view: order_items {
     type: number
     sql: ${TABLE}.sale_price ;;
   }
-
+measure: total_sales
+{
+  type: sum
+  value_format_name: gbp
+  sql: ${sale_price} ;;
+}
   dimension_group: shipped {
     type: time
     timeframes: [
