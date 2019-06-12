@@ -11,6 +11,12 @@ view: users {
     type: number
     sql: ${TABLE}.age ;;
   }
+  dimension: age_group{
+    type: tier
+    tiers: [0,25,45,55,65]
+    sql: ${age};;
+    style: integer
+  }
 
   dimension: city {
     type: string
@@ -76,7 +82,11 @@ view: users {
     type: string
     sql: ${TABLE}.traffic_source ;;
   }
+dimension: from_email{
+  type: yesno
+  sql: ${traffic_source}='Email' ;;
 
+}
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;

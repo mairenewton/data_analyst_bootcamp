@@ -78,6 +78,10 @@ view: order_items {
     ]
     sql: ${TABLE}.shipped_at ;;
   }
+dimension: shipping_days {
+  type: number
+  sql: DATEDIFF( days, ${shipped_raw} , ${delivered_raw} );;
+  }
 
   dimension: status {
     type: string
