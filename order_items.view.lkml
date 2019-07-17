@@ -113,6 +113,22 @@ view: order_items {
     value_format_name: eur_0
   }
 
+  measure: total_sales_for_email {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: eur_0
+    filters: {
+      field: users.from_email
+      value: "Yes"
+    }
+  }
+
+  measure: percentage_sales_for_email {
+    type: number
+    sql: 1.0*${total_sales_for_email}/nullif(${total_sale},0) ;;
+    value_format_name: percent_0
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
