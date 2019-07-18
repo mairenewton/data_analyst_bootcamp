@@ -61,6 +61,7 @@ view: users {
     type: string
     sql: ${first_name} || ' ' || ${last_name} ;;
     #comment
+    #
   }
 
   dimension: latitude {
