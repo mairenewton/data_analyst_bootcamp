@@ -5,14 +5,17 @@ view: products {
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
+#     hidden: yes
   }
 
   dimension: brand {
+#     label: "Product Brand"
     type: string
     sql: ${TABLE}.brand ;;
   }
 
   dimension: category {
+    description: "item category"
     type: string
     sql: ${TABLE}.category ;;
   }
@@ -20,6 +23,7 @@ view: products {
   dimension: cost {
     type: number
     sql: ${TABLE}.cost ;;
+    value_format_name: usd
   }
 
   dimension: department {
@@ -46,6 +50,11 @@ view: products {
   dimension: sku {
     type: string
     sql: ${TABLE}.sku ;;
+  }
+
+  measure: total_cost {
+    type: sum
+    sql: ${cost} ;;
   }
 
   measure: count {

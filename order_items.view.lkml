@@ -41,6 +41,11 @@ view: order_items {
     sql: ${TABLE}.inventory_item_id ;;
   }
 
+  dimension: user_id {
+    type: number
+    sql: ${TABLE}.user_id ;;
+  }
+
   dimension: order_id {
     type: number
     sql: ${TABLE}.order_id ;;
@@ -65,6 +70,11 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
+  dimension: sale_price_gbp {
+    type: number
+    sql: ${sale_price} * 0.82 ;;
+  }
+
   dimension_group: shipped {
     type: time
     timeframes: [
@@ -84,10 +94,14 @@ view: order_items {
     sql: ${TABLE}.status ;;
   }
 
-  dimension: user_id {
-    type: number
-    # hidden: yes
-    sql: ${TABLE}.user_id ;;
+  dimension: status_complete {
+    type: yesno
+    sql: ${status} = 'Complete' ;;
+  }
+
+  measure: count_orders {
+    type: count_distinct
+    sql: ${order_id} ;;
   }
 
   measure: count {

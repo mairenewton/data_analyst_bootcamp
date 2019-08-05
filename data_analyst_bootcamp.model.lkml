@@ -5,14 +5,18 @@ include: "*.view"
 
 
 datagroup: data_analyst_bootcamp_default_datagroup {
-  # sql_trigger: SELECT MAX(id) FROM etl_log;;
+#   sql_trigger: SELECT MAX(id) FROM etl_log;;
   max_cache_age: "1 hour"
 }
 
 persist_with: data_analyst_bootcamp_default_datagroup
 
-# This explore contains multiple views
 explore: order_items {
+#   label: "Orders"
+#   description: "Order details"
+#   group_label: "Order items only"
+
+
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -20,6 +24,7 @@ explore: order_items {
   }
 
   join: inventory_items {
+#     view_label: "Inventory"
     type: left_outer
     sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;
     relationship: many_to_one
@@ -30,6 +35,21 @@ explore: order_items {
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
     relationship: many_to_one
   }
+
+
+#   sql_always_where: ${created_date} >= current_date-7 ;;
+
+#   always_filter: {
+#       filters: {field: created_date value: "last 7 days"}
+#     }
+
+#     conditionally_filter: {
+#         filters: {field: created_date value: "last 7 days"}
+#         unless: [status]
+#     }
+
+
+
 }
 
 

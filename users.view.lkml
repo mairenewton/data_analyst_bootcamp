@@ -12,6 +12,13 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  dimension: age_tier {
+    type: tier
+    sql: ${age} ;;
+    tiers: [0,18,24,35,50,70]
+    style: integer
+  }
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
@@ -80,6 +87,25 @@ view: users {
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
+  }
+
+  measure: count_users {
+    type: count_distinct
+    sql: ${id} ;;
+  }
+
+  measure: users_over_18 {
+    type: count_distinct
+    sql: ${id} ;;
+    filters: {
+      field: age
+      value: "> 18"
+    }
+  }
+
+  measure: adults_as_percent_of_all_users {
+    type: number
+    sql: ${users_over_18} / nullif(${count_users},0) ;;
   }
 
   measure: count {
