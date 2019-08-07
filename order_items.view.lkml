@@ -103,7 +103,7 @@ view: order_items {
     drill_fields: [detail*]
   }
 
-  measure: precentgei_items_delivered {
+  measure: precentage_items_delivered {
     type: number
     sql: 1.00 * $(count_deliver_order_items)/${count} ;;
     value_format_name: percent_1
