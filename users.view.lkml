@@ -103,4 +103,8 @@ view: users {
     type: count
     drill_fields: [id, first_name, last_name, state, zip]
   }
+  measure: average_age {
+    type: average
+    sql: ${age} ;;
+  }
 }
