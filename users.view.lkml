@@ -37,6 +37,14 @@ view: users {
     sql: ${TABLE}.created_at ;;
   }
 
+  dimension: age_tired {
+    type: tier
+    style: integer
+    tiers: [10,30,50,70]
+    sql: ${age} ;;
+  }
+
+
   dimension: email {
     type: string
     sql: ${TABLE}.email ;;
