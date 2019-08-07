@@ -44,6 +44,16 @@ view: users {
     sql: ${age} ;;
   }
 
+  dimension: is_over_30 {
+    type: yesno
+    sql: ${age} > 30 ;;
+  }
+
+  dimension: is_over_30_custom {
+    type: string
+    sql: CASE WHEN ${age} > 30 THEN 'Is Over 30' ELSE 'Is Under 30' END;;
+  }
+
   dimension: email {
     type: string
     sql: ${TABLE}.email ;;
