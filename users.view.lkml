@@ -91,7 +91,7 @@ dimension: age_tired {
 
   dimension: days_since_signup {
     type: number
-    sql:datediff (day,${created_raw}, current_date;;
+    sql:DATEDIFF (day, ${created_raw}, current_date;;
   }
 dimension: signup_Tiered{
   type: tier
