@@ -84,6 +84,14 @@ view: order_items {
     sql: ${TABLE}.status ;;
   }
 
+
+  dimension: days_to_deliver {
+    type: duration_day
+    sql_start: ${created_raw} ;;
+    sql_end: ${delivered_raw} ;;
+  }
+
+
   dimension: user_id {
     type: number
     # hidden: yes
