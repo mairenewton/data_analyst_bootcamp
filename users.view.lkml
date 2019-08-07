@@ -19,6 +19,11 @@ view: users {
     sql: ${age} ;;
   }
 
+  dimension: is_over_30 {
+    type: string
+    sql: CASE WHEN ${age}>30 THEN 'Is Over 30' ELSE 'Is Under 30' END ;;
+  }
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
@@ -44,9 +49,50 @@ view: users {
     sql: ${TABLE}.created_at ;;
   }
 
+  dimension_group: delivered {
+    type: time
+    timeframes: [
+       raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.delivered_at ;;
+  }
+
   dimension: email {
     type: string
     sql: ${TABLE}.email ;;
+  }
+
+  dimension: full_name {
+    type: string
+    sql: ${first_name} || ',' || ${last_name} ;;
+  }
+
+  dimension: days_since_signup {
+    type: number
+    sql: DATEDIFF(day, ${created_raw}, current_date) ;;
+  }
+
+  dimension: days_since_signup_tiered {
+    type: tier
+    style: integer
+    tiers: [10, 20, 30, 40,50,80]
+    sql: ${days_since_signup} ;;
+  }
+
+  dimension: is_new_customer {
+    type: yesno
+    sql: ${days_since_signup}<=30 ;;
+  }
+
+  dimension: new_customer_since_signup_tiered {
+    type: yesno
+    sql: ${days_since_signup_tiered}<=30 ;;
   }
 
   dimension: first_name {
@@ -84,13 +130,32 @@ view: users {
     sql: ${TABLE}.traffic_source ;;
   }
 
+  dimension: days_to_deliver {
+    type: duration_day
+    sql_start: ${created_raw} ;;
+    sql_end: ${delivered_raw} ;;
+  }
+
+
+
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
   }
 
+  measure: count_of_users_percent_of_total {
+    label: "Percent of total users"
+    type: percent_of_total
+    sql: ${count} ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, state, zip]
+  }
+
+  measure: average_user_age {
+    type: average
+    sql: ${age} ;;
   }
 }
