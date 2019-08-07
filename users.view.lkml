@@ -16,7 +16,7 @@ dimension: age_tired {
   type: tier
   style:integer
   tiers:[20,40,50,60]
-  sql:$(age);;
+  sql:${age};;
 }
 
   dimension: city {
@@ -89,6 +89,16 @@ dimension: age_tired {
     sql: ${TABLE}.zip ;;
   }
 
+  dimension: days_since_signup {
+    type: number
+    sql:datediff (day,${created_raw}, current_date;;
+  }
+dimension: signup_Tiered{
+  type: tier
+  style:integer
+  tiers:[20,40,50,60]
+  sql:${days_since_signup};;
+}
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, state, zip]
