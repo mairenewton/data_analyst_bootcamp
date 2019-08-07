@@ -99,10 +99,43 @@ view: users {
     sql: ${TABLE}.zip ;;
   }
 
+  dimension: full_name {
+    type: string
+    sql: ${first_name} ||' ' || ${last_name} ;;
+  }
+
+  dimension: days_since_signup {
+    type: number
+    sql: DATEDIFF(day, ${created_date}, current_date) ;;
+  }
+
+  dimension: new_customer {
+    type: yesno
+    sql: ${days_since_signup} <= 30 ;;
+  }
+
+  dimension: signup_tiered {
+    type: tier
+    style: integer
+    tiers: [30,90,140,300]
+    sql: ${days_since_signup} ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, state, zip]
   }
+
+  measure: count_of_users_percent_of_total{
+    label: "Percent of Users Signed up"
+    type: percent_of_total
+    sql: ${count} ;;
+  }
+  measure: running_total {
+    type: running_total
+    sql: ${count} ;;
+  }
+
   measure: average_age {
     type: average
     sql: ${age} ;;
