@@ -106,6 +106,11 @@ view: order_items {
     sql: ${order_id} ;;
   }
 
+  measure: distinct_users {
+    type: count_distinct
+    drill_fields: [detail*]
+    sql: ${user_id} ;;
+  }
   measure: total_sales {
     type: sum
     drill_fields: [detail*]
@@ -119,6 +124,29 @@ view: order_items {
     sql: ${sale_price} ;;
     value_format_name: usd_0
   }
+
+  measure: sales_from_email_source{
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+    filters:  {
+      field: users.traffic_source
+      value: "Email"
+    }
+  }
+
+  measure: percent_sales_from_email{
+    type: number
+    value_format_name: percent_1
+    sql: 1.0*${sales_from_email_source}/nullif(${total_sales},0) ;;
+  }
+
+  measure: average_spend_per_user{
+    type: number
+    value_format_name: usd
+    sql: 1.0*${total_sales}/nullif(${distinct_users},0) ;;
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
