@@ -105,19 +105,29 @@ dimension: Profit_per_item {
 
 parameter: measure_selector {
   type: unquoted
+  allowed_value: {
+    label: "Total Sales"
+    value: "1"
+  }
+  allowed_value: {
+    label: "Total Profit"
+    value: "2"
+  }
+  default_value: "1"
 }
 
 measure: dynamic_measure {
   type: sum
   sql:
-  {%if measure_selector._parameter_value == '1' %}
+  {% if measure_selector._parameter_value == '1' %}
   ${sale_price}
-  {%elsif measure_selector._parameter_value == '1' %}
+  {% elsif measure_selector._parameter_value == '2' %}
   ${Profit_per_item}
-  {%else%}
+  {% else %}
   ${sale_price}
-  {%endif%}
-  ;;
+  {% endif %} ;;
+  value_format_name: usd
+  label_from_parameter: measure_selector
 }
 
   measure: total_revnue {
