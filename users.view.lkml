@@ -7,6 +7,17 @@ view: users {
     sql: ${TABLE}.id ;;
   }
 
+  dimension: city_comparision {
+    type: string
+    sql: case when {% condition city_selector %} ${city} {% endcondition %} then ${city} else 'Other Citiies' end ;;
+  }
+
+  filter: city_selector {
+    type:  string
+    description: "This is included in city comparion dimension"
+    suggest_dimension: users.city
+  }
+
   dimension: age {
     type: number
     sql: ${TABLE}.age ;;

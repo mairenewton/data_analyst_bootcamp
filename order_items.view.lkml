@@ -7,6 +7,20 @@ view: order_items {
     sql: ${TABLE}.id ;;
   }
 
+  dimension: profit_1 {
+    type: number
+    sql: ${sale_price} - ${inventory_items.cost};;
+  }
+
+  parameter: top_x {
+    type: number
+  }
+
+  dimension: top {
+    type: number
+    sql: {% parameter top_x %} ;;
+  }
+
   dimension_group: created {
     type: time
     timeframes: [
@@ -19,6 +33,34 @@ view: order_items {
       year
     ]
     sql: ${TABLE}.created_at ;;
+  }
+
+  parameter: measure_selector {
+    type: unquoted
+    allowed_value: {
+      label: "Total Sale Price"
+      value: "1"
+    }
+    allowed_value: {
+      label: "Total Profit"
+      value: "2"
+    }
+    default_value: "1"
+
+  }
+
+  measure:  dynamic_measure{
+    type: sum
+    sql:
+    {% if measure_selector._parameter_value == '1' %}
+    ${sale_price}
+    {% elsif measure_selector._parameter_value == '2' %}
+    ${profit_1}
+    {% else %}
+    ${sale_price}
+    {% endif %};;
+    value_format_name: usd
+    label_from_parameter: measure_selector
   }
 
   dimension_group: delivered {
@@ -45,6 +87,8 @@ view: order_items {
     type: number
     sql: ${TABLE}.order_id ;;
   }
+
+
 
   dimension_group: returned {
     type: time
@@ -93,6 +137,20 @@ view: order_items {
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: count_orders {
+    type: count_distinct
+    sql: $order_id ;;
+  }
+
+  measure: count_delivered_order_items {
+    type: count
+    drill_fields: [detail*]
+    filters: {
+      field: delivered_date
+      value: "-Null"
+    }
   }
 
   # ----- Sets of fields for drilling ------
