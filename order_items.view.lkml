@@ -102,13 +102,12 @@ view: order_items {
     type: count
     drill_fields: [detail*]
   }
-
-  measure: precentage_items_delivered {
-    type: number
-    sql: 1.00 * {count_deliver_order_items} / ${count} ;;
-    value_format_name: percent_2
+measure:  count_order{
+  type:  count_distinct
+  sql: ${order_id} ;;
 
   }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
