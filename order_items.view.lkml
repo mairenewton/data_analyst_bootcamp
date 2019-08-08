@@ -41,6 +41,11 @@ view: order_items {
     sql: ${TABLE}.inventory_item_id ;;
   }
 
+  dimension: shipping_days {
+    type: number
+    sql: DATEDIFF(days, ${shipped_date}, ${delivered_date}) ;;
+  }
+
   dimension: order_id {
     type: number
     sql: ${TABLE}.order_id ;;
@@ -95,6 +100,23 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+  measure: distinct_orders {
+    type: count_distinct
+    drill_fields: [detail*]
+    sql: ${order_id} ;;
+  }
+
+  measure: total_sales {
+    type: sum
+    drill_fields: [detail*]
+    sql: ${sale_price} ;;
+  }
+
+  measure: average_sales {
+    type: average
+    drill_fields: [detail*]
+    sql: ${sale_price} ;;
+  }
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
