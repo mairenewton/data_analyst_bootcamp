@@ -110,12 +110,14 @@ view: order_items {
     type: sum
     drill_fields: [detail*]
     sql: ${sale_price} ;;
+    value_format_name: usd
   }
 
   measure: average_sales {
     type: average
     drill_fields: [detail*]
     sql: ${sale_price} ;;
+    value_format_name: usd_0
   }
   # ----- Sets of fields for drilling ------
   set: detail {
