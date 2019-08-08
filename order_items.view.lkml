@@ -35,6 +35,19 @@ view: order_items {
     sql: ${TABLE}.delivered_at ;;
   }
 
+
+dimension: profit {
+  type: number
+ # sql: ${sale_price}-${inventory_item.cost};;
+  value_format_name: usd
+}
+
+  dimension: days_to_deliver  {
+    type: duration_day
+    sql_start: $(${created_raw} ;;
+    sql_end: ${delivered_raw} ;;
+  }
+
   dimension: inventory_item_id {
     type: number
     # hidden: yes
@@ -95,6 +108,47 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+measure: percent_items_delivered {
+  description: "test description"
+  type: number
+  sql: 1.00 * ${count_delivery_order_itmes}/${count} ;;
+  value_format_name: percent_2
+}
+  measure: count_delivery_order_itmes {
+    type: count
+    drill_fields: [detail*]
+    filters: {
+      field: delivered_date
+      value: "-NULL"}
+  }
+
+measure: total_sale_price {
+  type: sum
+  sql: ${sale_price} ;;
+  value_format_name: usd
+}
+
+measure: average_sale_price {
+  type: average
+  sql: ${sale_price} ;;
+  value_format_name: usd
+}
+
+  measure: total_sale_email_users {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+    filters: {
+      field: users.traffic_source
+      value: "Email"
+    }
+  }
+
+
+measure: count_orders {
+  type: count_distinct
+  sql: ${order_id} ;;
+}
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
