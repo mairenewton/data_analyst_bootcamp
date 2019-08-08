@@ -79,6 +79,13 @@ view: order_items {
     sql: ${TABLE}.shipped_at ;;
   }
 
+
+dimension:  days_to_deliver{
+  type: duration_day
+  sql_start: ${created_raw} ;;
+  sql_end: ${delivered_raw} ;;
+}
+
   dimension: status {
     type: string
     sql: ${TABLE}.status ;;
@@ -90,9 +97,76 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+dimension: Profit_per_item {
+  type: number
+  sql: ${sale_price} - ${inventory_items.cost} ;;
+  value_format_name: usd
+}
+
+parameter: measure_selector {
+  type: unquoted
+}
+
+measure: dynamic_measure {
+  type: sum
+  sql:
+  {%if measure_selector._parameter_value == '1' %}
+  ${sale_price}
+  {%elsif measure_selector._parameter_value == '1' %}
+  ${Profit_per_item}
+  {%else%}
+  ${sale_price}
+  {%endif%}
+  ;;
+}
+
+  measure: total_revnue {
+    type: sum
+    sql: ${Profit_per_item} ;;
+    value_format_name: usd
+  }
+
+  measure: total_sale_price {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: count_delivered_ordered_items {
+    type: count
+    drill_fields: [detail*]
+    filters: {
+      field: delivered_date
+      value: "-NULL"
+    }
+  }
+
+  measure: percentage_of_delivered {
+    description: "Percentae of delivered items"
+    type: number
+    sql: 1.00 * ${count_delivered_ordered_items}/${count} ;;
+    value_format_name: percent_2
+  }
+
+  measure: count_of_order {
+    type: count_distinct
+    sql: ${order_id} ;;
+
+  }
+
+  measure: total_sales_email_users{
+   type: sum
+  value_format_name: decimal_2
+  sql: ${sale_price} ;;
+  filters: {
+    field: users.traffic_source
+    value: "Email, Display"
+  }
   }
 
   # ----- Sets of fields for drilling ------

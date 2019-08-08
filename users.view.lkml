@@ -14,14 +14,31 @@ view: users {
 
   dimension: city {
     type: string
+    group_label: "Address"
     sql: ${TABLE}.city ;;
   }
 
   dimension: country {
     type: string
+    group_label: "Address"
     map_layer_name: countries
     sql: ${TABLE}.country ;;
   }
+
+  dimension: city_comparison {
+    description: "This"
+    type: string
+#     sql: CASE WHEN ${city} = 'New York' THEN ${city} ELSE 'Other Cities' END ;;
+    sql: CASE WHEN {% condition city_selector %} ${city} {%endcondition%} THEN ${city} ELSE 'Other Cities' END ;;
+#     sql: CASE WHEN {% condition city_selector %} ${city} {%endcondition%} THEN 'Selected Cities' ELSE 'Other Cities' END ;;
+  }
+
+  filter: city_selector {
+    type: string
+    description: "This slector will specify what city should be included in the city comparision dimension"
+    suggest_dimension: users.city
+  }
+
 
   dimension_group: created {
     type: time
@@ -76,16 +93,20 @@ view: users {
 
   dimension: latitude {
     type: number
+    group_label: "Address"
     sql: ${TABLE}.latitude ;;
   }
 
   dimension: longitude {
     type: number
+    group_label: "Address"
+    group_item_label: "Longitude__"
     sql: ${TABLE}.longitude ;;
   }
 
   dimension: state {
     type: string
+    group_label: "Address"
     sql: ${TABLE}.state ;;
   }
 
@@ -96,6 +117,7 @@ view: users {
 
   dimension: zip {
     type: zipcode
+    group_label: "Address"
     sql: ${TABLE}.zip ;;
   }
 
@@ -139,5 +161,26 @@ view: users {
   measure: average_age {
     type: average
     sql: ${age} ;;
+  }
+
+  measure: count_of_gender{
+    label: "Count of Female users"
+    type: count
+    drill_fields: [detail*]
+    filters: {
+      field : gender
+      value: "Female"
+    }
+  }
+
+  set: detail {
+    fields: [
+      id,
+      users.id,
+      users.first_name,
+      users.last_name,
+      users.state,
+      users.zip
+    ]
   }
 }
