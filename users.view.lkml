@@ -82,6 +82,11 @@ view: users {
     sql: ${TABLE}.zip ;;
   }
 
+  dimension: CityState {
+    type: string
+    sql: Concat(${TABLE}.City, " ", ${TABLE}.State) ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, state, zip]
