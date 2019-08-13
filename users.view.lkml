@@ -86,4 +86,18 @@ view: users {
     type: count
     drill_fields: [id, first_name, last_name, state, zip]
   }
+
+  dimension: CityState {
+    type:  string
+    sql:  ${city} || ${state} ;;
+  }
+
+  dimension: isEmail {
+    type:  yesno
+    sql:  ${traffic_source} = 'Email' ;;
+  }
+
+  #dimension:   {
+  #
+  #}
 }

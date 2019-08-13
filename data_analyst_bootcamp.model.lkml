@@ -36,4 +36,16 @@ explore: order_items {
 explore: products {}
 
 
-explore: users {}
+explore: users {
+  persist_with: users_datagroup
+  join:  order_items {
+  type:  left_outer
+  sql_on:  ${users.id} = ${order_items.user_id} ;;
+  relationship:  one_to_many
+  }
+}
+
+datagroup: users_datagroup {
+  sql_trigger:  select current_date ;;
+  max_cache_age: "24 hours"
+}
