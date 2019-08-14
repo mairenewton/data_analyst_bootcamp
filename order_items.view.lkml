@@ -83,7 +83,10 @@ view: order_items {
     type: string
     sql: ${TABLE}.status ;;
   }
-
+dimension: first_last_name {
+  type: string
+  sql: CONCAT($first_name), " ", ($last_name);;
+}
   dimension: user_id {
     type: number
     # hidden: yes
