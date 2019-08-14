@@ -84,7 +84,7 @@ view: users {
 
   dimension: first_last_name {
     type: string
-    sql:  CONCAT(${first_name}," ",${last_name}) ;;
+    sql:  ${first_name}||" "||${last_name} ;;
   }
 
   measure: count {
