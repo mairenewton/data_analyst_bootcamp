@@ -81,6 +81,11 @@ view: users {
     sql: ${TABLE}.zip ;;
   }
 
+  dimension: first_last_name {
+    type: string
+    sql: CONCAT(${first_name}, " ",${last_name}) ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
