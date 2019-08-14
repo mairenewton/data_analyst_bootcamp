@@ -60,7 +60,7 @@ view: users {
 
   dimension: FirstLastName{
     type: string
-    sql: ${first_name} || " " || ${last_name}
+    sql: ${first_name} || ' ' || ${last_name}
   }
 
 
