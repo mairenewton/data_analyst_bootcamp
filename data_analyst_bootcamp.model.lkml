@@ -1,4 +1,5 @@
 connection: "events_ecommerce"
+fiscal_month_offset: 3
 
 # include all the views
 include: "*.view"
