@@ -17,6 +17,13 @@ view: users {
     sql: ${TABLE}.city ;;
   }
 
+
+  dimension: citystate {
+    type: string
+    sql: ${TABLE}.city ;;
+  }
+
+
   dimension: country {
     type: string
     map_layer_name: countries
@@ -72,10 +79,29 @@ view: users {
     sql: ${TABLE}.state ;;
   }
 
+  dimension: City_State {
+    type: string
+    sql: ${city} || ',' || ${state} ;;
+  }
+
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
   }
+
+  dimension: Acquired_by_Email {
+    type: yesno
+    sql: ${traffic_source} = 'Email' ;;
+  }
+
+
+  dimension: Datediff {
+    type: tier
+    tiers: [18,25,35,45,55,65,75,90]
+    style:  classic
+    sql: ${age} ;;
+  }
+
 
   dimension: zip {
     type: zipcode
