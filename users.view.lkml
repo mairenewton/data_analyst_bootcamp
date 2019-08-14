@@ -57,6 +57,13 @@ view: users {
     sql: ${TABLE}.last_name ;;
   }
 
+
+  dimension: FirstLastName{
+    type: string
+    sql: CONCAT(${first_name}," ", ${last_name});;
+  }
+
+
   dimension: latitude {
     type: number
     sql: ${TABLE}.latitude ;;
