@@ -3,6 +3,7 @@ connection: "events_ecommerce"
 # include all the views
 include: "*.view"
 
+fiscal_month_offset:3
 
 datagroup: data_analyst_bootcamp_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
