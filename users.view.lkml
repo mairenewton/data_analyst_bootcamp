@@ -37,6 +37,11 @@ view: users {
     sql: ${TABLE}.created_at ;;
   }
 
+  dimension: days_since_signup {
+    type: number
+    sql: date_diff(days, ${created_raw}, current_date) ;;
+  }
+
   dimension: email {
     type: string
     sql: ${TABLE}.email ;;
