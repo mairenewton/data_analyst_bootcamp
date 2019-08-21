@@ -21,6 +21,7 @@ view: order_items {
     sql: ${TABLE}.created_at ;;
   }
 
+
   dimension_group: delivered {
     type: time
     timeframes: [
@@ -93,6 +94,28 @@ view: order_items {
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: total_sales {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
+  measure: average_sale_price {
+    type:  average
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
+  measure: total_female_sales {
+    type:sum
+    sql: ${sale_price} ;;
+    filters: {
+      field: users.gender
+      value:"female"
+    }
+    value_format_name: usd_0
   }
 
   # ----- Sets of fields for drilling ------
