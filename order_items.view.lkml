@@ -21,6 +21,28 @@ view: order_items {
     sql: ${TABLE}.created_at ;;
   }
 
+
+
+  measure: min_order_created_date  {
+    type: date
+    sql: min(${created_raw}) ;;
+  }
+
+  measure: max_order_created_date  {
+    type: date
+    sql: max(${created_raw}) ;;
+  }
+
+
+
+  dimension_group: since_first_order {
+    type: duration
+    sql_start: ${user_sales_count_native_dt.first_order_raw} ;;
+    sql_end: ${created_raw} ;;
+  }
+
+
+
   dimension_group: delivered {
     type: time
     timeframes: [
@@ -63,6 +85,16 @@ view: order_items {
   dimension: sale_price {
     type: number
     sql: ${TABLE}.sale_price ;;
+  }
+
+  measure: total_sale_price {
+    type: sum
+    sql: (${sale_price}) ;;
+  }
+
+  measure: count_orders {
+    type: count_distinct
+    sql: (${order_id});;
   }
 
   dimension_group: shipped {
