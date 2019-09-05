@@ -90,9 +90,58 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+  dimension: shipping_days {
+    type: number
+    sql: ${delivered_date} - ${shipped_date};;
+  }
+
+  measure: sales_from_email {
+    type: sum
+    filters: {
+      field: users.traffic_source
+      value: "Email"
+    }
+    sql: ${sale_price} ;;
+  }
+
+  measure: sales_from_email_pct {
+    type: percent_of_total
+    sql: ${sales_from_email} ;;
+  }
+
+  measure: distinct_orders_count {
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
+  measure: total_sales {
+    type: sum
+    sql: ${sale_price} ;;
+  }
+
+  measure: avg_sales {
+    type: average
+    sql: ${sale_price} ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: min_order_created_date {
+    type: date
+    sql: min(${created_raw}) ;;
+  }
+
+  measure: max_order_created_date {
+    type: date
+    sql: max(${created_raw}) ;;
+  }
+
+  measure: count_of_order_id {
+    type: count_distinct
+    sql: ${order_id} ;;
   }
 
   # ----- Sets of fields for drilling ------

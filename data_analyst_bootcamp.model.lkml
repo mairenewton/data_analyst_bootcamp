@@ -3,16 +3,17 @@ connection: "events_ecommerce"
 # include all the views
 include: "*.view"
 
-
-datagroup: data_analyst_bootcamp_default_datagroup {
-  # sql_trigger: SELECT MAX(id) FROM etl_log;;
-  max_cache_age: "1 hour"
+datagroup: max_created_at {
+  max_cache_age: "4 hour"
+  sql_trigger: select count(*) from order_items;;
 }
 
-persist_with: data_analyst_bootcamp_default_datagroup
+persist_with: max_created_at
 
 # This explore contains multiple views
 explore: order_items {
+  join: custom_view_hehe {}
+
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -36,4 +37,15 @@ explore: order_items {
 explore: products {}
 
 
-explore: users {}
+explore: users {
+  join: order_items {
+    sql_on: ${order_items.user_id} = ${users.id} ;;
+    relationship: many_to_one
+  }
+
+  join: custom_view_hehe {
+    type: inner
+    sql_on: ${custom_view_hehe.user_id} = ${users.id} ;;
+    relationship: many_to_one
+  }
+}

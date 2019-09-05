@@ -82,6 +82,23 @@ view: users {
     sql: ${TABLE}.zip ;;
   }
 
+  dimension: city_state {
+    type: string
+    sql: ${city} + ', ' + ${state} ;;
+  }
+
+  dimension: is_source_email {
+    type: yesno
+    sql: ${traffic_source} = "Email";;
+  }
+
+  dimension: age_buckets {
+    type: tier
+    tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+    style: integer
+    sql: ${age} ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, state, zip]
