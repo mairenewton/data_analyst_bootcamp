@@ -1,0 +1,62 @@
+view: user_order_fact {
+  derived_table: {
+    sql: SELECT
+         order_items.user_id as user_id
+        ,COUNT(distinct order_items.order_id) as lifetime_order_count
+        ,SUM(order_items.sale_price) as lifetime_revenue
+      ,MIN(order_items.created_at) as first_order_date
+      ,MAX(order_items.created_at) as latest_order_date
+      FROM order_items
+      WHERE
+      {% condition order_items.status %} order_items.status {% endcondition %}
+      AND {% condition order_items.created_date %} order_items.created_date {% endcondition %}
+      AND {% condition user_order_fact.user_name %} user_order_fact.user_name {% endcondition %}
+      GROUP BY user_id
+       ;;
+  }
+
+  filter: user_name {
+    type: string
+    suggest_explore: order_items
+    suggest_dimension: order_items.user_name
+  }
+
+  dimension: user_id {
+    primary_key: yes
+    hidden: yes
+    type: number
+    sql: ${TABLE}.user_id ;;
+  }
+
+  dimension: lifetime_order_count {
+    type: number
+    sql: ${TABLE}.lifetime_order_count ;;
+  }
+
+  dimension: customer_loyalty_tier {
+    type: tier
+    sql: ${lifetime_order_count} ;;
+    tiers: [0,10,25,50]
+  }
+
+  dimension: lifetime_revenue {
+    type: number
+    sql: ${TABLE}.lifetime_revenue ;;
+  }
+
+  dimension_group: first_order {
+    type: time
+    timeframes: [raw,time,date,week,month,year]
+    sql: ${TABLE}.first_order_date ;;
+  }
+
+  dimension_group: latest_order {
+    type: time
+    timeframes: [raw,time,date,week,month,year]
+    sql: ${TABLE}.latest_order_date ;;
+  }
+
+  set: detail {
+    fields: [user_id, lifetime_order_count, lifetime_revenue, first_order_time, latest_order_time]
+  }
+}
