@@ -122,6 +122,13 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+  dimension: user_name {
+    type: string
+    # hidden: yes
+    sql: ${TABLE}.first_name ;;
+  }
+
+
   measure: count {
     type: count
     drill_fields: [detail*]

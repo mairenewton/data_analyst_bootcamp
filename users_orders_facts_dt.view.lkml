@@ -5,15 +5,27 @@ view: users_orders_facts_dt {
     sum(order_items.sale_price),
     min(order_items.created_at) as first_order,
     max(order_items.created_at) as latest_order
-       from users inner join order_items on
-       users.id=order_items.user_id
+    from users
+    inner join order_items on
+       users.id=order_items.user_id,
+       {% condition order_items.status  %} order_items.status  {% endcondition %}
+      AND {% condition order_items.created_date  %} order_items.created_at  {% endcondition %}
+      AND {% condition users_orders_facts_dt.user_name  %} users.user_name  {% endcondition %}
+
        group by users.id
        ;;
   }
 
+
   dimension: usersid {
     type: number
     sql: ${TABLE}.usersid ;;
+  }
+
+  filter: user_name {
+    type: string
+    suggest_explore: order_items
+    suggest_dimension: order_items.user_name
   }
 
   dimension: count {

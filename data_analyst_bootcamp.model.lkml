@@ -28,12 +28,13 @@ explore: order_items {
 
   }
 
-#
-#   join: users_orders_facts_dt {
-#     type: inner
-#     sql_on: ${users_orders_facts_dt.usersid} = ${users.id} ;;
-#     relationship: many_to_one
-#   }
+
+ join: users_orders_facts_dt {
+ type: inner
+ sql_on: ${users_orders_facts_dt.usersid} = ${users.id} ;;
+ relationship: many_to_one
+
+}
 
 
   join: inventory_items {
