@@ -99,7 +99,7 @@ view: order_items {
   measure: total_sales {
     type: sum
     sql: ${sale_price} ;;
-    value_format_name: usd
+    value_format_name: usd_0
   }
 
   measure: average_sale_price {
@@ -113,9 +113,15 @@ view: order_items {
     sql: ${sale_price} ;;
     filters: {
       field: users.gender
-      value:"female"
+      value:"Female"
     }
     value_format_name: usd_0
+  }
+
+  measure: percent_female_sales {
+    type: number
+    sql: 1.0*${total_female_sales}/NULLIF(${total_sales},0) ;;
+    value_format_name: percent_1
   }
 
   # ----- Sets of fields for drilling ------
