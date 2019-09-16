@@ -1,6 +1,7 @@
+include: "geography_dimensions.view"
 view: users {
   sql_table_name: public.users ;;
-
+  extends: [geography_dimensions]
   dimension: id {
     primary_key: yes
     type: number
@@ -12,15 +13,21 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
-  dimension: city {
+  dimension: city_state {
     type: string
-    sql: ${TABLE}.city ;;
+    sql: ${city} || ', ' || ${state} ;;
   }
 
-  dimension: country {
-    type: string
-    map_layer_name: countries
-    sql: ${TABLE}.country ;;
+  dimension: email_or_not {
+    type: yesno
+    sql: ${traffic_source} = 'Email' ;;
+  }
+
+  dimension: age_group {
+    type: tier
+    style: integer
+    tiers: [18,25,35,45,55,65,75,90]
+    sql: ${age};;
   }
 
   dimension_group: created {
@@ -55,21 +62,6 @@ view: users {
   dimension: last_name {
     type: string
     sql: ${TABLE}.last_name ;;
-  }
-
-  dimension: latitude {
-    type: number
-    sql: ${TABLE}.latitude ;;
-  }
-
-  dimension: longitude {
-    type: number
-    sql: ${TABLE}.longitude ;;
-  }
-
-  dimension: state {
-    type: string
-    sql: ${TABLE}.state ;;
   }
 
   dimension: traffic_source {

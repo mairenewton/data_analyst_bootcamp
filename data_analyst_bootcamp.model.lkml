@@ -9,13 +9,36 @@ datagroup: data_analyst_bootcamp_default_datagroup {
   max_cache_age: "1 hour"
 }
 
+datagroup: count_order_items {
+  sql_trigger: select count(*) from order_items;;
+}
+
 persist_with: data_analyst_bootcamp_default_datagroup
 
+datagroup:max_created_4_hours{
+  sql_trigger: select max(created_at) from order_items;;
+  max_cache_age: "4 hours"
+}
 # This explore contains multiple views
 explore: order_items {
+  persist_with: max_created_4_hours
+#   always_join: [users]
+
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
+    relationship: many_to_one
+  }
+
+  join: user_orders_fact {
+    type: inner
+    sql_on: ${user_orders_fact.user_id} = ${users.id} ;;
+    relationship: many_to_one
+  }
+
+  join: user_orders_fact_ndt {
+    type: inner
+    sql_on: ${user_orders_fact_ndt.user_id} = ${users.id} ;;
     relationship: many_to_one
   }
 
@@ -32,8 +55,22 @@ explore: order_items {
   }
 }
 
+explore: users {
+  join: order_items {
+    type: left_outer
+    sql_on: ${order_items.user_id} = ${users.id} ;;
+    relationship: one_to_many
+  }
 
-explore: products {}
+  join: user_orders_fact {
+    type: left_outer
+    sql_on: ${user_orders_fact.user_id} = ${users.id} ;;
+    relationship: many_to_one
+  }
 
-
-explore: users {}
+  join: user_orders_fact_ndt {
+    type: left_outer
+    sql_on: ${user_orders_fact_ndt.user_id} = ${users.id} ;;
+    relationship: many_to_one
+  }
+}
