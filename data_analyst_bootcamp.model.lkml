@@ -3,13 +3,37 @@ connection: "events_ecommerce"
 # include all the views
 include: "*.view"
 
-
-datagroup: data_analyst_bootcamp_default_datagroup {
-  # sql_trigger: SELECT MAX(id) FROM etl_log;;
-  max_cache_age: "1 hour"
+## colorado stuff
+map_layer: colorado_region {
+  file: "colorado.topojson"
+  property_key: "REGION"
 }
 
-persist_with: data_analyst_bootcamp_default_datagroup
+map_layer: better_colorado_region {
+  file: "better_colorado.topojson"
+  property_key: "Region"
+}
+
+explore: colorado_regions {}
+explore: better_colorado_regions {}
+
+
+
+explore: forecasted_poc {}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # This explore contains multiple views
 explore: order_items {
@@ -33,7 +57,36 @@ explore: order_items {
 }
 
 
-explore: products {}
-
-
-explore: users {}
+#explore: users {
+#  description: "**NOTE**: data is only from the last 12 months"
+#  label: "Users (Data from last 12 months)"
+#  sql_always_where:
+#  {% if selected_timeframe._parameter_value == "This Month" %}
+#  ${created_date} = this_month
+#  {% if selected_timeframe._parameter_value == "This Year" %}
+#  ${created_year} = this year
+#  ...
+#  ...
+#  {% else %}
+#  last 12 months..
+#
+#
+#  ${created_date} > current_date ;;
+#  #conditionally_filter: {
+#  #  filters: {
+#  #    field: state
+#  #    value: "California"
+#  #  }
+#  #  unless: [country, gender]
+#  #}
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#}
+#

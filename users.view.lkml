@@ -1,6 +1,20 @@
 view: users {
   sql_table_name: public.users ;;
 
+  parameter: selected_timeframe {
+    type: string
+
+    allowed_value: {
+      label: "This Month"
+      value: "This Month"
+    }
+
+    allowed_value: {
+      label: "This Year"
+      value: "This Year"
+    }
+  }
+
   dimension: id {
     primary_key: yes
     type: number
@@ -68,6 +82,7 @@ view: users {
   }
 
   dimension: state {
+    map_layer_name: us_states
     type: string
     sql: ${TABLE}.state ;;
   }
@@ -85,5 +100,19 @@ view: users {
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, state, zip]
+    link: {
+      label: "drill"
+      url: "{{link}}?zip=80211"
+    }
   }
+
+
+
+
+
+
+
+
+
+
 }
