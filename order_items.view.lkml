@@ -35,6 +35,13 @@ view: order_items {
     sql: ${TABLE}.delivered_at ;;
   }
 
+  dimension_group: shipping_days {
+    type: duration
+    sql_start: ${shipped_raw} ;;
+    sql_end: ${delivered_raw} ;;
+    intervals: [day, hour, month, quarter]
+  }
+
   dimension: inventory_item_id {
     type: number
     # hidden: yes
