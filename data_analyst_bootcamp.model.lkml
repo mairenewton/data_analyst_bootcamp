@@ -21,11 +21,19 @@ explore: order_items {
     relationship: many_to_one
   }
 
+  join: user_order_item_sdt {
+    type: inner
+    sql_on: ${users.id} = ${user_order_item_sdt.user_id} ;;
+    relationship: one_to_one
+  }
+
   join: inventory_items {
     type: left_outer
     sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;
     relationship: many_to_one
   }
+
+
 
   join: products {
     type: left_outer
@@ -34,8 +42,12 @@ explore: order_items {
   }
 }
 
-
 explore: products {}
 
-
-explore: users {}
+explore: users {
+  join: order_items {
+    type: left_outer
+    sql_on: ${users.id} = ${order_items.id} ;;
+    relationship: one_to_many
+  }
+}
