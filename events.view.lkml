@@ -83,7 +83,7 @@ view: events {
 
   dimension: email_traffic_source {
     type: yesno
-    sql: ${traffic_source} = "Email" ;;
+    sql: lower(${traffic_source}) = "Email" ;;
   }
 
   dimension: uri {
