@@ -84,6 +84,12 @@ view: order_items {
     sql: date_diff(day, ${shipped_date}, ${delivered_date}) ;;
   }
 
+  dimension: shipping_days_2 {
+    type: duration_day
+    sql_start:  ${shipped_date} ;;
+    sql_end:  ${delivered_date} ;;
+  }
+
   dimension: status {
     type: string
     sql: ${TABLE}.status ;;
