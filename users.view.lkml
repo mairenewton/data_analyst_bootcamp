@@ -12,6 +12,13 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  dimension: age_bucket  {
+    type: tier
+    tiers: [0,10,20,30,40,50,60]
+    style: integer
+    sql: ${age};;
+  }
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
@@ -67,6 +74,12 @@ view: users {
     sql: ${TABLE}.longitude ;;
   }
 
+  dimension: lat_long {
+    type: location
+    sql_latitude: ${latitude} ;;
+    sql_longitude: ${longitude} ;;
+  }
+
   dimension: state {
     type: string
     sql: ${TABLE}.state ;;
@@ -80,6 +93,11 @@ view: users {
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
+  }
+
+  dimension: city_and_state {
+    type: string
+    sql: ${TABLE}.city || ', ' || ${TABLE}.state ;;
   }
 
   measure: count {
