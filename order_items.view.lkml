@@ -86,6 +86,7 @@ view: order_items {
 
   dimension: shipping_days_2 {
     type: duration_day
+#     intervals: [day]
     sql_start:  ${shipped_date} ;;
     sql_end:  ${delivered_date} ;;
   }
