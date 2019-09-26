@@ -62,7 +62,7 @@ view: order_items {
 
   dimension: sale_price {
     type: number
-    sql: ${TABLE}.sale_price ;;
+    sql: ${TABLE}.sale_price * 1000 ;;
   }
 
   dimension_group: shipped {
