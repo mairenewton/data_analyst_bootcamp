@@ -2,6 +2,7 @@ view: order_items {
   sql_table_name: public.order_items ;;
 
   dimension: id {
+    label: "Order Item ID"
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
@@ -62,7 +63,34 @@ view: order_items {
 
   dimension: sale_price {
     type: number
-    sql: ${TABLE}.sale_price * 1000 ;;
+    sql: ${TABLE}.sale_price ;;
+  }
+
+
+  measure: total_revenue {
+    type: sum
+    sql: ${sale_price} ;;
+  }
+
+#   dimension: profit {
+#     type: number
+#     value_format_name: usd
+#     sql: ${sale_price} - ${inventory_items.cost} ;;
+#     #Sales Price minus Inventory Cost
+#   }
+
+#   measure: total_profit {
+#     type: sum
+#     sql: ${profit} ;;
+#   }
+
+  measure: total_sales_new_users {
+    type: sum
+    sql: ${sale_price};;
+    filters: {
+      field: users.is_new_user
+      value: "Yes"
+    }
   }
 
   dimension_group: shipped {
@@ -79,6 +107,12 @@ view: order_items {
     sql: ${TABLE}.shipped_at ;;
   }
 
+  dimension: shipping_days {
+    description: "Number of days between shipped date and delivered date"
+    type: number
+    sql: DATEDIFF(day,${shipped_date},${delivered_date}) ;;
+  }
+
   dimension: status {
     type: string
     sql: ${TABLE}.status ;;
@@ -90,7 +124,12 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
-  measure: count {
+  measure: order_count {
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
+  measure: order_item_count {
     type: count
     drill_fields: [detail*]
   }
