@@ -82,6 +82,13 @@ view: users {
     sql: ${TABLE}.zip ;;
   }
 
+  dimension: city_state {
+    type: string
+    sql: ${city} || ', ' || ${state} ;;
+  }
+
+  #dimension:   {}
+
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
