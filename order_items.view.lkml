@@ -83,7 +83,7 @@ view: order_items {
 
   dimension: shippingDays {
     type: number
-    sql: ${shipped_date}-${delivered_date} ;;
+    sql: ${delivered_date}-${shipped_date} ;;
   }
 
   dimension: status {
