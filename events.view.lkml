@@ -17,6 +17,11 @@ view: events {
     sql: ${TABLE}.city ;;
   }
 
+  dimension: IsEmail {
+    type: yesno
+    sql: ${traffic_source}='Email' ;;
+  }
+
   dimension: country {
     type: string
     sql: ${TABLE}.country ;;
