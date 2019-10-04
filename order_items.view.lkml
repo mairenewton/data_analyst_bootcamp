@@ -90,6 +90,16 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+  dimension: ship_lead_time {
+    type:  number
+    sql: DATEDIFF(day, ${shipped_date}, ${delivered_date}) ;;
+  }
+
+#  dimension: of_shipping {
+#    type:  duration
+#    sql_start: ${shipped_raw};;
+#  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
