@@ -90,7 +90,7 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
-  dimension: ship_days {:
+  dimension: ship_days {
     type:  number
     sql:  DATEDIFF(day, ${shipped_date}, ${delivered_date}) ;;
   }
