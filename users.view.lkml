@@ -72,6 +72,30 @@ view: users {
     sql: ${TABLE}.state ;;
   }
 
+  dimension: city_state {
+    type:  string
+    sql:  ${city} + ', ' + ${state} ;;
+
+  }
+
+  dimension: traffic_source_email  {
+
+    type: yesno
+    sql:  ${traffic_source} = 'Email';;
+
+  }
+
+  dimension: age_buckets  {
+    type:  tier
+    tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+    sql: ${age} ;;
+    style: interval
+
+  }
+
+
+
+
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
