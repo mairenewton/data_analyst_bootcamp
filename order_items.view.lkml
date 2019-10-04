@@ -102,6 +102,54 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+  measure: UniqueOrders {
+    type: count_distinct
+    sql:  ${order_id} ;;
+      }
+
+  measure: TotalSales {
+    type: sum
+    sql:  ${sale_price} ;;
+  }
+
+
+  measure: AvregaeSales {
+    type: average
+    sql:  ${sale_price} ;;
+  }
+
+
+  measure: TotalSales_Email {
+    type: sum
+    sql:  ${sale_price} ;;
+    filters: {
+      field: users.traffic_source
+      value: "Email"}
+  }
+
+ measure: percentage_email_sales {
+
+  type: number
+  value_format_name: percent_1
+  sql: 1.0*${TotalSales_Email}
+    /NULLIF(${TotalSales}, 0) ;;
+}
+
+  measure: total_users {
+    type: count_distinct
+    sql: ${user_id}   ;;
+  }
+
+
+  measure: avg_spend_ {
+    type: number
+    value_format_name: decimal_0
+    sql: ${TotalSales}
+      /NULLIF(${total_users}, 0) ;;
+  }
+
+
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
