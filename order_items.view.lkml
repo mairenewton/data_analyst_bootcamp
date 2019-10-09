@@ -100,6 +100,30 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+  measure: average_shipping_days {
+    type: average
+    sql: ${shipping_days} ;;
+  }
+
+  measure: count_distinct_orders {
+    description: "Count distinct Orders"
+    type: count_distinct
+    sql: ${order_id} ;;
+    drill_fields: [order_id, created_date, shipped_date, sale_price]
+  }
+
+  measure: total_sales {
+    type: sum
+    sql: ${sale_price} ;;
+    drill_fields: [order_id, created_date, shipped_date, sale_price]
+  }
+
+  measure: average_sales {
+    type: average
+    sql: ${sale_price} ;;
+    drill_fields: [order_id, created_date, shipped_date, sale_price]
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
