@@ -35,20 +35,9 @@ view: order_items {
     sql: ${TABLE}.delivered_at ;;
   }
 
-  dimension_group: shipping_days {
-    type: duration
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql_start: ${TABLE}.shipped_date;;
-    sql_end: ${TABLE}.delivered_date;;
-    intervals: [day]
+  dimension: shipping_days {
+    type: number
+    sql: DATEDIFF(day, ${shipped_date}, ${delivered_date}) ;;
   }
 
   dimension: inventory_item_id {
@@ -110,6 +99,11 @@ view: order_items {
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: average_shipping_days {
+    type: average
+    sql: ${shipping_days};;
   }
 
   # ----- Sets of fields for drilling ------
