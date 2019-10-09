@@ -82,6 +82,15 @@ view: users {
     sql: ${TABLE}.zip ;;
   }
 
+  dimension: traffic_source_email {
+    type: yesno
+    sql: CASE
+    WHEN
+    ${traffic_source}='Email' then 'Yes'
+    else 'No'
+    END ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
