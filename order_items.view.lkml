@@ -98,12 +98,14 @@ view: order_items {
   measure: total_sales {
     type: sum
     sql: ${sale_price} ;;
+    value_format: "$#.00;($#.00)"
     drill_fields: [inventory_item_id, total_sales]
   }
 
   measure: average_sales_price {
     type: average
     sql: ${sale_price} ;;
+    value_format: "$#.00;($#.00)"
     drill_fields: [inventory_item_id, average_sales_price]
     }
 
