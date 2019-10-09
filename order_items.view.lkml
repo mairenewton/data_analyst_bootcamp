@@ -90,10 +90,34 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+  dimension: shipping_days {
+    type:  number
+    sql: datediff(days,${shipped_date},${delivered_date}) ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
   }
+
+  measure:count_distinct_orders   {
+    type: count_distinct
+    sql: ${order_id} ;;
+    drill_fields: [order_id,created_date,shipped_date,sale_price]
+  }
+
+  measure: total_sales_price {
+    type: sum
+    sql: ${sale_price} ;;
+    drill_fields: [order_id,created_date,shipped_date]
+  }
+
+  measure: average_sales_price {
+    type: average
+    sql:  ${sale_price} ;;
+    drill_fields: [order_id,created_date,shipped_date]
+  }
+
 
   # ----- Sets of fields for drilling ------
   set: detail {
