@@ -98,12 +98,14 @@ view: order_items {
   measure: total_sales {
     type: sum
     sql: ${sale_price} ;;
+    drill_fields: [inventory_item_id, total_sales]
   }
 
   measure: average_sales_price {
     type: average
     sql: ${sale_price} ;;
-  }
+    drill_fields: [inventory_item_id, average_sales_price]
+    }
 
   measure: count_distinct_orders {
     description: "Count distinct orders"
