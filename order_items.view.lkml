@@ -95,6 +95,12 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+  measure: count_distinct_orders {
+    description: "Count distinct orders"
+    type: count_distinct
+    sql: ${order_id} ;;
+    drill_fields: [order_id, created_date, shipped_date, sale_price]
+  }
 
   measure: count {
     type: count
