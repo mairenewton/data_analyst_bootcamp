@@ -95,6 +95,11 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+  measure: total_sales {
+    type: sum
+    sql: ${sale_price} ;;
+  }
+
   measure: count_distinct_orders {
     description: "Count distinct orders"
     type: count_distinct
