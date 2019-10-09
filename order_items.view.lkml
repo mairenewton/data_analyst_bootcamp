@@ -120,6 +120,7 @@ view: order_items {
 
   measure: average_sales {
     type: average
+    value_format: "$#.00;($#.00)"
     sql: ${sale_price} ;;
     drill_fields: [order_id, created_date, shipped_date, sale_price]
   }
