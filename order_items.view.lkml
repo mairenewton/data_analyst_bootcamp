@@ -35,6 +35,22 @@ view: order_items {
     sql: ${TABLE}.delivered_at ;;
   }
 
+  dimension_group: shipping_days {
+    type: duration
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql_start: ${TABLE}.shipped_date;;
+    sql_end: ${TABLE}.delivered_date;;
+    intervals: [day]
+  }
+
   dimension: inventory_item_id {
     type: number
     # hidden: yes
@@ -89,6 +105,7 @@ view: order_items {
     # hidden: yes
     sql: ${TABLE}.user_id ;;
   }
+
 
   measure: count {
     type: count
