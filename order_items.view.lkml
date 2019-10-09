@@ -100,6 +100,11 @@ view: order_items {
     sql: ${sale_price} ;;
   }
 
+  measure: average_sales_price {
+    type: average
+    sql: ${sale_price} ;;
+  }
+
   measure: count_distinct_orders {
     description: "Count distinct orders"
     type: count_distinct
