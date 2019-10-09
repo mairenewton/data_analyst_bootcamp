@@ -125,6 +125,15 @@ view: order_items {
     drill_fields: [order_id, created_date, shipped_date, sale_price]
   }
 
+  measure: total_sales_new_users {
+    type: sum
+    sql: ${sale_price} ;;
+    filters:  {
+      field: users.is_new_user
+      value: "Yes"
+    }
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [

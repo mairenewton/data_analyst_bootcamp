@@ -87,11 +87,6 @@ view: users {
     sql: ${city} || ', ' || ${state};;
   }
 
-  dimension: is_email_source {
-    type: yesno
-    sql: ${traffic_source} = ‘Email’ ;;
-  }
-
   dimension: age_tier {
     type: tier
     tiers: [18, 25, 35, 45, 55, 65, 75, 90]
@@ -99,8 +94,27 @@ view: users {
     style: integer
   }
 
+  dimension: days_since_signup {
+    type: number
+    sql: datediff(days, ${created_date}, getdate()) ;;
+  }
+
+  dimension: is_new_user {
+    type: yesno
+    sql: ${days_since_signup} <= 90 ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
+  }
+
+
+  measure: count_female_users {
+    type: count
+    filters:  {
+      field: gender
+      value: "Female"
+    }
   }
 }
