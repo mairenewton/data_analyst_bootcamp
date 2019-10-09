@@ -84,11 +84,7 @@ view: users {
 
   dimension: traffic_source_email {
     type: yesno
-    sql: CASE
-    WHEN
-    ${traffic_source}='Email' then 'Yes'
-    else 'No'
-    END ;;
+    sql: ${traffic_source}='Email' ;;
   }
 
   measure: count {
