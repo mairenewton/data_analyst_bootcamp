@@ -7,7 +7,7 @@ view: users {
     sql: ${TABLE}.id ;;
   }
 
-  dimension: age {
+  dimension: testage {
     type: number
     sql: ${TABLE}.age ;;
   }
