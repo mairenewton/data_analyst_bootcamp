@@ -90,6 +90,50 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+  dimension: shipping_days {
+    type: number
+    sql: DATEDIFF('day', ${shipped_date}, ${delivered_date}) ;;
+  }
+
+  measure: distinct_number_of_orders {
+    type: count_distinct
+    sql: ${id} ;;
+  }
+
+  measure: total_sales {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
+  measure: average_sales {
+    type: average
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
+  measure: sales_from_email_users {
+    type: sum
+    value_format_name: usd_0
+    sql: ${sale_price} ;;
+    filters: {
+      field: users.traffic_source_is_email
+      value: "Yes"
+    }
+  }
+
+  measure: percent_sales_from_email {
+    type:  number
+    value_format_name: percent_2
+    sql: 1.0*${sales_from_email_users}/NULLIF(${total_sales}, 0);;
+  }
+
+  measure: spend_per_user {
+    type:  number
+    value_format_name: usd
+    sql: 1.0 * ${total_sales} / NULLIF(${users.count},0)  ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
