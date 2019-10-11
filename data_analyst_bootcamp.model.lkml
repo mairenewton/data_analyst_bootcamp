@@ -21,6 +21,15 @@ explore: order_items {
     relationship: many_to_one
   }
 
+
+  join: derived_aggregate
+  {
+    type: left_outer
+    sql_on: ${order_items.user_id} = ${derived_aggregate.user_id} ;;
+    relationship: many_to_one
+  }
+
+
   join: inventory_items {
     type: left_outer
     sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;
@@ -34,9 +43,7 @@ explore: order_items {
   }
 }
 
-
 explore: products {}
-
 
 explore: users
 {
@@ -53,5 +60,6 @@ explore: users
     sql_on: ${derived_aggregate.user_id} = ${users.id} ;;
     relationship: many_to_one
   }
+
 
 }

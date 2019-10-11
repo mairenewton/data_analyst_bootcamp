@@ -99,6 +99,12 @@ view: users {
     sql:    ${TABLE}.traffic_source = 'Email';;
   }
 
+  measure: sumSpend
+  {
+    type:  max
+    sql:${derived_aggregate.sum}  ;;
+  }
+
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
