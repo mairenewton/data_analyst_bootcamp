@@ -41,6 +41,7 @@ explore: products {}
 explore: users {}
 
 explore: user_orders {
+  label: "User Orders"
   from: users
   join: order_items {
     type: left_outer
