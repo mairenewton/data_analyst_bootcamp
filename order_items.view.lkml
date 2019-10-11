@@ -79,6 +79,13 @@ view: order_items {
     sql: ${TABLE}.shipped_at ;;
   }
 
+  dimension_group: shippingdays {
+    type: duration
+    timeframes: [date]
+    sql_start: ${TABLE}.shipped_at ;;
+    sql_end: ${TABLE}.delivered_at ;;
+  }
+
   dimension: status {
     type: string
     sql: ${TABLE}.status ;;
