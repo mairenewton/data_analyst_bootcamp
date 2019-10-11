@@ -1,6 +1,14 @@
 view: order_items {
   sql_table_name: public.order_items ;;
 
+  dimension: shipping_days{
+    type: number
+    sql: ${delivered_date}-${shipped_date} ;;
+  }
+
+
+
+
   dimension: id {
     primary_key: yes
     type: number
