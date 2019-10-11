@@ -102,10 +102,20 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+  measure: total_sales {
+    type: sum
+    sql: ${sale_price} ;;
+  }
+
 
   measure: order_count {
     type: count_distinct
     sql: ${order_id} ;;
+  }
+
+  measure: average_sales {
+    type: average
+    sql: ${sale_price} ;;
   }
 
 
