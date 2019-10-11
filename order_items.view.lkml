@@ -35,6 +35,52 @@ view: order_items {
     sql: ${TABLE}.delivered_at ;;
   }
 
+  dimension_group: daysDiff {
+    type: duration
+    intervals: [day ,week, year]
+    sql_start: ${TABLE}.shipped_at ;;
+    sql_end: ${TABLE}.delivered_at ;;
+  }
+
+  measure: distinctOrderCount
+  {
+    type: count_distinct
+    sql: ${order_id};;
+  }
+
+  measure: totalSalesForEmail
+  {
+    type:  sum
+    value_format_name:  usd
+    filters:  {
+      field: users.yesno_traffic_source
+      value: "Yes"
+      }
+    sql:  ${sale_price} ;;
+  }
+
+  measure: totalSales
+  {
+    type:  sum
+    value_format_name:  usd
+    sql:  ${sale_price} ;;
+  }
+
+  measure: SalesPercentageForEmail
+  {
+    type:  number
+    value_format_name:  percent_0
+    sql:  ${totalSalesForEmail}/${totalSales} ;;
+  }
+
+  measure:  averageSpendPerUser
+  {
+    type:  number
+    value_format_name: usd
+    sql: ${totalSales}/${users.count} ;;
+
+  }
+
   dimension: inventory_item_id {
     type: number
     # hidden: yes

@@ -12,6 +12,17 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+
+  dimension: agegroup {
+    type: tier
+    style: integer
+    tiers: [
+      18, 25,35,45,55,65,75,90
+    ]
+    sql: ${TABLE}.age ;;
+  }
+
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
@@ -22,6 +33,12 @@ view: users {
     map_layer_name: countries
     sql: ${TABLE}.country ;;
   }
+
+  dimension: cityState {
+    type: string
+    sql: ${TABLE}.city + ' '  + ${TABLE}.state ;;
+  }
+
 
   dimension_group: created {
     type: time
@@ -75,6 +92,11 @@ view: users {
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
+  }
+
+  dimension: yesno_traffic_source {
+    type: yesno
+    sql:    ${TABLE}.traffic_source = 'Email';;
   }
 
   dimension: zip {
