@@ -39,3 +39,13 @@ explore: products {}
 
 
 explore: users {}
+
+explore: user_orders {
+  from: users
+  join: order_items {
+    type: left_outer
+    sql_on: ${id} = ${order_items.user_id} ;;
+    relationship: one_to_many
+  }
+
+}
