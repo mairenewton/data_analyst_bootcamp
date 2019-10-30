@@ -95,6 +95,58 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+  measure: total_revenue {
+    label: "Total Revenue"
+    description: "SUM of Sale Price"
+    type: sum
+    sql:  ${order_items.sale_price};;
+    value_format_name: usd
+  }
+
+  measure: avg_item_price {
+    label: "Avg Item Price"
+    description: "Avg of sale price"
+    type:  average
+    sql:  ${order_items.sale_price} ;;
+    # or avg price / count
+  }
+
+  measure: number_of_buying_customers {
+    # of orders made, how many people made them?
+    # count distinct on order IDs >0?
+    #distinct count of user_orders
+    label: "number of customers"
+    type:  count_distinct
+    sql:  ${order_items.order_id};;
+  }
+
+
+dimension: shipping_time_per_order {
+  #used for avg. spend per customer
+}
+
+measure: avg_spend_per_customer {
+  #use avg of shipping_time_per_order
+}
+
+dimension: shipping_time {
+  description: "Shipping time in days"
+  type: number
+  sql: DATEDIFF(day, ${order_items.shipped_date}, ${order_items.delivered_date});;
+}
+
+measure: total_items_returned {
+    type:  count
+    filters: {
+      field:  status
+      value: "Returned"
+    }
+
+}
+measure: percent_items_returned {
+  type:  number
+}
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
