@@ -100,8 +100,37 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
     label: "Total Price"
     description: "SUM of Sale Price"
-    value_format: "usd"
+    value_format_name: usd
   }
+
+  measure: avg_item_price{
+    type:  average
+    sql: ${TABLE}.sale_price ;;
+    label: "Average item Price"
+    description: "Average of Sale Price"
+    value_format_name: usd
+  }
+
+  dimension: buying_customer{
+    type: yesno
+    sql: ${TABLE}.user_id ;;
+    label: "Buying Customer"
+    description: "Buying Customer Flag"
+  }
+
+  measure: customer_count{
+    type:  count_distinct
+    sql: ${TABLE}.user_id ;;
+    label: "Count of users"
+    description: "Count of users"
+  }
+
+  dimension: date_diff {
+    type: number
+    sql: DATEDIFF(day, ${created_date}, ${returned_date}) ;;
+  }
+
+
 
   # ----- Sets of fields for drilling ------
   set: detail {
