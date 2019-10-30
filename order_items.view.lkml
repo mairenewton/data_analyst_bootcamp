@@ -100,6 +100,7 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
     label: "Total Price"
     description: "SUM of Sale Price"
+    value_format: "usd"
   }
 
   # ----- Sets of fields for drilling ------
