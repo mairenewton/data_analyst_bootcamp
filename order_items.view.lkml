@@ -126,8 +126,8 @@ view: order_items {
   }
 
   dimension: date_diff {
-    type: number
-    sql: DATEDIFF(day, ${created_date}, ${returned_date}) ;;
+    type: duration_day
+    sql: DATEDIFF(day, ${shipped_date}, ${delivered_date}) ;;
   }
 
 
