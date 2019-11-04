@@ -92,6 +92,12 @@ filters: {
     sql: 1.0*${total_sales_email_traffic}/NULLIF(${total_sales}, 0) ;;
   }
 
+  measure: avg_spend_per_user {
+    type: number
+    value_format_name: usd
+    sql: 1.0*${total_sales}/NULLIF(${count}, 0) ;;
+  }
+
   dimension: email_or_not {
     type: yesno
     sql: ${users.traffic_source} = 'Email' ;;
