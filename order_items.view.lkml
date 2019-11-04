@@ -46,6 +46,21 @@ view: order_items {
     sql: ${TABLE}.order_id ;;
   }
 
+  measure: number_of_orders {
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
+  measure: total_sales {
+    type: sum
+    sql: ${sale_price} ;;
+  }
+
+  measure: total_sales_avg {
+    type: average
+    sql: ${sale_price} ;;
+  }
+
   dimension: shipping_days {
     type: number
     sql: DATEDIFF('days', ${shipped_date}, ${delivered_date}) ;;
