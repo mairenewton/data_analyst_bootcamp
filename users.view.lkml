@@ -16,7 +16,10 @@ view: users {
     type: string
     sql: ${TABLE}.city ;;
   }
-
+dimension: CityState {
+  type: string
+  sql: ${city} || ${state} ;;
+}
   dimension: country {
     type: string
     map_layer_name: countries
