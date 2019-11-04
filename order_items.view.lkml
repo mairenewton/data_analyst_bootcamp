@@ -46,7 +46,7 @@ view: order_items {
     sql: ${TABLE}.order_id ;;
   }
 
-  measure: number_of_orders {
+  measure: order_count {
     type: count_distinct
     sql: ${order_id} ;;
   }
