@@ -96,7 +96,7 @@ filters: {
   measure: avg_spend_per_user {
     type: number
     value_format_name: usd
-    sql: 1.0*${total_sales}/NULLIF(${count}, 0) ;;
+    sql: ${total_sales}/NULLIF(${users.count}, 0) ;;
   }
 
   dimension: email_or_not {
