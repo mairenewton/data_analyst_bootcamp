@@ -78,14 +78,20 @@ filters: {
   value: "Complete"
 }
 }
-#   measure: total_sales_email_traffic {
-#     type: sum
-#     sql: ${sale_price} ;;
-#     filters: {
-#       field:
-#       value: "Yes"
-#     }
-#   }
+  measure: total_sales_email_traffic {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: {
+      field: email_or_not
+      value: "Yes"
+    }
+  }
+
+  dimension: email_or_not {
+    type: yesno
+    sql: ${users.traffic_source} = 'Email' ;;
+  }
+
 measure: avg_sale_price{
   type: average
   sql: ${sale_price} ;;
