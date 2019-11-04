@@ -86,6 +86,7 @@ view: order_items {
     type: sum
     sql: ${sale_price}*100 ;;
     value_format_name: usd
+    drill_fields: [detail*]
   }
 
   measure: total_sales_avg {
