@@ -38,7 +38,10 @@ explore: products {}
 
 
 explore: users {
+  group_label: "Ad Hoc Discovery"
+  label: "Users Analysis"
   join: order_items {
+    view_label: "Order Data"
     type: left_outer
     sql_on: ${users.id} = ${order_items.id};;
     relationship: one_to_many
