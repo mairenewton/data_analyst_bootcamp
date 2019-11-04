@@ -46,9 +46,9 @@ view: order_items {
     sql: ${TABLE}.order_id ;;
   }
 
-  dimension: shipped {
+  dimension: shipping_days {
     type: number
-    sql: datediff('days', ${shipped_date}, ${order_id} ;;
+    sql: DATEDIFF('days', ${shipped_date}, ${delivered_date} ;;
   }
 
   dimension_group: returned {
