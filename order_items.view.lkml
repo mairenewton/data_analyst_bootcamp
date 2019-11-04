@@ -51,6 +51,21 @@ view: order_items {
     sql: ${order_id} ;;
   }
 
+  measure: total_sales_email_users {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: {
+    field:  is_email_source
+    value: "Yes"
+    }
+  }
+
+  dimension: is_email_source {
+  type: yesno
+  sql: ${users.traffic_source} = 'Email' ;;
+  }
+
+
   measure: total_sales {
     type: sum
     sql: ${sale_price} ;;
