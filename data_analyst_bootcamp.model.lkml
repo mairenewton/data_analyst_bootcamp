@@ -15,7 +15,7 @@ explore: inventory_items {}
 
 # This explore contains multiple views
 explore: order_items {
-  sql_always_where: ${order_items.status} IS NOT 'Returned';;
+  sql_always_where: ${order_items.status} != 'Returned';;
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
