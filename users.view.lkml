@@ -77,9 +77,9 @@ view: users {
     sql: ${TABLE}.traffic_source ;;
   }
 
-  dimension: CityState {
+  dimension: City_State {
     type: string
-    sql: ${city) || ', '  $(state) ;;
+    sql: ${city) || ', ' ||  $(state) ;;
   }
 
   dimension: zip {
