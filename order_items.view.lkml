@@ -99,10 +99,11 @@ filters: {
     sql: ${total_sales}/NULLIF(${users.count}, 0) ;;
   }
 
-#   dimension: email_or_not {
-#     type: yesno
-#     sql: ${users.traffic_source} = 'Email' ;;
-#   }
+  dimension: email_or_not {
+    hidden: yes
+    type: yesno
+    sql: ${users.traffic_source} = 'Email' ;;
+  }
 
 measure: avg_sale_price{
   type: average
