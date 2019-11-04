@@ -84,7 +84,7 @@ view: users {
 
   dimension: email_or_not {
     type: yesno
-    sql: $(${traffic_source} = 'Email' ;;
+    sql: (${traffic_source} = 'Email' ;;
   }
 
 dimension: age_group {
