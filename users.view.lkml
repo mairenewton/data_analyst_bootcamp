@@ -14,7 +14,7 @@ view: users {
 
   dimension: email_or_not {
     type: yesno
-    sql: ${traffic_source} = ${email} ;;
+    sql: ${traffic_source} = 'Email' ;;
   }
 
   dimension: city {
