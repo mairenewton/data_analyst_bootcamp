@@ -65,6 +65,12 @@ view: order_items {
   sql: ${users.traffic_source} = 'Email' ;;
   }
 
+  measure: percentage_sales_email_source {
+  type: number
+  value_format_name: percent_2
+  sql: 1.0*${total_sales_email_users}/NULLIF(${total_sales}, 0) ;;
+  }
+
 
   measure: total_sales {
     type: sum
