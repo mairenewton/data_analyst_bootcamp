@@ -81,6 +81,7 @@ filters: {
   measure: total_sales_email_traffic {
     type: sum
     sql: ${sale_price} ;;
+    value_format_name: usd
     filters: {
       field: email_or_not
       value: "Yes"
