@@ -89,7 +89,7 @@ filters: {
   }
   measure: percentage_total_sales_email_traffic {
     type: number
-    value_format_name: percent_2
+    value_format_name: percent_1
     sql: 1.0*${total_sales_email_traffic}/NULLIF(${total_sales}, 0) ;;
   }
 
