@@ -73,9 +73,13 @@ view: order_items {
 measure: total_sales {
 type: sum
 sql: ${sale_price} ;;
+filters: {
+  field: status
+  value: "Complete"
+}
 }
 
-measure: avg_sales {
+measure: avg_sale_price{
   type: average
   sql: ${sale_price} ;;
 }
