@@ -86,6 +86,11 @@ filters: {
       value: "Yes"
     }
   }
+  measure: percentage_total_sales_email_traffic {
+    type: number
+    value_format_name: percent_2
+    sql: 1.0*${total_sales_email_traffic}/NULLIF(${total_sales}, 0) ;;
+  }
 
   dimension: email_or_not {
     type: yesno
