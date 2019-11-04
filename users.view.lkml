@@ -79,7 +79,7 @@ view: users {
 
   dimension: CityState {
     type: string
-    sql: ${city) || $(state) ;;
+    sql: ${city) || ", "  $(state) ;;
   }
 
   dimension: zip {
