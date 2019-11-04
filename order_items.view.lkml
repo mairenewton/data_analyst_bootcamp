@@ -56,6 +56,12 @@ view: order_items {
     sql: ${sale_price} ;;
   }
 
+  measure: total_sales_price {
+    type: sum
+    sql: ${sale_price}*100 ;;
+    value_format_name: usd
+  }
+
   measure: total_sales_avg {
     type: average
     sql: ${sale_price} ;;
