@@ -46,6 +46,11 @@ view: order_items {
     sql: ${TABLE}.order_id ;;
   }
 
+  measure: number_of_orders {
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
   dimension_group: returned {
     type: time
     timeframes: [
