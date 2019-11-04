@@ -82,6 +82,11 @@ view: users {
     sql: ${city) || ', ' ||  $(state)) ;;
   }
 
+  dimension: email_or_not {
+    type: yesno
+    sql: $(${traffic_source} = 'Email' ;;
+  }
+
 dimension: age_group {
 type:  tier
 sql:  ${age} ;;
