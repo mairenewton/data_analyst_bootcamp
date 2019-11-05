@@ -8,6 +8,10 @@ datagroup: data_analyst_bootcamp_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
   max_cache_age: "1 hour"
 }
+datagroup: users_datagroup {
+  sql_trigger: select convert_timezone('US/Pacific', current_date)::date ;;
+  max_cache_age: "24 hours"
+}
 
 persist_with: data_analyst_bootcamp_default_datagroup
 
@@ -39,6 +43,7 @@ explore: products {}
 
 
 explore: users {
+  persist_with: users_datagroup
   group_label: "Ad Hoc Discovery"
   label: "Users Analysis"
   join: order_items {
