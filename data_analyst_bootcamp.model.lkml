@@ -15,6 +15,8 @@ explore: inventory_items {}
 
 # This explore contains multiple views
 explore: order_items {
+  sql_always_where: ${returned_date} is null ;;
+  sql_always_having:${total_sales} > 200 ;;
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -37,5 +39,11 @@ explore: order_items {
 
 explore: products {}
 
-
-explore: users {}
+#practice exercise 11
+explore: users {
+  join: order_items {
+    type: left_outer
+    sql: ${users.id} = ${order_items.id} ;;
+    relationship: one_to_many
+  }
+}
