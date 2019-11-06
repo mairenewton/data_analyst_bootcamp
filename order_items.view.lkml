@@ -90,6 +90,15 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+##pracitce exercise 2
+  dimension_group: shipping_days {
+    label: "Shipping Days"
+    type: duration
+    sql_start: ${shipped_date} ;;
+    sql_end: ${delivered_date} ;;
+    intervals: [day]
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
