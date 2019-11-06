@@ -124,6 +124,31 @@ measure: average_sales {
   sql: ${sale_price} ;;
 }
 
+#practice exercise 8
+measure: email_user_sales {
+  type:  sum
+  sql: ${sale_price} ;;
+  value_format_name: usd
+  filters: {
+    field: users.is_email_source
+    value: "Yes"
+  }
+}
+
+#practice exercise 9
+measure: email_sales_percentage {
+  type: number
+  value_format_name: percent_2
+  sql: 1.0*${email_user_sales}/NULLIF(${total_sales},0) ;;
+}
+
+#practice exercise 10
+measure: average_spend_per_user {
+  type:  number
+  value_format_name: usd
+  sql:  1.0*${total_sales}/NULLIF(${users.count},0) ;;
+}
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
