@@ -100,7 +100,6 @@ view: order_items {
     fields: [
       id,
       users.id,
-      users.first_name,
       users.last_name,
       inventory_items.id,
       inventory_items.product_name
