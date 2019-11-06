@@ -90,7 +90,7 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
-##pracitce exercise 2
+##practice exercise 2
   dimension_group: shipping_days {
     label: "Shipping Days"
     type: duration

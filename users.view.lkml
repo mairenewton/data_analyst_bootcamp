@@ -89,6 +89,21 @@ view: users {
     sql:  ${city} || ',' || ${state} ;;
   }
 
+##practice exercise 3
+  dimension: is_email_source {
+    label: "Is Email Source"
+    type: yesno
+    sql:  ${traffic_source} = 'Email' ;;
+  }
+
+  #practice exercise 4
+  dimension: age_tier{
+    type:  tier
+    tiers: [18,23,35,45,55,65]
+    sql: ${age};;
+    style: integer
+  }
+
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]

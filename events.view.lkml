@@ -81,6 +81,13 @@ view: events {
     sql: ${TABLE}.traffic_source ;;
   }
 
+##practice exercise 3
+  dimension: is_email_source {
+  label: "Is Email Source (Yes/NO"
+  type: yesno
+  sql:  ${traffic_source} = 'Email' ;;
+  }
+
   dimension: uri {
     type: string
     sql: ${TABLE}.uri ;;
