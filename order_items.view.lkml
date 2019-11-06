@@ -103,6 +103,7 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+## these are my new measures
 
   measure: count_distinct {
     type: count_distinct
@@ -121,7 +122,7 @@ view: order_items {
     sql: ${sale_price} ;;
   }
 
-
+## end of my new measures
 
 
 
