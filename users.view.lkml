@@ -12,6 +12,13 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  dimension: age_tier {
+    type: tier
+    tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+    sql: ${age} ;;
+    style:  integer
+  }
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
@@ -90,6 +97,11 @@ view: users {
   dimension: city_state {
     type: string
     sql: ${city} || ', ' || ${state} ;;
+  }
+
+  dimension: from_email {
+    type: yesno
+    sql:  ${traffic_source} = 'Email' ;;
   }
 
   measure: count {
