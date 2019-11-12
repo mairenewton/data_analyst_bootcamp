@@ -5,7 +5,7 @@ include: "*.view"
 
 
 datagroup: data_analyst_bootcamp_default_datagroup {
-  # sql_trigger: SELECT MAX(id) FROM etl_log;;
+  sql_trigger: SELECT MAX(id) FROM etl_log;;
   max_cache_age: "1 hour"
 }
 
@@ -38,4 +38,18 @@ explore: order_items {
 explore: products {}
 
 
-explore: users {}
+explore: users {
+  group_label: "E-commerce Magic"
+  join: order_items {
+    type: left_outer
+    sql_on: ${users.id} = ${order_items.id} ;;
+    relationship: one_to_many
+  }
+  join: inventory_items {
+    type: left_outer
+    sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;
+    relationship: one_to_many
+}
+}
+
+explore: order_items_test {}

@@ -95,6 +95,46 @@ view: order_items {
     sql: datediff(days, ${shipped_date}, ${delivered_date}) ;;
   }
 
+  measure: order_count {
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
+  measure: total_sales {
+    type: sum
+    value_format_name: usd
+    sql: ${sale_price} ;;
+    drill_fields: [order_details*]
+  }
+
+  measure: average_sales {
+    type: average
+    value_format_name: usd
+    sql: ${sale_price} ;;
+  }
+
+  measure: total_sales_from_email {
+    type:  sum
+    sql: ${sale_price} ;;
+    filters: {
+      field: users.traffic_source
+      value: "Email"
+    }
+    value_format_name: usd
+  }
+
+  measure: percentage_of_sales_from_email {
+    type: number
+    sql: ${total_sales_from_email} / nullif(${total_sales},0);;
+    value_format_name: percent_2
+  }
+
+  measure: average_spend_per_user {
+    type: number
+    sql: ${total_sales} / nullif(${users.count},0) ;;
+    value_format_name: usd
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
@@ -110,5 +150,8 @@ view: order_items {
       inventory_items.id,
       inventory_items.product_name
     ]
+  }
+  set: order_details {
+    fields: [order_id, created_date, delivered_date, shipped_date, total_sales]
   }
 }

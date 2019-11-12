@@ -20,11 +20,13 @@ view: users {
   }
 
   dimension: city {
+    group_label: "Address"
     type: string
     sql: ${TABLE}.city ;;
   }
 
   dimension: country {
+    group_label: "Address"
     type: string
     map_layer_name: countries
     sql: ${TABLE}.country ;;
@@ -80,6 +82,7 @@ view: users {
   }
 
   dimension: state {
+    group_label: "Address"
     type: string
     sql: ${TABLE}.state ;;
   }
@@ -90,11 +93,13 @@ view: users {
   }
 
   dimension: zip {
+    group_label: "Address"
     type: zipcode
     sql: ${TABLE}.zip ;;
   }
 
   dimension: city_state {
+    group_label: "Address"
     type: string
     sql: ${city} || ', ' || ${state} ;;
   }
