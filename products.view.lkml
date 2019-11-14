@@ -7,6 +7,7 @@ view: products {
     sql: ${TABLE}.id ;;
   }
 
+
   dimension: brand {
     type: string
     sql: ${TABLE}.brand ;;

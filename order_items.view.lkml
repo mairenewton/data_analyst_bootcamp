@@ -5,6 +5,7 @@ view: order_items {
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
+#   sql: public.order_items.id ;;
   }
 
   dimension_group: created {
@@ -65,6 +66,11 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
+  dimension: profit {
+    type: number
+    sql: ${sale_price} - ${inventory_items.cost} ;;
+  }
+
   dimension_group: shipped {
     type: time
     timeframes: [
@@ -90,9 +96,67 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+
+  measure: total_sale_price {
+    group_label: "Sum Measures"
+    type: sum
+    sql: ${sale_price} ;;
+    drill_fields: [detail*]
+    }
+
+  measure: total_sale_price_new_users {
+    group_label: "Sum Measures"
+    type: sum
+    sql: ${sale_price} ;;
+    filters: {
+      field: users.is_new_user
+      value: "yes"
+    }
+    drill_fields: [detail*]
+    }
+
+  measure: average_sale_price {
+    group_label: "Average Measures"
+    type: average
+    sql: ${sale_price} ;;
+    value_format_name: decimal_2
+    drill_fields: [detail*]
+    }
+
+  measure: average_profit {
+    group_label: "Average Measures"
+    type: average
+    sql: ${profit} ;;
+    drill_fields: [detail*]
+    }
+
   measure: count {
+    group_label: "Count Measures"
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: count_distinct_users {
+    group_label: "Count Measures"
+    type: count_distinct
+    sql: ${user_id} ;;
+    drill_fields: [detail*]
+    }
+
+  measure: count_new_user_orders {
+    group_label: "Count Measures"
+    type: count
+    filters: {
+      field: users.is_new_user
+      value: "yes"
+    }
+    drill_fields: [detail*]
+    }
+
+  measure: percentage_of_new_users {
+    type: number
+    sql: 1.0 * ${count_new_user_orders} / NULLIF(${count},0) ;;
+    value_format_name: percent_1
   }
 
   # ----- Sets of fields for drilling ------
@@ -103,7 +167,10 @@ view: order_items {
       users.first_name,
       users.last_name,
       inventory_items.id,
-      inventory_items.product_name
+      inventory_items.product_name,
+      total_sale_price_new_users,
+      total_sale_price,
+      average_profit
     ]
   }
 }
