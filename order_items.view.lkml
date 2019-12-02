@@ -136,6 +136,11 @@ view: order_items {
     sql:  1.0*${total_email_traffic_sales}/${total_sales} ;;
   }
 
+  measure: average_spend_per_user {
+    type:  number
+    sql: 1.0*${total_sales}/nullif(${users.count},0) ;;
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
