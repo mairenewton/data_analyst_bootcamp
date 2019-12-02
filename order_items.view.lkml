@@ -37,8 +37,10 @@ view: order_items {
   }
 
   dimension: shipping_days {
+    description: "Days between shipped and delivery"
     type: number
-    sql: ${shipped_date} - ${created_date} ;;
+    sql: ${delivered_date} - ${shipped_date} ;;
+    #sql: DATEDIFF(day, ${shipped_date}, ${delivered_date})
   }
 
   dimension: inventory_item_id {
