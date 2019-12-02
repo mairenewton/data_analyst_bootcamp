@@ -90,20 +90,43 @@ view: order_items {
     # hidden: yes
     sql: ${TABLE}.user_id ;;
   }
+  dimension_group: shipping_time {
+    type: duration
+    sql_start: ${shipped_date};;
+    sql_end: ${delivered_date} ;;
+    intervals: [day]
+}
 
-  measure: count {
+  measure: count_order_items {
+    description: "Count of order items"
     type: count
     drill_fields: [detail*]
   }
 
+  measure: count_orders {
+    description: "Count of orders - can have multiple items per order"
+    type: count_distinct
+    sql: ${order_id} ;;
+    drill_fields: [detail*,- id, order_id]
+  }
+
+  measure: total_sales {
+    type: sum
+    sql:${sale_price};;
+    value_format_name: gbp
+  }
+
+  measure: average_cost {
+    type: average
+    sql: ${sale_price} ;;
+    value_format_name: gbp
+  }
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
       id,
-      users.id,
       users.first_name,
       users.last_name,
-      inventory_items.id,
       inventory_items.product_name
     ]
   }
