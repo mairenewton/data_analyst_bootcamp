@@ -61,6 +61,11 @@ view: order_items {
     sql: ${TABLE}.returned_at ;;
   }
 
+  dimension: is_returned {
+    type: yesno
+    sql: ${status}='Returned' ;;
+  }
+
   dimension: sale_price {
     type: number
     sql: ${TABLE}.sale_price ;;
@@ -91,9 +96,53 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+  dimension_group: shipping_days {
+    type: duration
+    intervals: [hour, day]
+    sql_start: ${shipped_date} ;;
+    sql_end: ${delivered_date} ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: count_dist_orders {
+    description: "Count of distinct orders"
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
+  measure:  count_orders{
+    type: count
+    sql_distinct_key: ${order_id} ;;
+    drill_fields: [detail*,-id,-users.id,-users.first_name,users.name]
+  }
+  measure: total_sales  {
+    type: sum
+    value_format_name: gbp
+    sql:  ${sale_price} ;;
+  }
+
+  measure: average_cost {
+    type:  average
+    value_format_name: gbp
+    sql: ${sale_price} ;;
+  }
+  measure: count_returned_item {
+    type: count
+    filters: {
+      field: is_returned
+      value: "Yes"
+
+    }
+  }
+
+  measure: percent_return {
+    type:  number
+    sql: 1.0*${count_returned_item}/${count_dist_orders} ;;
+    value_format_name: percent_2
   }
 
   # ----- Sets of fields for drilling ------

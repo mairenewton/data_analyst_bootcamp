@@ -77,6 +77,22 @@ view: users {
     sql: ${TABLE}.traffic_source ;;
   }
 
+  dimension: addresss  {
+    type: string
+    sql: concat(${city},${state}) ;;
+  }
+
+  dimension: age_tier {
+    type: tier
+    sql: ${age} ;;
+    style: integer
+    tiers: [18,25,35,45,55,65,75,90]
+  }
+  dimension: name {
+    type: string
+    sql: ${first_name}||${last_name} ;;
+  }
+
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;

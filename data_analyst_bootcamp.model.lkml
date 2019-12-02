@@ -39,3 +39,6 @@ explore: products {}
 
 
 explore: users {}
+
+
+explore: events {}
