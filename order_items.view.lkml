@@ -120,6 +120,22 @@ view: order_items {
     value_format_name: usd
   }
 
+  measure: total_email_traffic_sales {
+    type: sum
+    value_format_name:  usd
+    sql:  ${sale_price};;
+    filters: {
+      field: users.email_source
+      value: "Yes"
+    }
+  }
+
+  measure: percent_sales_email_users {
+    type:  number
+    value_format_name: percent_2
+    sql:  1.0*${total_email_traffic_sales}/${total_sales} ;;
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
@@ -127,6 +143,7 @@ view: order_items {
       users.id,
       users.first_name,
       users.last_name,
+      users.email_source,
       inventory_items.id,
       inventory_items.product_name
     ]
