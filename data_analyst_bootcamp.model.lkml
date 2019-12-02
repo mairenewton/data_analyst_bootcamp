@@ -34,8 +34,17 @@ explore: order_items {
   }
 }
 
+explore: order_items_1 {
+  from:  order_items
+  join: users {
+    sql_on: ${users.id} = ${order_items_1.user_id} ;;
+    relationship: one_to_many
+  }
+}
 
 explore: products {}
 
 
 explore: users {}
+
+explore: events {}
