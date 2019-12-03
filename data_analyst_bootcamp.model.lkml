@@ -49,6 +49,10 @@ explore: order_items {
   }
 }
 
+datagroup: order_items {
+  max_cache_age: "4 hours"
+  sql_trigger: select max(created_at) from order_items;;
+}
 
 explore: products {}
 
