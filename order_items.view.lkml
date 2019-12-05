@@ -103,6 +103,11 @@ view: order_items {
     sql_end: ${delivered_date} ;;
   }
 
+  dimension: days_as_cust_at_order_date {
+    type: number
+    sql: datediff(DAY,${users.created_date},${created_date});;
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
@@ -137,6 +142,10 @@ view: order_items {
       value: "Yes"
 
     }
+  }
+  measure: first_created {
+    type: min
+    sql: ${created_date} ;;
   }
 
   measure: percent_return {

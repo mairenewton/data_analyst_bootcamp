@@ -21,6 +21,7 @@ view: users {
     type: string
     map_layer_name: countries
     sql: ${TABLE}.country ;;
+    drill_fields: [state,city,zip]
   }
 
   dimension_group: created {
@@ -69,7 +70,9 @@ view: users {
 
   dimension: state {
     type: string
+    map_layer_name: us_states
     sql: ${TABLE}.state ;;
+    drill_fields: [zip]
   }
 
   dimension: traffic_source {
@@ -95,6 +98,7 @@ view: users {
 
   dimension: zip {
     type: zipcode
+    map_layer_name: us_zipcode_tabulation_areas
     sql: ${TABLE}.zip ;;
   }
 
