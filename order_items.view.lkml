@@ -1,7 +1,7 @@
 view: order_items {
   sql_table_name: public.order_items ;;
 
-  dimension: id {
+  dimension: order_item_id {
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
@@ -96,10 +96,16 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+  measure: total_sales {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
-      id,
+      order_item_id,
       users.id,
       users.first_name,
       users.last_name,
