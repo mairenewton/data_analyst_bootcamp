@@ -47,6 +47,19 @@ view: users {
     sql: ${TABLE}.first_name ;;
   }
 
+  dimension: is_new_user {
+    type: yesno
+    sql: ${days_since_signup}<90 ;;
+  }
+
+  dimension: days_since_signup_tier {
+    type: tier
+    tiers: [29,40,60,100,500]
+    sql:${days_since_signup};;
+    style: relational
+
+  }
+
   dimension: gender {
     type: string
     sql: ${TABLE}.gender ;;
@@ -57,6 +70,11 @@ view: users {
     sql: ${TABLE}.last_name ;;
   }
 
+  dimension: full_name {
+    type: string
+    sql: ${first_name} || ' ' || ${last_name} ;;
+  }
+
   dimension: latitude {
     type: number
     sql: ${TABLE}.latitude ;;
@@ -65,6 +83,13 @@ view: users {
   dimension: longitude {
     type: number
     sql: ${TABLE}.longitude ;;
+  }
+
+  # dias desde que se registro
+  dimension: days_since_signup {
+    type:  duration_day
+    sql_start: ${created_date} ;;
+    sql_end: current_date ;;
   }
 
   dimension: state {
