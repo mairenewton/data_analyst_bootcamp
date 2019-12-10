@@ -32,8 +32,38 @@ explore: order_items {
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
     relationship: many_to_one
   }
+  always_filter: {
+    filters: {
+      field: status
+      value: "Complete"
+    }
+    filters: {
+      field: inventory_items.count
+      value: ">5000"
+    }
+    filters: {
+      field: created_date
+      value: "last 30 days"
+    }
+  }
+  conditionally_filter: {
+    filters: {
+      field: users.created_date
+      value: "last 90 days"
+    }
+    unless: [users.id,users.state]
+  }
+
 }
 
+#explore: users_and_orders {
+#  from: users
+#  join: order_items {
+#    type: left_outer
+#    sql_on: ${users_and_orders.id} = ${order_items.user_id} ;;
+#    relationship: one_to_many
+#  }
+#}
 
 explore: products {}
 

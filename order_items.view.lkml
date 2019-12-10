@@ -66,6 +66,33 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
+  measure: total_sales_price {
+    type:  sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
+  measure: avg_sales_price {
+    type: average
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
+  measure: number_of_orders {
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
+  measure: total_sales_new_users {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: {
+      field: users.is_new_user
+      value: "Yes"
+    }
+    value_format_name: usd
+  }
+
   dimension_group: shipped {
     type: time
     timeframes: [
