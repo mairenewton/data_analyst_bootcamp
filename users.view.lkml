@@ -27,6 +27,9 @@ view: users {
     type: time
     timeframes: [
       raw,
+      week_of_year,
+      day_of_month,
+      month_name,
       time,
       date,
       week,
@@ -47,7 +50,12 @@ view: users {
     type: tier
     tiers: [20,40,60,100,500]
     sql: ${days_since_signup} ;;
-    style: relational
+    style: integer
+  }
+
+  dimension: city_and_state {
+    type: string
+    sql: ${city} || ', ' || ${state} ;;
   }
 
   dimension: is_new_user {
@@ -68,6 +76,13 @@ view: users {
   dimension: gender {
     type: string
     sql: ${TABLE}.gender ;;
+  }
+
+  dimension: age_group {
+    type: tier
+    tiers: [18,25,35,45,55,65,75,90]
+    sql: ${age} ;;
+    style: integer
   }
 
   dimension: last_name {
@@ -98,6 +113,11 @@ view: users {
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
+  }
+
+  dimension: source_email {
+    type: yesno
+    sql: ${traffic_source} = 'Email' ;;
   }
 
   dimension: zip {
