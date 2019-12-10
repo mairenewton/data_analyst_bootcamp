@@ -37,6 +37,12 @@ view: users {
     sql: ${TABLE}.created_at ;;
   }
 
+  dimension: days_since_signup {
+    type: duration_day
+    sql_start: ${created_date} ;;
+    sql_end: current_date ;;
+  }
+
   dimension: email {
     type: string
     sql: ${TABLE}.email ;;
@@ -55,6 +61,11 @@ view: users {
   dimension: last_name {
     type: string
     sql: ${TABLE}.last_name ;;
+  }
+
+  dimension: full_name {
+    type: string
+    sql: ${first_name} || ' ' || ${last_name} ;;
   }
 
   dimension: latitude {
