@@ -12,6 +12,13 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  dimension: age_groups {
+    type: tier
+    tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+    sql: ${age} ;;
+    style: integer
+  }
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
@@ -40,6 +47,11 @@ view: users {
   dimension: email {
     type: string
     sql: ${TABLE}.email ;;
+  }
+
+  dimension: email_traffic {
+    type:  yesno
+    sql: ${traffic_source} = 'Email' ;;
   }
 
   dimension: first_name {
@@ -80,6 +92,12 @@ view: users {
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
+  }
+
+  dimension: city_state{
+    type: string
+    sql: concat(${city}, concat( ', ', ${state})) ;;
+    description: "Dimension Type Practice"
   }
 
   measure: count {

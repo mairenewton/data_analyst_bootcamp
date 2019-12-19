@@ -85,6 +85,11 @@ view: order_items {
     sql: ${TABLE}.status ;;
   }
 
+  dimension: shipping_days {
+    type: number
+    sql: DATEDIFF(day,${shipped_date}, ${delivered_date}) ;;
+  }
+
   dimension: user_id {
     type: number
     # hidden: yes
@@ -99,6 +104,43 @@ view: order_items {
   measure: total_sales {
     type: sum
     sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
+  measure: count_orders {
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
+  measure: avg_sales {
+    type: number
+    sql: ${total_sales}/nullif(${count_orders},0) ;;
+  }
+
+  measure: average_sales_line_item {
+    type: average
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
+  measure: total_sales_email {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: {
+      field: users.email_traffic
+      value: "Yes"
+      }
+    }
+
+  measure: percentage_of_sales  {
+    type: number
+    value_format_name: percent_1
+    sql: 1.0*${total_sales_email}/(nullif(${total_sales},0)) ;;
+  }
+
+  measure: avg_spend_per_user {
+    type: number
+    sql: ${total_sales}/nullif(count(${user_id}),0) ;;
     value_format_name: usd
   }
 
