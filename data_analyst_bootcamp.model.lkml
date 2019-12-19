@@ -38,4 +38,22 @@ explore: order_items {
 explore: products {}
 
 
-explore: users {}
+# explore: users {}
+
+explore: users {
+  join: order_items {
+    type: left_outer
+    sql_on: ${users.id} = ${order_items.user_id} ;;
+    relationship: many_to_many
+  }
+}
+
+# explore: user_and_order {
+#   join: users {
+#     type: left_outer
+#     sql_on:${user_and_order.user_id} = ${users.id} ;;
+#     relationship: one_to_one
+#   }
+# }
+
+explore:order_fact {}

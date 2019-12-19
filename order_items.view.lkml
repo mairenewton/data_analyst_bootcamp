@@ -113,4 +113,44 @@ view: order_items {
       inventory_items.product_name
     ]
   }
+
+  # xue
+  measure: shipping_days{
+    type: number
+    sql: DATEDIFF(d, ${shipped_date},${delivered_date} ) ;;
+  }
+  measure: count_order_xue {
+    type: count_distinct
+    sql: ${TABLE}.order_id ;;
+  }
+  measure: total_sale_xue {
+    type: sum
+    sql: ${sale_price} ;;
+  }
+  measure: average_sale_xue {
+    type: average
+    sql: ${sale_price} ;;
+  }
+  measure: total_sale_email {
+    type: sum
+    sql: ${sale_price};;
+    filters: {
+      field: users.is_email
+      value: "yes"
+    }
+  }
+  measure: percentage_email {
+    type: number
+    sql: 1.0*(${total_sale_email}/nullif(${total_sale_xue},0));;
+    value_format_name: percent_0
+  }
+  measure: count_user {
+    type: count_distinct
+    sql: ${user_id} ;;
+  }
+  measure: avarage_spend_per_user {
+    type: number
+    sql: 1.0*${total_sale_xue}/nullif(${count_user}) ;;
+    value_format_name: usd
+  }
 }
