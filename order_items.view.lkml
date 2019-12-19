@@ -6,7 +6,6 @@ view: order_items {
     type: number
     sql: ${TABLE}.id ;;
   }
-
   dimension_group: created {
     type: time
     timeframes: [
@@ -91,6 +90,13 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+  dimension_group: shipping_days {
+    type: duration
+    intervals: [day]
+    sql_start: ${shipped_date} ;;
+    sql_end: ${delivered_date} ;;
+
+  }
   measure: count {
     type: count
     drill_fields: [detail*]
@@ -100,6 +106,72 @@ view: order_items {
     type: sum
     sql: ${sale_price} ;;
     value_format_name: usd
+  }
+
+
+  measure: count_orders {
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
+  measure: total_sales_dp {
+    type: sum
+    sql: ${sale_price} ;;
+  }
+
+  measure: avg_sales{
+    type: average
+    sql: ${sale_price} ;;
+  }
+
+  measure: avg_price_by_order {
+    type: number
+    sql: 1.0 * ${total_sales_dp}/nullif(${count_orders},0) ;;
+  }
+
+
+  dimension: user_is_email {
+    type: yesno
+    sql: ${users.is_email} ;;
+  }
+
+  measure: email_sales {
+    type: sum
+    sql: ${sale_price};;
+    filters: {
+      field: user_is_email
+      value: "yes"
+    }
+  }
+
+  measure: email_sale_count {
+    type: count_distinct
+    sql: ${order_id};;
+    filters: {
+      field: user_is_email
+      value: "yes"
+    }
+  }
+  measure: percent_email_count {
+    type: number
+    value_format_name: percent_0
+    sql: ${email_sale_count}/nullif(${user_count},0) ;;
+  }
+
+  measure: percent_email {
+    type: number
+    value_format_name: percent_0
+    sql: ${email_sales}/nullif(${total_sales},0) ;;
+  }
+
+  measure: user_count {
+    type: number
+    sql: ${users.count} ;;
+  }
+  measure: avg_sale_per_user {
+    type: number
+    value_format_name: usd
+    sql: ${total_sales}/nullif(${user_count},0) ;;
   }
 
   # ----- Sets of fields for drilling ------

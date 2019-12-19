@@ -82,6 +82,24 @@ view: users {
     sql: ${TABLE}.zip ;;
   }
 
+  dimension: citystate {
+    type: string
+    sql: concat(${city}, ', ') || ${state} ;;
+  }
+
+  dimension: age_group {
+    type: tier
+    tiers: [18,25,35,45,55,65,75,90]
+    sql: ${age} ;;
+  }
+
+
+  dimension: is_email {
+    type: yesno
+    sql: ${traffic_source} = 'Email' ;;
+
+  }
+
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
