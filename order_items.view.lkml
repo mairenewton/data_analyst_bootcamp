@@ -1,3 +1,5 @@
+include: "*.view"
+
 view: order_items {
   sql_table_name: public.order_items ;;
 
@@ -96,11 +98,33 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+  measure: total_sales_email_source {
+    type: sum
+    sql:  ${sale_price} ;;
+    filters: {
+      field: users.traffic_source
+      value: "Email"
+    }
+  }
+
   measure: total_sales {
     type: sum
     sql: ${sale_price} ;;
     value_format_name: usd
   }
+
+  measure: email_users_perc {
+    type: number
+    value_format_name: percent_2
+    sql:  1.0 * ${total_sales_email_source} / NULLIF(${total_sales}, 0);;
+  }
+
+  measure: average_spend_per_user {
+    type:  number
+    value_format_name: usd
+    sql:  1.0 * ${total_sales} / NULLIF(${users.count}, 0);;
+  }
+
 
   # ----- Sets of fields for drilling ------
   set: detail {
