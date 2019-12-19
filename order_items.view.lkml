@@ -91,6 +91,13 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+  dimension_group: shipping_days {
+    type:  duration
+    sql_start:  ${shipped_date} ;;
+    sql_end:  ${delivered_date} ;;
+    intervals: [day]
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
@@ -101,6 +108,40 @@ view: order_items {
     sql: ${sale_price} ;;
     value_format_name: usd
   }
+
+  #measure: avg_sales {
+  #  type: average
+  #  sql: 1.0*(${total_sales} / nullif(${count}, 0) ;;
+  #  value_format_name: usd
+  #}
+
+  measure: num_orders {
+    type:  count_distinct
+    sql:  ${order_id} ;;
+  }
+
+  measure: email_sales {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+    filters: {
+      field: users.traffic_source
+      value: "Email"
+    }
+  }
+
+  measure: percent_sales_from_email {
+    type: number
+    value_format_name: percent_0
+    sql:  1.0*(${email_sales}/nullif(${total_sales}, 0));;
+  }
+
+  measure: avg_spend_per_user {
+    type: number
+    value_format_name:  usd
+    sql: 1.0*${total_sales}/nullif(users.count, 0);;
+  }
+
 
   # ----- Sets of fields for drilling ------
   set: detail {

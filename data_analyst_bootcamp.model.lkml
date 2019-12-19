@@ -32,10 +32,30 @@ explore: order_items {
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
     relationship: many_to_one
   }
+
+  join: order_facts_ndt{
+    type: inner
+    sql_on:  ${order_items.order_id} = ${order_facts_ndt.order_id} ;;
+    relationship:  one_to_one
+  }
 }
 
 
 explore: products {}
 
 
-explore: users {}
+explore: users {
+  join: order_items {
+    type: inner
+    sql_on: ${users.id} = ${order_items.user_id} ;;
+    relationship: one_to_many
+  }
+}
+
+explore: sql_subquery_training {
+  join: users {
+    type:  left_outer
+    sql_on: ${sql_subquery_training.user_id} = ${users.id};;
+    relationship: one_to_one
+  }
+}
