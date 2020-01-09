@@ -100,6 +100,19 @@ view: order_items {
     type: count
     drill_fields: [detail*]
   }
+  measure:tot_sal_email_users  {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: {
+      field:users.is_email_source
+      value: "Yes"
+    }
+      }
+      measure: perc_sal_email_source {
+        type: number
+        value_format_name:percent_1
+        sql: 1.0*${tot_sal_email_users}/NULLIF(${tot_sales},0) ;;
+      }
 
   measure: total_sales {
     type: sum

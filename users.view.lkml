@@ -78,7 +78,7 @@ view: users {
     sql: ${TABLE}.longitude ;;
   }
 
-  dimension: email_source {
+  dimension: is_email_source {
     type:  yesno
     sql: ${traffic_source} = 'Email' ;;
   }
@@ -102,4 +102,5 @@ view: users {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
+
 }
