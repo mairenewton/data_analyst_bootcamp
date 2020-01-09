@@ -123,6 +123,12 @@ view: order_items {
   type:  count_distinct
   sql: ${order_id} ;;
   }
+  measure: average_spend_per_user {
+   type: number
+  value_format_name: usd
+
+    sql: 1.0 * ${total_sales} / NULLIF(${users.count},0) ;;
+     }
   measure: tot_sales {
     type: sum
     sql: ${sale_price} ;;
