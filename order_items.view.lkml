@@ -66,6 +66,12 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
+  measure: average_sale_price {
+    type: average
+    sql: ${sale_price} ;;
+
+  }
+
   dimension_group: shipped {
     type: time
     timeframes: [

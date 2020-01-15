@@ -48,6 +48,26 @@ view: products {
     sql: ${TABLE}.sku ;;
   }
 
+
+  dimension: category_comparator {
+    type: string
+    sql:
+      CASE {% condition choose_a_cat_to_comp %}
+        ${category}
+        {% endcondition %}
+        THEN ${category}
+        ELSE 'All other categories'
+        END
+        ;;
+  }
+
+  filter: choose_a_cat_to_comp {
+    type: string
+    suggest_explore: inventory_items
+    suggest_dimension: products.category
+  }
+
+
   measure: count {
     type: count
     drill_fields: [id, name, distribution_centers.id, distribution_centers.name, inventory_items.count]

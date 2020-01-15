@@ -1,4 +1,8 @@
+include: "geography_dimensions.view"
+
 view: users {
+
+  extends: [geography_dimensions]
   sql_table_name: public.users ;;
 
   dimension: id {
@@ -9,18 +13,17 @@ view: users {
 
   dimension: age {
     type: number
-    sql: ${TABLE}.age ;;
+    sql: ${TABLE}.age;;
   }
 
-  dimension: city {
-    type: string
-    sql: ${TABLE}.city ;;
+  measure: average_age {
+    type: average
+    sql:  ${age};;
   }
 
-  dimension: country {
-    type: string
-    map_layer_name: countries
-    sql: ${TABLE}.country ;;
+  measure: median_age {
+    type: median
+    sql:  ${age};;
   }
 
   dimension_group: created {
@@ -57,19 +60,9 @@ view: users {
     sql: ${TABLE}.last_name ;;
   }
 
-  dimension: latitude {
-    type: number
-    sql: ${TABLE}.latitude ;;
-  }
-
-  dimension: longitude {
-    type: number
-    sql: ${TABLE}.longitude ;;
-  }
-
-  dimension: state {
+  dimension: full_name {
     type: string
-    sql: ${TABLE}.state ;;
+    sql: ${first_name} || ' ' || ${last_name} ;;
   }
 
   dimension: traffic_source {
@@ -77,9 +70,13 @@ view: users {
     sql: ${TABLE}.traffic_source ;;
   }
 
-  dimension: zip {
-    type: zipcode
-    sql: ${TABLE}.zip ;;
+  parameter: goal {
+    type: number
+    description: "Enter goal here:"
+  }
+
+  measure: percent_to_goal {
+    sql: 1.0*${count}/{% parameter goal %} ;;
   }
 
   measure: count {
