@@ -1,6 +1,11 @@
 view: users {
   sql_table_name: public.users ;;
 
+  dimension: full_name {
+    type:  string
+    sql:  ${TABLE}.first_name || ${TABLE}.last_name ;;
+  }
+
   dimension: id {
     primary_key: yes
     type: number
