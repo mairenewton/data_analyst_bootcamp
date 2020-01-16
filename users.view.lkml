@@ -92,14 +92,14 @@ view: users {
   }
   measure: min_age {
     type: min
-    sql: min(${age});;
+    sql: ${TABLE}.age;;
   }
   measure: max_age {
     type: max
-    sql: max(${age}) ;;
+    sql: ${TABLE}.age;;
   }
   measure: avg_age {
     type:  average
-    sql:  avg(${age}) ;;
+    sql: ${TABLE}.age;;
   }
 }
