@@ -90,4 +90,16 @@ view: users {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
+  measure: min_age {
+    type: min
+    sql: min(${age});;
+  }
+  measure: max_age {
+    type: max
+    sql: max(${age}) ;;
+  }
+  measure: avg_age {
+    type:  average
+    sql:  avg(${age}) ;;
+  }
 }
