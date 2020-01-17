@@ -37,16 +37,13 @@ explore: order_items {
 
 explore: products {}
 
-explore: users {}
 
-explore: user_orders {
+
+explore: users {
   fields: [ALL_FIELDS*,-order_items.average_spend_by_user, -order_items.email_traffic_sales, -order_items.percentage_sales_from_email]
-  view_name: users
   label: "Users"
-  group_label: "Users Info"
   join: order_items {
     view_label: "Order Items"
-#     fields: [order_items.count, order_items.total_sales]
     type: left_outer
     sql_on: ${users.id} = ${order_items.user_id} ;;
     relationship: one_to_many
