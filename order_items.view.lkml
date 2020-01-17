@@ -47,6 +47,24 @@ view: order_items {
     sql: ${TABLE}.order_id ;;
   }
 
+  #Shipping days variant one
+  dimension: shipping_days {
+
+    type: number
+    sql: datediff(day, ${shipped_raw}, ${delivered_raw}) ;;
+
+  }
+
+  dimension_group: shipping_days1  {
+
+    type: duration
+    intervals: [day]
+    sql_end: ${shipped_raw};;
+    sql_start: ${delivered_raw} ;;
+
+
+  }
+
   dimension_group: returned {
     type: time
     timeframes: [
@@ -96,10 +114,50 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+  measure: distinct_orders {
+    type:  count_distinct
+    sql:  ${order_id} ;;
+  }
+
+
+  measure: average_sales {
+    type:  average
+    sql:  ${sale_price} ;;
+    value_format_name: usd
+  }
+
+
   measure: total_sales {
     type: sum
     sql: ${sale_price} ;;
     value_format_name: usd
+  }
+
+  measure: total_sales_email
+  {
+    type: sum
+    sql:  ${sale_price} ;;
+    value_format_name:  usd
+    filters: {
+      field: users.is_email
+      value: "Yes"
+    }
+
+  }
+
+  measure: sales_percentage_email {
+
+    type: number
+    value_format_name: percent_1
+    sql:  1.0* ${total_sales_email} / nullif(${total_sales}, 0) ;;
+
+  }
+
+  measure: average_spend_per_user {
+    type:  number
+
+    sql: ${total_sales} / ${users.count} ;;
+
   }
 
   # ----- Sets of fields for drilling ------
