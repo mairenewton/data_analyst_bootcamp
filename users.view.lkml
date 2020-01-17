@@ -23,6 +23,7 @@ view: users {
     sql: ${TABLE}.country ;;
   }
 
+
   dimension_group: created {
     type: time
     timeframes: [
@@ -72,16 +73,34 @@ view: users {
     sql: ${TABLE}.state ;;
   }
 
+  dimension: city_state {
+    type:  string
+    sql: ${city} || ',' || ${state} ;;
+  }
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
   }
+
 
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
   }
 
+dimension:  isemail_source{
+  type: yesno
+  sql:  ${traffic_source}='Email' ;;
+
+}
+
+dimension: age_group {
+  type:  tier
+  tiers: [18,25,35,45,55,65,90]
+  sql:  ${age} ;;
+  style: relational
+  value_format_name: decimal_0
+}
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
