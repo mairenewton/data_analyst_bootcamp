@@ -1,4 +1,7 @@
+
+include: "geography.view"
 view: events {
+  extends: [geography_dimensions]
   sql_table_name: public.events ;;
 
   dimension: id {

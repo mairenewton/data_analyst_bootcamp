@@ -1,4 +1,7 @@
+include: "geography.view"
+
 view: users {
+  extends: [geography_dimensions]
   sql_table_name: public.users ;;
 
   dimension: id {
