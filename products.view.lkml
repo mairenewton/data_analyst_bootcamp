@@ -7,11 +7,6 @@ view: products {
     sql: ${TABLE}.id ;;
   }
 
-  dimension: brand {
-    type: string
-    sql: ${TABLE}.brand ;;
-  }
-
   dimension: category {
     type: string
     sql: ${TABLE}.category ;;
@@ -41,6 +36,16 @@ view: products {
   dimension: retail_price {
     type: number
     sql: ${TABLE}.retail_price ;;
+  }
+
+  dimension: brand {
+    type: string
+    sql:  ${TABLE}.brand ;;
+    link: {
+      label: "Google"
+      url: "http://google.com/search?q={{ value }}"
+      icon_url: "http://google.com/favicon.ico"
+    }
   }
 
   dimension: sku {
