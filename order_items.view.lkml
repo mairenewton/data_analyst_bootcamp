@@ -102,6 +102,66 @@ view: order_items {
     value_format_name: usd
   }
 
+  dimension: shipping_days_sql {
+    label: "Shipping Days using SQL"
+    type: number
+    sql: DATEDIFF(Day,${shipped_raw}, ${delivered_raw});;
+  }
+
+  dimension_group: shipping_days {
+    label: "Shipping Days"
+    type: duration
+    convert_tz: no
+    sql_start: ${shipped_raw} ;;
+    sql_end:  ${delivered_raw} ;;
+    intervals: [day]
+  }
+
+  measure: unique_orders_count {
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
+  measure: total_sale {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
+  measure: avg_sale_price {
+    type: average
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
+  measure: email_traffic_sales {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+    filters: {
+      field: users.email_traffic
+      value: "Yes"
+    }
+  }
+
+  measure: percentage_sales_from_email {
+    type: number
+    sql: 1.0* ${email_traffic_sales} / NULLIF(${total_sale},0);;
+    value_format_name: percent_0
+  }
+
+  measure: user_count {
+    type: count_distinct
+    sql: ${user_id} ;;
+  }
+
+  measure: average_spend_by_user{
+    type: number
+  #  sql: 1.0 * ${total_sale}/NULLIF(${user_count} ,0) ;;
+    sql: 1.0 * ${total_sale}/NULLIF(${users.count} ,0) ;;
+    value_format_name: usd
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [

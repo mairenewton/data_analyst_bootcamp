@@ -96,6 +96,11 @@ view: events {
     sql: ${TABLE}.zip ;;
   }
 
+  dimension: email_traffic {
+    type: yesno
+    sql: ${traffic_source} IN ('Email');;
+  }
+
   measure: count {
     type: count
   }
