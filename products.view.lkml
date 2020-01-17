@@ -5,6 +5,8 @@ view: products {
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
+    html:
+     <img src="https://www.salesforcee.com/favicon.ico" height=16 width=16></a>;;
   }
 
   dimension: category {
