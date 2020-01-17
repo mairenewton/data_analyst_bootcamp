@@ -4,7 +4,7 @@ view: products {
   dimension: id {
     primary_key: yes
     type: number
-    sql: ${TABLE}.opportunity_id ;;
+    sql: ${TABLE}.id ;;
     html:
      <img src="https://www.salesforcee.com/favicon.ico" height=16 width=16></a>;;
   }
