@@ -22,6 +22,26 @@ view: order_items {
     sql: ${TABLE}.created_at ;;
   }
 
+  dimension: date {
+    type: string
+    label_from_parameter: select_date_granuality
+    sql:
+    {% if select_date_granuality._parameter_value == 'day' %}
+      ${created_date}
+    {% elsif select_date_granuality._parameter_value == 'month' %}
+      ${created_month}
+    {% else %}
+      ${created_date}
+    {% endif %};;
+  }
+
+#   dimension: dynamic_timeframe {
+#     type:  string
+
+
+
+ # }
+
   dimension_group: delivered {
     type: time
     timeframes: [
@@ -159,6 +179,17 @@ view: order_items {
     sql: ${total_sales} / ${users.count} ;;
 
   }
+
+  parameter: select_date_granuality {
+    type:  unquoted
+    allowed_value: {label: "day" value: "day"}
+    allowed_value: {label: "week" value: "week"}
+    allowed_value: {label: "month" value: "month"}
+    default_value: "date"
+  }
+
+
+
 
   # ----- Sets of fields for drilling ------
   set: detail {

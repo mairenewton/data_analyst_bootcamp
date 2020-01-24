@@ -90,7 +90,6 @@ view: users {
   }
 
   dimension: state {
-    hidden: yes
     type: string
     sql: ${TABLE}.state ;;
   }

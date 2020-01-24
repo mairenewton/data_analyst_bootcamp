@@ -10,6 +10,16 @@ view: products {
   dimension: brand {
     type: string
     sql: ${TABLE}.brand ;;
+    link: {
+      label: "Google Search"
+      url: "http://www.google.com/search?q={{ value }}"
+      icon_url: "http://google.com/favicon.ico"
+    }
+    link: {
+      label: "Dashboard with Brand"
+      url: "https://teach.corp.looker.com/dashboards/189?Brand={{ value }}"
+      icon_url: "http://looker.com/favicon.ico"
+    }
   }
 
   dimension: category {
