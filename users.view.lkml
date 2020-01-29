@@ -57,6 +57,11 @@ view: users {
     sql: ${TABLE}.last_name ;;
   }
 
+  dimension: full_name {
+    type: string
+    sql: ${first_name} || ' ' || ${last_name} ;;
+  }
+
   dimension: latitude {
     type: number
     sql: ${TABLE}.latitude ;;
@@ -85,5 +90,38 @@ view: users {
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
+  }
+
+  parameter: goal {
+    type: number
+    default_value: "5000"
+  }
+
+  measure: pct_attainment_static {
+    type: number
+    value_format_name: percent_0
+    sql: 1.0*${count} / 5000 ;;
+  }
+
+  measure: pct_attainment_dynamic {
+    type: number
+    value_format_name: percent_0
+    sql: 1.0*${count} / {% parameter goal %} ;;
+  }
+
+
+  measure: min_age {
+    type: min
+    sql: ${age} ;;
+  }
+
+  measure: max_age {
+    type: max
+    sql: ${age} ;;
+  }
+
+  measure: average_age {
+    type: average
+    sql: ${age} ;;
   }
 }
