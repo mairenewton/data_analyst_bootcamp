@@ -47,6 +47,13 @@ view: users {
     sql: ${TABLE}.first_name ;;
   }
 
+  dimension: age_group {
+    type: tier
+    sql:  ${age} ;;
+    tiers: [0, 20, 40, 60, 80]
+    style:  integer
+  }
+
   dimension: gender {
     type: string
     sql: ${TABLE}.gender ;;
