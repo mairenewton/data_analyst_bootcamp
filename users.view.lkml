@@ -42,6 +42,7 @@ view: users {
     sql: ${TABLE}.email ;;
   }
 
+
   dimension: first_name {
     type: string
     sql: ${TABLE}.first_name ;;
@@ -67,10 +68,17 @@ view: users {
     sql: ${TABLE}.longitude ;;
   }
 
+  dimension: city_state {
+    type: string
+    label: "City and State"
+    sql: CONCAT(${city},CONCAT(' ', ${state})) ;;
+  }
+
   dimension: state {
     type: string
     sql: ${TABLE}.state ;;
   }
+
 
   dimension: traffic_source {
     type: string
