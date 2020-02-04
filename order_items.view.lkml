@@ -22,6 +22,11 @@ view: order_items {
     sql: ${TABLE}.created_at ;;
   }
 
+  measure: disorders {
+    type: number
+    sql:  count(distinct ${order_id}) ;;
+  }
+
   dimension_group: delivered {
     type: time
     timeframes: [
