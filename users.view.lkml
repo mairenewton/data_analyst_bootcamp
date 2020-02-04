@@ -90,7 +90,7 @@ view: users {
 
  dimension: Email {
  type: yesno
- sql:  WHERE(Traffic_Source ="Email") ;;
+ sql: ${traffic_source} ="Email" ;;
 }
 
 
