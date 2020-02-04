@@ -77,13 +77,26 @@ view: users {
     sql: ${TABLE}.traffic_source ;;
   }
 
+  dimension: shipping_days {
+  type: number
+  sql: DATEDIFF(day,date_1,date_2)};;
+  }
+
+
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
   }
 
+ dimension: Email {
+ type: yesno
+ sql:  WHERE(Traffic_Source ="Email") ;;
+}
+
+
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
-  }
+    }
+
 }
