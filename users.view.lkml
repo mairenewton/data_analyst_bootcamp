@@ -7,6 +7,14 @@ view: users {
     sql: ${TABLE}.id ;;
   }
 
+#----------
+dimension: CitYState {
+
+  type: string
+  sql: concat( ${city} , ${state} );;
+}
+#----------
+
   dimension: age {
     type: number
     sql: ${TABLE}.age ;;

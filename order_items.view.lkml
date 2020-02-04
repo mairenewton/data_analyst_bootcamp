@@ -7,6 +7,12 @@ view: order_items {
     sql: ${TABLE}.id ;;
   }
 
+#---------------------------------
+  dimension: NoDays {
+    type: number
+    sql: DATEDIFF(day,${shipped_date},${shipped_date});;
+  }
+#---------------------------------
   dimension_group: created {
     type: time
     timeframes: [
