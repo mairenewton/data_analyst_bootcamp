@@ -102,6 +102,26 @@ view: order_items {
     value_format_name: usd
   }
 
+  dimension: Shipment_Days {
+    type:  number
+    sql: DATEDIFF(day, ${shipped_date}, ${delivered_date});;
+  }
+
+  measure: Count_Distinct_orders {
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
+  measure: TotalSales {
+    type: sum
+    sql:  ${sale_price} ;;
+  }
+
+  measure: AVG_Sales {
+    type:  average
+    sql: ${sale_price} ;;
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
