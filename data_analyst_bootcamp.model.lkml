@@ -11,6 +11,11 @@ datagroup: data_analyst_bootcamp_default_datagroup {
 
 persist_with: data_analyst_bootcamp_default_datagroup
 
+datagroup: data_analyst_bootcamp_default_datagroup_shr {
+  sql_trigger: SELECT current_date;;
+  max_cache_age: "24 hour"
+}
+
 explore: inventory_items {}
 
 # This explore contains multiple views
@@ -38,4 +43,6 @@ explore: order_items {
 explore: products {}
 
 
-explore: users {}
+explore: users {
+  persist_with: data_analyst_bootcamp_default_datagroup_shr
+}
