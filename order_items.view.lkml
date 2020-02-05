@@ -110,10 +110,32 @@ view: order_items {
     sql: ${order_id}
   }
 
+
+    measure: average_sales {
+      type: average
+      sql: ${sale_price} ;;
+    }
+
   measure: total_sales {
     type: sum
     sql: ${sale_price} ;;
     value_format_name: usd
+  }
+
+  measure: total_sales_email_users {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+    filters: {
+      field: users.traffic_source_yn
+      value: "Yes"
+    }
+  }
+
+  measure: percentage_sales_email_source {
+    type: number
+    sql: 1.0 * ${total_sales_email_users}/ NULLIF($(total_sales),0) ;;
+    value_format_name: percent_2
   }
 
   # ----- Sets of fields for drilling ------
