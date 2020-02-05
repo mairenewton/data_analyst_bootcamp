@@ -91,9 +91,23 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+  dimension: shipping_days {
+    type: duration_day
+    sql_start: ${delivered_date};;
+    sql_end: ${shipped_date};;
+  }
+
+
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: distinct_orders
+  {
+    type: count_distinct
+    description: "A distinct count of orders"
+    sql: ${order_id}
   }
 
   measure: total_sales {
