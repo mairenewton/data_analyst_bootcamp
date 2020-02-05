@@ -65,7 +65,10 @@ view: order_items {
     type: number
     sql: ${TABLE}.sale_price ;;
   }
-
+  dimension: shipping_days {
+    type: number
+    sql: DATEDIFF(day,${shipped_date},${delivered_date}) ;;
+  }
   dimension_group: shipped {
     type: time
     timeframes: [
