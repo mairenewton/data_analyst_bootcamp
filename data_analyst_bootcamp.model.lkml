@@ -15,6 +15,8 @@ explore: inventory_items {}
 
 # This explore contains multiple views
 explore: order_items {
+  sql_always_where: ${returned_date} IS NULL AND ${status} = "Complete";;
+  sql_always_having: ${total_sales} > 200 AND ${count} > 5000 ;;
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
