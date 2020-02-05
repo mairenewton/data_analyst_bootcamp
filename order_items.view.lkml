@@ -98,7 +98,10 @@ view: order_items {
     type: count
     drill_fields: [detail*]
   }
-
+  measure: distinct_orders{
+    type: count_distinct
+    sql:${TABLE}.order_id ;;
+  }
   measure: total_sales {
     type: sum
     sql: ${sale_price} ;;
