@@ -105,6 +105,11 @@ view: order_items {
     type: count_distinct
     sql: ${order_id} ;;
   }
+  measure: avg_spd_usr {
+    type: number
+   value_format_name: usd
+  sql: 1.0*${total_sales} /NULLIF(${users.count},0) ;;
+  }
 
 
   # ----- Sets of fields for drilling ------
