@@ -118,6 +118,21 @@ view: order_items {
     sql: ${order_id};;
     }
 
+  measure: Email_total_sales {
+    type: sum
+    sql:  ${sale_price} ;;
+    filters: {
+      field: users.email_yesno
+      value: "Yes"
+    }
+  }
+
+  measure: per_email_total_sales {
+    type: number
+    value_format_name: percent_2
+    sql:  1.0*${Email_total_sales}/NULLIF(${total_sales},0) ;;
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
