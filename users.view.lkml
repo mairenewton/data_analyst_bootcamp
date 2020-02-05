@@ -99,8 +99,8 @@ view: users {
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
 
-  measure: count_d {
+  measure: order_count {
     type:  count_distinct
-    drill_fields: [id]
+    sql: ${id} ;;
   }
 }
