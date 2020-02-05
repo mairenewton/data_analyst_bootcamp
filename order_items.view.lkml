@@ -100,7 +100,7 @@ view: order_items {
   }
   measure: distinct_orders{
     type: count_distinct
-    sql:${TABLE}.order_id ;;
+    sql:${order_id} ;;
   }
   measure: total_sales {
     type: sum
