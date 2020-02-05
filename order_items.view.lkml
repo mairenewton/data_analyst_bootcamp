@@ -1,6 +1,9 @@
 view: order_items {
   sql_table_name: public.order_items ;;
 
+
+  ## Native Dimensions
+
   dimension: order_item_id {
     primary_key: yes
     type: number
@@ -80,6 +83,8 @@ view: order_items {
     sql: ${TABLE}.shipped_at ;;
   }
 
+
+
   dimension: status {
     type: string
     sql: ${TABLE}.status ;;
@@ -90,6 +95,19 @@ view: order_items {
     # hidden: yes
     sql: ${TABLE}.user_id ;;
   }
+
+  # Constructed Dimensions
+
+  dimension: shipping_days {
+    type: number
+    sql:DATEDIFF(day, ${shipped_date},${delivered_date});;
+  }
+
+  #dimension_group: shipping_days_2 {
+  #    type: duration
+  #    sql_start:
+  #    sql_end:;;
+  #}
 
   measure: count {
     type: count
