@@ -89,6 +89,18 @@ view: users {
 
   dimension: city_and_state {
     type: string
-    sql:  ${city} || ', ' || ${state}) ;;
+    sql:  ${city} || ', ' || ${state} ;;
+  }
+
+  dimension: email_source {
+    type:  yesno
+    sql: ${traffic_source} = 'Email' ;;
+  }
+
+  dimension:  age_buckets{
+    type: tier
+    style: integer
+    sql: ${age} ;;
+    tiers: [10, 20, 30, 40, 50, 60, 70, 80, 90]
   }
 }
