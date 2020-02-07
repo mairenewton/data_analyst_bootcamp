@@ -89,6 +89,6 @@ view: users {
 
   dimension: city_and_state {
     type: string
-    sql:  CONCAT(${city}, ", ", ${state}) ;;
+    sql:  ${city} || ', ' || ${state}) ;;
   }
 }
