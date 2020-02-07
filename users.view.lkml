@@ -97,7 +97,7 @@ view: users {
     sql: ${traffic_source} = ‘Email’ ;;
   }
 
-  dimension:  age_buckets{
+  dimension: age_buckets{
     type: tier
     style: integer
     sql: ${age} ;;
