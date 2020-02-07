@@ -96,6 +96,13 @@ view: order_items {
     sql:  datediff(day, ${shipped_date}, ${delivered_date});;
   }
 
+  dimension_group: shipping_duration {
+    type: duration
+    sql_start: ${shipped_date};;
+    sql_end: ${delivered_date};;
+    intervals: [day, month, year, minute]
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
