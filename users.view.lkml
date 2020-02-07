@@ -92,7 +92,7 @@ view: users {
     sql:  ${city} || ', ' || ${state} ;;
   }
 
-  dimension: email_source {
+  dimension: from_email {
     type:  yesno
     sql: ${traffic_source} = 'Email' ;;
   }
