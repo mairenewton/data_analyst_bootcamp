@@ -86,4 +86,12 @@ view: users {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
+
+  dimension: location{
+    type: string
+    sql:  ${city} || ',' || ${state};;
+  }
+
+
+
 }
