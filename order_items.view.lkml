@@ -114,6 +114,12 @@ view: order_items {
     value_format_name: usd
   }
 
+  measure: average_sales {
+    type: average
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
   measure: distinct_orders_count {
     type:  count_distinct
     sql:  ${order_id} ;;
