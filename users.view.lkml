@@ -89,7 +89,7 @@ view: users {
 
   dimension: location{
     type: string
-    sql:  ${city} || ',' || ${state};;
+    sql:  ${city} || ', ' || ${state};;
   }
 
 

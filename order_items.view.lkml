@@ -91,6 +91,11 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+  dimension:  shipping_days{
+    type:  number
+    sql:  DATE_DIFF(${shipped_date}, ${delivered_date});;
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
@@ -101,6 +106,7 @@ view: order_items {
     sql: ${sale_price} ;;
     value_format_name: usd
   }
+
 
   # ----- Sets of fields for drilling ------
   set: detail {
