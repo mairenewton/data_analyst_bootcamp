@@ -91,6 +91,13 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+  dimension_group: shipping_days {
+    type:  duration
+    sql_start: ${shipped_date} ;;
+    sql_end:  ${delivered_date} ;;
+    intervals: [day, month, quarter, week, year]
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
