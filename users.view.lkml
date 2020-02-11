@@ -7,6 +7,13 @@ view: users {
     sql: ${TABLE}.id ;;
   }
 
+  dimension: full_name {
+    type: string
+    sql: ${first_name}||${last_name} ;;
+  }
+
+
+
   dimension: age {
     type: number
     sql: ${TABLE}.age ;;
@@ -81,6 +88,11 @@ view: users {
     type: zipcode
     sql: ${TABLE}.zip ;;
   }
+
+measure: mininmum  {
+    type: min
+    sql: ${TABLE}.age ;;
+}
 
   measure: count {
     type: count
