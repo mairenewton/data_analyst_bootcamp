@@ -89,7 +89,7 @@ view: users {
 
   dimension: citystate {
     type:  string
-    sql: ${city} || ' ' || ${state} ;;
+    sql: ${city} || ', ' || ${state} ;;
   }
 
   dimension: traffic_source_bool {
@@ -97,5 +97,11 @@ view: users {
     sql:  ${traffic_source} = "Email" ;;
   }
 
+dimension: age_groups  {
+  type:  tier
+  sql:  ${age} ;;
+  tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+  style:  integer
+}
 
 }
