@@ -36,6 +36,12 @@ view: order_items {
     sql: ${TABLE}.delivered_at ;;
   }
 
+  dimension: shipping_days {
+    type: number
+    sql: datediff(day,${shipped_raw},${delivered_raw})
+    ;;
+  }
+
   dimension: inventory_item_id {
     type: number
     # hidden: yes

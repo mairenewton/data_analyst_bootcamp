@@ -12,6 +12,12 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  dimension: City_State {
+    type: string
+    sql: $city || '-' || ${state}
+    ;;
+  }
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
@@ -40,6 +46,12 @@ view: users {
   dimension: email {
     type: string
     sql: ${TABLE}.email ;;
+  }
+
+  dimension: Traffic_source {
+    type: yesno
+    sql:  ${traffic_source} = 'Email'
+    ;;
   }
 
   dimension: first_name {
