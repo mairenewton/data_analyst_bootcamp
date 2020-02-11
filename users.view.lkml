@@ -113,10 +113,11 @@ measure: total_female_users {
   }
 }
 
+# need to force into a float
   measure: pct_of_female_users {
     label: "Percent of Female Users"
     type:  number
-    sql: ${total_female_users}/${count} ;;
+    sql: 1.0 * ${total_female_users}/${count} ;;
   }
 
 }
