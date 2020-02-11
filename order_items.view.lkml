@@ -104,7 +104,7 @@ view: order_items {
 
   dimension: shipping_days {
     type:  number
-    sql:  ${shipped_date} - ${delivered_date} ;;
+    sql:  DATEDIFF(days, ${shipped_date},  ${delivered_date}) ;;
   }
 
   # ----- Sets of fields for drilling ------

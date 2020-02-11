@@ -88,6 +88,7 @@ view: users {
   }
 
   dimension: citystate {
+    label: "City,State"
     type:  string
     sql: ${city} || ', ' || ${state} ;;
   }
