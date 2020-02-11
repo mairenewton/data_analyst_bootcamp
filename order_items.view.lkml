@@ -117,6 +117,11 @@ view: order_items {
     sql:  DATEDIFF(days, ${shipped_date},  ${delivered_date}) ;;
   }
 
+  measure: total_sales_per_user {
+    type:  number
+    sql: ${total_sales}/${users.count} ;;
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [

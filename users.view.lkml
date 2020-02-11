@@ -118,6 +118,9 @@ measure: total_female_users {
     label: "Percent of Female Users"
     type:  number
     sql: 1.0 * ${total_female_users}/${count} ;;
+    value_format_name: percent_2
   }
+
+
 
 }
