@@ -105,4 +105,18 @@ dimension: age_groups  {
   style:  integer
 }
 
+measure: total_female_users {
+  type:  count
+  filters: {
+    field: gender
+    value: "Female"
+  }
+}
+
+  measure: pct_of_female_users {
+    label: "Percent of Female Users"
+    type:  number
+    sql: ${total_female_users}/${count} ;;
+  }
+
 }
