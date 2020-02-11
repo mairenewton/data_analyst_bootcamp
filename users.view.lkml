@@ -13,11 +13,13 @@ view: users {
   }
 
   dimension: city {
+    group_label: "User Geo"
     type: string
     sql: ${TABLE}.city ;;
   }
 
   dimension: country {
+    group_label: "User Geo"
     type: string
     map_layer_name: countries
     sql: ${TABLE}.country ;;
@@ -69,6 +71,7 @@ view: users {
 
   dimension: state {
     type: string
+    group_label: "User Geo"
     sql: ${TABLE}.state ;;
   }
 
