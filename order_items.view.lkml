@@ -102,6 +102,11 @@ view: order_items {
     value_format_name: usd
   }
 
+  dimension: shipping_days {
+    type:  number
+    sql:  ${shipped_date} - ${delivered_date} ;;
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
