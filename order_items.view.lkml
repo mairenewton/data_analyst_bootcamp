@@ -101,6 +101,16 @@ view: order_items {
     sql: ${sale_price} ;;
     value_format_name: usd
   }
+  measure: total_orders {
+    type: count_distinct
+    sql:  ${order_id} ;;
+  }
+  measure: average_sales {
+    type: average
+    sql: ${sale_price} ;;
+    value_format_name: usd_0
+  }
+
 
   dimension: shipping_days {
     type:  number
