@@ -81,6 +81,12 @@ view: inventory_items {
     sql: ${TABLE}.sold_at ;;
   }
 
+  dimension: tax_amount {
+    type: number
+    sql: ${cost}*0.06 ;;
+    value_format_name: usd
+  }
+
   measure: count {
     type: count
     drill_fields: [id, product_name, products.id, products.name, order_items.count]
