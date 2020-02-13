@@ -19,19 +19,11 @@ explore: order_items {
   sql_always_where: ${status} = 'complete' ;;
   sql_always_having: ${order_count} > 5000 ;;
 
-##  always_filter: {
-##    filters: {
-##      field: created_date
-##      value: "before today"
-##    }
-##  }
-
-  conditionally_filter: {
+  always_filter: {
     filters: {
       field: created_date
-      value: "last 2 years"
+      value: "last 30 days"
     }
-    unless: [users.id]
   }
 
   join: users {
@@ -59,10 +51,16 @@ explore: products {}
 
 
 
-
-
-
 explore: users {
+
+  conditionally_filter: {
+    filters: {
+      field: created_date
+      value: "last 90 days"
+    }
+    unless: [users.id, users.state]
+  }
+
   join: order_items {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
