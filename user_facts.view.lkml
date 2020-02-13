@@ -50,4 +50,16 @@ view: user_facts {
   set: detail {
     fields: [user_id, lifetime_orders, lifetime_revenue, first_order_time, aslast_order_time]
   }
+
+  measure: avg_lifetime_revenue {
+    type: average
+    sql: ${lifetime_revenue} ;;
+    value_format: "usd"
+  }
+
+
+
+
+
+
 }
