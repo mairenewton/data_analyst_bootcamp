@@ -129,7 +129,22 @@ measure: order_count {
   measure: avg_saleprice {
     type: average
     sql: ${sale_price} ;;
+}
+
+measure: total_sales_email {
+  type: sum
+  filters: {
+    field: users.traffic_source
+    value: "email"
   }
+  sql: ${sale_price} ;;
+}
+
+
+measure: perc_sales {
+  type: number
+  sql: (1.0*${total_sales_email} / ${total_sales})*100 ;;
+}
 
 
 
