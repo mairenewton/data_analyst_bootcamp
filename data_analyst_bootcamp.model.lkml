@@ -19,12 +19,12 @@ explore: order_items {
   sql_always_where: ${status} = 'complete' ;;
   sql_always_having: ${order_count} > 5000 ;;
 
-  always_filter: {
-    filters: {
-      field: created_date
-      value: "before today"
-    }
-  }
+##  always_filter: {
+##    filters: {
+##      field: created_date
+##      value: "before today"
+##    }
+##  }
 
   conditionally_filter: {
     filters: {
