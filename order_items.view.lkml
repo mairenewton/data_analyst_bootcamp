@@ -144,6 +144,7 @@ measure: total_sales_email {
 measure: perc_sales {
   type: number
   sql: (1.0*${total_sales_email} / ${total_sales})*100 ;;
+  ## Put a null if here to stop div 0 error
 }
 
 
