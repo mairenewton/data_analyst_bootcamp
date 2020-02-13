@@ -121,5 +121,17 @@ view: order_items {
 
   }
 
+measure: order_count {
+  type: count_distinct
+  sql: ${order_id} ;;
+}
+
+  measure: avg_saleprice {
+    type: average
+    sql: ${sale_price} ;;
+  }
+
+
+
 
 }
