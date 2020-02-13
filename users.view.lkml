@@ -94,7 +94,11 @@ dimension: city_state {
   sql: ${city}||','||${state} ;;
 }
 
-
+dimension: age_bucket  {
+  type: tier
+  tiers: [5, 10, 20, 30]
+  sql:  ${age};;
+}
 
 
 
