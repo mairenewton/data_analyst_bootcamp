@@ -17,15 +17,15 @@ explore: inventory_items {}
 
 # This explore contains multiple views
 explore: order_items {
-  sql_always_where: ${status} = 'complete' ;;
-  sql_always_having: ${order_count} > 5000 ;;
-
-  always_filter: {
-    filters: {
-      field: created_date
-      value: "last 30 days"
-    }
-  }
+##  sql_always_where: ${status} = 'complete' ;;
+##  sql_always_having: ${order_count} > 5000 ;;
+##
+##  always_filter: {
+##    filters: {
+##      field: created_date
+##      value: "last 30 days"
+##    }
+##  }
 
   join: users {
     type: left_outer
