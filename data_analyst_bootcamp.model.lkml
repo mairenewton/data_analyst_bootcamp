@@ -1,5 +1,9 @@
 connection: "events_ecommerce"
 
+datagroup: daily {
+  sql_trigger: select current_date ;;
+  max_cache_age: "24 hours"
+}
 
 # include all the views
 include: "*.view"

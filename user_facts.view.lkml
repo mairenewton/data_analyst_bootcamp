@@ -1,5 +1,8 @@
 view: user_facts {
   derived_table: {
+##    datagroup_trigger: daily
+##    distribution_style: all
+##    sortkeys: [user_id]
     sql: Select user_id
           ,count(order_items.order_id) as lifetime_orders
           ,Sum(order_items.sale_price) as lifetime_revenue
@@ -54,7 +57,7 @@ view: user_facts {
   measure: avg_lifetime_revenue {
     type: average
     sql: ${lifetime_revenue} ;;
-    ##value_format: "usd"
+    value_format: "usd"
   }
 
 
