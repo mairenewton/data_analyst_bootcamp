@@ -99,4 +99,15 @@ view: events {
   measure: count {
     type: count
   }
+
+  measure: Email {
+    type: yesno
+    sql: ${traffic_source} = 'email' ;;
+  }
+
+
+
+
+
+
 }
