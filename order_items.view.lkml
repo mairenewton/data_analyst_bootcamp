@@ -135,7 +135,7 @@ measure: total_sales_email {
   type: sum
   filters: {
     field: users.traffic_source
-    value: "email"
+    value: "Email"
   }
   sql: ${sale_price} ;;
 }
