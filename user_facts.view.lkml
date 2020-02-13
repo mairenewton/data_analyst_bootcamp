@@ -54,7 +54,7 @@ view: user_facts {
   measure: avg_lifetime_revenue {
     type: average
     sql: ${lifetime_revenue} ;;
-    value_format: "usd"
+    ##value_format: "usd"
   }
 
 
