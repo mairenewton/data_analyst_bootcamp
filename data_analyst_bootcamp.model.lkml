@@ -16,7 +16,7 @@ explore: inventory_items {}
 
 # This explore contains multiple views
 explore: order_items {
-  sql_always_where: ${status} = "Returned" ;;
+  sql_always_where: ${status} = 'Returned' ;;
   sql_always_having: ${total_sales} > 200 ;;
   join: users {
     type: left_outer
