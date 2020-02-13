@@ -113,4 +113,13 @@ view: order_items {
       inventory_items.product_name
     ]
   }
+
+
+  measure: shipping_days {
+    type: number
+    sql:  DATEDIFF ( day, ${shipped_raw}, ${delivered_raw} );;
+
+  }
+
+
 }

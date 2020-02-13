@@ -98,5 +98,4 @@ dimension: city_state {
 
 
 
-
 }
