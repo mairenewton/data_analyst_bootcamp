@@ -16,8 +16,24 @@ explore: inventory_items {}
 
 # This explore contains multiple views
 explore: order_items {
-  sql_always_where: ${status} = 'Complete' ;;
-  sql_always_having: ${total_sales} > 5000 ;;
+  sql_always_where: ${status} = 'complete' ;;
+  sql_always_having: ${order_count} > 5000 ;;
+
+  always_filter: {
+    filters: {
+      field: created_date
+      value: "before today"
+    }
+  }
+
+  conditionally_filter: {
+    filters: {
+      field: created_date
+      value: "last 2 years"
+    }
+    unless: [users.id]
+  }
+
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
