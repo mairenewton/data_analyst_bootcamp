@@ -12,6 +12,12 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  dimension: age_tier_hzh {
+    type:  tier
+    sql: ${age} ;;
+    tiers: [5,12,18,22, 55,100]
+  }
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
