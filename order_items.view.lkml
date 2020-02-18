@@ -78,6 +78,12 @@ view: order_items {
       year
     ]
     sql: ${TABLE}.shipped_at ;;
+
+  }
+
+  dimension:shipping_days {
+    type:  number
+    sql: datediff(days, ${created_date}, ${shipped_date}) ;;
   }
 
   dimension: status {
@@ -99,6 +105,32 @@ view: order_items {
   measure: total_sales {
     type: sum
     sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
+  measure: count_distinct_orders {
+    type:  count_distinct
+    sql: ${order_id} ;;
+  }
+
+  measure: avg_sales {
+    type: average
+    sql:${sale_price} ;;
+  }
+
+  measure: email_traffic_total_sales {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: {
+      field: users.traffic_source
+      value: "Email"
+    }
+    value_format_name: usd
+  }
+
+  measure: per_user_spend {
+    type: number
+    sql: sum(${sale_price}) / count(distinct(${user_id})) ;;
     value_format_name: usd
   }
 

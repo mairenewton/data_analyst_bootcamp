@@ -12,9 +12,20 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  dimension: age_brackets {
+    type: tier
+    tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+    sql:  ${age} ;;
+  }
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
+  }
+
+  dimension: city_state {
+    type: string
+    sql: ${city} || ', ' || ${state} ;;
   }
 
   dimension: country {
@@ -77,6 +88,11 @@ view: users {
     sql: ${TABLE}.traffic_source ;;
   }
 
+  dimension: is_email {
+    type: yesno
+    sql: ${traffic_source} = 'Email' ;;
+  }
+
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
@@ -85,5 +101,13 @@ view: users {
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
+  }
+
+  measure: count_email_source_users {
+    type:  count
+    filters: {
+      field: "traffic_source"
+      value: "Email"
+    }
   }
 }
