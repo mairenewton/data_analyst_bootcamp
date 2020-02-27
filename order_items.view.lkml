@@ -111,6 +111,11 @@ view: order_items {
     value_format_name: usd
   }
 
+  measure: unique_orders {
+    type: sum
+    sql: COUNT(DISTINCT ${order_id});;
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
