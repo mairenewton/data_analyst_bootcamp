@@ -78,6 +78,12 @@ view: users {
     sql: ${TABLE}.traffic_source ;;
   }
 
+  dimension: city_state {
+    label: "City, State"
+    type: string
+    sql: ${city} || " " || ${state};;
+  }
+
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
