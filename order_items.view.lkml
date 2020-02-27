@@ -71,6 +71,7 @@ view: order_items {
     type: sum
     sql: ${sale_price} ;;
   }
+
   dimension_group: shipped {
     type: time
     timeframes: [
@@ -108,8 +109,19 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+  measure: distinct_order {
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
   measure: total_sales {
     type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
+  measure: average_sales {
+    type: average
     sql: ${sale_price} ;;
     value_format_name: usd
   }
