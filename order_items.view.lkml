@@ -102,6 +102,11 @@ view: order_items {
     value_format_name: usd
   }
 
+  measure: distinct_order {
+  type: count_distinct
+  sql: ${TABLE}.order;;
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
