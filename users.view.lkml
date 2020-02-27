@@ -64,7 +64,13 @@ view: users {
     style: integer
   }
 
-
+  measure: count_female_users {
+    type: count
+    filters: {
+      field: gender
+      value: "Female"
+    }
+  }
 
   dimension: email {
     type: string
