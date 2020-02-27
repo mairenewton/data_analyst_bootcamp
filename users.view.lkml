@@ -44,6 +44,22 @@ view: users {
       current_date) ;;
   }
 
+  dimension: days_since_signup_tier {
+    type: tier
+    tiers: [0, 30, 90, 180, 360, 720]
+    sql: ${days_since_signup} ;;
+    style: integer
+  }
+
+  dimension_group: enrolled {
+    type: duration
+    intervals: [second, minute, hour,
+      day, week,
+      month, quarter, year]
+    sql_start: ${TABLE}.created_date ;;
+    sql_end: ${TABLE}.current_date ;;
+  }
+
   dimension: is_new_customer {
     type: yesno
     sql: ${days_since_signup} <= 90 ;;
