@@ -100,4 +100,11 @@ view: users {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
+  measure:count_female_users {
+    type: count
+    filters: {
+      field: gender
+      value: "female"
+    }
+  }
 }
