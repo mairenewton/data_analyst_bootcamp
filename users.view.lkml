@@ -38,17 +38,9 @@ view: users {
     sql: ${TABLE}.created_at ;;
   }
 
-  dimension: days_since_signup {
-    type: number
-    sql: DATEDIFF(day, ${created_date},
-      current_date) ;;
-  }
-
-  dimension: days_since_signup_tier {
-    type: tier
-    tiers: [0, 30, 90, 180, 360, 720]
-    sql: ${days_since_signup} ;;
-    style: integer
+  dimension: city_state {
+    type: string
+    sql: ${city} || ${state} ;;
   }
 
   dimension_group: enrolled {
@@ -60,10 +52,6 @@ view: users {
     sql_end: ${TABLE}.current_date ;;
   }
 
-  dimension: is_new_customer {
-    type: yesno
-    sql: ${days_since_signup} <= 90 ;;
-  }
 
   dimension: email {
     type: string
