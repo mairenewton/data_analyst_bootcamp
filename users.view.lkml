@@ -52,6 +52,11 @@ view: users {
     sql_end: ${TABLE}.current_date ;;
   }
 
+  dimension: is_trafficsource_email {
+    type: yesno
+    sql: ${traffic_source} = "Email" ;;
+  }
+
 
   dimension: email {
     type: string
