@@ -68,7 +68,7 @@ view: users {
     type: count
     filters: {
       field: gender
-      value: "Female, Male"
+      value: "Female"
     }
   }
 
