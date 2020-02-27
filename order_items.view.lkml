@@ -36,6 +36,15 @@ view: order_items {
     sql: ${TABLE}.delivered_at ;;
   }
 
+  #adding shipping days
+  dimension_group: shipping_days {
+    label: "Shipping Days"
+    type: duration
+    intervals: [day, week, year]
+    sql_start: ${TABLE}.shipped ;;
+    sql_end: ${TABLE}.delivered ;;
+  }
+
   dimension: inventory_item_id {
     type: number
     # hidden: yes

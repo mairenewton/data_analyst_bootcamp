@@ -78,10 +78,23 @@ view: users {
     sql: ${TABLE}.traffic_source ;;
   }
 
+  dimension: traffic_email_yn {
+    type: yesno
+    sql: ${traffic_source} = 'Email' ;;
+  }
+
   dimension: city_state {
     label: "City, State"
     type: string
-    sql: ${city} || " " || ${state};;
+    sql: ${city} || ', ' || ${state};;
+  }
+
+  dimension: age_group {
+    label: "Age Group"
+    type: tier
+    tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+    style: integer
+    sql: ${age};;
   }
 
   dimension: zip {
