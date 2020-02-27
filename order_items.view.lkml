@@ -67,12 +67,12 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
-  dimension: profit {
-    type: number
-    value_format_name: usd
-    sql: ${sale_price} -
-      ${inventory_items.cost} ;;
-  }
+ # dimension: profit {
+#  type: number
+ #   value_format_name: usd
+ #   sql: ${sale_price} -
+#      ${inventory_items.cost} ;;
+ # }
 
   measure: total_sale {
     type: sum
@@ -140,8 +140,8 @@ view: order_items {
       users.id,
       users.first_name,
       users.last_name,
-      inventory_items.id,
-      inventory_items.product_name
+  #    inventory_items.id,
+  #    inventory_items.product_name
     ]
   }
 }
