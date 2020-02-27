@@ -112,6 +112,7 @@ view: order_items {
   }
 
   measure: unique_orders {
+    label: "unique orders"
     type: sum
     sql: COUNT(DISTINCT ${order_id});;
   }
