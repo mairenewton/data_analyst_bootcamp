@@ -72,6 +72,13 @@ view: users {
     }
   }
 
+  measure: percentage_female_users {
+    type: number
+    value_format_name: percent_1
+    sql: 1.0*${count_female_users}
+      /NULLIF(${count}, 0) ;;
+}
+
   dimension: email {
     type: string
     sql: ${TABLE}.email ;;
