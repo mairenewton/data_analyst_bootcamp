@@ -62,10 +62,15 @@ view: order_items {
   }
 
   dimension: sale_price {
+    label: "My new Sale Price"
     type: number
     sql: ${TABLE}.sale_price ;;
   }
 
+  measure: total_sale {
+    type: sum
+    sql: ${sale_price} ;;
+  }
   dimension_group: shipped {
     type: time
     timeframes: [
