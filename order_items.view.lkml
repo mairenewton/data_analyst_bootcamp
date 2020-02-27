@@ -67,6 +67,13 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
+  dimension: profit {
+    type: number
+    value_format_name: usd
+    sql: ${sale_price} -
+      ${inventory_items.cost} ;;
+  }
+
   measure: total_sale {
     type: sum
     sql: ${sale_price} ;;
