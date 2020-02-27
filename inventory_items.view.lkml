@@ -26,6 +26,12 @@ view: inventory_items {
     sql: ${TABLE}.created_at ;;
   }
 
+  dimension: days_since_signup {
+    type: number
+    sql: DATEDIFF(day, ${created_date},
+    current_date) ;;
+  }
+
   dimension: product_brand {
     type: string
     sql: ${TABLE}.product_brand ;;
