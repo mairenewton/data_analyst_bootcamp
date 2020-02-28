@@ -9,6 +9,9 @@ datagroup: data_analyst_bootcamp_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
   max_cache_age: "1 hour"
 }
+datagroup: 12_hour {
+  max_cache_age: "12 hour"
+}
 
 persist_with: data_analyst_bootcamp_default_datagroup
 
@@ -16,6 +19,7 @@ explore: inventory_items {}
 
 # This explore contains multiple views
 explore: order_items {
+  persist_with: 12_hour
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
