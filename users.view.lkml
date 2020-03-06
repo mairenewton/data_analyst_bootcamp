@@ -9,6 +9,7 @@ view: users {
 
   dimension: age {
     type: number
+    description: "age of user"
     sql: ${TABLE}.age ;;
   }
 
