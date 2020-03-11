@@ -12,10 +12,23 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  dimension: age_tier {
+    type: tier
+    tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+    sql: ${age} ;;
+    style: integer
+  }
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
   }
+
+  dimension: city_state {
+    type: string
+    sql: ${city} || ', ' || ${state};;
+  }
+
 
   dimension: country {
     type: string
@@ -36,6 +49,33 @@ view: users {
     ]
     sql: ${TABLE}.created_at ;;
   }
+
+#   dimension: days_since_signup {
+#     type: number
+#     sql: DATEDIFF(day, ${created_date}, current_date) ;;
+#     }
+
+  dimension_group: days_since_signup {
+    type: duration
+    intervals:
+    [second, minute, hour,
+      day, week,
+      month, quarter, year]
+    sql_start: ${TABLE}.created_date ;;
+    sql_end: current_date() ;;
+  }
+
+#   dimension: days_since_signup_tier {
+#     type: tier
+#     tiers: [0, 30, 90, 180, 360, 720]
+#     sql: ${days_since_signup} ;;
+#     style: integer
+#   }
+
+dimension: is_new_user {
+  type: yesno
+  sql: ${days_days_since_signup} <= 90 ;;
+}
 
   dimension: email {
     type: string
@@ -81,6 +121,27 @@ view: users {
     type: zipcode
     sql: ${TABLE}.zip ;;
   }
+
+  measure: count_distinct_first_names {
+    type: count_distinct
+    sql: ${first_name} ;;
+  }
+
+  measure: count_female_users {
+    type: count
+    filters:  {
+      field: gender
+      value: "Female"
+    }
+  }
+
+  measure: percentage_female_users {
+    type: number
+    value_format_name: percent_1
+    sql: 1.0*${count_female_users}
+      /NULLIF(${count}, 0) ;;
+  }
+
 
   measure: count {
     type: count

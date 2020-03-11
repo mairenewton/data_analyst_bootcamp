@@ -66,6 +66,17 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
+  measure: total_sales_new_users {
+    type: sum
+    sql: ${sale_price} ;;
+    filters:  {
+      field: users.is_new_user
+      value: "Yes"
+    }
+  }
+
+
+
   dimension_group: shipped {
     type: time
     timeframes: [
@@ -79,6 +90,13 @@ view: order_items {
     ]
     sql: ${TABLE}.shipped_at ;;
   }
+
+  dimension_group: shipping_days {
+    type: duration
+    sql_start: ${shipped_date};;
+    sql_end: ${delivered_date};;
+    intervals: [day]
+    }
 
   dimension: status {
     type: string
@@ -100,6 +118,13 @@ view: order_items {
     type: sum
     sql: ${sale_price} ;;
     value_format_name: usd
+  }
+
+  dimension: profit {
+    type: number
+    value_format_name: usd
+    sql: ${sale_price} -
+      ${inventory_items.cost} ;;
   }
 
   # ----- Sets of fields for drilling ------
