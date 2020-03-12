@@ -99,15 +99,49 @@ view: order_items {
     sql_end: ${delivered_date} ;;
   }
 
+
+
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+
+
+  ##practice exercise measures
+
+  measure: order_count {
+    description: "This is the unique count of orders."
+    type: count_distinct
+    sql: ${order_id} ;;
   }
 
   measure: total_sales {
     type: sum
     sql: ${sale_price} ;;
     value_format_name: usd
+  }
+
+  measure: average_sales {
+    type: average
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
+  measure: total_sales_new_users {
+    type: sum
+    sql: ${sale_price} ;;
+    filters:  {
+      field: users.is_new_user
+      value: "Yes"
+    }
+    value_format_name: usd
+  }
+  dimension: profit {
+    type: number
+    value_format_name: usd
+    sql: ${sale_price} -
+      ${inventory_items.cost} ;;
   }
 
   # ----- Sets of fields for drilling ------
