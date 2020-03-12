@@ -91,13 +91,29 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+  dimension: shipping_days {
+    type: number
+    sql: DATEDIFF(day, ${shipped_date}, ${delivered_date}) ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
   }
 
+  measure: distinct_orders {
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
   measure: total_sales {
     type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
+  measure: avg_sales {
+    type: average
     sql: ${sale_price} ;;
     value_format_name: usd
   }
