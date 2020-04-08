@@ -1,5 +1,6 @@
 view: products {
   sql_table_name: public.products ;;
+  drill_fields: [id]
 
   dimension: id {
     primary_key: yes
@@ -29,7 +30,6 @@ view: products {
 
   dimension: distribution_center_id {
     type: number
-    # hidden: yes
     sql: ${TABLE}.distribution_center_id ;;
   }
 
@@ -50,6 +50,6 @@ view: products {
 
   measure: count {
     type: count
-    drill_fields: [id, name, distribution_centers.id, distribution_centers.name, inventory_items.count]
+    drill_fields: [id, name]
   }
 }

@@ -1,5 +1,6 @@
 view: users {
   sql_table_name: public.users ;;
+  drill_fields: [id]
 
   dimension: id {
     primary_key: yes
@@ -10,6 +11,13 @@ view: users {
   dimension: age {
     type: number
     sql: ${TABLE}.age ;;
+  }
+
+  dimension: age_tier {
+    type: tier
+    tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+    sql: ${age} ;;
+    style: integer
   }
 
   dimension: city {
@@ -32,7 +40,6 @@ view: users {
       week,
       month,
       quarter,
-      day_of_month,
       year
     ]
     sql: ${TABLE}.created_at ;;
@@ -83,8 +90,20 @@ view: users {
     sql: ${TABLE}.zip ;;
   }
 
+  dimension: city_state {
+    type: string
+    sql: ${TABLE}.${city} ||', '|| ${TABLE}.${state} ;;
+  }
+
+  dimension: is_email_source {
+    type: yesno
+    sql: ${traffic_source} = ‘Email’ ;;
+  }
+
   measure: count {
     type: count
-    drill_fields: [id, first_name, last_name, events.count, order_items.count]
+    drill_fields: [id, last_name, first_name, order_items.count]
   }
+
+
 }
