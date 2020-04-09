@@ -116,6 +116,7 @@ view: order_items {
     sql: ${order_id} ;;
   }
 
+<<<<<<< HEAD
   measure: total_sales {
     type: sum
     sql: ${sale_price} ;;
@@ -144,6 +145,8 @@ view: order_items {
       ${inventory_items.cost} ;;
   }
 
+=======
+>>>>>>> branch 'master' of git@github.com:mairenewton/data_analyst_bootcamp.git
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
