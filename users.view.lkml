@@ -38,6 +38,13 @@ view: users {
     sql: ${TABLE}.created_at ;;
   }
 
+  dimension: days_since_signup {
+    label: "Days Since User Signup"
+    description: "This is days since user signup"
+    type: number
+    sql: DATEDIFF(day,${created_date}, current_date) ;;
+  }
+
   dimension: email {
     type: string
     sql: ${TABLE}.email ;;
