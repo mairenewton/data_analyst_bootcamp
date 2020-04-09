@@ -17,6 +17,18 @@ view: users {
     sql: ${TABLE}.city ;;
   }
 
+  dimension: is_email_traffic_source {
+    type: yesno
+    sql: ${traffic_source} = 'Email'} ;;
+  }
+
+  dimension: age_group {
+    type: tier
+    tiers: [18, 25, 35, 55, 65, 75, 90]
+    sql: ${age} ;;
+    style: integer
+  }
+
   dimension: country {
     type: string
     map_layer_name: countries
@@ -86,5 +98,11 @@ view: users {
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
+  }
+
+  dimension: city_and_state{
+    type: string
+    sql: ${city} || ', '  || ${state} ;;
+
   }
 }

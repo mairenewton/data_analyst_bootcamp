@@ -91,9 +91,31 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+  dimension_group: shipping {
+    type: duration
+    intervals: [day,week, hour]
+    sql_start: ${shipped_raw};;
+    sql_end: ${delivered_raw};;
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: order_item_count {
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
+  measure: total_email_sales_yes  {
+    label: "Total Email Sales"
+    type: sum
+    sql: ${sale_price};;
+    filters: {
+      field: users.is_email_traffic_source
+      value: "yes"
+    }
   }
 
   # ----- Sets of fields for drilling ------
@@ -107,4 +129,6 @@ view: order_items {
       inventory_items.product_name
     ]
   }
+
+
 }
