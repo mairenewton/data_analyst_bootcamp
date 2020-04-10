@@ -47,7 +47,7 @@ view: order_items {
     value_format: "$#.##"
   }
 
-  measure: average_sales {
+  measure: average_sales_line_item {
     type: average
     sql: ${sale_price} ;;
     value_format: "$#.##"
