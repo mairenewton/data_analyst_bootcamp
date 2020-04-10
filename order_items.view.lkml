@@ -91,9 +91,6 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
-
-
-
   dimension: shipping_days {
     type: duration_day
     sql_start:  ${delivered_date}
