@@ -98,7 +98,7 @@ view: order_items {
 
   dimension: shipping_days {
     type: duration_day
-    sql_start: ${shipped_raw}
+    sql_start: ${shipped_raw};;
       sql_end: ${delivered_raw} ;;
   }
 
