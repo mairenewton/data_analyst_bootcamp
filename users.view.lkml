@@ -53,7 +53,7 @@ view: users {
 
   dimension: age_groups_bucket {
     type:  tier
-    tiers: [0,18,25,35,45,55,65,75,90]
+    tiers: [18,25,35,45,55,65,75,90]
     sql: ${age} ;;
     style: integer
   }
