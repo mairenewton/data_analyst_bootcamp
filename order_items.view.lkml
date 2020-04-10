@@ -38,8 +38,8 @@ view: order_items {
 
   dimension: shipping_days {
     type: duration_day
-    sql_start:${shipped_raw} ;;
-    sql_end:${delivered_raw} ;;
+    sql_start:${shipped_date} ;;
+    sql_end:${delivered_date} ;;
   }
 
   dimension: inventory_item_id {
