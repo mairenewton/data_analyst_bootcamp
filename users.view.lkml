@@ -83,6 +83,11 @@ view: users {
     sql: ${TABLE}.zip ;;
   }
 
+  dimension: city_state {
+    type: string
+    sql:  ${city} || ',' ${state} ;;
+  }
+
 
   measure: count {
     type: count

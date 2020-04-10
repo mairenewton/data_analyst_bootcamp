@@ -91,10 +91,7 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
-  dimension: city_state {
-    type: string
-    sql:  ${users.city} || '_' ${users.state} ;;
-  }
+
 
 
   dimension: shipping_days {
