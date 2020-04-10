@@ -94,9 +94,9 @@ view: order_items {
   dimension: shipping_days {
     type: duration_day
     sql_start:  ${delivered_date}
-
-    sql_end: ${delivered_raw};;
+    sql_end: ${delivered_raw} ;;
 }
+
 
   measure: count {
     type: count

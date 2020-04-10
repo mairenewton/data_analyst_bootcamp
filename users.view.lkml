@@ -88,6 +88,11 @@ view: users {
     sql:  ${city} || ',' ${state} ;;
   }
 
+  dimension: is_email {
+    type: yesno
+    sql:  ${traffic_source} = 'Email' ;;
+  }
+
 
   measure: count {
     type: count
