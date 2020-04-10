@@ -91,6 +91,11 @@ view: users {
     sql: ${TABLE}.state ;;
   }
 
+  dimension: from_email {
+    type:  yesno
+    sql: {traffic_source} == "email" ;;
+  }
+
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
