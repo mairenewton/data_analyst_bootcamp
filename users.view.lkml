@@ -51,6 +51,10 @@ view: users {
     style: integer
   }
 
+  dimension: citystate {
+    type: string
+    sql:${city} + " " + ${state} ;;
+  }
 
   dimension: email {
     type: string
