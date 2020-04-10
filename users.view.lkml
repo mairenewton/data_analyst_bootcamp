@@ -93,7 +93,7 @@ view: users {
 
   dimension: from_email {
     type:  yesno
-    sql: ${traffic_source} == `Email` ;;
+    sql: ${traffic_source} = 'Email' ;;
   }
 
   dimension: traffic_source {
