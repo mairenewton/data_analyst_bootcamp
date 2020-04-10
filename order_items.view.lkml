@@ -36,6 +36,15 @@ view: order_items {
     sql: ${TABLE}.delivered_at ;;
   }
 
+  measure: distinct_number_of_orders {
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
+  measure: total_sales {
+    type: sum
+    sql: ${sale_price} ;;
+  }
   dimension: shipping_days {
     type: duration_day
     sql_start:${shipped_date} ;;
