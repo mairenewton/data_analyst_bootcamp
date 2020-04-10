@@ -44,6 +44,13 @@ view: users {
     sql_end: current_date ;; #because no { } this is literally sql
   }
 
+  dimension: days_since_signup_tier {
+    type: tier
+    tiers: [0,30,60,90,180,360,720] # groups 0-29, 30-59 etc.
+    sql: ${days_since_user_signup} ;;
+    style: integer
+  }
+
 
   dimension: email {
     type: string
