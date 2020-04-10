@@ -44,13 +44,13 @@ view: order_items {
   measure: total_sales {
     type: sum
     sql: ${sale_price} ;;
-    value_format: "#.##"
+    value_format: "$#.##"
   }
 
   measure: average_sales {
     type: average
     sql: ${sale_price} ;;
-    precision: 2
+    value_format: "$#.##"
   }
 
   dimension: shipping_days {
