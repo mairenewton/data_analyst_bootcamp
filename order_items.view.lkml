@@ -91,6 +91,19 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+  dimension: city_state {
+    type: string
+    sql:  ${users.city} || '_' ${users.state} ;;
+  }
+
+
+  dimension: shipping_days {
+    type: duration_day
+    sql_start:  ${delivered_date}
+
+    sql_end: ${delivered_raw};;
+}
+
   measure: count {
     type: count
     drill_fields: [detail*]
