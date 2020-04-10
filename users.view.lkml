@@ -11,12 +11,20 @@ view: users {
     type: number
     sql: ${TABLE}.age ;;
   }
-
+  dimension: age_tier {
+    type: tier
+    tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+    sql: ${age} ;;
+    style: integer
+  }
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
   }
-
+  dimension: is_email_source {
+    type: yesno
+    sql: ${traffic_source} = ‘Email’ ;;
+  }
   dimension: country {
     type: string
     map_layer_name: countries
