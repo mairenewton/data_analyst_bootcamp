@@ -32,7 +32,7 @@ view: users {
   }
 
   dimension: city_state {
-    sql: ${users.city} || ‘, ‘ || ${users.state} ;;
+    sql: ${TABLE}.city || ‘, ‘ || ${TABLE}.state ;;
     type: string
   }
   dimension_group: created {
