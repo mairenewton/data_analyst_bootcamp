@@ -38,6 +38,13 @@ view: users {
     sql: ${TABLE}.created_at ;;
   }
 
+  dimension: days_since_user_signup {
+    type: duration_day
+    sql_start: ${created_raw};;
+    sql_end: current_date ;; #because no { } this is literally sql
+  }
+
+
   dimension: email {
     type: string
     sql: ${TABLE}.email ;;
