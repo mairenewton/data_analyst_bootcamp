@@ -68,6 +68,23 @@ view: users {
     sql: ${TABLE}.longitude ;;
   }
 
+  dimension: city_and_state {
+    sql: ${city} || ', ' || ${state};;
+    type: string
+  }
+
+  dimension: is_email_source {
+    type: yesno
+    sql: ${traffic_source} = 'Email' ;;
+  }
+
+  dimension: age_buckets {
+    type: tier
+    tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+    sql: ${age} ;;
+    style: integer
+  }
+
   dimension: state {
     type: string
     sql: ${TABLE}.state ;;

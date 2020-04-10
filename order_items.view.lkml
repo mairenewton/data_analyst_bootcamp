@@ -66,6 +66,12 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
+  dimension: shipping_days {
+    type: duration_day
+    sql_start: ${shipped_raw};;
+    sql_end: ${delivered_raw} ;;
+  }
+
   dimension_group: shipped {
     type: time
     timeframes: [
@@ -95,6 +101,13 @@ view: order_items {
     type: count
     drill_fields: [detail*]
   }
+
+
+
+
+
+
+
 
   # ----- Sets of fields for drilling ------
   set: detail {
