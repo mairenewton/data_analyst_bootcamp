@@ -37,7 +37,7 @@ view: order_items {
   }
 
   dimension: shipping_days {
-    type:  duration_day
+    type: duration_day
     sql:${shipped_date} ;;
     sql_end:${delivered_date} ;;
   }
