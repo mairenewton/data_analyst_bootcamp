@@ -109,11 +109,13 @@ view: order_items {
 
   measure: total_sales {
     type: sum
+    value_format_name: usd
     sql: ${sale_price} ;;
   }
 
   measure: total_sales_email {
     type: sum
+    value_format_name: usd
     filters: [users.traffic_source_is_email: "Yes" ]
     sql: ${sale_price} ;;
   }
