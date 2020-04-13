@@ -21,6 +21,14 @@ view: order_items {
     ]
     sql: ${TABLE}.created_at ;;
   }
+  measure: total_sales_email_users {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: {
+      field: users.is_email_source
+      value: "Yes"
+    }
+  }
 
   dimension_group: delivered {
     type: time

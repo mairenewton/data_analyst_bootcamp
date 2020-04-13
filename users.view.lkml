@@ -23,7 +23,7 @@ view: users {
   }
   dimension: is_email_source {
     type: yesno
-    sql: ${traffic_source} = ‘Email’ ;;
+    sql: ${traffic_source} = 'Email' ;;
   }
   dimension: country {
     type: string
@@ -32,7 +32,7 @@ view: users {
   }
 
   dimension: city_state {
-    sql: ${TABLE}.city || ‘, ‘ || ${TABLE}.state ;;
+    sql: ${city} || ', ' || ${state} ;;
     type: string
   }
   dimension_group: created {
