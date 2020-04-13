@@ -17,6 +17,11 @@ view: users {
     sql: ${TABLE}.city ;;
   }
 
+  dimension: city_state {
+    type: string
+    sql: ${city} || ', ' || ${state} ;;
+  }
+
   dimension: country {
     type: string
     map_layer_name: countries
@@ -46,6 +51,11 @@ view: users {
   dimension: first_name {
     type: string
     sql: ${TABLE}.first_name ;;
+  }
+
+  dimension: full_name {
+    type: string
+    sql: ${first_name} || ' ' || ${last_name} ;;
   }
 
   dimension: gender {
