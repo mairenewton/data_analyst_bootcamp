@@ -80,7 +80,6 @@ view: order_items {
     sql: ${TABLE}.shipped_at ;;
   }
 
-
   dimension: shipping_days {
     type: duration_day
     sql_start: ${shipped_date} ;;
