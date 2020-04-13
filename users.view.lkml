@@ -26,7 +26,7 @@ view: users {
   measure: users_via_email   {
     type: number
     value_format_name: percent_1
-    sql: 1.0 * (${from_email} = "Yes")/NULLIF(${count}, 0) ;;
+    sql: 1.0 * (${from_email} = "yes")/NULLIF(${count}, 0) ;;
   }
 
   dimension_group: created {
