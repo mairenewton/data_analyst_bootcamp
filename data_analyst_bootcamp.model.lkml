@@ -16,10 +16,31 @@ explore: inventory_items {}
 # This explore contains multiple views
 explore: order_items {
 
-  sql_always_where: ${order_items.status} = 'Complete' ;;
-  sql_always_having:${order_items.count} > 5000 ;;
+  #sql_always_where: ${order_items.status} = 'Complete' ;;
+  #sql_always_having:${order_items.count} > 5000 ;;
   #sql_always_where: ${returned_date} is null ;; #stopping returned orders showing example
   #sql_always_having:${order_items.count} > 200 ;; - example only, will restrict results
+
+#   conditionally_filter: {
+#     filters: [ order_items.created_date: "2 years"]
+#     unless: [users.id] #now it's conditionally required unless we query on users.id
+#   }
+
+  always_filter: {
+    filters: {
+      field: order_items.created_date
+      value: "30 days"
+    }
+  }
+
+  conditionally_filter: {
+    filters: {
+      field: order_items.created_date
+      value: "90 days"
+    }
+    unless: [users.id,users.state]
+  }
+
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
