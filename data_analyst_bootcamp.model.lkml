@@ -26,16 +26,16 @@ explore: order_items {
 #     unless: [users.id] #now it's conditionally required unless we query on users.id
 #   }
 
-#   always_filter: {
-#     filters: {
-#       field: order_items.created_date
-#       value: "30 days"
-#     }
-#   }
+  always_filter: {
+    filters: {
+      field: order_items.created_date
+      value: "30 days"
+    }
+  }
 
   conditionally_filter: {
     filters: {
-      field: order_items.created_date
+      field: users.created_date
       value: "90 days"
     }
     unless: [users.id,users.state]
