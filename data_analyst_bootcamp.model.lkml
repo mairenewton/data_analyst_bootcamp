@@ -11,10 +11,41 @@ datagroup: data_analyst_bootcamp_default_datagroup {
 
 persist_with: data_analyst_bootcamp_default_datagroup
 
+datagroup: order_items {
+  sql_trigger: select max(created_at) from order_items ;;
+  max_cache_age: "4 hours"
+}
+
 explore: inventory_items {}
 
 # This explore contains multiple views
 explore: order_items {
+
+  persist_with: order_items
+
+#   sql_always_where: ${order_items.returned_date} IS NULL ;;
+#   sql_always_having: ${order_items.count} > 200 ;;
+#   sql_always_where: ${order_items.status} = 'Complete' ;;
+#   sql_always_having: ${order_items.count} > 5000 ;;
+
+
+#   conditionally_filter: {
+#     filters: {
+#       field: order_items.created_date
+#       value: "2 years"
+#     }
+#     unless: [users.id]
+#   }
+
+  always_filter: {
+    filters: {
+      field: order_items.created_date
+      value: "30 days"
+    }
+  }
+
+
+
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -38,4 +69,28 @@ explore: order_items {
 explore: products {}
 
 
-explore: users {}
+explore: users {
+
+#   always_filter: {
+#     filters: {
+#       field: order_items.created_date
+#       value: "before today"
+#     }
+#   }
+#
+
+  conditionally_filter: {
+    filters: {
+      field: users.created_date
+      value: "90 days"
+    }
+    unless: [users.id, users.state]
+  }
+
+
+  join: order_items {
+    type: left_outer
+    sql_on: ${users.id} = ${order_items.user_id} ;;
+    relationship: one_to_many
+  }
+}

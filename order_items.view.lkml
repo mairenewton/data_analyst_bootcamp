@@ -22,6 +22,43 @@ view: order_items {
     sql: ${TABLE}.created_at ;;
   }
 
+
+  measure: total_sales_email_users {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format: "$#.##"
+    filters: {
+      field: users.is_email_source
+      value: "Yes"
+    }
+  }
+
+  measure: total_sales {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format: "$#.##"
+
+  }
+
+  measure: percentage_sales_email_source {
+    type: number
+    value_format_name: percent_1
+    sql: 1.0*${total_sales_email_users}
+      /NULLIF(${total_sales}, 0) ;;
+  }
+
+
+  measure: average_spend_per_user {
+    type: number
+    value_format_name: usd
+    sql: 1.0 * ${total_sales} / NULLIF(${users.count},0) ;;
+  }
+
+
+
+
+
+
   dimension_group: delivered {
     type: time
     timeframes: [
