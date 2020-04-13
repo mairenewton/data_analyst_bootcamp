@@ -16,7 +16,7 @@ explore: inventory_items {}
 # This explore contains multiple views
 explore: order_items {
 
-  sql_always_where: ${order_items.status} = 'complete' ;;
+  sql_always_where: ${order_items.status} = 'Complete' ;;
   sql_always_having:${order_items.count} > 5000 ;;
   #sql_always_where: ${returned_date} is null ;; #stopping returned orders showing example
   #sql_always_having:${order_items.count} > 200 ;; - example only, will restrict results
