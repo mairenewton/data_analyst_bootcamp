@@ -49,6 +49,7 @@ view: order_items {
 
   measure: users_via_email_sales   {
     type: sum
+    value_format_name:usd
     sql: ${sale_price} ;;
     filters: {
       field: users.from_email
