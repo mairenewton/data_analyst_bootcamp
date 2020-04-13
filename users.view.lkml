@@ -23,12 +23,6 @@ view: users {
     sql: ${TABLE}.country ;;
   }
 
-  measure: users_via_email   {
-    type: number
-    value_format_name: percent_1
-    sql: 1.0 * CAST((${from_email} = 'yes') as int)/NULLIF(${count}, 0) ;;
-  }
-
   dimension_group: created {
     type: time
     timeframes: [
