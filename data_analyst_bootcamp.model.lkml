@@ -6,7 +6,13 @@ include: "*.view"
 
 datagroup: data_analyst_bootcamp_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
+  # sql_trigger: current date ;; # - would refresh cache daily based on DB date
   max_cache_age: "1 hour"
+}
+
+datagroup: order_items {
+  sql_trigger: Select max(created_at) from order_items ;;
+  max_cache_age: "4 hours"
 }
 
 persist_with: data_analyst_bootcamp_default_datagroup
@@ -15,6 +21,7 @@ explore: inventory_items {}
 
 # This explore contains multiple views
 explore: order_items {
+  persist_with: order_items
 
   #sql_always_where: ${order_items.status} = 'Complete' ;;
   #sql_always_having:${order_items.count} > 5000 ;;
