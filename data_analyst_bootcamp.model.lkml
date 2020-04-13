@@ -33,14 +33,6 @@ explore: order_items {
     }
   }
 
-  conditionally_filter: {
-    filters: {
-      field: users.created_date
-      value: "90 days"
-    }
-    unless: [users.id,users.state]
-  }
-
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -65,10 +57,12 @@ explore: products {}
 
 
 explore: users {
-  always_filter: {
-    filters: [
-      order_items.created_date: "before today"
-    ]
+  conditionally_filter: {
+    filters: {
+      field: users.created_date
+      value: "90 days"
+    }
+    unless: [users.id,users.state]
   }
   join: order_items {
     type: left_outer
