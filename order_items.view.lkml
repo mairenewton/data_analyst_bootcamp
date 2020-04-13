@@ -120,6 +120,12 @@ view: order_items {
     sql: ${sale_price} ;;
   }
 
+  measure: total_sales_email_percent {
+    type: number
+    value_format_name: percent_1
+    sql: ${total_sales_email} / ${total_sales} ;;
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
