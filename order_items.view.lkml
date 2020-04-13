@@ -47,13 +47,19 @@ view: order_items {
     value_format: "$#.##"
   }
 
-  measure: users_via_email   {
+  measure: users_via_email_sales   {
     type: sum
     sql: ${sale_price} ;;
     filters: {
       field: users.from_email
       value: "Yes"
     }
+  }
+
+  measure: percentage_sales_via_email {
+    type: number
+    value_format_name: percent_1
+    sql: 1.0 * ${users_via_email_sales} / NULLIF(${total_sales},0) ;;
   }
 
   measure: average_sales_line_item {
