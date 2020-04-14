@@ -18,7 +18,7 @@ view: order_facts_ndt {
     sql: ${total_sales} ;;
   }
   dimension: order_id {
-    #primary_key: yes
+    primary_key: yes
     type: number
   }
   dimension: count_order_facts {
