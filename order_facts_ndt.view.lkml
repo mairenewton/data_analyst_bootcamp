@@ -4,9 +4,9 @@ view: order_facts_ndt {
       column: order_id { field: order_items.order_id }
       column: count_order_facts { field: order_items.count }
       column: total_sales { field: order_items.total_sales }
-      derived_column: order_rank {
-        sql:  ;;
-      }
+#       derived_column: order_rank {
+#         sql:  ;;
+#       }
     }
   }
 
