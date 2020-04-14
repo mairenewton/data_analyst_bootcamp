@@ -1,4 +1,5 @@
 view: product_sku_product_facts_sdt {
+  view_label: "Inventory Items"
   derived_table: {
     sql: SELECT
       product_sku AS product_sku
