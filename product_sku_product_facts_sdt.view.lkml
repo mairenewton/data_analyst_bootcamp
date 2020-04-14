@@ -19,7 +19,7 @@ view: product_sku_product_facts_sdt {
 
   measure: average_measure {
     type:  average
-    sql:  ${cost_of_goods_sold} ;;
+    sql:  ${percentage_inventory_sold} ;;
   }
 
   measure: psku_count {
