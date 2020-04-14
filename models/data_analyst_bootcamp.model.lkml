@@ -1,7 +1,7 @@
 connection: "events_ecommerce"
 
 # include all the views
-include: "*.view"
+include: "/views/*.view"
 
 
 datagroup: data_analyst_bootcamp_default_datagroup {
