@@ -10,6 +10,20 @@ view: order_facts_ndt {
     }
   }
 
+  dimension: order_id {
+    primary_key: yes
+    type: number
+  }
+
+  dimension: count_order_facts {
+    type: number
+  }
+
+  dimension: total_sales {
+    value_format: "$#.##"
+    type: number
+  }
+
   measure: average_item_count_per_order {
     type: average
     sql: ${count_order_facts} ;;
@@ -20,14 +34,4 @@ view: order_facts_ndt {
     sql: ${total_sales} ;;
   }
 
-  dimension: order_id {
-    type: number
-  }
-  dimension: count_order_facts {
-    type: number
-  }
-  dimension: total_sales {
-    value_format: "$#.##"
-    type: number
-  }
 }
