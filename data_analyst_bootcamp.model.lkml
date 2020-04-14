@@ -79,7 +79,7 @@ explore: users {
   join: exercise_1 {
     type: left_outer
     sql_on: ${users.id} = ${exercise_1.user_id} ;;
-    relationship: one_to_many
+    relationship: one_to_one
   }
 }
 
