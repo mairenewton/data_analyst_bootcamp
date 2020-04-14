@@ -16,7 +16,15 @@ datagroup: order_items {
   max_cache_age: "4 hours"
 }
 
-explore: inventory_items {}
+explore: inventory_items {
+
+  join: product_inventory_facts_sdt {
+    type: inner
+    sql_on: ${inventory_items.product_sku} = ${product_inventory_facts_sdt.product_sku} ;;
+    relationship: many_to_one
+  }
+
+}
 
 # This explore contains multiple views
 explore: order_items {
@@ -47,7 +55,7 @@ explore: order_items {
   join: average_lifetime_values {
     type: left_outer
     sql_on: ${order_items.user_id} = ${average_lifetime_values.user_id};;
-    relationship: one_to_one
+    relationship: many_to_one
   }
 
 
