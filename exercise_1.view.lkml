@@ -1,4 +1,5 @@
 view: exercise_1 {
+  view_label: "users"
   derived_table: {
     sql: SELECT
       order_items.user_id AS user_id
