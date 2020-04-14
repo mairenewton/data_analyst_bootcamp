@@ -1,4 +1,4 @@
-view: user_facts {
+view: user_facts_sql {
 
   derived_table: {
     sql: SELECT
