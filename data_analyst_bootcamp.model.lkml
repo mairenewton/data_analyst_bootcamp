@@ -17,7 +17,13 @@ datagroup: order_items {
 
 persist_with: data_analyst_bootcamp_default_datagroup
 
-explore: inventory_items {}
+explore: inventory_items {
+  join: product_sku_product_facts_sdt {
+    type: left_outer
+    sql_on: ${product_sku} = ${inventory_items.product_sku} ;;
+    relationship: many_to_many
+  }
+}
 
 # This explore contains multiple views
 explore: order_items {
