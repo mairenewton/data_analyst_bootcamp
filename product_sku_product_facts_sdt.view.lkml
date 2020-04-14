@@ -22,8 +22,8 @@ view: product_sku_product_facts_sdt {
     sql:  ${cost_of_goods_sold} ;;
   }
 
-  measure: count {
-    hidden: yes
+  measure: psku_count {
+
     type: count
     drill_fields: [detail*]
   }
