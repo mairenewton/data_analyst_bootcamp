@@ -52,6 +52,12 @@ explore: order_items {
 #     }
 #   }
 
+  join: order_facts_ndt {
+    sql_on: ${order_items.order_id} = ${order_facts_ndt.order_id};;
+    type: inner
+    relationship: many_to_one
+  }
+
   join: average_lifetime_values {
     type: left_outer
     sql_on: ${order_items.user_id} = ${average_lifetime_values.user_id};;
