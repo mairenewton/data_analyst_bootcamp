@@ -67,7 +67,7 @@ explore: order_items {
   join: order_facts_ndt {
     type: left_outer
     sql_on: ${order_items.order_id} = ${order_facts_ndt.order_id} ;;
-    relationship:  many_to_many
+    relationship:  many_to_one
   }
 
 }
