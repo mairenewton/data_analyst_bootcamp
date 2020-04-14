@@ -9,12 +9,24 @@ view: exercise_1 {
        ;;
   }
 
+  measure: average_lifetime_sales {
+    type: average
+    sql: ${revenue_over_lifetime} ;;
+    value_format: "$#.##"
+  }
+
+  measure: average_lifetime_orders {
+    type: average
+    sql: ${orders_over_lifetime} ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
   }
 
   dimension: user_id {
+    primary_key: yes
     type: number
     sql: ${TABLE}.user_id ;;
   }
