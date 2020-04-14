@@ -100,6 +100,11 @@ view: users {
     sql: ${TABLE}.zip ;;
   }
 
+measure: cumulative_user_count  {
+  type: running_total
+  sql: ${count} ;;
+}
+
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]

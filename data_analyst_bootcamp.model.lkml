@@ -37,13 +37,18 @@ explore: order_items {
 #     unless: [users.id]
 #   }
 
-  always_filter: {
-    filters: {
-      field: order_items.created_date
-      value: "30 days"
-    }
-  }
+#   always_filter: {
+#     filters: {
+#       field: order_items.created_date
+#       value: "30 days"
+#     }
+#   }
 
+  join: average_lifetime_values {
+    type: left_outer
+    sql_on: ${order_items.user_id} = ${average_lifetime_values.user_id};;
+    relationship: one_to_one
+  }
 
 
   join: users {
@@ -68,6 +73,7 @@ explore: order_items {
 
 explore: products {}
 
+# explore: average_lifetime_values {}
 
 explore: users {
 
@@ -79,14 +85,19 @@ explore: users {
 #   }
 #
 
-  conditionally_filter: {
-    filters: {
-      field: users.created_date
-      value: "90 days"
-    }
-    unless: [users.id, users.state]
-  }
+#   conditionally_filter: {
+#     filters: {
+#       field: users.created_date
+#       value: "90 days"
+#     }
+#     unless: [users.id, users.state]
+#   }
 
+join: average_lifetime_values {
+  type: left_outer
+  sql_on: ${users.id} = ${average_lifetime_values.user_id};;
+  relationship: one_to_one
+}
 
   join: order_items {
     type: left_outer
