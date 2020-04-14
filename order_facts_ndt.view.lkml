@@ -2,7 +2,7 @@ view: order_facts_ndt {
   derived_table: {
     explore_source: order_items {
       column: order_id { field: order_items.order_id }
-      column: count { field: order_items.count }
+      column: count_order_facts { field: order_items.count }
       column: total_sales { field: order_items.total_sales }
       derived_column: order_rank {
         sql:  ;;
@@ -12,7 +12,7 @@ view: order_facts_ndt {
 
   measure: average_items_order {
     type: average
-    sql: ${count} ;;
+    sql: ${count_order_facts} ;;
   }
 
   measure: average_order_value {
@@ -23,7 +23,7 @@ view: order_facts_ndt {
   dimension: order_id {
     type: number
   }
-  dimension: count {
+  dimension: count_order_facts {
     type: number
   }
   dimension: total_sales {
