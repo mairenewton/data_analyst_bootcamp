@@ -10,7 +10,7 @@ view: order_facts_ndt {
     }
   }
 
-  measure: average_items_order {
+  measure: average_item_count_per_order {
     type: average
     sql: ${count_order_facts} ;;
   }
