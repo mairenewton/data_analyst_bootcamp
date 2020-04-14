@@ -78,6 +78,8 @@ explore: users {
   }
 }
 
+explore: exercise_1 {}
+
 # explore: users_two {
 #   from: "users"
 #   join: order_items {
