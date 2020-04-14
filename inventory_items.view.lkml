@@ -81,6 +81,17 @@ view: inventory_items {
     sql: ${TABLE}.sold_at ;;
   }
 
+  dimension: is_sold {
+    type: yesno
+    sql: ${sold_raw} is not null ;;
+  }
+
+  measure: count_unsold {
+    type: count
+    filters: [is_sold: "no"]
+    drill_fields: [id, product_name, products.id, products.name, order_items.count]
+  }
+
   measure: count {
     type: count
     drill_fields: [id, product_name, products.id, products.name, order_items.count]
