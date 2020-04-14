@@ -1,5 +1,5 @@
 view: product_sku_product_facts_sdt {
-  view_label: "Inventory Items"
+  view_label: "Products"
   derived_table: {
     sql: SELECT
       product_sku AS product_sku
@@ -19,6 +19,7 @@ view: product_sku_product_facts_sdt {
 
   measure: average_measure {
     type:  average
+    value_format_name: percent_1
     sql:  ${percentage_inventory_sold} ;;
   }
 
