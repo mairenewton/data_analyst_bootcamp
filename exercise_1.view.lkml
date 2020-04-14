@@ -22,11 +22,13 @@ view: exercise_1 {
   }
 
   measure: count {
+    hidden: yes
     type: count
     drill_fields: [detail*]
   }
 
   dimension: user_id {
+    hidden: yes
     primary_key: yes
     type: number
     sql: ${TABLE}.user_id ;;
