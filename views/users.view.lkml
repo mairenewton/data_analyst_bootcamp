@@ -12,21 +12,9 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
-  dimension: age_bucket {
-    type: tier
-    tiers: [18, 25, 35, 45, 55, 65, 75, 90]
-    style: integer
-    sql: ${age} ;;
-  }
-
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
-  }
-
-  dimension: city_state {
-    type: string
-    sql: ${city} || ', ' || ${state} ;;
   }
 
   dimension: country {
@@ -60,11 +48,6 @@ view: users {
     sql: ${TABLE}.first_name ;;
   }
 
-  dimension: full_name {
-    type: string
-    sql: ${first_name} || ' ' || ${last_name} ;;
-  }
-
   dimension: gender {
     type: string
     sql: ${TABLE}.gender ;;
@@ -93,12 +76,6 @@ view: users {
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
-  }
-
-
-  dimension: traffic_source_is_email {
-    type: yesno
-    sql: ${traffic_source} = 'Email' ;;
   }
 
   dimension: zip {
