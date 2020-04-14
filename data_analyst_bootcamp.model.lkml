@@ -76,9 +76,12 @@ explore: users {
     sql_on: ${users.id} = ${order_items.user_id} ;;
     relationship: one_to_many
   }
+  join: exercise_1 {
+    type: left_outer
+    sql_on: ${users.id} = ${exercise_1.user_id} ;;
+    relationship: one_to_many
+  }
 }
-
-explore: exercise_1 {}
 
 # explore: users_two {
 #   from: "users"
