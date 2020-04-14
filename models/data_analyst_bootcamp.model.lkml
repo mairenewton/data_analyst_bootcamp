@@ -38,6 +38,10 @@ explore: events {}
 
 # This explore contains multiple views
 explore: order_items {
+  always_filter: {
+#    filters: [created_date: "30 days ago for 30 days"]
+    filters: [created_date: "30 days"]
+  }
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -62,7 +66,10 @@ explore: products {}
 
 
 explore: users {
-
+  conditionally_filter: {
+    filters: [created_date: "90 days"]
+    unless: [id, state]
+  }
   join: order_items {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
