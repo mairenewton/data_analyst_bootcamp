@@ -22,11 +22,11 @@ view: product_sku_product_facts_sdt {
     sql:  ${cost_of_goods_sold} ;;
   }
 
-#   measure: count {
-#     hidden: yes
-#     type: count
-#     drill_fields: [detail*]
-#   }
+  measure: count {
+    hidden: yes
+    type: count
+    drill_fields: [detail*]
+  }
 
   dimension: product_sku {
     hidden: yes
