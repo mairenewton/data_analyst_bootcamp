@@ -11,6 +11,12 @@ view: product_sku_product_facts_sdt {
        ;;
   }
 
+  measure: percentage_inventory_sold {
+    type:  number
+    value_format_name:  percent_1
+    sql: 1.0 * ${total_cost} / NULLIF(${cost_of_goods_sold},0) ;;
+  }
+
   measure: count {
     hidden: yes
     type: count
