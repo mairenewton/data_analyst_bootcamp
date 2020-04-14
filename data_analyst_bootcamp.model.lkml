@@ -19,9 +19,9 @@ persist_with: data_analyst_bootcamp_default_datagroup
 
 explore: inventory_items {
   join: product_sku_product_facts_sdt {
-    type: left_outer
+    type: inner
     sql_on: ${inventory_items.product_sku} = ${product_sku_product_facts_sdt.product_sku} ;;
-    relationship: many_to_many
+    relationship: many_to_one
   }
 }
 
