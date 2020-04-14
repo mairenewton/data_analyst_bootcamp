@@ -64,13 +64,13 @@ explore: products {}
 
 
 explore: users {
-  conditionally_filter: {
-    filters: {
-      field: users.created_date
-      value: "90 days"
-    }
-    unless: [users.id,users.state]
-  }
+#   conditionally_filter: {
+#     filters: {
+#       field: users.created_date
+#       value: "90 days"
+#     }
+#     unless: [users.id,users.state]
+#   }
   join: order_items {
     type: left_outer
     sql_on: ${users.id} = ${order_items.user_id} ;;
