@@ -15,6 +15,7 @@ view: user_facts_sql {
   dimension: user_id {
     description: "Unique ID for each user that has ordered"
     type: number
+    primary_key: yes
     sql: ${TABLE}.user_id ;;
   }
 
