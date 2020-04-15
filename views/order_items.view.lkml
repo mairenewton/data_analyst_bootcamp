@@ -36,51 +36,6 @@ view: order_items {
     sql: ${TABLE}.delivered_at ;;
   }
 
-  measure: distinct_number_of_orders {
-    type: count_distinct
-    sql: ${order_id} ;;
-  }
-
-  measure: total_sales {
-    type: sum
-    sql: ${sale_price} ;;
-    value_format: "$#.##"
-  }
-
-  measure: users_via_email_sales   {
-    type: sum
-    value_format_name:usd
-    sql: ${sale_price} ;;
-    filters: {
-      field: users.from_email
-      value: "Yes"
-    }
-  }
-
-  measure: average_spend_per_user {
-    type: number
-    value_format_name: usd
-    sql: 1.0 * ${total_sales} / NULLIF(${users.count},0);;
-  }
-
-  measure: percentage_sales_via_email {
-    type: number
-    value_format_name: percent_1
-    sql: 1.0 * ${users_via_email_sales} / NULLIF(${total_sales},0) ;;
-  }
-
-  measure: average_sales_line_item {
-    type: average
-    sql: ${sale_price} ;;
-    value_format: "$#.##"
-  }
-
-  dimension: shipping_days {
-    type: duration_day
-    sql_start:${shipped_date} ;;
-    sql_end:${delivered_date} ;;
-  }
-
   dimension: inventory_item_id {
     type: number
     # hidden: yes

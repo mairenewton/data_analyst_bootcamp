@@ -38,31 +38,6 @@ view: users {
     sql: ${TABLE}.created_at ;;
   }
 
-  dimension: days_since_user_signup {
-    type: duration_day
-    sql_start: ${created_raw};;
-    sql_end: current_date ;; #because no { } this is literally sql
-  }
-
-  dimension: days_since_signup_tier {
-    type: tier
-    tiers: [0,30,60,90,180,360,720] # groups 0-29, 30-59 etc.
-    sql: ${days_since_user_signup} ;;
-    style: integer
-  }
-
-  dimension: age_groups_bucket {
-    type:  tier
-    tiers: [18,25,35,45,55,65,75,90]
-    sql: ${age} ;;
-    style: integer
-  }
-
-  dimension: citystate {
-    type: string
-    sql:${city} || ', ' || ${state} ;;
-  }
-
   dimension: email {
     type: string
     sql: ${TABLE}.email ;;
@@ -96,11 +71,6 @@ view: users {
   dimension: state {
     type: string
     sql: ${TABLE}.state ;;
-  }
-
-  dimension: from_email {
-    type:  yesno
-    sql: ${traffic_source} = 'Email' ;;
   }
 
   dimension: traffic_source {
