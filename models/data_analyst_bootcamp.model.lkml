@@ -16,10 +16,10 @@ persist_with: data_analyst_bootcamp_default_datagroup
 
 explore: inventory_items {
   label: "Inventory"
-  view_label: "Inventory Itemz"
+  view_label: "Inventory Items"
 #   fields: [ALL_FIELDS*, -order_items.cross_view_refs*]
   join: order_items {
-    view_label: "Inventory Itemz"
+    view_label: "Inventory Items"
     type: left_outer
     sql_on: ${inventory_items.id} = ${order_items.inventory_item_id} ;;
     relationship: one_to_many
