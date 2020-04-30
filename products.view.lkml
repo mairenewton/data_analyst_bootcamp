@@ -8,6 +8,7 @@ view: products {
   }
 
   dimension: brand {
+    description: "More interesting description"
     type: string
     sql: ${TABLE}.brand ;;
   }
