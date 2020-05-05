@@ -88,6 +88,11 @@ dimension_group: shipping_days {
     sql: ${TABLE}.shipped_at ;;
   }
 
+  dimension: traffic_source {
+    type: string
+    sql: ${TABLE}.traffic_source ;;
+  }
+
   dimension: status {
     type: string
     sql: ${TABLE}.status ;;
