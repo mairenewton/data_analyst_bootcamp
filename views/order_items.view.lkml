@@ -36,7 +36,7 @@ view: order_items {
     sql: ${TABLE}.delivered_at ;;
   }
 
-  dimension: inventory_item_id {
+   dimension: inventory_item_id {
     type: number
     # hidden: yes
     sql: ${TABLE}.inventory_item_id ;;
@@ -94,6 +94,13 @@ view: order_items {
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  dimension_group: shipping_days {
+    type: duration
+    sql_start: ${created_date::date};;
+    sql_end: ${delivered_date::date} ;;
+    intervals: [day]
   }
 
   # ----- Sets of fields for drilling ------
