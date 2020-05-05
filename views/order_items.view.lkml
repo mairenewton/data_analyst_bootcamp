@@ -88,9 +88,9 @@ dimension_group: shipping_days {
     sql: ${TABLE}.shipped_at ;;
   }
 
-  dimension: traffic_source {
-    type: string
-    sql: ${TABLE}.traffic_source ;;
+  dimension: traffic_source_is_email {
+    type: yesno
+    sql: ${TABLE}.traffic_source = 'email' ;;
   }
 
   dimension: status {
