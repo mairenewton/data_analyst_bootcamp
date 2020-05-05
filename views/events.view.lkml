@@ -81,6 +81,12 @@ view: events {
     sql: ${TABLE}.traffic_source ;;
   }
 
+  dimension: Emailornot {
+    type: yesno
+    sql: ${TABLE}.traffic_source='Email'  ;;
+
+  }
+
   dimension: uri {
     type: string
     sql: ${TABLE}.uri ;;
