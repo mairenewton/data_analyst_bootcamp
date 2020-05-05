@@ -91,6 +91,11 @@ view: events {
     sql: ${TABLE}.user_id ;;
   }
 
+  dimension: traffic_source_email {
+    type: yesno
+    sql: ${traffic_source} = 'Email' ;;
+  }
+
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
