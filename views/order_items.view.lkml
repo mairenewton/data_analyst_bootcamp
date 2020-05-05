@@ -37,7 +37,6 @@ view: order_items {
   }
   dimension: num_days {
     type: duration_day
-    # hidden: yes
     sql: ${delivered_date}-${shipped_date};;
   }
 
