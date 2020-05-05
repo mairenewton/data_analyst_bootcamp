@@ -85,7 +85,7 @@ view: users {
 
   dimension: Location {
     type: string
-    sql: ${TABLE}.city,',', ${TABLE}.state ;;
+    sql: ${TABLE}.city ||',' || ${TABLE}.state ;;
   }
 
   measure: count {
