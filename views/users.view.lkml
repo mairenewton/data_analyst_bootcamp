@@ -82,7 +82,10 @@ view: users {
     type: zipcode
     sql: ${TABLE}.zip ;;
   }
-
+ dimension: traffic_email {
+   type: yesno
+  sql: ${traffic_source} = 'Email' ;;
+ }
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
