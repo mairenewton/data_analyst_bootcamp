@@ -38,7 +38,7 @@ explore: order_items {
 }
 
 
-# explore: products {}
+ explore: events {}
 
 
 # explore: users {}
