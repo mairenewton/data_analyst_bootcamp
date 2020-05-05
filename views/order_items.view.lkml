@@ -107,4 +107,9 @@ view: order_items {
       inventory_items.product_name
     ]
   }
+  measure: days_diff
+  {
+    type: number
+    sql: DATEDIFF(day,${shipped_date},${delivered_date};;
+  }
 }
