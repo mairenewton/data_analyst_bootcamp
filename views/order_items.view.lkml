@@ -37,7 +37,8 @@ view: order_items {
   }
   dimension: num_days {
     type: duration_day
-    sql: ${delivered_date}-${shipped_date};;
+    sql_start: ${delivered_date};;
+    sql_end: ${shipped_date} ;;
   }
 
   dimension: inventory_item_id {
