@@ -70,11 +70,11 @@ view: order_items {
     type: number
     sql: ${TABLE}.sale_price ;;
   }
-  measure: total_sale_price {
-    description:"Sum of Sales price"
-    type: sum
+  measure: avg_sale_price {
+    description:"Average of Sales price"
+    type: average
     sql: ${sale_price} ;;
-    value_format_name: decimal_2
+    value_format_name: usd
   }
   dimension_group: shipped {
     type: time
