@@ -81,6 +81,14 @@ view: order_items {
 
   }
 
+  measure: avg_sales_prices  {
+    type:  average
+    sql: ${sale_price} ;;
+    description: "Average Sales Field "
+
+  }
+
+
   dimension_group: shipped {
     type: time
     timeframes: [
