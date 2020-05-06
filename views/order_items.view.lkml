@@ -82,8 +82,8 @@ view: order_items {
     sql: ${sale_price} ;;
     value_format_name: usd
   }
-  measure: total_sale_price {
-    description:"Total of Sales price"
+  measure: total_sale_price_email_user {
+    description:"Total of Sales price for Email user"
     type: sum
     sql: ${sale_price} ;;
     filters: [users.traffic_source_is_email: "Yes"]
