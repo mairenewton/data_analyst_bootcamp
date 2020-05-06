@@ -70,9 +70,15 @@ view: order_items {
     type: number
     sql: ${TABLE}.sale_price ;;
   }
-  measure: avg_sale_price {
+  measure: average_sale_price {
     description:"Average of Sales price"
     type: average
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+  measure: total_sale_price {
+    description:"Total of Sales price"
+    type: sum
     sql: ${sale_price} ;;
     value_format_name: usd
   }
