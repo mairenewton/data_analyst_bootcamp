@@ -76,6 +76,12 @@ view: order_items {
     sql: ${sale_price} ;;
     value_format_name: usd
   }
+  measure: average_distinct_sale_price {
+    description:"Average distinct of Sales price"
+    type: average_distinct
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
   measure: total_sale_price {
     description:"Total of Sales price"
     type: sum
