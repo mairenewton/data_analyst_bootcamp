@@ -51,6 +51,11 @@ view: order_items {
     type: count_distinct
     sql: ${order_id} ;;
   }
+  measure: total_sales{
+    description: "Total sales"
+    type: sum
+    sql: ${sale_price} ;;
+  }
 
 
   dimension_group: returned {
