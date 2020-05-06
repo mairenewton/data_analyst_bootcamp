@@ -86,6 +86,7 @@ view: order_items {
     description:"Total of Sales price"
     type: sum
     sql: ${sale_price} ;;
+    filters: [users.traffic_source_is_email: "Yes"]
     value_format_name: usd
   }
   dimension_group: shipped {
