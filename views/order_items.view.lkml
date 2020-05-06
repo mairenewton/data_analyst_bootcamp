@@ -46,6 +46,12 @@ view: order_items {
     type: number
     sql: ${TABLE}.order_id ;;
   }
+  measure: Unique_orders {
+    description: "List of unique orders"
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
 
   dimension_group: returned {
     type: time
