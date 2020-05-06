@@ -87,7 +87,7 @@ view: order_items {
     sql: ${sale_price} ;;
     filters: {
       field: users.traffic_source_email
-      value: "Yes"
+      value: "Email"
     }
     description: "Total Sales for Email Traffic Source "
 
