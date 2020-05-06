@@ -74,6 +74,7 @@ view: order_items {
     description:"Sum of Sales price"
     type: sum
     sql: ${sale_price} ;;
+    value_format_name: decimal_2
   }
   dimension_group: shipped {
     type: time
