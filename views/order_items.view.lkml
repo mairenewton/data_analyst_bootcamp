@@ -81,6 +81,18 @@ view: order_items {
 
   }
 
+
+  measure: total_sales_prices_email_traffic  {
+    type:  sum
+    sql: ${sale_price} ;;
+    filters: {
+      field: users.traffic_source_email
+      value: "Yes"
+    }
+    description: "Total Sales for Email Traffic Source "
+
+  }
+
   measure: average_sales_prices  {
     type:  average
     sql: ${sale_price} ;;
