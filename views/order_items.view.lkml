@@ -85,7 +85,7 @@ view: order_items {
     type: number
     sql: ${total_sales_prices}/Nullif(${user_count},0)  ;;
     description: "Average Sales Per User"
-    value_format: "usd"
+
 
   }
 
