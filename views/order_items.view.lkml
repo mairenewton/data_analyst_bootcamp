@@ -77,6 +77,7 @@ view: order_items {
   measure: total_sales_prices  {
     type:  sum
     sql: ${sale_price} ;;
+    description: "Total Sales Field "
 
   }
 
