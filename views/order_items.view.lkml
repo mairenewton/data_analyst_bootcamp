@@ -81,6 +81,14 @@ view: order_items {
 
   }
 
+  measure: average_user_spend {
+    type: number
+    sql: ${total_sales_prices}/Nullif(${user_count},0)  ;;
+    description: "Average Sales Per User"
+    value_format: "usd"
+
+  }
+
 
   measure: total_sales_prices_email_traffic  {
     type:  sum
@@ -141,6 +149,11 @@ view: order_items {
   measure: order_count{
     type: count_distinct
     sql: ${order_id} ;;
+
+  }
+  measure: user_count{
+    type: count_distinct
+    sql: ${user_id} ;;
 
   }
 

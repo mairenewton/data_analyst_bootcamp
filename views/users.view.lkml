@@ -7,6 +7,12 @@ view: users {
     sql: ${TABLE}.id ;;
   }
 
+  measure: user_count {
+    type: count_distinct
+    sql: ${id} ;;
+
+  }
+
   dimension: age {
     type: number
     sql: ${TABLE}.age ;;
