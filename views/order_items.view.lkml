@@ -70,7 +70,10 @@ view: order_items {
     type: number
     sql: ${TABLE}.sale_price ;;
   }
-
+  measure: Total_sale_price {
+    type: sum
+    sql: ${TABLE}.sale_price ;;
+  }
   dimension_group: shipped {
     type: time
     timeframes: [
