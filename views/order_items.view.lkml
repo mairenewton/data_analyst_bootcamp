@@ -70,7 +70,7 @@ view: order_items {
     type: number
     sql: ${TABLE}.sale_price ;;
   }
-  measure: Total_sale_price {
+  measure: total_sale_price {
     description:"Sum of Sales price"
     type: sum
     sql: ${sale_price} ;;
