@@ -94,7 +94,7 @@ view: order_items {
 
   measure: percent_sales_email  {
     type:  number
-    sql: ${total_sales_prices_email_traffic}/Nullif(${total_sales_prices},0) ;;
+    sql: 100*${total_sales_prices_email_traffic}/Nullif(${total_sales_prices},0) ;;
     description: "Percentage of Sales coming from Email Traffic Source "
 
   }
