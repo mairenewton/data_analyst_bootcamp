@@ -48,6 +48,12 @@ view: products {
     sql: ${TABLE}.sku ;;
   }
 
+  measure: count_distinct_product {
+    type: count_distinct
+    sql: ${id} ;;
+  }
+
+
   measure: count {
     type: count
     drill_fields: [id, name, distribution_centers.id, distribution_centers.name, inventory_items.count]
