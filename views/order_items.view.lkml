@@ -96,6 +96,37 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+  measure: total_sale_price{
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
+  measure: average_sale_price {
+    type: average
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
+  measure: total_revenue {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
+  measure: total_sales_from_email_traffic {
+    type:  sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+    filters: [users.traffic_source_is_email: "Yes"]
+  }
+
+  measure: email_sales_percentage {
+    description: "Percentage of Sales sourced from Email"
+    type: number
+    sql: ${total_sales_from_email_traffic}/nullif(${total_revenue},0) ;;
+  }
+
   dimension_group: shipping {
     type: duration
     intervals: [day,hour]
