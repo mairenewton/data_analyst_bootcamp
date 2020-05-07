@@ -11,13 +11,34 @@ datagroup: data_analyst_bootcamp_default_datagroup {
 
 persist_with: data_analyst_bootcamp_default_datagroup
 
+datagroup: users_cache {
+  max_cache_age: "24 hours"
+  sql_trigger: SELECT max(id) FROM users ;;
 
+}
+
+explore: users {
+  persist_with: users_cache
+  join: order_items {
+  type:  left_outer
+    sql_on: ${users.id} =${order_items.user_id} ;;
+    relationship: one_to_many
+  }
+}
 
 
 explore: inventory_items {}
 
 # This explore contains multiple views
 explore: order_items {
+  always_filter: {
+    filters: {
+      field: created_date
+      value: "1 days"
+
+    }
+  }
+
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
