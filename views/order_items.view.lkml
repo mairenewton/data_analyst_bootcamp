@@ -71,7 +71,7 @@ view: order_items {
 
   dimension: returned_flag {
     type: yesno
-    sql: ${returned_raw} is null ;;
+    sql: ${returned_raw} is not null ;;
   }
 
   dimension: sale_price {
