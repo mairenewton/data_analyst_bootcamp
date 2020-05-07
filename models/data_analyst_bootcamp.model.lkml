@@ -35,8 +35,9 @@ explore: order_items {
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
     relationship: many_to_one
   }
+  sql_always_where: ${returned_flag}='Yes' ;;
+  sql_always_having: sum(${total_sales_prices}>200 ;;
 }
-
 
  explore: events {}
 
