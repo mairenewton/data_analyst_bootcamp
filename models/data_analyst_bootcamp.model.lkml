@@ -36,7 +36,7 @@ explore: order_items {
     relationship: many_to_one
   }
   sql_always_where: ${returned_flag}='Yes' ;;
-  sql_always_having: sum(${total_sales_prices}>200 ;;
+  sql_always_having: ${total_sales_prices}>200 ;;
 }
 
  explore: events {}
