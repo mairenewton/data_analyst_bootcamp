@@ -7,6 +7,7 @@ view: ndt_brand_facts {
     explore_source: order_items {
       column: total_sales_prices {}
       column: brand { field: products.brand }
+
       filters: {
         field: order_items.created_date
         value: "before today"
@@ -17,5 +18,5 @@ view: ndt_brand_facts {
     description: "Total Sales Field "
     type: number
   }
-  dimension: brand {}
+  dimension: brand {primary_key:yes}
 }

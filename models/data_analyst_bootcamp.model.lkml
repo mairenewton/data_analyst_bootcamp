@@ -63,11 +63,11 @@ explore: order_items {
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
     relationship: many_to_one
   }
-#  join: brand_facts  {
- #   type: inner
-  #  sql_on: ${products.brand}=${brand_facts.brand} ;;
-   # relationship: many_to_one
-  #}
+ join: ndt_brand_facts  {
+   type: inner
+    sql_on: ${products.brand}=${ndt_brand_facts.brand} ;;
+     relationship: many_to_one
+  }
 
   sql_always_where: ${returned_flag}='Yes' ;;
   sql_always_having: ${total_sales_prices}>200 ;;
