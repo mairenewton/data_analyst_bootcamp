@@ -21,7 +21,7 @@ explore: users {
   persist_with: users_cache
   access_filter: {
     field: "users.state"
-    user_attribute: state
+    user_attribute: user_state
   }
 
   join: order_items {
