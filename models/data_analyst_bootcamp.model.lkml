@@ -34,7 +34,7 @@ explore: order_items {
   always_filter: {
     filters: {
       field: created_date
-      value: "1 days"
+      value: "before today"
 
     }
   }
