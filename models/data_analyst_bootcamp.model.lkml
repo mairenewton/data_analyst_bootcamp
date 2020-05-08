@@ -19,6 +19,11 @@ datagroup: users_cache {
 
 explore: users {
   persist_with: users_cache
+  access_filter: {
+    field: "users.state"
+    user_attribute: state
+  }
+
   join: order_items {
   type:  left_outer
     sql_on: ${users.id} =${order_items.user_id} ;;
