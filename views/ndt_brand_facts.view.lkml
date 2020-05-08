@@ -4,6 +4,9 @@
 
 view: ndt_brand_facts {
   derived_table: {
+    datagroup_trigger: users_cache
+    distribution_style: all
+    sortkeys: ["brand"]
     explore_source: order_items {
       column: total_sales_prices {}
       column: brand { field: products.brand }
