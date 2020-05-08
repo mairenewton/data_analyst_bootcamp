@@ -7,6 +7,9 @@ view: ndt_brand_facts {
     explore_source: order_items {
       column: total_sales_prices {}
       column: brand { field: products.brand }
+      derived_column: brand_rank {
+        sql: rank() over (order by total_sales_prices desc );;
+        }
 
       filters: {
         field: order_items.created_date
