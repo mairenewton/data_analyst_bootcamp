@@ -20,7 +20,7 @@ datagroup: users_cache {
 explore: users {
   persist_with: users_cache
   access_filter: {
-    field: "users.state"
+    field: users.state
     user_attribute: user_state
   }
 
