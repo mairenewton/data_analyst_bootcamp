@@ -13,7 +13,7 @@ persist_with: data_analyst_bootcamp_default_datagroup
 
 datagroup: users_cache {
   max_cache_age: "24 hours"
-  sql_trigger: SELECT max(id) FROM users ;;
+  sql_trigger: SELECT current_date ;;
 
 }
 
