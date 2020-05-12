@@ -102,6 +102,34 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+  measure: disctinc_count {
+    type:  sum_distinct
+    sql: 1 ;;
+    sql_distinct_key: ${order_id} ;;
+  }
+
+  measure: total_sales_email {
+    type: sum
+    sql:  ${sale_price} ;;
+    filters: [ users.is_email: "yes"]
+  }
+
+  measure: total_sales{
+    type: sum
+    sql:  ${sale_price} ;;
+  }
+
+  measure: total_perc_email {
+    type:  number
+    sql:  1.0*${total_sales}/${total_sales_email} ;;
+  }
+
+  measure: average_spend_per_user {
+    type:  number
+    sql: ${total_sales}/${disctinc_count};;
+    value_format_name: usd
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [

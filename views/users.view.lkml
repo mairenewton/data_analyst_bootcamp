@@ -12,6 +12,11 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+dimension: age_group {
+  type:  tier
+  tiers: [0,18,25,35,45,55,65,75,85,90]
+  sql: ${age} ;;
+}
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
@@ -85,7 +90,7 @@ view: users {
 
 dimension: is_email {
   type: yesno
-  sql: lower(${traffic_source}) like 'email' ;;
+  sql: lower(${traffic_source}) = 'email' ;;
 }
 
   dimension: zip {
