@@ -73,10 +73,20 @@ view: users {
     sql: ${TABLE}.state ;;
   }
 
+  dimension: city_state {
+    type: string
+    sql: ${city} ¦¦ ', ' ¦¦ ${state};;
+  }
+
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
   }
+
+dimension: is_email {
+  type: yesno
+  sql: lower(${traffic_source}) like 'email' ;;
+}
 
   dimension: zip {
     type: zipcode
