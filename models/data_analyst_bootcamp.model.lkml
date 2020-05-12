@@ -17,6 +17,7 @@ persist_with: data_analyst_bootcamp_default_datagroup
 explore: inventory_items {}
 
 explore: users {
+  label: "MyUserExplorer"
   join: order_items {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
