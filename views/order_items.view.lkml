@@ -36,6 +36,19 @@ view: order_items {
     sql: ${TABLE}.delivered_at ;;
   }
 
+
+dimension: delivery_time {
+  type :  duration_day
+  sql: ${created_date},${delivered_date} ;;
+}
+
+
+
+
+
+
+
+
   dimension: inventory_item_id {
     type: number
     # hidden: yes
