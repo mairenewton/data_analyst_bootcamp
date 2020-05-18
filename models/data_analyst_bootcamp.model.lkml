@@ -18,7 +18,7 @@ explore: inventory_items {}
 
 # This explore contains multiple views
 explore: order_items {
-  sql_always_where: ${order_items.created_date} IS NULL ;;
+  sql_always_where: ${order_items.returned_date} IS NULL ;;
   sql_always_having: ${order_items.total_sales} > 200 ;;
   join: users {
     type: left_outer
