@@ -119,7 +119,12 @@ view: order_items {
   field:  users.is_email
   value: "yes"
   }
+  }
 
+  measure: percentage_sales_email_source {
+  type: number
+  value_format_name: decimal_2
+  sql: 1.0*${total_sales_email_users} /NULLIF (${count},0);;
   }
 
   # ----- Sets of fields for drilling ------
