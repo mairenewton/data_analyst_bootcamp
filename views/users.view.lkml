@@ -23,7 +23,12 @@ view: users {
     sql: ${TABLE}.country ;;
   }
 
-
+  dimension: age_groups {
+    type: tier
+    tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+    sql: ${age} ;;
+    style: integer
+  }
 
   dimension_group: created {
     type: time
