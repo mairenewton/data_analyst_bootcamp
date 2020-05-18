@@ -80,9 +80,9 @@ view: users {
     sql: ${TABLE}.traffic_source ;;
   }
 
-  dimension: is_email {
+  dimension: is_email_source {
   type: yesno
-  sql: ${traffic_source} = "email";;
+  sql: ${traffic_source} = "Email";;
   }
 
   dimension: zip {
