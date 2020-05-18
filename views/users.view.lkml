@@ -23,6 +23,8 @@ view: users {
     sql: ${TABLE}.country ;;
   }
 
+
+
   dimension_group: created {
     type: time
     timeframes: [
@@ -77,6 +79,11 @@ view: users {
     type: string
     sql: ${TABLE}.traffic_source ;;
   }
+
+  #dimension: is_email {
+   # type: yesno
+#
+ # }
 
   dimension: zip {
     type: zipcode
