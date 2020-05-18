@@ -101,7 +101,7 @@ view: order_items {
     drill_fields: [detail*]
   }
 
-  measure: Distinct_orders {
+  measure: distinct_orders {
   type: count_distinct
   sql: ${order_id} ;;
   }
@@ -112,7 +112,11 @@ view: order_items {
   value_format_name: decimal_0
   }
 
-
+  measure: avg_sales {
+  type: number
+  sql: ${total_sales} / ${sale_price}  ;;
+  value_format_name: decimal_0
+}
 
   measure: total_sales_email_users {
     type: sum
