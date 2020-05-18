@@ -111,6 +111,17 @@ view: order_items {
   sql: ${sale_price} ;;
   value_format_name: decimal_0
   }
+
+  measure: total_sales_email_users {
+  type: sum
+  sql:${TABLE}. ;;
+  filters: {
+  field:  users.is_email
+  value: "yes"
+  }
+
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
