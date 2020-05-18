@@ -113,14 +113,12 @@ view: order_items {
   }
 
 
- # measure: total_sales_email_users {
-#  type: sum
- # sql:${TABLE}. ;;
- # filters: {
- # field: users.is_email_source:
-#  value: "Email"
- # }
-#  }
+
+  measure: total_sales_email_users {
+    type: sum
+    sql:${sale_price} ;;
+    filters: [users.traffic_source:"Email"]
+  }
 
 #  measure: percentage_sales_email_source {
 #  type: number
