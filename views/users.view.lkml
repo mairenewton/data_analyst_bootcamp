@@ -80,10 +80,10 @@ view: users {
     sql: ${TABLE}.traffic_source ;;
   }
 
-  #dimension: is_email {
-   # type: yesno
-#
- # }
+  dimension: is_email {
+  type: yesno
+  sql: ${TABLE}.email ;;
+  }
 
   dimension: zip {
     type: zipcode
