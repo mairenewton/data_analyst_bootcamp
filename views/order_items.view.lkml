@@ -109,6 +109,7 @@ view: order_items {
   measure: total_sales {
   type: sum
   sql: ${sale_price} ;;
+  value_format_name: decimal_0
   }
   # ----- Sets of fields for drilling ------
   set: detail {
