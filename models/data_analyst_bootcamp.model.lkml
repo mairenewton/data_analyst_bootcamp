@@ -11,6 +11,10 @@ datagroup: data_analyst_bootcamp_default_datagroup {
 
 persist_with: data_analyst_bootcamp_default_datagroup
 
+#datagroup: daily_etl {
+ # max_cache_age: "24 hours"
+ # sql_trigger: SELECT max(${age} from ${TABLE}.users ;;
+#}
 
 ### Whitespaces ####
 
@@ -49,6 +53,9 @@ explore: order_items {
 
 
 explore: users {
+#  persist_with: users
+
+
 join: order_items  {
   type: left_outer
   sql_on: ${users.id} = ${order_items.user_id};;
