@@ -125,16 +125,16 @@ view: order_items {
     filters: [users.traffic_source:"Email"]
   }
 
-measure: percentage_sales_email_source {
-type: number
-value_format_name: percent_2
-sql: 1.0*${total_sales_email_users} / NULLIF (${total_sales},0);;
-}
-
+  measure: percentage_sales_email_source {
+  type: number
+  value_format_name: percent_2
+  sql: 1.0*${total_sales_email_users} / NULLIF (${total_sales},0);;
+  }
 
   measure: average_spend_per_user {
     type: number
     sql: ${total_sales}/ ${users.count};;
+    value_format_name: usd_0
   }
   # ----- Sets of fields for drilling ------
   set: detail {
