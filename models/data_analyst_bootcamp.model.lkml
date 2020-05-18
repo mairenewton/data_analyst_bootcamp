@@ -20,6 +20,10 @@ explore: inventory_items {}
 explore: order_items {
   sql_always_where: ${order_items.returned_date} IS NULL ;;
   sql_always_having: ${order_items.total_sales} > 200 ;;
+  #sql_always_where: ${order_items.delivered_date} IS NULL ;;
+  #sql_always_having: ${order_items.total_sales} > 5 ;;
+
+
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
