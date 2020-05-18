@@ -113,8 +113,8 @@ view: order_items {
   }
 
   measure: avg_sales {
-  type: number
-  sql: ${total_sales} / ${sale_price}  ;;
+  type: average
+  sql: ${sale_price}  ;;
   value_format_name: decimal_0
 }
 
