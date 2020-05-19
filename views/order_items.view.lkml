@@ -22,6 +22,13 @@ view: order_items {
     sql: ${TABLE}.created_at ;;
   }
 
+  dimension_group: shipping_days {
+    type: duration
+    sql_start:  ${shipped_raw} ;;
+    sql_end: ${delivered_raw} ;;
+    intervals: [minute, hour, day]
+  }
+
   dimension_group: delivered {
     type: time
     timeframes: [
@@ -94,6 +101,16 @@ view: order_items {
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: count_of_orders {
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
+  measure: total_sales {
+    type: sum
+    sql: ${sale_price} ;;
   }
 
   # ----- Sets of fields for drilling ------
