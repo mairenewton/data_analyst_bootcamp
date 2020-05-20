@@ -95,6 +95,20 @@ view: order_items {
     type: count
     drill_fields: [detail*]
   }
+measure: count_orders{
+  type: count_distinct
+  sql: ${order_id};;
+}
+measure: total_sales_price {
+  type: sum
+  sql: ${sale_price} ;;
+  filters: [status: "Email"]
+}
+
+measure: total_sales {
+  type: sum
+  sql: ${sale_price} ;;
+}
 
   # ----- Sets of fields for drilling ------
   set: detail {
