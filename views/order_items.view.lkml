@@ -92,6 +92,7 @@ view: order_items {
   }
   dimension_group: Shipping_days {
     type: duration
+    group_item_label: "Shipping date difference"
     intervals: [day]
     sql_start: ${shipped_date};;
     sql_end: ${delivered_date} ;;
