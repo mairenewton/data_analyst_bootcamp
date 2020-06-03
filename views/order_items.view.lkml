@@ -90,7 +90,12 @@ view: order_items {
     # hidden: yes
     sql: ${TABLE}.user_id ;;
   }
-
+  dimension_group: Shipping_days {
+    type: duration
+    intervals: [day]
+    sql_start: ${shipped_date};;
+    sql_end: ${delivered_date} ;;
+}
   measure: count {
     type: count
     drill_fields: [detail*]
