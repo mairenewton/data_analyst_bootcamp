@@ -1,5 +1,6 @@
-view: users {
-  sql_table_name: public.users ;;
+view: users_back {
+  sql_table_name: public.users_back ;;
+  drill_fields: [id]
 
   dimension: id {
     primary_key: yes
@@ -32,17 +33,9 @@ view: users {
       week,
       month,
       quarter,
-      day_of_month,
       year
     ]
     sql: ${TABLE}.created_at ;;
-  }
-
-  dimension: days_since_signup {
-    label: "Days Since User Signup"
-    description: "This is days since user signup"
-    type: number
-    sql: DATEDIFF(day,${created_date}, current_date) ;;
   }
 
   dimension: email {
@@ -92,6 +85,6 @@ view: users {
 
   measure: count {
     type: count
-    drill_fields: [id, first_name, last_name, events.count, order_items.count]
+    drill_fields: [id, last_name, first_name]
   }
 }

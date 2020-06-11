@@ -1,7 +1,7 @@
 connection: "events_ecommerce"
 
 # include all the views
-include: "*.view"
+include: "/views/*.view"
 
 
 datagroup: data_analyst_bootcamp_default_datagroup {
@@ -10,6 +10,9 @@ datagroup: data_analyst_bootcamp_default_datagroup {
 }
 
 persist_with: data_analyst_bootcamp_default_datagroup
+
+
+### Whitespaces ####
 
 explore: inventory_items {}
 
@@ -34,8 +37,10 @@ explore: order_items {
   }
 }
 
+explore: user_facts_test {}
 
-explore: products {}
+
+# explore: products {}
 
 
-explore: users {}
+# explore: users {}
