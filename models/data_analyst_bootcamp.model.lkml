@@ -37,6 +37,8 @@ explore: order_items {
   }
 }
 
+explore: events {}
+
 
 # explore: products {}
 

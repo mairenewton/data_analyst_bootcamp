@@ -46,6 +46,11 @@ view: events {
     sql: ${TABLE}.ip_address ;;
   }
 
+  dimension: is_email_source {
+    type: yesno
+    sql: ${traffic_source} = 'Email' ;;
+  }
+
   dimension: latitude {
     type: number
     sql: ${TABLE}.latitude ;;
