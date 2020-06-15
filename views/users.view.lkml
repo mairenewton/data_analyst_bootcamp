@@ -90,6 +90,10 @@ dimension: isEmail {
   sql: {traffic_source}='Email' ;;
 }
 
+  dimension: Place {
+    type: string
+    sql: ${state} || ${city} ;;
+  }
 
 
   dimension: zip {
