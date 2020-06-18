@@ -7,6 +7,11 @@ view: order_items {
     sql: ${TABLE}.id ;;
   }
 
+  measure: distinct_total_orders {
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
   dimension_group: shipping_days {
     type: duration
     sql_start:  ${shipped_date} ;;
