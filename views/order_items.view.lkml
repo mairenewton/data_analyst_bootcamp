@@ -17,6 +17,11 @@ view: order_items {
     sql:  ${sale_price} ;;
   }
 
+  measure: average_sales {
+    type:  average
+    sql: ${sale_price} ;;
+  }
+
   dimension_group: shipping_days {
     type: duration
     sql_start:  ${shipped_date} ;;
