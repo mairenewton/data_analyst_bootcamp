@@ -12,6 +12,11 @@ view: order_items {
     sql: ${order_id} ;;
   }
 
+  measure: total_sales {
+    type:  sum
+    sql:  ${sale_price} ;;
+  }
+
   dimension_group: shipping_days {
     type: duration
     sql_start:  ${shipped_date} ;;
