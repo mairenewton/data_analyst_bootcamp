@@ -12,12 +12,20 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
-  dimension: age_group {
+    dimension: age_group {
     type: tier
     tiers: [18,25,35,45,55,65,75,90]
     style:relational
     sql: ${age} ;;
   }
+
+
+  dimension: is_source_email{
+    type: yesno
+    sql: ${TABLE}.traffic_source='Email';;
+  }
+
+
 
   dimension: city {
     type: string

@@ -22,6 +22,9 @@ view: order_items {
     sql: ${TABLE}.created_at ;;
   }
 
+
+
+
   dimension_group: delivered {
     type: time
     timeframes: [
@@ -43,6 +46,17 @@ dimension: delivery_time {
 }
 
 
+  dimension:shipping_days {
+    type: number
+    sql: DATEDIFF(day,${created_date},${delivered_date}) ;;
+  }
+
+
+  dimension_group:shipping_days1 {
+    type:duration
+    sql_start:${created_date};;
+    sql_end: ${delivered_date};;
+    }
 
 
 
@@ -108,6 +122,45 @@ dimension: delivery_time {
     type: count
     drill_fields: [detail*]
   }
+
+measure: distinct_orders {
+  type:count_distinct
+  sql: ${order_id} ;;
+}
+
+  measure: total_sales1 {
+    type:sum
+    sql: ${sale_price} ;;
+  }
+
+  measure: avg_sales1 {
+    type:average
+    sql: ${sale_price} ;;
+  }
+
+  measure: total_email_Sales {
+    type:sum
+    sql: ${sale_price} ;;
+    filters:{
+      field:users.is_source_email
+      value: "Yes"
+    }
+    }
+
+  measure: percent_Sales_email {
+    value_format_name: percent_1
+    sql: 1.0*${total_email_Sales}/NULLIF(${total_sales1},0) ;;
+  }
+
+  measure: total_sales_per_user {
+    type: number
+    sql: 1.0*${total_sales1}/NULLIF(${users.count},0) ;;
+    value_format:"$#.00;($#.00)"
+  }
+
+
+
+
 
   # ----- Sets of fields for drilling ------
   set: detail {

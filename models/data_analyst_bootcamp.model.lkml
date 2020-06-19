@@ -18,6 +18,17 @@ explore: inventory_items {}
 
 # This explore contains multiple views
 explore: order_items {
+  always_filter: {
+    filters: [order_items.created_date: "last 30 days"]
+  }
+
+  conditionally_filter: {
+    filters: [users.created_date: "last 90 days"]
+
+    unless: [users.id,users.state]
+
+  }
+
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
