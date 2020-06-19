@@ -1,7 +1,7 @@
 view: order_items {
   sql_table_name: public.order_items ;;
 
-  dimension: id {
+  dimension: order_item_id {
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
@@ -15,6 +15,7 @@ view: order_items {
       date,
       week,
       month,
+      month_name,
       quarter,
       year
     ]
@@ -98,7 +99,7 @@ view: order_items {
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
-      id,
+      order_item_id,
       users.id,
       users.first_name,
       users.last_name,
