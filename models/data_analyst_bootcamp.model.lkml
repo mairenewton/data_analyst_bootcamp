@@ -15,7 +15,15 @@ persist_with: data_analyst_bootcamp_default_datagroup
 ### Whitespaces ####
 
 explore: inventory_items {}
-
+explore: users {
+  from: users
+  always_filter: { filters:[order_items.status: "Complete"]}
+  join: order_items {
+    type: left_outer
+    sql_on: ${users.id}=$(${order_items.user_id} ;;
+    relationship: one_to_many
+  }
+}
 # This explore contains multiple views
 explore: order_items {
   join: users {
@@ -35,6 +43,8 @@ explore: order_items {
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
     relationship: many_to_one
   }
+  sql_always_where: ${order_items.returned_date} is null ;;
+  sql_always_having: ${order_items.total_sales}>=200 ;;
 }
 
 
