@@ -17,7 +17,7 @@ persist_with: data_analyst_bootcamp_default_datagroup
 explore: inventory_items {}
 explore: users {
   from: users
-  always_filter: { filters:[order_items.status: "Complete"]}
+
   join: order_items {
     type: left_outer
     sql_on: ${users.id}=$(${order_items.user_id} ;;
@@ -26,6 +26,7 @@ explore: users {
 }
 # This explore contains multiple views
 explore: order_items {
+  always_filter: { filters:[order_items.status: "Complete"]}
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
