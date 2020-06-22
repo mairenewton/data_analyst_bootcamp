@@ -85,7 +85,7 @@ view: users {
 
   dimension: isEmail  {
     type: yesno
-    sql: ${traffic_source} == 'Email';;
+    sql: ${traffic_source} = 'Email';;
 
   }
 
