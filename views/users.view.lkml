@@ -86,7 +86,7 @@ view: users {
 
   dimension: city_state {
       type: string
-      sql:  ${city} || ', ' || ${state} ;;
+      sql: concat( ${city} , ', ' , ${state} );;
   }
 
   dimension: traffic_source {
