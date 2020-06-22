@@ -73,6 +73,11 @@ view: users {
     sql: ${TABLE}.state ;;
   }
 
+  dimension: location {
+  type: string
+  sql: ${city} ||', ' || ${state};;
+}
+
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
