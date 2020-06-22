@@ -1,6 +1,7 @@
 view: users {
   sql_table_name: public.users ;;
 
+
   dimension: id {
     primary_key: yes
     type: number
@@ -73,6 +74,12 @@ view: users {
     sql: ${TABLE}.state ;;
   }
 
+  dimension: city_and_state {
+    label: " City , State"
+    type: string
+    sql: ${city} || ',' ||${state} ;;
+  }
+
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
@@ -82,6 +89,7 @@ view: users {
     type: zipcode
     sql: ${TABLE}.zip ;;
   }
+
 
   measure: count {
     type: count
