@@ -23,6 +23,11 @@ view: users {
     sql: ${city} || ', ' || ${state} ;;
   }
 
+  dimension: source_email {
+    type: yesno
+    sql: ${traffic_source} == "email" ;;
+  }
+
   dimension: country {
     type: string
     map_layer_name: countries
