@@ -52,6 +52,11 @@ view: order_items {
     sql: datediff(days,${shipped_raw}, ${delivered_raw}) ;;
   }
 
+  measure: distinct_orders {
+    type: count_distinct
+    sql: ${order_item_id} ;;
+  }
+
   dimension_group: returned {
     type: time
     timeframes: [
