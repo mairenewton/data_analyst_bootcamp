@@ -54,7 +54,7 @@ view: order_items {
 
   measure: distinct_orders {
     type: count_distinct
-    sql: ${order_item_id} ;;
+    sql: ${order_id} ;;
   }
 
   dimension_group: returned {
