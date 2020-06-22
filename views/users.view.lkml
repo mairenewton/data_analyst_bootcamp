@@ -19,7 +19,7 @@ view: users {
 
   dimension:is_email  {
     type: yesno
-    sql: ${traffic_source}='email' ;;
+    sql: ${traffic_source}='Email' ;;
   }
 
   dimension: country {
