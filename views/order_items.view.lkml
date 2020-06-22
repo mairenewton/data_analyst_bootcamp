@@ -80,6 +80,11 @@ view: order_items {
     sql: ${TABLE}.shipped_at ;;
   }
 
+  dimension: shipping_period {
+    type: date
+    sql:  datediff (${shipped_raw}, ${delivered_raw} ) ;;
+  }
+
   dimension: status {
     type: string
     sql: ${TABLE}.status ;;
