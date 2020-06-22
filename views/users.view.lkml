@@ -25,7 +25,8 @@ view: users {
 
   dimension: source_email {
     type: yesno
-    sql: ${traffic_source} == "email" ;;
+    sql: ${traffic_source} == "Email" ;;
+    label: "test"
   }
 
   dimension: country {
