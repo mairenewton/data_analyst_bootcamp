@@ -106,6 +106,14 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+  measure:  total_sales_email_users {
+    type: sum
+    filters: {
+      field: users.is_email_source
+      value: "yes"
+      }
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
