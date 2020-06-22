@@ -19,7 +19,7 @@ view: users {
 
   dimension: full_name {
       type:  string
-      sql: ${last_name} || ", " || ${first_name}  ;;
+      sql: ${last_name} || ', ' || ${first_name}  ;;
   }
 
   dimension: country {
