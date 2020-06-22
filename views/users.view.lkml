@@ -17,6 +17,11 @@ view: users {
     sql: ${TABLE}.city ;;
   }
 
+  dimension:is_email  {
+    type: yesno
+    sql: ${traffic_source}='email' ;;
+  }
+
   dimension: country {
     type: string
     map_layer_name: countries
