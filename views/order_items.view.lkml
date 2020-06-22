@@ -82,7 +82,7 @@ view: order_items {
 
   dimension: shipping_period {
     type: date
-    sql:  datediff (${shipped_raw}, ${delivered_raw} ) ;;
+    sql:  datediff (days, ${shipped_raw}, ${delivered_raw} ) ;;
   }
 
   dimension: status {
