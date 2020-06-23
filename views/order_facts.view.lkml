@@ -10,6 +10,9 @@ view: order_facts_ndt {
       column: user_id {}
       column: city_state { field: users.city_state }
       column: sale_price {}
+      derived_column: derived {
+        sql: sum(sale_price);;
+      }
     }
   }
   dimension: order_id {
