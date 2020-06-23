@@ -35,6 +35,10 @@ explore: order_items {
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
     relationship: many_to_one
   }
+
+  sql_always_where:  ${order_items.returned_date} IS NULL ;;
+
+  sql_always_having: ${order_items.sale_price} > 200 ;;
 }
 
 
