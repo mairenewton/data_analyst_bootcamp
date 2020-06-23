@@ -2,7 +2,7 @@
 
 # include: "data_analyst_bootcamp.model.lkml"
 
-view: order_facts {
+view: order_facts_ndt {
   derived_table: {
     explore_source: order_items {
       column: order_id {}
