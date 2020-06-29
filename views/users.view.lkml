@@ -7,6 +7,7 @@ view: users {
     sql: ${TABLE}.id ;;
   }
 
+
   dimension: age {
     type: number
     sql: ${TABLE}.age ;;
@@ -81,6 +82,11 @@ view: users {
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
+  }
+
+  dimension: city_state {
+    type: string
+    sql: ${TABLE}.city || ${TABLE}.state ;;
   }
 
   measure: count {
