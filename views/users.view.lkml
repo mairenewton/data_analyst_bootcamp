@@ -43,6 +43,11 @@ view: users {
     sql: ${TABLE}.email ;;
   }
 
+  dimension: City_State {
+    type: string
+    sql:  ${TABLE}.city|| ' ' ||${state};;
+  }
+
   dimension: first_name {
     type: string
     sql: ${TABLE}.first_name ;;
