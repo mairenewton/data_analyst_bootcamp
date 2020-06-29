@@ -86,8 +86,20 @@ view: users {
 
   dimension: city_state {
     type: string
-    sql: ${TABLE}.city || ${TABLE}.state ;;
+    sql: ${TABLE}.city || ' ' || ${TABLE}.state ;;
   }
+
+  dimension: age_group {
+    type: tier
+    tiers: [18,25,35,45,55,65,75,90]
+    sql: ${TABLE}.age ;;
+  }
+
+  dimension: is_traffic_source {
+    type: yesno
+    sql: ${traffic_source} = 'email' ;;
+  }
+
 
   measure: count {
     type: count
