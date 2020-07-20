@@ -23,6 +23,20 @@ view: users {
     sql: ${TABLE}.country ;;
   }
 
+  dimension: cityState {
+    type: string
+    sql: ${city}|| ',' || ${state} ;;
+  }
+
+dimension: ageBuckets {
+  type: tier
+  tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+  sql:  ${age} ;;
+  style: integer
+
+}
+
+
   dimension_group: created {
     type: time
     timeframes: [
