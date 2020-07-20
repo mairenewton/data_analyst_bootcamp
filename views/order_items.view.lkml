@@ -72,6 +72,17 @@ description: "A count of unique orders"
     sql: ${TABLE}.sale_price ;;
   }
 
+  measure: sale_priceSUM {
+    label: "Sum of sale price"
+    type: sum
+    sql: ${sale_price} ;;
+  }
+  measure: sale_priceAVG {
+    label: "Average of sale price"
+    type: average
+    sql: ${sale_price} ;;
+  }
+
   dimension_group: shipped {
     type: time
     timeframes: [
