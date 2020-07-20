@@ -57,6 +57,11 @@ dimension: ageBuckets {
     sql: ${TABLE}.email ;;
   }
 
+  dimension: emailBoolean {
+    type: yesno
+    sql: ${traffic_source} ='Email' ;;
+  }
+
   dimension: first_name {
     type: string
     sql: ${TABLE}.first_name ;;
