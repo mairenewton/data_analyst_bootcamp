@@ -85,6 +85,13 @@ description: "A count of unique orders"
     value_format_name: usd_0
   }
 
+measure: total_sales_email_users{
+  type:  sum
+  sql: ${sale_price};;
+  filters: [users.emailBoolean: "Yes"]
+
+}
+
   dimension_group: shipped {
     type: time
     timeframes: [
