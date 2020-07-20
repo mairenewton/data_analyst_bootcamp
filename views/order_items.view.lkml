@@ -76,11 +76,13 @@ description: "A count of unique orders"
     label: "Sum of sale price"
     type: sum
     sql: ${sale_price} ;;
+    value_format_name: usd_0
   }
   measure: sale_priceAVG {
     label: "Average of sale price"
     type: average
     sql: ${sale_price} ;;
+    value_format_name: usd_0
   }
 
   dimension_group: shipped {
