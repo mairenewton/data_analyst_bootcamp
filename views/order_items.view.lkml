@@ -85,15 +85,59 @@ view: order_items {
     sql: ${TABLE}.status ;;
   }
 
+  dimension_group: Shipping_Days {
+    type: duration
+    sql_start: ${shipped_date}  ;;
+    sql_end: ${delivered_date} ;;
+    intervals: [day,hour,month,week,year]
+  }
+
   dimension: user_id {
     type: number
     # hidden: yes
     sql: ${TABLE}.user_id ;;
   }
 
+  measure: Order_Count {
+    type: count_distinct
+    description: "A count of unique orders."
+    sql: ${order_id} ;;
+  }
+
+  measure: Total_Sale_Price {
+    description: "Sum of Sale Price"
+    type: sum
+    sql: ${sale_price} ;;
+  }
+
+  measure: Avg_Sale_Price {
+    description: "Average of Sale Price"
+    type: average
+    sql: ${sale_price} ;;
+  }
+
+  measure: total_sales_email_source {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+    filters: [users.EmailYesNo: "Yes"]
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: pct_email_sales {
+    type: number
+    sql: 1.0*${total_sales_email_source}/NULLIF(${Total_Sale_Price},0) ;;
+    value_format_name: percent_1
+  }
+
+  measure: sales_per_user {
+    type: number
+    sql: ${Total_Sale_Price}/NULLIF(${users.count},0) ;;
+    value_format_name: usd
   }
 
   # ----- Sets of fields for drilling ------

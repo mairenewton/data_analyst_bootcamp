@@ -73,14 +73,31 @@ view: users {
     sql: ${TABLE}.state ;;
   }
 
+  dimension: CityState  {
+    type: string
+    sql: ${city} || ', ' || ${state} ;;
+  }
+
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
   }
 
+  dimension: EmailYesNo {
+    type: yesno
+    sql: ${traffic_source} = 'Email' ;;
+  }
+
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
+  }
+
+  dimension: Age_Group_Buckets {
+    type: tier
+    tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+    sql: ${age} ;;
+    style: integer
   }
 
   measure: count {
