@@ -18,6 +18,7 @@ explore: inventory_items {}
 
 # This explore contains multiple views
 explore: order_items {
+  label: "Orders"
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -44,6 +45,7 @@ explore: products {
     relationship: one_to_many
   }
 }
-# product ID is unique, so this is a one to many join
+# product ID is unique, so this is a one to many join - right outer is not in the list because not all
+#sql dialects use right outer. - explore is select from part/view - joins are intellegient and not used if not needed.
 
 # explore: users {}
