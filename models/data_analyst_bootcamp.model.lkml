@@ -37,8 +37,13 @@ explore: order_items {
   }
 }
 
-
-# explore: products {}
-
+explore: products {
+  join: inventory_items {
+    type: left_outer
+    sql_on: ${products.id} = ${inventory_items.product_id} ;;
+    relationship: one_to_many
+  }
+}
+# product ID is unique, so this is a one to many join
 
 # explore: users {}
