@@ -97,6 +97,11 @@ view: order_items {
     value_format_name: usd
   }
 
+  measure: total_sales_email {
+    type: sum
+    sql: ${sale_price} ;;
+  filters: [users.is_email_source: "Yes"]
+  }
 
   dimension: user_id {
     type: number
