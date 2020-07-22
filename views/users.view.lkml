@@ -9,7 +9,12 @@ view: users {
 
   dimension: city_state {
     type: string
-    sql: ${city} || " " || ${state};;
+    sql: ${city} || "" || ${state};;
+  }
+
+  dimension:  Email{
+    type: string
+    sql: ${email} = 'Yes/No' ;;
   }
 
   dimension: age {
