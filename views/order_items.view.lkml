@@ -66,6 +66,11 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
+  measure: total_order_count {
+    type: count_distinct
+    sql: ${order_item_id} ;;
+  }
+
   dimension_group: shipped {
     type: time
     timeframes: [
