@@ -23,6 +23,11 @@ view: users {
     sql: ${TABLE}.country ;;
   }
 
+  dimension: city_state {
+    type: string
+    sql:  ${city} || ', ' || ${state} ;;
+  }
+
   dimension_group: created {
     type: time
     timeframes: [
