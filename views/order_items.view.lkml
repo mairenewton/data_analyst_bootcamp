@@ -85,6 +85,19 @@ view: order_items {
     sql: ${TABLE}.status ;;
   }
 
+  measure: total_order_count{
+    description: "A count of unique orders"
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
+  measure: total_sale_price {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
+
   dimension: user_id {
     type: number
     # hidden: yes
