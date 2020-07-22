@@ -22,7 +22,7 @@ access_grant: can_see_pii {
 }
 
 
-explore: inventory_items {}
+# explore: inventory_items {}
 
 # This explore contains multiple views
 explore: order_items {
