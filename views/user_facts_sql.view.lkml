@@ -1,5 +1,8 @@
 view: user_facts_sql {
   derived_table: {
+    datagroup_trigger: default_current_date
+    distribution: "user_id"
+    sortkeys: ["user_id"]
     sql: select
       user_id,
       sum(sale_price) as LTValue,

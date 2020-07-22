@@ -9,10 +9,18 @@ datagroup: data_analyst_bootcamp_default_datagroup {
   max_cache_age: "1 hour"
 }
 
-persist_with: data_analyst_bootcamp_default_datagroup
-
-
+explore: users {
+  access_filter: {
+    user_attribute: country
+    field: users.country
+  }
+}
 ### Whitespaces ####
+access_grant: can_see_pii {
+  user_attribute: department
+  allowed_values: ["HR","Finance","C-level"]
+}
+
 
 explore: inventory_items {}
 
