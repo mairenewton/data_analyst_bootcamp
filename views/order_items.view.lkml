@@ -38,8 +38,8 @@ view: order_items {
 
   dimension_group: shipped_to_delivered {
     type: duration
-    sql_start: ${shipped_date} ;;
-    sql_end: ${delivered_date} ;;
+    sql_start: ${shipped_raw} ;;
+    sql_end: ${delivered_raw} ;;
     intervals: [hour, day, week, month, year]
   }
 
