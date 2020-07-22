@@ -12,9 +12,9 @@ view: users {
     sql: ${city} || "" || ${state};;
   }
 
-  dimension:  Email{
-    type: string
-    sql: ${email} = 'Yes/No' ;;
+  dimension:  is_email_source{
+    type: yesno
+    sql: ${traffic_source} = 'Email' ;;
   }
 
   dimension: age {
