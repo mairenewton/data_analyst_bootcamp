@@ -93,5 +93,16 @@ view: users {
     sql: ${TABLE}.city || ‘, ‘ || ${TABLE}.state;;
     }
 
+  dimension: age_tier {
+    type: tier
+    tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+    sql: ${TABLE}.age ;;
+    style: integer
+  }
 
+
+  dimension: traffic_source_type {
+    type: yesno
+    sql: ${TABLE}.traffic_source = ‘Email’ ;;
+  }
 }
