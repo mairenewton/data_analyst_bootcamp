@@ -53,7 +53,7 @@ view: order_items {
     sql: ${TABLE}.order_id ;;
   }
   measure: Unique_orders {
-    description: "List of unique orders"
+    description: "count of unique orders"
     type: count_distinct
     sql: ${order_id} ;;
   }
@@ -62,8 +62,27 @@ view: order_items {
     type: sum
     sql: ${sale_price} ;;
   }
-
-
+  measure: average_sales {
+    description: "average sales"
+    type: average
+    sql: $(${sale_price} ;;
+  }
+  measure: sales_from_email {
+    type: sum
+    filters: {field: users.traffic_source_is_email
+              value: "Yes"}
+    sql: ${sale_price};;
+  }
+  measure: percent_sales_from_email {
+    type: number
+    value_format_name: percent_2
+    sql: 1.0*${sales_from_email}/NULLIF(${total_sales},0) ;;
+  }
+  measure: average_spend_per_user {
+    type: number
+    value_format_name: usd
+    sql: 1.0*${total_sales}/${users.count} ;;
+  }
   dimension_group: returned {
     type: time
     timeframes: [
