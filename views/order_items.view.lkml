@@ -35,6 +35,12 @@ view: order_items {
     ]
     sql: ${TABLE}.delivered_at ;;
   }
+  dimension_group: Shipping_days{
+    type: duration
+    sql_start: ${created_date} ;;
+    sql_end: ${shipped_date} ;;
+    intervals: [day]
+  }
 
   dimension: inventory_item_id {
     type: number
@@ -118,7 +124,7 @@ view: order_items {
       inventory_items.product_name
     ]
   }
-  dimension_group: days_diff
+  dimension_group: day
   {
     type: duration
     intervals: [day]
