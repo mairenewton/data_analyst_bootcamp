@@ -14,7 +14,7 @@ view: users {
 
 dimension: city_state {
   type: string
-  sql: ${city} ',' ${state} ;;
+  sql: ${TABLE}.city ',' {TABLE}.state ;;
 }
 
   dimension: city {
