@@ -96,6 +96,16 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+  measure: benee_total_sales_price {
+    type: sum
+    sql: ${sale_price} ;;
+  }
+
+  measure: benee_total{
+    type: number
+    sql: ${benee_total_sales_price}/100 ;;
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
