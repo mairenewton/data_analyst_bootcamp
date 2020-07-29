@@ -66,6 +66,19 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
+
+
+
+measure: total_sales_email_users {
+  type: sum
+  sql: ${sale_price} ;;
+  filters:   [
+    users.traffic_source: "email"
+  ]
+}
+
+
+
   dimension_group: shipped {
     type: time
     timeframes: [
