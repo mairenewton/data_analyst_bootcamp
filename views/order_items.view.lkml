@@ -91,6 +91,10 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+measure: order_sum {
+  type: count_distinct
+  sql: ${inventory_item_id} ;;
+}
   measure: count {
     type: count
     drill_fields: [detail*]
