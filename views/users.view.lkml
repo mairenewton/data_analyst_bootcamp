@@ -23,6 +23,11 @@ view: users {
     sql: ${TABLE}.country ;;
   }
 
+  dimension: city_state {
+    type: string
+    sql: ${city} || ', ', ${state} ;;
+  }
+
   dimension_group: created {
     type: time
     timeframes: [
@@ -84,6 +89,7 @@ view: users {
   }
 
   measure: count {
+    label: "Total Users"
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }

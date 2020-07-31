@@ -66,6 +66,28 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
+  measure: total_sale_price {
+    type:  sum
+    sql:  ${sale_price} ;;
+  }
+
+  measure: total {
+    type:  number
+    sql:  ${total_sale_price}/100 ;;
+  }
+
+  measure: unique_orders {
+    description: "A count of unique orders"
+    type: count_distinct
+    sql: ${order_id};;
+  }
+
+  measure: total_sales_email_users {
+    type: sum
+    sql: ${sale_price};;
+    filters: [users.traffic_source: "Email"]
+  }
+
   dimension_group: shipped {
     type: time
     timeframes: [
