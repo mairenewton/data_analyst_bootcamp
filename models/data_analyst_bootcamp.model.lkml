@@ -5,13 +5,11 @@ include: "/views/*.view"
 
 
 datagroup: data_analyst_bootcamp_default_datagroup {
-  # sql_trigger: SELECT MAX(id) FROM etl_log;;
+  sql_trigger: SELECT MAX(id) FROM etl_log;;
   max_cache_age: "1 hour"
 }
 
 persist_with: data_analyst_bootcamp_default_datagroup
-
-
 ### Whitespaces ####
 
 # explore: inventory_items {}
@@ -42,6 +40,7 @@ explore: order_items {
 
 
 explore: users {
+  persist_with: data_analyst_bootcamp_default_datagroup
   join: order_items {
     type: left_outer
     sql_on: ${users.id} = ${order_items.user_id} ;;
