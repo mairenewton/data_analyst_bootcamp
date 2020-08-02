@@ -96,7 +96,6 @@ view: order_items {
     sql: datediff('day',${shipped_date}, ${delivered_date});;
   }
 
-
   measure: count {
     type: count
     drill_fields: [detail*]
