@@ -14,7 +14,7 @@ persist_with: data_analyst_bootcamp_default_datagroup
 
 ### Whitespaces ####
 
-explore: inventory_items {}
+# explore: inventory_items {}
 
 # This explore contains multiple views
 explore: order_items {
