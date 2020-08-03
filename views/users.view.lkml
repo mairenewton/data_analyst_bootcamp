@@ -16,11 +16,36 @@ view: users {
     type: string
     sql: ${TABLE}.city ;;
   }
+  dimension: address  {
+    type: string
+    sql: ${city} || ', ' || ${state} ;;
+  }
+
+  dimension: trafiic_is_email  {
+    type: yesno
+    sql: ${traffic_source} ='Email' ;;
+  }
+
+  measure: email_source_total_sales {
+    type: sum
+    filters: {
+      field: trafiic_is_email
+      value: "Yes"
+    }
+  }
+
 
   dimension: country {
     type: string
     map_layer_name: countries
     sql: ${TABLE}.country ;;
+  }
+
+  dimension: age_group {
+    type: tier
+    style: integer
+    tiers: [18, 25, 35,45,55, 65, 75, 90]
+    sql:  ${age};;
   }
 
   dimension_group: created {

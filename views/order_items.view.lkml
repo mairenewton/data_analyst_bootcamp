@@ -6,6 +6,31 @@ view: order_items {
     type: number
     sql: ${TABLE}.id ;;
   }
+measure: unique_orders  {
+  type: count_distinct
+  sql: ${order_id} ;;
+
+}
+
+measure: total_sales {
+  type: sum
+  sql:  ${sale_price};;
+  value_format_name: usd
+}
+
+
+measure: average_sales_price{
+    type: average
+    sql:  ${sale_price};;
+    value_format_name: usd
+  }
+
+  measure: email_source_total_sales {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [users.trafiic_is_email: "Yes"]
+  }
+
 
   dimension_group: created {
     type: time
@@ -21,6 +46,13 @@ view: order_items {
     ]
     sql: ${TABLE}.created_at ;;
   }
+
+  dimension_group: shipping_days  {
+    type: duration
+    intervals: [day,hour]
+    sql_start: ${shipped_raw};;
+    sql_end:  ${delivered_raw} ;;
+    }
 
   dimension_group: delivered {
     type: time
