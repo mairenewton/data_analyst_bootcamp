@@ -85,6 +85,19 @@ view: order_items {
     sql: ${TABLE}.status ;;
   }
 
+  dimension: shipping_days {
+    type: number
+    sql: DATEDIF('day',${shipped_date},${delivered_date}) ;;
+  }
+
+  dimension_group: ship_deliver {
+    type: duration
+    sql_start: ${shipped_raw} ;;
+    sql_end: ${delivered_raw} ;;
+    intervals: [hour,day,week,month]
+  }
+
+
   dimension: user_id {
     type: number
     # hidden: yes
