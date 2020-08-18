@@ -85,6 +85,10 @@ view: order_items {
     sql: ${TABLE}.status ;;
   }
 
+  dimension: source {
+    type: string
+    sql: ${TABLE}.email ;;
+  }
   dimension: user_id {
     type: number
     # hidden: yes
@@ -95,6 +99,16 @@ view: order_items {
     type: count
     drill_fields: [detail*]
   }
+
+  measure: total_sales_email {
+    label: "sum of sales by email"
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+    filters: [users.traffic_source: "Email"]
+
+  }
+
 
   # ----- Sets of fields for drilling ------
   set: detail {

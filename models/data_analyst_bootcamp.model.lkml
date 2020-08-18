@@ -14,7 +14,14 @@ persist_with: data_analyst_bootcamp_default_datagroup
 
 ### Whitespaces ####
 
-# explore: inventory_items {}
+ explore: users {
+  group_label: "users by order"
+   join: order_items {
+     type: left_outer
+    sql_on: ${users.id} = ${order_items.user_id} ;;
+    relationship: one_to_many
+   }
+ }
 
 # This explore contains multiple views
 explore: order_items {
