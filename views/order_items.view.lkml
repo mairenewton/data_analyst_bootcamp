@@ -97,6 +97,11 @@ view: order_items {
     sql_end: ${delivered_date} ;;
   }
 
+  dimension: days_to_ship_count {
+    type: number
+    sql: DATEDIFF(day, ${shipped_date},${delivered_date} ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
