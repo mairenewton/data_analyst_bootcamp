@@ -41,4 +41,9 @@ explore: order_items {
 # explore: products {}
 
 
-# explore: users {}
+# explore: users {
+#   access_filter: {
+#     field: users.state
+#     user_attribute: set_state
+#   }
+# }
