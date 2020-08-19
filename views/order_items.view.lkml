@@ -91,6 +91,12 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+  dimension: days_to_ship {
+    type: duration_day
+    sql_start: ${shipped_date} ;;
+    sql_end: ${delivered_date} ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
