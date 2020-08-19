@@ -80,6 +80,7 @@ view: order_items {
     sql: ${TABLE}.shipped_at ;;
   }
 
+
   dimension: status {
     type: string
     sql: ${TABLE}.status ;;
@@ -94,6 +95,30 @@ view: order_items {
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: distinct_order {
+    type: count_distinct
+    sql: ${order_id} ;;
+    }
+
+  measure: total_sales {
+    type: sum
+    sql: ${sale_price} ;;
+    }
+
+
+  measure: total_sales_email {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+    filters: [users.traffic_source: "Email"]
+  }
+
+measure: percent_sales_email {
+    type: number
+    sql: 1.0*${total_sales_email}/nullif(${total_sales},0) ;;
+    value_format_name: percent_0
   }
 
   # ----- Sets of fields for drilling ------

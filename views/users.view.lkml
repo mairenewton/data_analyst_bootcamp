@@ -17,6 +17,22 @@ view: users {
     sql: ${TABLE}.city ;;
   }
 
+  dimension: city_state {
+    type: string
+    sql:  ${city} ||  ', ' || ${state} ;;
+  }
+
+dimension: age_tier {
+  type: tier
+  tiers: [18,25,35,45,55,65,75,90]
+  sql: ${age} ;;
+}
+
+dimension: traffic {
+  type: yesno
+  sql: ${traffic_source} = 'Email' ;;
+}
+
   dimension: country {
     type: string
     map_layer_name: countries
@@ -39,6 +55,7 @@ view: users {
   }
 
   dimension: email {
+    hidden: yes
     type: string
     sql: ${TABLE}.email ;;
   }
@@ -59,11 +76,13 @@ view: users {
   }
 
   dimension: latitude {
+    group_label: "Geography"
     type: number
     sql: ${TABLE}.latitude ;;
   }
 
   dimension: longitude {
+    group_label: "Geography"
     type: number
     sql: ${TABLE}.longitude ;;
   }
@@ -79,11 +98,13 @@ view: users {
   }
 
   dimension: zip {
+    label: "Postcode"
     type: zipcode
     sql: ${TABLE}.zip ;;
   }
 
   measure: count {
+    description: "Timetoact"
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
