@@ -18,10 +18,16 @@ persist_with: data_analyst_bootcamp_default_datagroup
 
 # This explore contains multiple views
 explore: order_items {
+  sql_always_where: ${status} = 'complete' ;;
+  sql_always_having: ${order_items.count} > 5 ;;
+  always_filter: { filters: [order_items.created_date: "before today" ]}
+  conditionally_filter: { filters: [order_items.created_date: "last 2 years" ]}
   join: users {
     type: left_outer
+
     sql_on: ${order_items.user_id} = ${users.id} ;;
     relationship: many_to_one
+
   }
 
   join: inventory_items {
@@ -39,6 +45,5 @@ explore: order_items {
 
 
 # explore: products {}
-
 
 # explore: users {}
