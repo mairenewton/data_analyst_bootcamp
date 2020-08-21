@@ -9,6 +9,11 @@ datagroup: data_analyst_bootcamp_default_datagroup {
   max_cache_age: "1 hour"
 }
 
+datagroup: default {
+  sql_trigger: Select current_date ;;
+  max_cache_age: "24 hours"
+}
+
 persist_with: data_analyst_bootcamp_default_datagroup
 
 
@@ -18,6 +23,11 @@ persist_with: data_analyst_bootcamp_default_datagroup
 
 # This explore contains multiple views
 explore: order_items {
+
+  sql_always_where: ${returned_date} IS NULL ;;
+
+  sql_always_having: ${Total_Sales} > 200 ;;
+
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -35,10 +45,19 @@ explore: order_items {
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
     relationship: many_to_one
   }
+
+
 }
+
+
 
 
 # explore: products {}
 
 
-# explore: users {}
+explore: users {
+
+  always_filter: {
+    filters: [users.created_date: "" ]
+  }
+}
