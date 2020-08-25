@@ -27,16 +27,19 @@ view: inventory_items {
   }
 
   dimension: product_brand {
+    group_label: "Product"
     type: string
     sql: ${TABLE}.product_brand ;;
   }
 
   dimension: product_category {
+    group_label: "Product"
     type: string
     sql: ${TABLE}.product_category ;;
   }
 
   dimension: product_department {
+    group_label: "Product"
     type: string
     sql: ${TABLE}.product_department ;;
   }
@@ -47,17 +50,22 @@ view: inventory_items {
   }
 
   dimension: product_id {
+    group_label: "Product"
     type: number
     # hidden: yes
     sql: ${TABLE}.product_id ;;
   }
 
   dimension: product_name {
+    group_label: "Product"
+    label: "Name"
+    description: "This is a description of Product's name"
     type: string
     sql: ${TABLE}.product_name ;;
   }
 
   dimension: product_retail_price {
+    group_label: "Product"
     type: number
     sql: ${TABLE}.product_retail_price ;;
   }
@@ -84,5 +92,10 @@ view: inventory_items {
   measure: count {
     type: count
     drill_fields: [id, product_name, products.id, products.name, order_items.count]
+  }
+
+  measure: total_cost {
+    type: sum
+    sql: ${cost} ;;
   }
 }
