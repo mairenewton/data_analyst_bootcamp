@@ -1,6 +1,11 @@
 include: "/views/*.view"
 
 explore: users {
+#   access_filter: {
+#     field: users.state
+#     user_attribute: state
+#   }
+  persist_with: default_datagroup
   group_label: "Custom Group Name"
   description: "This is helpful for finding Users information"
   label: "Users Explore"
