@@ -1,7 +1,6 @@
 view: order_items {
   sql_table_name: public.order_items ;;
-
-  dimension: order_item_id {
+   dimension: order_item_id {
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
@@ -91,9 +90,54 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+  dimension: profit {
+    type:  number
+    sql: ${sale_price} - ${inventory_items.cost} ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: total_revenue {
+    type:  sum
+    sql:${sale_price} ;;
+    value_format_name: usd_0
+  }
+
+  measure: total_profit {
+    type:  sum
+    sql:${profit} ;;
+    value_format_name: usd_0
+  }
+  measure: total_revenue_new_users {
+    type:  sum
+    sql: ${sale_price};;
+    filters: [
+      users.is_new_customer: "Yes"
+    ]
+    value_format_name: usd_0
+  }
+
+  measure: total_revenue_from_email {
+    type:  sum
+    sql: ${sale_price} ;;
+    filters: [
+      users.traffic_source: "Email"]
+    value_format_name: usd_0
+  }
+
+  measure: pct_revenue_traffic_source_email {
+    type: number
+    sql: 1.00*${total_revenue_from_email}/nullif(${total_revenue},0) ;;
+    value_format_name: percent_1
+  }
+
+  measure: average_spend_per_user {
+    type: number
+    sql: 1.0 * ${total_revenue} / nullif(${users.count_of_users},0) ;;
+    value_format_name: usd
   }
 
   # ----- Sets of fields for drilling ------
