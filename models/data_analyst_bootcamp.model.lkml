@@ -64,14 +64,16 @@ explore: order_items {
 
 explore: users {
   persist_with: daily_refresh
+  description: "Start here to analyze customer data"
   access_filter: {
     user_attribute: state
     field: users.state
   }
   join: order_items{
+    view_label: "Orders & Items"
     fields: [order_items.total_revenue]
     type: left_outer
     sql_on: ${users.id}=${order_items.user_id};;
-    relationship: one_to_many
+    relationship: one_to_many #based on first in explore and what's below ie. users to order items
   }
 }

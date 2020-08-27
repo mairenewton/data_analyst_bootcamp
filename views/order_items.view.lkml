@@ -120,6 +120,18 @@ view: order_items {
     value_format_name: usd_0
   }
 
+  measure: count_of_orders {
+    type:  count_distinct
+    sql: ${order_id} ;;
+  }
+
+  measure: count_of_complete_orders {
+    type:  count_distinct
+    sql: ${order_id} ;;
+    filters: [status: "Complete",returned_date: "NULL"]
+  }
+
+
   measure: total_revenue_from_email {
     type:  sum
     sql: ${sale_price} ;;
@@ -131,6 +143,12 @@ view: order_items {
   measure: pct_revenue_traffic_source_email {
     type: number
     sql: 1.00*${total_revenue_from_email}/nullif(${total_revenue},0) ;;
+    value_format_name: percent_1
+  }
+
+  measure: pct_complete_orders {
+    type: number
+    sql: 1.00*${count_of_complete_orders}/nullif(${count_of_orders},0) ;;
     value_format_name: percent_1
   }
 

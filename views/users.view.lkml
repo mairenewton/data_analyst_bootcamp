@@ -3,6 +3,7 @@ view: users {
 
   dimension: id {
     primary_key: yes
+    hidden: yes
     type: number
     sql: ${TABLE}.id ;;
   }
@@ -12,17 +13,38 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  dimension: age_group {
+    type: tier
+    sql: ${age} ;;
+    tiers: [18,31,51,71]
+    style: integer
+  }
+
   dimension: city {
+    group_label: "Address"
     type: string
     sql: ${TABLE}.city ;;
   }
 
   dimension: country {
+    group_label: "Address"
     type: string
     map_layer_name: countries
     sql: ${TABLE}.country ;;
   }
 
+  #beccause using duration looker with name Duration as A user with list of intervals below: in viz shows as hour_as_a_user, days_as_a_user
+  dimension_group: as_a_user {
+      type:  duration
+      sql_start:  ${created_raw} ;;
+      sql_end:  current_date ;;
+      intervals: [hour,day,week,month,year]
+  }
+
+  dimension: is_new_user {
+    type:  yesno
+    sql: ${days_as_a_user} < 90 ;;
+  }
   dimension_group: created {
     type: time
     timeframes: [
@@ -61,7 +83,7 @@ view: users {
 
   dimension: first_name {
     type: string
-    sql: ${TABLE}.first_name ;;
+    sql: initcap(${TABLE}.first_name) ;;
   }
 
   dimension: gender {
@@ -71,7 +93,12 @@ view: users {
 
   dimension: last_name {
     type: string
-    sql: ${TABLE}.last_name ;;
+    sql: initcap(${TABLE}.last_name) ;;
+  }
+
+  dimension: full_name {
+    type: string
+    sql: ${first_name} || ' ' || ${last_name} ;;
   }
 
   dimension: latitude {
@@ -85,6 +112,7 @@ view: users {
   }
 
   dimension: state {
+    group_label: "Address"
     type: string
     sql: ${TABLE}.state ;;
   }
@@ -95,6 +123,7 @@ view: users {
   }
 
   dimension: zip {
+    group_label: "Address"
     type: zipcode
     sql: ${TABLE}.zip ;;
   }
@@ -102,5 +131,20 @@ view: users {
   measure: count_of_users {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
+  }
+
+  measure: min_age {
+    type: min
+    sql: ${age} ;;
+  }
+  measure: max_age {
+    type: max
+    sql: ${age} ;;
+  }
+
+  measure: average_age {
+    type: average
+    sql: ${age} ;;
+    value_format_name: decimal_0
   }
 }
