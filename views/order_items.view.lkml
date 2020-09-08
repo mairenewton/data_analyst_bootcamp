@@ -96,7 +96,7 @@ view: order_items {
     drill_fields: [detail*]
   }
 
-  measure: number_of_orders {
+  measure: count_of_orders {
     description: "a count of unique orders"
     type: count_distinct
     sql: ${order_id} ;;
