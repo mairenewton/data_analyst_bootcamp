@@ -104,4 +104,11 @@ view: users {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
+
+  measure: average_spend_per_user {
+    type: number
+    value_format_name: usd_0
+    sql:  1.0*${order_items.total_sales_price}/NULLIF(${count},0);;
+  }
+
 }

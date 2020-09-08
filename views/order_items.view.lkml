@@ -144,6 +144,7 @@ view: order_items {
     sql: 1.0 *${total_sales_email_users}/NULLIF(${total_sales_price},0) ;;
   }
 
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
