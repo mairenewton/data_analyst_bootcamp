@@ -104,4 +104,8 @@ view: users {
     type:  string
     sql: ${city} || ${state} ;;
   }
+
+  measure: count_of_female_users {
+  type: count
+  filters: [gender: "Female"]}
 }
