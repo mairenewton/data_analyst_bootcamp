@@ -107,5 +107,13 @@ view: users {
 
   measure: count_of_female_users {
   type: count
-  filters: [gender: "Female"]}
+  filters: [gender: "Female"]
+  }
+
+
+  measure: average_spend_per_user {
+    type: number
+    sql: 1.0 * ${order_items.total_sale_price} / NULLIF(${count},0) ;;
+    value_format_name: usd
+  }
 }

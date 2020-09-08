@@ -130,6 +130,13 @@ view: order_items {
     ]
   }
 
+
+  measure: percent_sales_email_users {
+    type: number
+    sql: 1.0 * ${total_sales_email_users} / NULLIF(${total_sale_price},0) ;;
+    value_format_name: percent_1
+  }
+
   measure: percentage_sales_email_source {
     type: number
     value_format_name: percent_2

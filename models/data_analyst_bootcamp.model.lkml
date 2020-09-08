@@ -17,6 +17,15 @@ persist_with: data_analyst_bootcamp_default_datagroup
 # explore: inventory_items {}
 
 # This explore contains multiple views
+explore: users {
+  join: order_items {
+    type: left_outer
+    sql_on: ${users.id} = ${order_items.user_id} ;;
+    relationship: one_to_many
+  }
+}
+
+
 explore: order_items {
   join: users {
     type: left_outer
