@@ -129,6 +129,13 @@ view: order_items {
     value_format_name: decimal_2
   }
 
+  measure: total_sales_email_users {
+    description: "Total sales where traffic source is email"
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [users.is_email: "Yes"]
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
