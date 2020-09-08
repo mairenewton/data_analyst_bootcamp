@@ -98,7 +98,7 @@ view: order_items {
 
   measure: count_of_items{
     description: "a count of individual line items"
-    type:  count
+    type: count
   }
 
   measure: count_of_orders {
@@ -128,6 +128,12 @@ view: order_items {
     filters: [
         users.traffic_source: "Email"
     ]
+  }
+
+  measure: percentage_sales_email_source {
+    type: number
+    value_format_name: percent_2
+    sql: 1.0*(count ;;
   }
 
   # ----- Sets of fields for drilling ------
