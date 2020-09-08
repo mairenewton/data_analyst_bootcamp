@@ -97,6 +97,7 @@ view: order_items {
   }
 
   measure: number_of_orders {
+    description: "a count of unique orders"
     type: count_distinct
     sql: ${order_id} ;;
   }
