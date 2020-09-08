@@ -115,6 +115,12 @@ view: order_items {
     sql: ${order_id} ;;
   }
 
+  measure: total_sales_price {
+    description: "TotaL Sales"
+    type: sum
+    sql: ${sale_price} ;;
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
