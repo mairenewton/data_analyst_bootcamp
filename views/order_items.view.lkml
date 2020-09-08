@@ -132,6 +132,7 @@ view: order_items {
   measure: total_sales_email_users {
     description: "Total sales where traffic source is email"
     type: sum
+    value_format_name: decimal_2
     sql: ${sale_price} ;;
     filters: [users.is_email: "Yes"]
   }
@@ -139,7 +140,7 @@ view: order_items {
   measure: percent_of_sales_email_users {
     description: "Total sales where traffic source is email"
     type: number
-    value_format_name: decimal_2
+    value_format_name: percent_2
     sql: 1.0 *${total_sales_email_users}/NULLIF(${total_sales_price},0) ;;
   }
 
