@@ -118,7 +118,8 @@ view: order_items {
   measure: total_sales_price {
     description: "TotaL Sales"
     type: sum
-    sql: ${sale_price} ;;
+    sql: ${sale_price};;
+    value_format_name: decimal_2
   }
 
   # ----- Sets of fields for drilling ------
