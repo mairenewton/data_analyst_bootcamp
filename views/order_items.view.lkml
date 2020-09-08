@@ -143,6 +143,10 @@ view: order_items {
     value_format_name: percent_2
     sql: 1.0 *${total_sales_email_users}/NULLIF(${total_sales_price},0) ;;
   }
+  measure: count_distinct_users_with_orders {
+    type: count_distinct
+    sql: ${user_id} ;;
+  }
 
 
   # ----- Sets of fields for drilling ------
