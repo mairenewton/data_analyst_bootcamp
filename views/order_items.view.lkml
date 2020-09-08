@@ -96,6 +96,11 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+  dimension: shipping_days {
+    type: number
+    sql:DATEDIFF(day, ${TABLE}.shipped_at,${TABLE}.delivered_at) ;;
+    }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
