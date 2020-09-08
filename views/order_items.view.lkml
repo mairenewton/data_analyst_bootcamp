@@ -122,6 +122,14 @@ view: order_items {
     sql:DATEDIFF(day, ${shipped_date}, ${delivered_date} ;;
     }
 
+  measure: total_sales_email_users {
+    type:  sum
+    sql:  ${sale_price} ;;
+    filters: [
+        users.traffic_source: "Email"
+    ]
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
