@@ -122,6 +122,13 @@ view: order_items {
     value_format_name: decimal_2
   }
 
+  measure: average_sales_price {
+    description: "Average Sales Price"
+    type: average
+    sql: ${sale_price};;
+    value_format_name: decimal_2
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
