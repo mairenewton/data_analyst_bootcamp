@@ -40,7 +40,7 @@ explore: order_items {
   sql_always_where: ${status} = 'complete' ;;
   sql_always_having: ${count} > 5000 ;;
   always_filter: {
-    filters: [order_items.created_date: "last 30 days"]
+    filters: [order_items.created_date: "after 30 days ago"]
   }
   #conditionally_filter: {
   #  filters: [order_items.created_date: "after 2 years ago"]
@@ -64,7 +64,7 @@ explore: users {
   #  filters: [order_items.created_date: "before today"]
   #}
   conditionally_filter: {
-    filters: [users.created_date: "last 90 days"]
+    filters: [users.created_date: "after 90 days ago"]
     unless: [users.id, users.state]
   }
 }
