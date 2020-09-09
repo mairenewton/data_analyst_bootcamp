@@ -4,6 +4,8 @@ include: "*.view.lkml"
 
 view: order_facts_ndt {
   derived_table: {
+    distribution_style: "all"
+    datagroup_trigger: orders_etl
     explore_source: order_items {
       column: order_id {}
       column: count {}
@@ -11,11 +13,12 @@ view: order_facts_ndt {
       derived_column: order_revenue_rank{
         sql: rank() over(order by total_sales_price desc) ;;
       }
-      bind_all_filters: yes
-      #filters: {
-      #  field: order_items.created_date
-      #  value: "after 30 days ago"
-      #}
+      # the dynamic bind all filters cannot be used with data group triggers
+      #bind_all_filters: yes
+      filters: {
+        field: order_items.created_date
+        value: "after 30 days ago"
+      }
     }
   }
   dimension: order_id {
