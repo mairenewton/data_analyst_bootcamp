@@ -39,6 +39,10 @@ explore: order_items {
   #sql_always_where: ${returned_date} is NULL;;
   sql_always_where: ${status} = 'complete' ;;
   sql_always_having: ${count} > 5000 ;;
+  conditionally_filter: {
+    filters: [order_items.created_date: "2 years ago"]
+    unless: [users.id]
+  }
 
   #sql_always_having: ${total_sales_price} > 200 ;;
 }
@@ -52,5 +56,8 @@ explore: users {
     type: left_outer
     sql_on: ${users.id} =${order_items.user_id} ;;
     relationship: one_to_many
+  }
+  always_filter: {
+    filters: [order_items.created_date: "before today"]
   }
 }
