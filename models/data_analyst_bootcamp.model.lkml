@@ -36,7 +36,7 @@ explore: order_items {
     relationship: many_to_one
   }
 
-  sql_always_where: ${returned_date} = null;;
+  sql_always_where: ${returned_date} is NULL;;
   sql_always_having: ${total_sales_price} > 200 ;;
 }
 
