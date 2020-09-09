@@ -9,6 +9,11 @@ datagroup: users_etl {
   max_cache_age: "24 hours"
 }
 
+datagroup: orders_etl {
+  sql_trigger: SELECT max(created_at) from order_items;;
+  max_cache_age: "4 hours"
+}
+
 #datagroup: data_analyst_bootcamp_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
 #  max_cache_age: "1 hour"
@@ -23,6 +28,7 @@ datagroup: users_etl {
 
 # This explore contains multiple views
 explore: order_items {
+  persist_with: orders_etl
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
