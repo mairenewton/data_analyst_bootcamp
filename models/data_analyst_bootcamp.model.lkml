@@ -4,12 +4,17 @@ connection: "events_ecommerce"
 include: "/views/*.view"
 
 
-datagroup: data_analyst_bootcamp_default_datagroup {
-  # sql_trigger: SELECT MAX(id) FROM etl_log;;
-  max_cache_age: "1 hour"
+datagroup: users_etl {
+  sql_trigger: SELECT current_date;;
+  max_cache_age: "24 hours"
 }
 
-persist_with: data_analyst_bootcamp_default_datagroup
+#datagroup: data_analyst_bootcamp_default_datagroup {
+  # sql_trigger: SELECT MAX(id) FROM etl_log;;
+#  max_cache_age: "1 hour"
+#}
+
+#persist_with: data_analyst_bootcamp_default_datagroup
 
 
 ### Whitespaces ####
@@ -55,6 +60,7 @@ explore: order_items {
 
 
 explore: users {
+  persist_with: users_etl
   join: order_items {
     type: left_outer
     sql_on: ${users.id} =${order_items.user_id} ;;
