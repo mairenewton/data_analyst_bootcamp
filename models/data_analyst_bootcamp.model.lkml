@@ -42,10 +42,10 @@ explore: order_items {
   always_filter: {
     filters: [order_items.created_date: "last 30 days"]
   }
-  conditionally_filter: {
-    filters: [order_items.created_date: "after 2 years ago"]
-    unless: [user_id]
-  }
+  #conditionally_filter: {
+  #  filters: [order_items.created_date: "after 2 years ago"]
+  #  unless: [user_id]
+  #}
 
   #sql_always_having: ${total_sales_price} > 200 ;;
 }
@@ -60,9 +60,9 @@ explore: users {
     sql_on: ${users.id} =${order_items.user_id} ;;
     relationship: one_to_many
   }
-  always_filter: {
-    filters: [order_items.created_date: "before today"]
-  }
+  #always_filter: {
+  #  filters: [order_items.created_date: "before today"]
+  #}
   conditionally_filter: {
     filters: [users.created_date: "last 90 days"]
     unless: [users.id, users.state]
