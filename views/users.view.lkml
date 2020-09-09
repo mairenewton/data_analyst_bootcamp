@@ -17,6 +17,17 @@ view: users {
     sql: ${TABLE}.city ;;
   }
 
+  dimension: city_state {
+    type: string
+    sql: ${city} || ',' || ${state} ;;
+  }
+
+#   dimension: city_state {
+#     type: string
+#     sql: CONCAT(${city}, ‘, ‘, ${state});;
+#   }
+
+
   dimension: country {
     type: string
     map_layer_name: countries
@@ -27,10 +38,10 @@ view: users {
     type: time
     timeframes: [
       raw,
-      time,
       date,
       week,
       month,
+      month_name,
       quarter,
       day_of_month,
       year
@@ -53,6 +64,13 @@ view: users {
   dimension: email {
     type: string
     sql: ${TABLE}.email ;;
+  }
+
+  dimension_group: signup {
+    type: duration
+    intervals: [day, week, month, year]
+    sql_start: ${created_date};;
+    sql_end: current_date ;;
   }
 
   dimension: first_name {
