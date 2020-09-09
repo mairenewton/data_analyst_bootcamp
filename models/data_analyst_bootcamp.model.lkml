@@ -37,7 +37,7 @@ explore: order_items {
   }
 
   #sql_always_where: ${returned_date} is NULL;;
-  sql_always_where: ${status} == 'Complete' ;;
+  sql_always_where: ${status} = 'complete' ;;
   sql_always_having: ${count} > 5000 ;;
 
   #sql_always_having: ${total_sales_price} > 200 ;;
