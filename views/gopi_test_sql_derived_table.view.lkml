@@ -1,4 +1,4 @@
-view: gopi_test_sql_derived_table {
+view: gopi_test {
   derived_table: {
     sql: SELECT users.id AS user_id,
       COUNT(distinct order_items.order_id) as lifetime_order_count,
