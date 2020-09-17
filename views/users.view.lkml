@@ -82,7 +82,7 @@ view: users {
     type: zipcode
     sql: ${TABLE}.zip ;;
   }
-
+#Derived Columns
   dimension: full_name {
     type: string
     sql: ${first_name} || ' ' ${last_name} ;;
