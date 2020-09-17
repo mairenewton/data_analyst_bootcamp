@@ -98,7 +98,7 @@ view: order_items {
 
   measure: countdistinct {
     type: count_distinct
-    drill_fields: [order_id]
+    sql:  ${order_id} ;;
   }
 
   # ----- Sets of fields for drilling ------
