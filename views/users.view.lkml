@@ -85,7 +85,7 @@ view: users {
 #Derived Columns
   dimension: full_name {
     type: string
-    sql: concat(${first_name} ' '  ${last_name}) ;;
+    sql: ${first_name} || ' ' || ${last_name} ;;
 
   }
 
