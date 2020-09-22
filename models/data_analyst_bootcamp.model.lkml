@@ -14,7 +14,13 @@ persist_with: data_analyst_bootcamp_default_datagroup
 
 ### Whitespaces ####
 
-# explore: inventory_items {}
+explore: inventory_items {
+  join: order_items {
+    type:  left_outer
+    sql_on:  ${inventory_items.id} = ${order_items.inventory_item_id} ;;
+    relationship:  one_to_many
+  }
+}
 
 # This explore contains multiple views
 explore: order_items {

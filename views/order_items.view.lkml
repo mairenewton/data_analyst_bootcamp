@@ -115,12 +115,12 @@ view: order_items {
     drill_fields: [detail*]
   }
 
-  measure: total_sales_by_traffic_source {
-    type:  sum
-    sql: ${TABLE}.sale_price ;;
-    value_format_name: usd
-    filters: [users.traffic_source: "Email"]
-  }
+#   measure: total_sales_by_traffic_source {
+#     type:  sum
+#     sql: ${TABLE}.sale_price ;;
+#     value_format_name: usd
+#     filters: [users.traffic_source: "Email"]
+#   }
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
