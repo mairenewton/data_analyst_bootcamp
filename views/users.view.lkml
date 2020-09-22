@@ -19,7 +19,7 @@ view: users {
 
   dimension: city_state {
     type: string
-    sql: ${TABLE}.city + ', ' + ${TABLE}.state ;;
+    sql: ${city} + ', ' + ${state} ;;
   }
 
 
