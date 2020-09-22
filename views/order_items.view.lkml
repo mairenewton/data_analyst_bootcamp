@@ -80,6 +80,14 @@ view: order_items {
     sql: ${TABLE}.shipped_at ;;
   }
 
+
+  dimension_group: from_shipped_to_duration {
+    type: duration
+    intervals: [hour,day,week]
+    sql_start: ${shipped_raw};;
+    sql_end: ${delivered_raw} ;;
+  }
+
   dimension: status {
     type: string
     sql: ${TABLE}.status ;;
