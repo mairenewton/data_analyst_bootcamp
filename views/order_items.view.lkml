@@ -72,11 +72,14 @@ view: order_items {
     type: number
     sql: ${TABLE}.sale_price ;;
   }
+
+
   measure: total_sum {
     type:  sum
     sql: ${sale_price};;
     value_format_name: usd
   }
+
   dimension_group: shipped {
     type: time
     timeframes: [
@@ -112,6 +115,12 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+  measure: total_sales_by_traffic_source {
+    type:  sum
+    sql: ${TABLE}.sale_price ;;
+    value_format_name: usd
+    filters: [users.traffic_source: "Email"]
+  }
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
