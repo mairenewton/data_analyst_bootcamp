@@ -36,6 +36,13 @@ view: order_items {
     sql: ${TABLE}.delivered_at ;;
   }
 
+  dimension_group: shipping_days {
+    type: duration
+    intervals: [hour,day,week]
+    sql_start: ${shipped_raw};;
+    sql_end: ${delivered_raw};;
+  }
+
   dimension: inventory_item_id {
     type: number
     # hidden: yes
@@ -65,7 +72,11 @@ view: order_items {
     type: number
     sql: ${TABLE}.sale_price ;;
   }
-
+  measure: total_sum {
+    type:  sum
+    sql: ${sale_price};;
+    value_format_name: usd
+  }
   dimension_group: shipped {
     type: time
     timeframes: [
@@ -78,6 +89,11 @@ view: order_items {
       year
     ]
     sql: ${TABLE}.shipped_at ;;
+  }
+  dimension_group: ship_to_delivery {
+    type:  duration
+    sql_start: ${shipped_date} ;;
+    sql_end: ${delivered_date} ;;
   }
 
   dimension: status {
