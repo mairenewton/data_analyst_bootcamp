@@ -81,7 +81,7 @@ view: order_items {
   }
 
 
-  dimension_group: from_shipped_to_duration {
+  dimension_group: from_shipped_to_delivered {
     type: duration
     intervals: [hour,day,week]
     sql_start: ${shipped_raw};;
