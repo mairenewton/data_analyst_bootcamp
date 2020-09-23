@@ -51,6 +51,10 @@ explore: order_items {
   }
 }
 
+datagroup: order_items {
+  sql_trigger:  select max(created_at) from ${order_items.SQL_TABLE_NAME} ;;
+  max_cache_age: "4 hours"
+}
 
 # explore: products {}
 
