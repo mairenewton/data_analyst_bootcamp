@@ -80,6 +80,13 @@ view: order_items {
     sql: ${TABLE}.shipped_at ;;
   }
 
+  dimension_group: shipping_days {
+    type: duration
+    sql_start: ${shipped_date};;
+    sql_end: ${delivered_date} ;;
+    intervals: [day]
+
+  }
   dimension: status {
     type: string
     sql: ${TABLE}.status ;;
@@ -94,6 +101,16 @@ view: order_items {
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+measure: salesum {
+  type: sum
+  sql: ${sale_price} ;;
+}
+ measure: mailsum {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [users.traffic_source: "Email"]
   }
 
   # ----- Sets of fields for drilling ------

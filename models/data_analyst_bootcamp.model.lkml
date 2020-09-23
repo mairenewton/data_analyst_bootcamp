@@ -11,6 +11,10 @@ datagroup: data_analyst_bootcamp_default_datagroup {
 
 persist_with: data_analyst_bootcamp_default_datagroup
 
+datagroup: order_items {
+  sql_trigger: SELECT MAX(created_at) FROM order_items;;
+  max_cache_age: "4 hour"
+}
 
 ### Whitespaces ####
 
