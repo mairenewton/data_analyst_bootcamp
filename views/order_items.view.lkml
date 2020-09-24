@@ -114,6 +114,25 @@ view: order_items {
     value_format_name: usd
   }
 
+  measure: total_sales_from_email {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+    filters: [users.is_email_source: "Yes"]
+  }
+
+  measure: percent_sales_email {
+    type:  number
+    sql:  1.0*${total_sales_from_email}/NULLIF(${total_sales}, 0) ;;
+    value_format_name: percent_0
+  }
+
+  measure: average_spend_per_user {
+    type: number
+    value_format_name: usd
+    sql: 1.0*${total_sales}/NULLIF(${users.count}, 0) ;;
+  }
+
   measure: average_sales {
     type: average
     sql:  ${sale_price} ;;
