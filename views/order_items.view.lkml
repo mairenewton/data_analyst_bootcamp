@@ -66,6 +66,19 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
+  dimension: traffic_duration {
+    type:  duration_day
+    sql:  DATEDIFF('day', ${shipped_date}, ${delivered_date}) ;;
+  }
+
+  dimension_group: traffic_duration_tiers {
+    type: duration
+    sql_start: ${shipped_date} ;;
+    sql_end: ${delivered_date} ;;
+    intervals: [day]
+  }
+
+
   dimension_group: shipped {
     type: time
     timeframes: [
