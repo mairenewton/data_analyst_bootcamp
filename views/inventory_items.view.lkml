@@ -6,7 +6,7 @@ view: inventory_items {
     type: number
     sql: ${TABLE}.id ;;
   }
-
+##comment
   dimension: cost {
     type: number
     sql: ${TABLE}.cost ;;
