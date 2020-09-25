@@ -19,6 +19,11 @@ datagroup: order_items_cache {
   max_cache_age: "4 hours"
 }
 
+access_grant: is_pii_viewer {
+  user_attribute: is_pii_viewer
+  allowed_values: ["Yes"]
+}
+
 persist_with: data_analyst_bootcamp_default_datagroup
 
 

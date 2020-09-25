@@ -46,11 +46,13 @@ view: users {
   }
 
   dimension: email {
+    required_access_grants: [is_pii_viewer]
     type: string
     sql: ${TABLE}.email ;;
   }
 
   dimension: first_name {
+    required_access_grants: [is_pii_viewer]
     type: string
     sql: ${TABLE}.first_name ;;
   }
@@ -61,6 +63,7 @@ view: users {
   }
 
   dimension: last_name {
+    required_access_grants: [is_pii_viewer]
     type: string
     sql: ${TABLE}.last_name ;;
   }
