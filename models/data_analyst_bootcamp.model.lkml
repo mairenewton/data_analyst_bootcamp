@@ -9,6 +9,16 @@ datagroup: data_analyst_bootcamp_default_datagroup {
   max_cache_age: "1 hour"
 }
 
+datagroup: users_default_cache {
+  sql_trigger: select CURRENT_DATE;;
+  max_cache_age: "24 hours"
+}
+
+datagroup: order_items_cache {
+  sql_trigger: SELECT MAX(created_at) FROM order_items ;;
+  max_cache_age: "4 hours"
+}
+
 persist_with: data_analyst_bootcamp_default_datagroup
 
 
@@ -44,6 +54,8 @@ explore: order_items {
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
     relationship: many_to_one
   }
+
+  persist_with: order_items_cache
 }
 
 
@@ -65,4 +77,6 @@ explore: users {
     sql_on: ${users.id} = ${order_items.user_id} ;;
     relationship: one_to_many
   }
+
+  persist_with: users_default_cache
 }
