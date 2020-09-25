@@ -70,7 +70,6 @@ explore: products {
   }
 }
 
-
 explore: users {
   join: order_items {
     type: left_outer
@@ -78,5 +77,12 @@ explore: users {
     relationship: one_to_many
   }
 
+  join: user_facts {
+    relationship: one_to_one
+    sql_on:  ${users.id} = ${user_facts.user_id};;
+  }
+
   persist_with: users_default_cache
 }
+
+# explore: order_facts {}
