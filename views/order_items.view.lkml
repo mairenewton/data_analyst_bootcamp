@@ -66,6 +66,18 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
+measure: total_sale_price {
+  type: sum
+  sql:  ${sale_price} ;;
+}
+
+measure: unique_orders {
+  label: "A count of unique orders"
+  type: count_distinct
+  sql: ${order_item_id} ;;
+}
+
+
   dimension_group: shipped {
     type: time
     timeframes: [
@@ -75,7 +87,10 @@ view: order_items {
       week,
       month,
       quarter,
-      year
+      year,
+      day_of_year,
+      day_of_week,
+      fiscal_year
     ]
     sql: ${TABLE}.shipped_at ;;
   }
@@ -89,6 +104,12 @@ view: order_items {
     type: number
     # hidden: yes
     sql: ${TABLE}.user_id ;;
+  }
+
+  measure: total_sales_email_users {
+    type:  sum
+    sql: ${sale_price};;
+    filters: [users.traffic_source: "Email"]
   }
 
   measure: count {
