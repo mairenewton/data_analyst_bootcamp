@@ -58,6 +58,11 @@ view: users {
     sql: ${TABLE}.last_name ;;
   }
 
+  dimension:  full_name{
+    type: string
+    sql:  ${first_name} || ' ' || ${last_name}) ;;
+  }
+
   dimension: latitude {
     type: number
     sql: ${TABLE}.latitude ;;
@@ -71,6 +76,11 @@ view: users {
   dimension: state {
     type: string
     sql: ${TABLE}.state ;;
+  }
+
+  dimension: city_state {
+    type:  string
+    sql: ${city} || ', ' || ${state} ;;
   }
 
   dimension: traffic_source {

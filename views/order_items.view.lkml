@@ -36,6 +36,8 @@ view: order_items {
     sql: ${TABLE}.delivered_at ;;
   }
 
+
+
   dimension: inventory_item_id {
     type: number
     # hidden: yes
@@ -66,6 +68,13 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
+  dimension_group: shipping_days {
+    type: duration
+    intervals: [hour, day, week]
+    sql_start:  ${shipped_raw};;
+    sql_end:  ${delivered_raw} ;;
+  }
+
   dimension_group: shipped {
     type: time
     timeframes: [
@@ -94,6 +103,12 @@ view: order_items {
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: total_sales {
+    type: sum
+    sql:  ${sale_price};;
+    value_format_name: usd
   }
 
   # ----- Sets of fields for drilling ------
