@@ -114,6 +114,12 @@ view: order_items {
     sql: ${sale_price} ;;
   }
 
+  measure: total_sales_from_email {
+    type: sum
+    sql: ${sale_price};;
+    filters: [users.traffic_source: "email"]
+}
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
