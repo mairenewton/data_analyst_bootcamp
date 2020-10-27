@@ -108,6 +108,12 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+  measure: total_sales {
+    type: sum
+    value_format_name: "gbp"
+    sql: ${sale_price} ;;
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
