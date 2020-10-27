@@ -85,7 +85,7 @@ view: users {
 
   dimension: city_state {
     type: string
-    sql: ${city} || "," ||${state} ;;
+    sql: ${city} || "," || ${state} ;;
   }
 
   measure: count {
