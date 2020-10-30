@@ -100,6 +100,21 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+  dimension: wtd_only {
+    group_label: "To-Date Filters"
+    label: "WTD"
+    view_label: "_PoP"
+    type: yesno
+    sql:  (EXTRACT(DOW FROM ${created_raw}) < EXTRACT(DOW FROM GETDATE())
+                OR
+            (EXTRACT(DOW FROM ${created_raw}) = EXTRACT(DOW FROM GETDATE()) AND
+            EXTRACT(HOUR FROM ${created_raw}) < EXTRACT(HOUR FROM GETDATE()))
+                OR
+            (EXTRACT(DOW FROM ${created_raw}) = EXTRACT(DOW FROM GETDATE()) AND
+            EXTRACT(HOUR FROM ${created_raw}) <= EXTRACT(HOUR FROM GETDATE()) AND
+            EXTRACT(MINUTE FROM ${created_raw}) < EXTRACT(MINUTE FROM GETDATE())))  ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
