@@ -94,7 +94,7 @@ view: inventory_items {
   }
 
   measure: retail_price {
-    type: number
+    type: sum
     sql: ${product_retail_price} ;;
     value_format_name: gbp
   }
