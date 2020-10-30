@@ -14,12 +14,19 @@ view: inventory_items {
 
   dimension_group: created {
     type: time
+    view_label: "_PoP"
     timeframes: [
       raw,
+      hour_of_day,
       time,
       date,
+      day_of_week,
+      day_of_week_index,
+      day_of_month,
       week,
+      week_of_year,
       month,
+      month_name,
       quarter,
       year
     ]

@@ -9,11 +9,17 @@ view: order_items {
 
   dimension_group: created {
     type: time
+    view_label: "_PoP"
     timeframes: [
       raw,
+      hour_of_day,
       time,
       date,
+      day_of_week,
+      day_of_week_index,
+      day_of_month,
       week,
+      week_of_year,
       month,
       month_name,
       quarter,
@@ -94,6 +100,15 @@ view: order_items {
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: total_sale_price {
+    label: "Total Sales"
+    view_label: "_PoP"
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+    drill_fields: [created_date]
   }
 
   # ----- Sets of fields for drilling ------
