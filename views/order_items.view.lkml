@@ -116,7 +116,7 @@ view: order_items {
   }
 
   measure: Variance {
-    label: "Total Sales"
+    label: "Variance"
     view_label: "_PoP"
     type: percent_of_previous
     sql: ${sale_price} ;;
