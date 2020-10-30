@@ -8,7 +8,6 @@ view: order_items {
   }
 
   dimension_group: created {
-
     type: time
     view_label: "_PoP"
     timeframes: [
@@ -112,7 +111,7 @@ view: order_items {
     type: sum
     sql: ${sale_price} ;;
     value_format_name: gbp
-    drill_fields: [created_date]
+    drill_fields: [created_date,detail*]
   }
 
   # ----- Sets of fields for drilling ------
