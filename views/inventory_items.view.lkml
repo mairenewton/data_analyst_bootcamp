@@ -92,4 +92,10 @@ view: inventory_items {
     type: count
     drill_fields: [id, product_name, products.id, products.name, order_items.count]
   }
+
+  measure: retail_price {
+    type: number
+    sql: ${product_retail_price} ;;
+    value_format_name: gbp
+  }
 }
