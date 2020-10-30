@@ -111,7 +111,7 @@ view: order_items {
     view_label: "_PoP"
     type: sum
     sql: ${sale_price} ;;
-    value_format_name: usd
+    value_format_name: gbp
     drill_fields: [created_date]
   }
 
