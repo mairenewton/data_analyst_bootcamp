@@ -115,15 +115,6 @@ view: order_items {
     drill_fields: [created_date]
   }
 
-  measure: Variance {
-    label: "Variance"
-    view_label: "_PoP"
-    type: percent_of_total
-    sql: ${sale_price} ;;
-    value_format_name: percent_0
-    drill_fields: [created_date]
-  }
-
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
