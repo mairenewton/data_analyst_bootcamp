@@ -22,13 +22,13 @@ explore: inventory_items {
   }
 }
 
-explore: users {
-  join: order_items {
-    type: inner
-    sql_on:  ${users.id} = ${order_items.user_id};;
-    relationship: one_to_many
-  }
-}
+# explore: users {
+#   join: order_items {
+#     type: inner
+#     sql_on:  ${users.id} = ${order_items.user_id};;
+#     relationship: one_to_many
+#   }
+# }
 
 # This explore contains multiple views
 explore: order_items {
@@ -58,5 +58,4 @@ datagroup: order_items {
 
 # explore: products {}
 
-
-# explore: users {}
+explore: users {}

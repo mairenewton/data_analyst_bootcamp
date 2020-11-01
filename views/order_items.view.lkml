@@ -22,6 +22,36 @@ view: order_items {
     sql: ${TABLE}.created_at ;;
   }
 
+
+  parameter: time_frames {
+    type: string
+    allowed_value: {
+      label: "Date"
+      value: "date"
+    }
+    allowed_value: {
+      label: "Week"
+      value: "week"
+    }
+    allowed_value: {
+      label: "Month"
+      value: "month"
+    }
+  }
+  dimension: time_frame_selected_cesm{
+    type: string
+    sql: {% if time_frames._paramter_value == 'date' %} ${created_date}
+    {% elsif time_frames._paramter_value == 'week' %} ${created_week}
+    {% else %} ${created_month}
+    {% endif %};;
+  }
+
+  dimension: time_frame_selected {
+    type: date
+    sql: date_trunc({% parameter time_frames %}, ${created_raw}) ;;
+    # sql: created_at ;;
+    convert_tz: no
+  }
   dimension_group: delivered {
     type: time
     timeframes: [
