@@ -166,6 +166,13 @@ view: order_items {
     value_format_name: gbp
   }
 
+  measure: ty_sales{
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [created_year: "this year"]
+    value_format_name: gbp
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
