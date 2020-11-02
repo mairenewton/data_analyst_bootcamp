@@ -31,7 +31,30 @@ view: order_items {
     convert_tz: no
   }
 
-  dimension_group: delivered {
+  dimension_group: created_at {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      hour_of_day,
+      date,
+      day_of_week,
+      day_of_week_index,
+      day_of_month,
+      day_of_year,
+      week,
+      week_of_year,
+      month,
+      month_name,
+      month_num,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.created_at ;;
+    convert_tz: no
+  }
+
+ dimension_group: delivered {
     type: time
     timeframes: [
       raw,
@@ -171,6 +194,13 @@ view: order_items {
     sql: ${sale_price} ;;
     filters: [created_year: "this year"]
     value_format_name: gbp
+    drill_fields: [detail*,variation]
+  }
+
+  measure: variation {
+    type: number
+    sql: ${ty_sales}/${ly_sales} ;;
+    value_format_name: percent_0
   }
 
   # ----- Sets of fields for drilling ------
