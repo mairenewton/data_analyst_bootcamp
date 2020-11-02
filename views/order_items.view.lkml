@@ -159,6 +159,13 @@ view: order_items {
     drill_fields: [created_date,detail*]
   }
 
+  measure: ly_sales{
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [created_year: "last year"]
+    value_format_name: gbp
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
