@@ -9,30 +9,6 @@ view: order_items {
 
   dimension_group: created {
     type: time
-    view_label: "_PoP"
-    timeframes: [
-      raw,
-      time,
-      hour_of_day,
-      date,
-      day_of_week,
-      day_of_week_index,
-      day_of_month,
-      day_of_year,
-      week,
-      week_of_year,
-      month,
-      month_name,
-      month_num,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}.created_at ;;
-    convert_tz: no
-  }
-
-  dimension_group: created_at {
-    type: time
     timeframes: [
       raw,
       time,
@@ -126,7 +102,6 @@ view: order_items {
   dimension: wtd_only {
     group_label: "To-Date Filters"
     label: "WTD"
-    view_label: "_PoP"
     type: yesno
     sql:  (EXTRACT(DOW FROM ${created_raw}) < EXTRACT(DOW FROM GETDATE())
                 OR
@@ -141,7 +116,6 @@ view: order_items {
   dimension: mtd_only {
     group_label: "To-Date Filters"
     label: "MTD"
-    view_label: "_PoP"
     type: yesno
     sql:  (EXTRACT(DAY FROM ${created_raw}) < EXTRACT(DAY FROM GETDATE())
                 OR
@@ -156,7 +130,6 @@ view: order_items {
   dimension: ytd_only {
     group_label: "To-Date Filters"
     label: "YTD"
-    view_label: "_PoP"
     type: yesno
     sql:  (EXTRACT(DOY FROM ${created_raw}) < EXTRACT(DOY FROM GETDATE())
                 OR
@@ -173,14 +146,6 @@ view: order_items {
     drill_fields: [detail*]
   }
 
-  measure: total_sale_price {
-    label: "Total Sales"
-    view_label: "_PoP"
-    type: sum
-    sql: ${sale_price} ;;
-    value_format_name: gbp
-    drill_fields: [created_date,detail*]
-  }
 
   measure: total_sales {
     type: sum
