@@ -182,6 +182,13 @@ view: order_items {
     drill_fields: [created_date,detail*]
   }
 
+  measure: total_sales {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: gbp
+    drill_fields: [created_date,detail*]
+  }
+
   measure: ly_sales{
     type: sum
     sql: ${sale_price} ;;
