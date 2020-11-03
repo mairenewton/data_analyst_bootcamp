@@ -8,8 +8,16 @@ view: users {
   }
 
   dimension: age {
+    hidden: yes
     type: number
     sql: ${TABLE}.age ;;
+  }
+
+  dimension: age_tier {
+    type: tier
+    tiers: [18, 25, 35, 45, 55, 65,77,90]
+    sql: ${age} ;;
+    style: integer
   }
 
   dimension: city {
@@ -57,6 +65,13 @@ view: users {
     type: string
     sql: ${TABLE}.last_name ;;
   }
+  dimension: full_name {
+    type: string
+    sql: ${first_name} || ', ' || ${last_name} ;;
+  }
+
+
+
 
   dimension: latitude {
     type: number
