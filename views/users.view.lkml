@@ -83,6 +83,17 @@ view: users {
     sql: ${TABLE}.zip ;;
   }
 
+  dimension: tier{
+    type: string
+    sql: ${city} || ‘, ‘ || ${state};;
+  }
+
+  dimension: age_group {
+    type: tier
+    tiers: [18,25,35,45,55,65,75,90]
+    sql: ${TABLE}.user ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
