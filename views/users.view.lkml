@@ -9,7 +9,12 @@ view: users {
 
   dimension: age {
     type: number
-    sql: ${TABLE}.age ;;
+    sql: ${TABLE}.age;;
+  }
+
+  dimension: age_in_months {
+    type: number
+    sql: ${age} *12 ;;
   }
 
   dimension: city {
@@ -55,7 +60,12 @@ view: users {
 
   dimension: last_name {
     type: string
-    sql: ${TABLE}.last_name ;;
+    sql: left(${TABLE}.last_name,1) ;;
+  }
+
+  dimension: first_and_last_name {
+    type: string
+    sql: ${first_name} || '-' || ${last_name} ;;
   }
 
   dimension: latitude {
