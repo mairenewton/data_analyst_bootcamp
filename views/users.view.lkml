@@ -45,7 +45,7 @@ view: users {
 
   dimension: email {
     type: string
-    sql: ${TABLE}.email ;;
+    sql: ${TABLE}.email +;;
   }
 
   dimension: first_name {
