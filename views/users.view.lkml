@@ -23,6 +23,7 @@ view: users {
     sql: ${TABLE}.country ;;
   }
 
+##comment
   dimension_group: created {
     type: time
     timeframes: [
