@@ -5,11 +5,12 @@ include: "/views/*.view"
 
 
 datagroup: data_analyst_bootcamp_default_datagroup {
-  # sql_trigger: SELECT MAX(id) FROM etl_log;;
+  sql_trigger: SELECT MAX(id) FROM etl_log;;
   max_cache_age: "1 hour"
 }
 
 persist_with: data_analyst_bootcamp_default_datagroup
+
 ###change
 
 ### Whitespaces ####
@@ -35,6 +36,25 @@ explore: order_items {
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
     relationship: many_to_one
   }
-}
 
-# explore: users {}
+  join: top_n_product {
+    type: left_outer
+    sql_on: ${products.id} = ${top_n_product.product_id} ;;
+    relationship: many_to_one
+    }
+
+  aggregate_table: rank_order {
+    query: {
+      dimensions: [product_id, top_n_product.rank_order]
+      measures: [total_sales]
+      filters: [order_items.created_date: "1 year"]
+    }
+
+    materialization: {
+      datagroup_trigger: data_analyst_bootcamp_default_datagroup
+    }
+  }
+
+
+
+}

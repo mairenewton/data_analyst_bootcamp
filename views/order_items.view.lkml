@@ -6,6 +6,10 @@ view: order_items {
     type: number
     sql: ${TABLE}.id ;;
   }
+  dimension: product_id {
+    type: number
+    sql: ${products.id} ;;
+  }
 
   dimension_group: created {
     type: time

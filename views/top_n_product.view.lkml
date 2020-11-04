@@ -1,28 +1,28 @@
 view: top_n_product {
 derived_table: {
 
-  explore_source: products {
+  explore_source: order_items {
 
-    # Get by product_id the total_items sold
-    column: id {}
-    column: retail_price {}
+    # Get by product_id the retail_price sold
+    column: product_id {}
+    column: total_sales {}
 
 
     # Derived column does a second 'pass' over the returned result, in this case, to determine the rank
     derived_column: rank_order {
-      sql: DENSE_RANK() OVER (ORDER BY retail_price DESC) ;;
+      sql: DENSE_RANK() OVER (ORDER BY total_sales DESC) ;;
     }
 
     # Sort in descending order by the measure is essential here
-    sorts: [retail_price: desc]
+    sorts: [total_sales: desc]
   }
 }
-dimension: id {
+dimension: product_id {
   hidden: yes
   primary_key: yes
   type: number
 }
-dimension: retail_price {
+dimension: total_sales {
   hidden: yes
   type: number
 }
