@@ -47,7 +47,6 @@ explore: order_items {
     query: {
       dimensions: [product_id, top_n_product.rank_order]
       measures: [total_sales]
-      filters: [order_items.created_date: "1 year"]
     }
 
     materialization: {
