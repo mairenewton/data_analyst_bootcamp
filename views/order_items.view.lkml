@@ -11,7 +11,7 @@ view: order_items {
     sql: ${products.id} ;;
   }
 
-  dimension_group: created {
+  dimension_group: created_at {
     type: time
     timeframes: [
       raw,
@@ -107,42 +107,42 @@ view: order_items {
     group_label: "To-Date Filters"
     label: "WTD"
     type: yesno
-    sql:  (EXTRACT(DOW FROM ${created_raw}) < EXTRACT(DOW FROM GETDATE())
+    sql:  (EXTRACT(DOW FROM ${created_at_raw}) < EXTRACT(DOW FROM GETDATE())
                 OR
-            (EXTRACT(DOW FROM ${created_raw}) = EXTRACT(DOW FROM GETDATE()) AND
-            EXTRACT(HOUR FROM ${created_raw}) < EXTRACT(HOUR FROM GETDATE()))
+            (EXTRACT(DOW FROM ${created_at_raw}) = EXTRACT(DOW FROM GETDATE()) AND
+            EXTRACT(HOUR FROM ${created_at_raw}) < EXTRACT(HOUR FROM GETDATE()))
                 OR
-            (EXTRACT(DOW FROM ${created_raw}) = EXTRACT(DOW FROM GETDATE()) AND
-            EXTRACT(HOUR FROM ${created_raw}) <= EXTRACT(HOUR FROM GETDATE()) AND
-            EXTRACT(MINUTE FROM ${created_raw}) < EXTRACT(MINUTE FROM GETDATE())))  ;;
+            (EXTRACT(DOW FROM ${created_at_raw}_raw}) = EXTRACT(DOW FROM GETDATE()) AND
+            EXTRACT(HOUR FROM ${created_at_raw}) <= EXTRACT(HOUR FROM GETDATE()) AND
+            EXTRACT(MINUTE FROM ${created_at_raw}) < EXTRACT(MINUTE FROM GETDATE())))  ;;
   }
 
   dimension: mtd_only {
     group_label: "To-Date Filters"
     label: "MTD"
     type: yesno
-    sql:  (EXTRACT(DAY FROM ${created_raw}) < EXTRACT(DAY FROM GETDATE())
+    sql:  (EXTRACT(DAY FROM ${created_at_raw}raw}) < EXTRACT(DAY FROM GETDATE())
                 OR
-            (EXTRACT(DAY FROM ${created_raw}) = EXTRACT(DAY FROM GETDATE()) AND
-            EXTRACT(HOUR FROM ${created_raw}) < EXTRACT(HOUR FROM GETDATE()))
+            (EXTRACT(DAY FROM ${created_at_raw}) = EXTRACT(DAY FROM GETDATE()) AND
+            EXTRACT(HOUR FROM ${created_at_raw}) < EXTRACT(HOUR FROM GETDATE()))
                 OR
-            (EXTRACT(DAY FROM ${created_raw}) = EXTRACT(DAY FROM GETDATE()) AND
-            EXTRACT(HOUR FROM ${created_raw}) <= EXTRACT(HOUR FROM GETDATE()) AND
-            EXTRACT(MINUTE FROM ${created_raw}) < EXTRACT(MINUTE FROM GETDATE())))  ;;
+            (EXTRACT(DAY FROM ${created_at_raw}) = EXTRACT(DAY FROM GETDATE()) AND
+            EXTRACT(HOUR FROM ${created_at_raw}) <= EXTRACT(HOUR FROM GETDATE()) AND
+            EXTRACT(MINUTE FROM ${created_at_raw}) < EXTRACT(MINUTE FROM GETDATE())))  ;;
   }
 
   dimension: ytd_only {
     group_label: "To-Date Filters"
     label: "YTD"
     type: yesno
-    sql:  (EXTRACT(DOY FROM ${created_raw}) < EXTRACT(DOY FROM GETDATE())
+    sql:  (EXTRACT(DOY FROM ${created_at_raw}) < EXTRACT(DOY FROM GETDATE())
                 OR
-            (EXTRACT(DOY FROM ${created_raw}) = EXTRACT(DOY FROM GETDATE()) AND
-            EXTRACT(HOUR FROM ${created_raw}) < EXTRACT(HOUR FROM GETDATE()))
+            (EXTRACT(DOY FROM ${created_at_raw}) = EXTRACT(DOY FROM GETDATE()) AND
+            EXTRACT(HOUR FROM ${created_at_raw}) < EXTRACT(HOUR FROM GETDATE()))
                 OR
-            (EXTRACT(DOY FROM ${created_raw}) = EXTRACT(DOY FROM GETDATE()) AND
-            EXTRACT(HOUR FROM ${created_raw}) <= EXTRACT(HOUR FROM GETDATE()) AND
-            EXTRACT(MINUTE FROM ${created_raw}) < EXTRACT(MINUTE FROM GETDATE())))  ;;
+            (EXTRACT(DOY FROM ${created_at_raw}) = EXTRACT(DOY FROM GETDATE()) AND
+            EXTRACT(HOUR FROM ${created_at_raw}) <= EXTRACT(HOUR FROM GETDATE()) AND
+            EXTRACT(MINUTE FROM ${created_at_raw}) < EXTRACT(MINUTE FROM GETDATE())))  ;;
   }
 
   measure: count {
@@ -155,20 +155,20 @@ view: order_items {
     type: sum
     sql: ${sale_price} ;;
     value_format_name: gbp
-    drill_fields: [created_date,detail*]
+    drill_fields: [created_at_date,detail*]
   }
 
   measure: ly_sales{
     type: sum
     sql: ${sale_price} ;;
-    filters: [created_year: "last year"]
+    filters: [created_at_year: "last year"]
     value_format_name: gbp
   }
 
   measure: ty_sales{
     type: sum
     sql: ${sale_price} ;;
-    filters: [created_year: "this year"]
+    filters: [created_at_year: "this year"]
     value_format_name: gbp
     drill_fields: [detail*,variation]
   }

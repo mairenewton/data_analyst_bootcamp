@@ -22,7 +22,7 @@ view: events {
     sql: ${TABLE}.country ;;
   }
 
-  dimension_group: created {
+  dimension_group: created_at {
     type: time
     timeframes: [
       raw,

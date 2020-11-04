@@ -14,7 +14,6 @@ view: inventory_items {
 
   dimension_group: created {
     type: time
-    view_label: "_PoP"
     timeframes: [
       raw,
       hour_of_day,
