@@ -36,6 +36,12 @@ view: order_items {
     sql: ${TABLE}.delivered_at ;;
   }
 
+  measure: order_count {
+    type: count_distinct
+    description: "distinct count of orders"
+    sql: ${order_id} ;;
+  }
+
   dimension: inventory_item_id {
     type: number
     # hidden: yes
@@ -66,6 +72,25 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
+  measure: total_sales_price {
+    value_format_name: usd
+    type:  sum
+    sql: ${sale_price} ;;
+  }
+
+  measure: average_sales {
+    value_format_name: usd
+    type:  average
+    sql:  ${sale_price};;
+  }
+
+  measure: email_sales {
+    type: sum
+    value_format_name: usd
+    sql:${sale_price} ;;
+    filters: [users.traffic_source: "Email"]
+  }
+
   dimension_group: shipped {
     type: time
     timeframes: [
@@ -78,6 +103,11 @@ view: order_items {
       year
     ]
     sql: ${TABLE}.shipped_at ;;
+  }
+
+  dimension: shipping_days {
+    type:  number
+    sql: ${delivered_date} - ${delivered_date} ;;
   }
 
   dimension: status {
