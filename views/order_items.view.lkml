@@ -124,11 +124,18 @@ view: order_items {
     sql: 1.0*${total_sales_email_users}/NULLIF(${total_sales},0) ;;
   }
 
+  measure: average_spend_per_user {
+    type: number
+    value_format_name: usd
+    sql: ${total_sales}/${users.count} ;;
+  }
+
   measure: total_sales {
     group_label: "Sales Metrics"
     value_format_name: usd
     type: sum
     sql: ${sale_price} ;;
+    drill_fields: [user_id, sale_price]
   }
 
   measure: total_sales_email_users {
@@ -136,6 +143,7 @@ view: order_items {
     type: sum
     sql: ${sale_price} ;;
     filters: [users.is_email_source: "Yes"]
+    drill_fields: [detail*, users.is_email_source, -users.first_name,-users.first_name]
   }
 
 
