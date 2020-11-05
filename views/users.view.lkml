@@ -17,6 +17,11 @@ view: users {
     sql: ${TABLE}.city ;;
   }
 
+  dimension: city_state {
+    type: string
+    sql: ${city} || ',' || ${state} ;;
+  }
+
   dimension: country {
     type: string
     map_layer_name: countries
@@ -32,11 +37,30 @@ view: users {
       date,
       week,
       month,
+      month_name,
       quarter,
       day_of_month,
       year
     ]
     sql: ${TABLE}.created_at ;;
+  }
+
+  dimension: days_since_signup {
+    type: number
+    sql: DATEDIFF(day, ${created_date}, current_date) ;;
+  }
+
+  dimension:days_since_signup_tier {
+    type: tier
+    tiers: [0,30,90,190,360,720]
+    sql: ${days_since_signup} ;;
+    style: integer
+
+  }
+
+  dimension: is_new_customer {
+    type: yesno
+    sql: ${days_since_signup} <= 90 ;;
   }
 
   dimension: email {
@@ -49,10 +73,21 @@ view: users {
     sql: ${TABLE}.first_name ;;
   }
 
+  dimension: full_name {
+    type: string
+    sql: ${first_name} ||', ' || ${last_name} ;;
+  }
+
   dimension: gender {
     type: string
     sql: ${TABLE}.gender ;;
   }
+
+  dimension: is_email_source {
+    type: yesno
+    sql: ${traffic_source} = 'Email' ;;
+  }
+
 
   dimension: last_name {
     type: string
