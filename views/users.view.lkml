@@ -73,9 +73,35 @@ view: users {
     sql: ${TABLE}.state ;;
   }
 
+  dimension: city_mstate {
+    type: string
+    sql: ${state} || " "|| ${city} ;;
+  }
+
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
+  }
+
+  dimension: is_email {
+    type: yesno
+    sql:  ${traffic_source} = 'Email';;
+  }
+
+  dimension: age_group {
+    type: tier
+    tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+    sql:  CASE
+              WHEN ${age} <= 18, THEN 18
+              WHEN ${age} <= 25, THEN 25
+              WHEN ${age} <= 35, THEN 35
+              WHEN ${age} <= 45, THEN 45
+              WHEN ${age} <= 55, THEN 55
+              WHEN ${age} <= 65, THEN 65
+              WHEN ${age} <= 75, THEN 75
+              WHEN ${age} <= 90, THEN 90
+            END;;
+    style: integer
   }
 
   dimension: zip {
