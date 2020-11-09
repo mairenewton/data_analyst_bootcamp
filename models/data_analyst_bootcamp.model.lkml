@@ -53,13 +53,18 @@ conditionally_filter: {
 }
 
 explore: users  {
-  always_filter: {
-    filters: [order_items.created_date: "before today"]
-  }
+  # always_filter: {
+  #   filters: [order_items.created_date: "before today"]
+ # }
   join: order_items {
     type: left_outer
     sql_on: ${users.id} = ${order_items.user_id} ;;
     relationship: one_to_many
+  }
+  join: user_facts {
+  type: inner
+  sql_on: ${order_items.user_id} = ${user_facts.user_id};;
+  relationship: one_to_one
   }
 }
 
