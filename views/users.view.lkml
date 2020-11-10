@@ -132,6 +132,17 @@ view: users {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
+
+  measure: count_of_female_users {
+    type: count
+    filters: [gender: "Female"]
+  }
+
+  measure: percent_of_female_users {
+    type: number
+    sql: 1.0*${count_of_female_users}/${count};;
+    value_format_name: percent_1
+  }
 }
 
 ########### END MEASURES #########}

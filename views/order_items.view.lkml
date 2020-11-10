@@ -113,14 +113,22 @@ view: order_items {
     description: "Sum of sale price"
     type:  sum
     sql: ${sale_price} ;;
+    value_format_name: usd
   }
 
   measure: avg_sales {
     description: "Average of sale price"
     type:  average
     sql: ${sale_price} ;;
+    value_format_name: usd
   }
 
+  measure: total_sales_new_customer {
+    type: sum
+    sql:  ${sale_price};;
+    filters: [ users.is_new_customer: "yes" ]
+    value_format_name: usd_0
+  }
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
