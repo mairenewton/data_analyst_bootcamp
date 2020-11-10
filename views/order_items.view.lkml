@@ -1,6 +1,7 @@
 view: order_items {
   sql_table_name: public.order_items ;;
 
+
   dimension: order_item_id {
     primary_key: yes
     type: number
@@ -141,6 +142,12 @@ view: order_items {
     type: number
     sql:  1*${total_sales_from_email}/NULLIF(${tot_sales},0);;
     value_format_name: percent_2
+  }
+
+  measure: avg_spend_per_user {
+    type: number
+    sql:  1.0*${tot_sales} / NULLIF(${users.count}, 0) ;;
+    value_format_name: usd
   }
 
   # ----- Sets of fields for drilling ------
