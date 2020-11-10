@@ -76,6 +76,10 @@ view: users {
   dimension: email {
     type: string
     sql: ${TABLE}.email ;;
+    link: {
+      label: "Category Detail Dashboard"
+      url: "/dashboards/1813?Email={{ value }}"
+    }
   }
 
 
@@ -118,6 +122,10 @@ view: users {
   dimension: state {
     type: string
     sql: ${TABLE}.state ;;
+    link: {
+      label: "Drill down to Customers Explore"
+      url: "/explore/events_ecommerce/users?fields=users.id,users.name&f[users.state]={{ value }}"
+    }
   }
 
   dimension: traffic_source {

@@ -2,6 +2,7 @@ connection: "events_ecommerce"
 
 # include all the views
 include: "/views/*.view"
+include: "/*"
 
 
 datagroup: data_analyst_bootcamp_default_datagroup {
@@ -26,10 +27,10 @@ explore: order_items {
   persist_with: order_items_datagroup
  #   sql_always_where: ${order_items.returned_date} IS NULL;;
 #   sql_always_having: ${order_items.total_sales} > 200;;
-conditionally_filter: {
-  filters: [order_items.created_date: "last 2 years"]
-  unless: [users.id]
-}
+# conditionally_filter: {
+#   filters: [order_items.created_date: "last 2 years"]
+#   unless: [users.id]
+# }
 
 #  view_label: "Orders"
   join: users {
@@ -67,6 +68,10 @@ explore: users  {
   relationship: one_to_one
   }
 }
+
+explore: order_facts2 {}
+
+explore: monthly_profitability_summary {}
 
 
 # explore: products {
