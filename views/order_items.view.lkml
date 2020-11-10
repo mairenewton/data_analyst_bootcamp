@@ -139,7 +139,7 @@ view: order_items {
 
   measure: pct_sales_from_email {
     type: number
-    sql:  1*${total_sales_from_email}/${tot_sales} ;;
+    sql:  1*${total_sales_from_email}/NULLIF(${tot_sales},0);;
     value_format_name: percent_2
   }
 
