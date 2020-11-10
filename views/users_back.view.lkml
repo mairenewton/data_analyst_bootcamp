@@ -83,6 +83,21 @@ view: users_back {
     sql: ${TABLE}.zip ;;
   }
 
+  dimension: full_name {
+    type: string
+    sql:  ${first_name} || ${last_name} ;;
+  }
+
+  dimension: days_since_signup {
+    type: number
+    sql:  datediff(day, ${created_raw}, current_date) ;;
+  }
+
+dimension: is_new_customer {
+  type: yesno
+  sql:  ${days_since_signup} <= 90 ;;
+}
+
   measure: count {
     type: count
     drill_fields: [id, last_name, first_name]
