@@ -91,9 +91,34 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+  dimension_group: ship_and_order {
+    type:  duration
+    sql_start: ${shipped_date} ;;
+    sql_end: ${delivered_date} ;;
+    intervals: [day]
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: distinct_orders {
+    description: "A count of unique orders"
+    type: count_distinct
+    sql: ${order_item_id} ;;
+  }
+
+  measure: tot_sales {
+    description: "Sum of sale price"
+    type:  sum
+    sql: ${sale_price} ;;
+  }
+
+  measure: avg_sales {
+    description: "Average of sale price"
+    type:  average
+    sql: ${sale_price} ;;
   }
 
   # ----- Sets of fields for drilling ------

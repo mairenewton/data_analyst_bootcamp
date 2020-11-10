@@ -1,6 +1,7 @@
 view: users {
   sql_table_name: public.users ;;
 
+########### DIMENSION ######### {
   dimension: id {
     primary_key: yes
     type: number
@@ -83,8 +84,54 @@ view: users {
     sql: ${TABLE}.zip ;;
   }
 
+  dimension: full_name {
+    type: string
+    sql:  ${first_name} || ${last_name} ;;
+  }
+
+  dimension: days_since_signup {
+    type: number
+    sql:  datediff(day, ${created_raw}, current_date) ;;
+  }
+
+  dimension: is_new_customer {
+    type: yesno
+    sql:  ${days_since_signup} <= 90 ;;
+  }
+
+  dimension: days_since_signup_tier {
+    type:  tier
+    sql:  ${days_since_signup} ;;
+    tiers: [0, 30, 60, 90, 120, 240, 360, 720]
+    style: integer
+  }
+
+  dimension: city_state {
+    label: "City, State"
+    type: string
+    sql:  ${city} || ', ' || ${state} ;;
+  }
+
+  dimension: age_tiers {
+    type: tier
+    tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+    sql:  ${age} ;;
+    style:  integer
+  }
+
+  dimension: email_source {
+    type: yesno
+    sql: ${traffic_source} = 'Email' ;;
+  }
+
+  ############ END DIMENSIONS ##########}
+
+########### MEASURES ##########{
+
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
 }
+
+########### END MEASURES #########}
