@@ -36,7 +36,11 @@ explore: order_items {
     relationship: many_to_one
   }
 
-  join: user_fact {}
+  join: user_fact {
+    type:  left_outer
+    sql_on: ${order_items.user_id} = ${user_fact.user_id} ;;
+    relationship: many_to_one
+  }
   #sql_always_where: ${order_items.returned_date} IS NULL  ;;
   #sql_always_having: ${order_items.tot_sales} > 200 ;;
   #sql_always_where: ${order_items.status} = 'Complete';;
