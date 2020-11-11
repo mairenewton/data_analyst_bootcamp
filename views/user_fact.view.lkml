@@ -46,3 +46,28 @@ view: user_fact {
     fields: [user_id, lifetime_order_count, lifetime_revenue, first_order_date_time, latest_order_date_time]
   }
 }
+view: user_fact_ndt {
+# If necessary, uncomment the line below to include explore_source.
+# include: "data_analyst_bootcamp.model.lkml"
+    derived_table: {
+      explore_source: order_items {
+        column: order_id {}
+        column: avg_spend_per_user {}
+        column: latest_order_date_date { field: user_fact.latest_order_date_date }
+        column: first_order_date_date { field: user_fact.first_order_date_date }
+      }
+    }
+    dimension: order_id {
+      type: number
+    }
+    dimension: avg_spend_per_user {
+      value_format: "$#,##0.00"
+      type: number
+    }
+    dimension: latest_order_date_date {
+      type: date
+    }
+    dimension: first_order_date_date {
+      type: date
+    }
+}
