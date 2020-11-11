@@ -110,7 +110,7 @@ view: order_items {
     sql: ${order_item_id} ;;
   }
 
-  measure: tot_sales {
+  measure: total_revenue {
     description: "Sum of sale price"
     type:  sum
     sql: ${sale_price} ;;
@@ -140,13 +140,13 @@ view: order_items {
 
   measure: pct_sales_from_email {
     type: number
-    sql:  1*${total_sales_from_email} / NULLIF(${tot_sales},0);;
+    sql:  1*${total_sales_from_email} / NULLIF(${total_revenue},0);;
     value_format_name: percent_2
   }
 
   measure: avg_spend_per_user {
     type: number
-    sql:  1.0*${tot_sales} / NULLIF(${users.count}, 0) ;;
+    sql:  1.0*${total_revenue} / NULLIF(${users.count}, 0) ;;
     value_format_name: usd
   }
 
