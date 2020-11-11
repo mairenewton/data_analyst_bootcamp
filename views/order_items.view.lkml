@@ -138,6 +138,16 @@ view: order_items {
     value_format_name: usd
   }
 
+  measure: first_ordered_date {
+    type: date
+    sql: MIN(${created_date} ;;
+  }
+
+  measure: last_ordered_date {
+    type: date
+    sql:  MAX(${created_date} ;;
+  }
+
   measure: pct_sales_from_email {
     type: number
     sql:  1*${total_sales_from_email} / NULLIF(${total_revenue},0);;
