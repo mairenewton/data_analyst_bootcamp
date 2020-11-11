@@ -1,4 +1,4 @@
-view: sql_runner_query {
+view: user_fact {
   derived_table: {
     sql: SELECT
         order_items.user_id AS user_id
@@ -17,6 +17,7 @@ view: sql_runner_query {
   }
 
   dimension: user_id {
+    primary_key: yes
     type: number
     sql: ${TABLE}.user_id ;;
   }

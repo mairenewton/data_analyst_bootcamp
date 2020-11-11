@@ -36,13 +36,13 @@ explore: order_items {
     relationship: many_to_one
   }
 
+  join: user_fact {}
   #sql_always_where: ${order_items.returned_date} IS NULL  ;;
   #sql_always_having: ${order_items.tot_sales} > 200 ;;
   #sql_always_where: ${order_items.status} = 'Complete';;
   #sql_always_having: ${order_items.count} > 5 ;;
 
 }
-
 
 # explore: products {}
 
