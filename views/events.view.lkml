@@ -1,4 +1,8 @@
+include: "/views/geography_columns.view"
 view: events {
+
+  extends: [geography_columns]
+
   sql_table_name: public.events ;;
 
   dimension: id {
@@ -10,16 +14,6 @@ view: events {
   dimension: browser {
     type: string
     sql: ${TABLE}.browser ;;
-  }
-
-  dimension: city {
-    type: string
-    sql: ${TABLE}.city ;;
-  }
-
-  dimension: country {
-    type: string
-    sql: ${TABLE}.country ;;
   }
 
   dimension_group: created {
@@ -46,16 +40,6 @@ view: events {
     sql: ${TABLE}.ip_address ;;
   }
 
-  dimension: latitude {
-    type: number
-    sql: ${TABLE}.latitude ;;
-  }
-
-  dimension: longitude {
-    type: number
-    sql: ${TABLE}.longitude ;;
-  }
-
   dimension: os {
     type: string
     sql: ${TABLE}.os ;;
@@ -71,11 +55,6 @@ view: events {
     sql: ${TABLE}.session_id ;;
   }
 
-  dimension: state {
-    type: string
-    sql: ${TABLE}.state ;;
-  }
-
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
@@ -89,11 +68,6 @@ view: events {
   dimension: user_id {
     type: number
     sql: ${TABLE}.user_id ;;
-  }
-
-  dimension: zip {
-    type: zipcode
-    sql: ${TABLE}.zip ;;
   }
 
   measure: count {

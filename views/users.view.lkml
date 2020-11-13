@@ -1,5 +1,30 @@
+include: "/views/geography_columns.view"
 view: users {
+
+  extends: [geography_columns]
+
   sql_table_name: public.users ;;
+
+  filter: incoming_traffic_source {
+    type: string
+    suggest_dimension:
+    users.traffic_source
+    suggest_explore: users
+  }
+
+  dimension: hidden_traffic_source_filter {
+    hidden: yes
+    type: yesno
+    sql: {% condition incoming_traffic_source %} ${traffic_source} {% endcondition %} ;;
+  }
+
+  measure: changeable_count_measure {
+    type: count_distinct
+    sql: ${id} ;;
+    filters: [
+      hidden_traffic_source_filter: "Yes"
+    ]
+  }
 
   dimension: id {
     primary_key: yes
@@ -12,15 +37,11 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
-  dimension: city {
-    type: string
-    sql: ${TABLE}.city ;;
-  }
-
-  dimension: country {
-    type: string
-    map_layer_name: countries
-    sql: ${TABLE}.country ;;
+  dimension: age_group {
+    type: tier
+    sql: ${age} ;;
+    tiers: [18,25,35,45,55,65,75,90]
+    style: integer
   }
 
   dimension_group: created {
@@ -41,11 +62,18 @@ view: users {
   dimension: email {
     type: string
     sql: ${TABLE}.email ;;
+    #required_access_grants: [is_pii_viewer]
+    link: {
+      label: "eCommerce Sample User Dashboard"
+      url: "/dashboards/1813?Email={{ value | uri }}"
+      icon_url: "https://www.looker.com/favicon.ico"
+    }
   }
 
   dimension: first_name {
     type: string
     sql: ${TABLE}.first_name ;;
+    required_access_grants: [is_pii_viewer]
   }
 
   dimension: gender {
@@ -56,21 +84,12 @@ view: users {
   dimension: last_name {
     type: string
     sql: ${TABLE}.last_name ;;
+    required_access_grants: [is_pii_viewer]
   }
 
-  dimension: latitude {
-    type: number
-    sql: ${TABLE}.latitude ;;
-  }
-
-  dimension: longitude {
-    type: number
-    sql: ${TABLE}.longitude ;;
-  }
-
-  dimension: state {
+  dimension: city_state {
     type: string
-    sql: ${TABLE}.state ;;
+    sql: ${city} || ', ' || ${state} ;;
   }
 
   dimension: traffic_source {
@@ -78,9 +97,9 @@ view: users {
     sql: ${TABLE}.traffic_source ;;
   }
 
-  dimension: zip {
-    type: zipcode
-    sql: ${TABLE}.zip ;;
+  dimension: from_email {
+    type: yesno
+    sql: ${traffic_source} = 'Email' ;;
   }
 
   measure: count {
