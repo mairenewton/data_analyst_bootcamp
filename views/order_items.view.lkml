@@ -97,6 +97,27 @@ view: order_items {
     sql: ${TABLE}.status ;;
   }
 
+dimension: is_before_ytd {
+label: "Is YTD?"
+type: yesno
+sql:
+(EXTRACT(MONTH FROM ${created_at_raw}) < EXTRACT(MONTH FROM CURRENT_TIMESTAMP)
+OR
+(EXTRACT(MONTH FROM ${created_at_raw}) <= EXTRACT(MONTH FROM CURRENT_TIMESTAMP)
+AND
+EXTRACT(DAY FROM ${created_at_raw}) < EXTRACT(DAY FROM CURRENT_TIMESTAMP))
+OR
+(EXTRACT(MONTH FROM ${created_at_raw}) <= EXTRACT(MONTH FROM CURRENT_TIMESTAMP)
+AND
+EXTRACT(DAY FROM ${created_at_raw}) <= EXTRACT(DAY FROM CURRENT_TIMESTAMP) AND
+EXTRACT(HOUR FROM ${created_at_raw}) < EXTRACT(HOUR FROM CURRENT_TIMESTAMP))
+OR
+(EXTRACT(MONTH FROM ${created_at_raw}) <= EXTRACT(MONTH FROM CURRENT_TIMESTAMP) AND
+            EXTRACT(DAY FROM ${created_at_raw}) <= EXTRACT(DAY FROM CURRENT_TIMESTAMP) AND
+            EXTRACT(HOUR FROM ${created_at_raw}) <= EXTRACT(HOUR FROM CURRENT_TIMESTAMP) AND
+            EXTRACT(MINUTE FROM ${created_at_raw}) < EXTRACT(MINUTE FROM CURRENT_TIMESTAMP)
+          ) ) ;; }
+
   dimension: user_id {
     type: number
     # hidden: yes
@@ -150,6 +171,11 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+  measure: dist_count {
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
 
   measure: total_sales {
     type: sum
@@ -178,6 +204,15 @@ view: order_items {
     sql: ${ty_sales}/${ly_sales} ;;
     value_format_name: percent_0
   }
+  measure: total_sales_ytd {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [created_at_date : "last 12 months"]
+    value_format_name: gbp
+  }
+
+
+
 
   # ----- Sets of fields for drilling ------
   set: detail {
