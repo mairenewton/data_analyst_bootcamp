@@ -47,6 +47,11 @@ view: order_items {
     sql: ${TABLE}.order_id ;;
   }
 
+  dimension: profit {
+    type: number
+    sql: ${sale_price} - ${inventory_items.cost} ;;
+  }
+
   dimension_group: returned {
     type: time
     timeframes: [
@@ -103,11 +108,33 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+  measure: average_sales {
+    group_label: "Sales Metrics"
+    type: average
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
   measure: order_count {
     label: "Total Orders"
     description: "A count of unique orders"
     type: count_distinct
     sql: ${order_id} ;;
+  }
+
+  measure: total_sales {
+    group_label: "Sales Metrics"
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
+  measure: total_sales_email_users {
+    group_label: "Sales Metrics"
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [users.is_email_source:"Yes"]
+    value_format_name: usd
   }
 
   # ----- Sets of fields for drilling ------
