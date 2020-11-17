@@ -106,6 +106,12 @@ view: order_items {
     sql: ${sale_price} ;;
   }
 
+  measure: avg_sales {
+    type: average
+    sql: ${sale_price} ;;
+    value_format_name: usd_0
+  }
+
   dimension: shipping_days {
     type: number
     sql: DATEDIFF(Day,${shipped_date},${delivered_date}) ;;
