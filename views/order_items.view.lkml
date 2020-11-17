@@ -110,6 +110,13 @@ view: order_items {
     sql: ${order_id} ;;
   }
 
+  measure: unique_orders {
+    description: "Unique Orders based on Order ID"
+    type: count_distinct
+    sql: ${order_id} ;;
+
+  }
+
   measure: average_sales {
     label: "Avg Sales"
     group_label: "Sales Metrics"
