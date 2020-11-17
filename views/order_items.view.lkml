@@ -24,10 +24,19 @@ view: order_items {
   measure: total_sales_email_users {
     type: sum
     sql: ${sale_price} ;;
-    filters: {
-      field: users.is_email_source
-      value: "Yes"
-    }
+    filters: [users.is_email_source: "Yes"]
+  }
+  measure: percentage_sales_email_source {
+    type: number
+    value_format_name: percent_2
+    sql: 1.0*${total_sales_email_users}
+      /NULLIF(${total_sales}, 0) ;;
+  }
+  measure: average_spend_per_user {
+    type: number
+    value_format_name: usd
+    sql: 1.0*${total_sales} / NULLIF(${users.count},0)
+      ;;
   }
   dimension: shipping_days {
     type: number
