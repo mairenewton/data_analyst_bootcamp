@@ -66,6 +66,7 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
+
   dimension_group: shipped {
     type: time
     timeframes: [
@@ -80,6 +81,10 @@ view: order_items {
     sql: ${TABLE}.shipped_at ;;
   }
 
+dimension: days_to_ship {
+  type: number
+  sql:  DATEDIFF(day,${shipped_date}, ${delivered_date}) ;;
+}
   dimension: status {
     type: string
     sql: ${TABLE}.status ;;
@@ -88,14 +93,34 @@ view: order_items {
   dimension: user_id {
     type: number
     # hidden: yes
-    sql: ${TABLE}.user_id ;;
   }
 
+measure: unique_orders {
+  type: count_distinct
+  sql: ${order_id} ;;
+}
   measure: count {
     type: count
     drill_fields: [detail*]
   }
+  measure: total_sales {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
 
+  measure: total_sales_email {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [users.is_email_src: "Yes"]
+
+    value_format_name: usd
+  }
+  measure: avg_sales {
+    type: average
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
