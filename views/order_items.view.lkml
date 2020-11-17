@@ -137,6 +137,12 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+  measure: average_sales {
+    description: "average sales"
+    type: average
+    sql: ${sale_price} ;;
+  }
+
   measure: order_count {
     description: "A count of unique orders"
     type: count_distinct
@@ -150,7 +156,7 @@ view: order_items {
 
   }
 
-  measure: average_sales {
+  measure: average_sales_dip {
     label: "Avg Sales"
     group_label: "Sales Metrics"
     value_format_name: usd
