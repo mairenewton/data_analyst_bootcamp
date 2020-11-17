@@ -7,6 +7,11 @@ view: order_items {
     sql: ${TABLE}.id ;;
   }
 
+  measure: order_item_distinct {
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
   dimension_group: created {
     type: time
     timeframes: [
@@ -66,6 +71,18 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
+  measure: sales_price_average {
+    type: average
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
+  measure: sales_total {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
   dimension_group: shipped {
     type: time
     timeframes: [
@@ -78,6 +95,13 @@ view: order_items {
       year
     ]
     sql: ${TABLE}.shipped_at ;;
+  }
+
+  dimension_group: shipped_days {
+    type: duration
+    sql_start:  ${shipped_date};;
+    sql_end: ${delivered_date} ;;
+    intervals: [day]
   }
 
   dimension: status {
@@ -94,6 +118,24 @@ view: order_items {
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: user_total_sales {
+    type: sum
+    sql: ${sale_price}  ;;
+    filters: [users.is_traffic_source_email : "Yes"]
+    value_format_name: usd
+  }
+
+  measure: user_total_sales_percentage {
+    type: number
+    sql: 1.0*(${user_total_sales} / NULLIF(${sales_total}, 0))  ;;
+    value_format_name: percent_1
+  }
+
+  measure: average_spend_per_user {
+    type: number
+    sql: 1.0*${user_total_sales} /NULLIF(users.count),0 ;;
   }
 
   # ----- Sets of fields for drilling ------

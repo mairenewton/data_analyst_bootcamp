@@ -12,9 +12,21 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  dimension: age_group {
+    type: tier
+    tiers: [18,25,35,45,55,65,75,90]
+    sql: ${age} ;;
+    style: integer
+  }
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
+  }
+
+  dimension: city_and_state {
+    type: string
+    sql: ${city} || ', ' || ${state} ;;
   }
 
   dimension: country {
@@ -73,6 +85,11 @@ view: users {
   dimension: is_new_customer {
     type:  yesno
     sql: ${days_since_signup} <= 90 ;;
+  }
+
+  dimension: is_traffic_source_email {
+    type: yesno
+    sql: ${traffic_source} = 'Email';;
   }
 
   dimension: last_name {
