@@ -88,9 +88,9 @@ view: users {
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
 
-  dimension: cityState {
+  dimension: city_state {
     type: string
-    sql: concat(${city}, ${state}) ;;
+    sql: ${city} || ', ' || ${state} ;;
 
   }
 }
