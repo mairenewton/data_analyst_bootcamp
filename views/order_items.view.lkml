@@ -208,7 +208,13 @@ view: order_items {
     }
   }
 
-
+  measure: total_sales_email {
+    group_label: "Total Sales from Email Users"
+    value_format_name: usd
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [users.is_email_source: "Yes"]
+  }
 
 
   # ----- Sets of fields for drilling ------
