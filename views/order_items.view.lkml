@@ -1,6 +1,39 @@
 view: order_items {
   sql_table_name: public.order_items ;;
 
+
+  parameter: select_timeframe {
+    type: unquoted
+    default_value: "created_month"
+    allowed_value: {
+      value: "created_date"
+      label: "Date"
+    }
+    allowed_value: {
+      value: "created_week"
+      label: "Week"
+    }
+    allowed_value: {
+      value: "created_month"
+      label: "Month"
+    }
+  }
+
+
+ dimension: dynamic_timeframe {
+    label_from_parameter: select_timeframe
+    type: string
+    sql:
+    {% if select_timeframe._parameter_value == 'created_date' %}
+    ${created_date}
+    {% elsif select_timeframe._parameter_value == 'created_week' %}
+    ${created_week}
+    {% else %}
+    ${created_month}
+    {% endif %} ;;
+    }
+##comment
+
   dimension: order_item_id {
     primary_key: yes
     type: number
@@ -151,6 +184,22 @@ view: order_items {
     sql: ${sale_price} ;;
     filters: [users.is_email_source: "Yes"]
     drill_fields: [detail*, users.is_email_source, -users.first_name,-users.first_name]
+  }
+
+  measure: count_without_liquid {
+    type: count
+  }
+
+  measure: count_with_liquid {
+    type: count
+    # link: {
+    #   label: "Status Count"
+    #   url: "https://www.google.com/search?q={{ status._value }}"
+    # }
+    link: {
+    #  label: "{% if row['view_name.field_name'] %} Status Count {% endif %}"
+      url: "https://www.google.com/search?q={{ row['view_name.field_name'] }}"
+    }
   }
 
 

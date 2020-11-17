@@ -18,6 +18,8 @@ datagroup: order_items_datagroup {
 persist_with: data_analyst_bootcamp_default_datagroup
 ###change
 
+##comment
+
 ### Whitespaces ####
 
 # explore: inventory_items {}
