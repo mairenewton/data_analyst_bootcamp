@@ -95,6 +95,10 @@ view: order_items {
     type: count
     drill_fields: [detail*]
   }
+  measure: distinct {
+    type: count_distinct
+    drill_fields: [detail*]
+  }
 
   # ----- Sets of fields for drilling ------
   set: detail {
