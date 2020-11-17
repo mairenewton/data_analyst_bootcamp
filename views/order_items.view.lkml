@@ -106,6 +106,17 @@ view: order_items {
     sql: ${sale_price} ;;
   }
 
+  measure: total_sales_is_email {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [users.is_traffic_source_email: "Yes"]
+  }
+
+  measure: perc_total_sales_is_email {
+    type: number
+    sql: ${total_sales_is_email}/${total_sales} ;;
+  }
+
   measure: avg_sales {
     type: average
     sql: ${sale_price} ;;
