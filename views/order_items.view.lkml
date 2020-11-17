@@ -1,6 +1,53 @@
 view: order_items {
   sql_table_name: public.order_items ;;
 
+  dimension: shipping_days {
+    type: number
+    sql: DATEDIFF(day, ${shipped_date} ,${delivered_date});;
+  }
+
+  dimension_group: shipping_days {
+    type: duration
+    sql_start: ${shipped_date};;
+    sql_end: ${delivered_date};;
+    intervals: [day]
+  }
+
+  measure: order_count {
+    description: "A count of unique orders"
+    type: count_distinct
+    sql: ${order_id} ;;
+    }
+
+  measure: total_sales {
+    group_label: "Sales Metrics"
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+    }
+
+  measure: average_sales {
+    group_label: "Sales Metrics"
+    type: average
+    sql: ${sale_price} ;;
+    value_format_name: usd
+    }
+
+  measure: total_sales_email_users {
+    group_label: "Sales Metrics"
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [users.is_email_source: "Yes"]
+    }
+
+  measure: percentage_sales_email_source {
+    group_label: "Sales Metrics"
+    type: number
+    value_format_name: percent_2
+    sql: 1.0*${total_sales_email_users}
+    /NULLIF(${total_sales}, 0) ;;
+  }
+
   dimension: order_item_id {
     primary_key: yes
     type: number
