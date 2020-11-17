@@ -16,12 +16,12 @@ view: users {
     type: string
     sql: ${TABLE}.city ;;
   }
+dimension: city_state {
+  type: string
+  sql: ${city} || ', '|| ${state} ;;
+}
 
-  dimension: country {
-    type: string
-    map_layer_name: countries
-    sql: ${TABLE}.country ;;
-  }
+
 
   dimension_group: created {
     type: time
@@ -61,6 +61,18 @@ view: users {
   dimension: latitude {
     type: number
     sql: ${TABLE}.latitude ;;
+  }
+
+  dimension: is_email_source {
+    type: yesno
+    sql: ${traffic_source} = ‘Email’ ;;
+  }
+
+  dimension: age_tier {
+    type: tier
+    tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+    sql: ${age} ;;
+    style: integer
   }
 
   dimension: longitude {

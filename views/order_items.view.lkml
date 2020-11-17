@@ -21,6 +21,38 @@ view: order_items {
     ]
     sql: ${TABLE}.created_at ;;
   }
+  measure: total_sales_email_users {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: {
+      field: users.is_email_source
+      value: "Yes"
+    }
+  }
+  dimension: shipping_days {
+    type: number
+    sql: DATEDIFF(day, ${shipped_date}
+      ,${delivered_date});;
+  }
+  dimension_group: shipping_days {
+    type: duration
+    sql_start: ${shipped_date};;
+    sql_end: ${delivered_date};;
+    intervals: [day]
+  }
+
+  measure: order_count {
+    description: "unique orders"
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
+
+  measure: total_sales {
+    type: sum
+    sql: ${sale_price} ;;
+  }
+
 
   dimension_group: delivered {
     type: time
@@ -63,8 +95,17 @@ view: order_items {
 
   dimension: sale_price {
     type: number
+    #value_format: "$#.00;($#.00)"
+    value_format_name: usd
     sql: ${TABLE}.sale_price ;;
   }
+
+  measure: average_sales {
+    type: average
+    sql: ${sale_price} ;;
+  }
+
+
 
   dimension_group: shipped {
     type: time
