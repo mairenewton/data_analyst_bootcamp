@@ -12,10 +12,28 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  dimension: age_tier {
+    type: tier
+    tiers: [18,25,35,45,55,65,75,90]
+    style: classic
+    sql: ${age} ;;
+  }
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
   }
+
+  dimension: city_state {
+    type: string
+    sql: ${city} ||' , '|| ${state};;
+  }
+
+  dimension: is_traffic_source_email {
+    type: yesno
+    sql: ${traffic_source} = 'Email';;
+  }
+
 
   dimension: country {
     type: string
