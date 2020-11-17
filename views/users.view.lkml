@@ -38,6 +38,18 @@ view: users {
     sql: ${TABLE}.created_at ;;
   }
 
+  dimension: days_since_signup {
+    type: number
+    sql: DATEDIFF(day, ${created_date}, current_date) ;;
+  }
+
+  dimension: days_since_signup_tier {
+    type: tier
+    tiers: [0,30,90,180,360,720]
+    sql:  ${days_since_signup};;
+    style: integer
+  }
+
   dimension: email {
     type: string
     sql: ${TABLE}.email ;;
@@ -48,9 +60,19 @@ view: users {
     sql: ${TABLE}.first_name ;;
   }
 
+  dimension: full_name {
+    type:  string
+    sql: ${first_name} || ' ' || ${last_name} ;;
+  }
+
   dimension: gender {
     type: string
     sql: ${TABLE}.gender ;;
+  }
+
+  dimension: is_new_customer {
+    type:  yesno
+    sql: ${days_since_signup} <= 90 ;;
   }
 
   dimension: last_name {
