@@ -108,7 +108,11 @@ measure: unique_orders {
     sql: ${sale_price} ;;
     value_format_name: usd
   }
-
+  measure: avg_spend_per_user {
+    type: number
+    value_format_name: usd
+    sql:  1.0*${total_sales}/NULLIF(${users.count},0) ;;
+  }
   measure: total_sales_email {
     type: sum
     sql: ${sale_price} ;;
@@ -116,6 +120,13 @@ measure: unique_orders {
 
     value_format_name: usd
   }
+
+  measure: percentage_email_users {
+    type:  number
+    sql: ${total_sales_email}/ ${total_sales} ;;
+    value_format_name: percent_2
+  }
+
   measure: avg_sales {
     type: average
     sql: ${sale_price} ;;

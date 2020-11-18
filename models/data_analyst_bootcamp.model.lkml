@@ -16,8 +16,24 @@ persist_with: data_analyst_bootcamp_default_datagroup
 
 # explore: inventory_items {}
 
+datagroup: default_24h {
+  sql_trigger: select current_date;;
+  max_cache_age: "24 hours"
+}
+
+explore: users {
+  persist_with: default_24h
+  join: order_items {
+    type: left_outer
+    sql_on: ${users.id} = ${order_items.user_id} ;;
+    relationship: one_to_many
+  }
+}
 # This explore contains multiple views
 explore: order_items {
+  # sql_always_where: ${order_items.returned_date} IS NULL;;
+  # sql_always_having: ${order_items.total_sales} > 200;;
+
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -35,6 +51,16 @@ explore: order_items {
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
     relationship: many_to_one
   }
+join: user_facts {
+  type: left_outer
+  sql_on: ${users.id} = ${user_facts.user_id} ;;
+  relationship: one_to_one
+}
+join: order_user_ndt {
+  type: left_outer
+  sql_on: ${order_items.order_id} = ${order_user_ndt.order_id} ;;
+  relationship: many_to_one
+}
 }
 
 
