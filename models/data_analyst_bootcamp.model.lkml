@@ -22,6 +22,10 @@ datagroup: default_24h {
 }
 
 explore: users {
+  access_filter: {
+    field: users.state
+    user_attribute: state
+  }
   persist_with: default_24h
   join: order_items {
     type: left_outer
