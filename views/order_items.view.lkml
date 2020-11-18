@@ -116,6 +116,10 @@ view: order_items {
     type: number
     sql: ${total_sales_is_email}/${total_sales} ;;
   }
+  measure: perc_total_sales_is_email2 {
+    type: number
+    sql: 1.0*${total_sales_is_email}/${total_sales} ;;
+  }
 
   measure: avg_sales {
     type: average
