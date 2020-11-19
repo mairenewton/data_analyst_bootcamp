@@ -59,6 +59,11 @@ view: order_items {
     sql: ${TABLE}.order_id ;;
   }
 
+  dimension: profit {
+    type: number
+    sql: ${sale_price} - ${inventory_items.cost} ;;
+  }
+
   dimension_group: returned {
     type: time
     timeframes: [
@@ -90,6 +95,13 @@ view: order_items {
       year
     ]
     sql: ${TABLE}.shipped_at ;;
+  }
+
+  dimension_group: shipping_days {
+    type: duration
+    sql_start: ${shipped_date};;
+    sql_end: ${delivered_date};;
+    intervals: [day]
   }
 
   dimension: status {
@@ -211,8 +223,40 @@ OR
     value_format_name: gbp
   }
 
+  measure: average_spend_per_user {
+    type: number
+    value_format_name: usd
+    sql: 1.0*${total_sales}/NULLIF(${users.count},0) ;;
+  }
+
+  measure: average_sales {
+    group_label: "Sales Metrics"
+    type: average
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
+  measure: order_count {
+    label: "Total Orders"
+    description: "A count of unique orders"
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
 
 
+  measure: percentage_sales_email_source {
+    type: number
+    value_format_name: percent_2
+    sql: 1.0*(${total_sales_email_users}/NULLIF(${total_sales},0)) ;;
+  }
+
+  measure: total_sales_email_users {
+    group_label: "Sales Metrics"
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [users.is_email_source:"Yes"]
+    value_format_name: usd
+  }
 
   # ----- Sets of fields for drilling ------
   set: detail {
