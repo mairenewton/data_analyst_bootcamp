@@ -44,8 +44,8 @@ explore: order_items {
   sql_always_where: ${status} = 'Complete' ;;
   sql_always_having: ${count} > 5000 ;;
 
-  conditionally_filter: {filters: [order_items.created_date: "2 years"]
-    unless:[users.id]}
+  #conditionally_filter: {filters: [order_items.created_date: "2 years"]
+  #  unless:[users.id]}
 
   #always_filter: {filters:[created_date: "30 days"]}
 
