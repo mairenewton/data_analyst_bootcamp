@@ -12,21 +12,9 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
-  dimension: age_bucket {
-    type: tier
-    tiers: [18,25,35,45,55,65,75,90]
-    style: integer
-    sql: ${age} ;;
-  }
-
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
-  }
-
-  dimension: city_state {
-    type: string
-    sql: ${city} || ',' || ${state} ;;
   }
 
   dimension: country {
@@ -51,18 +39,6 @@ view: users {
     sql: ${TABLE}.created_at ;;
   }
 
-  dimension: days_since_signup {
-    type: number
-    sql: DATEDIFF(day, ${created_date}, current_date);;
-  }
-
-  dimension: days_since_signup_tier {
-    type: tier
-    tiers: [0,30,90,180,360,720]
-    sql: ${days_since_signup} ;;
-    style: integer
-  }
-
   dimension: email {
     type: string
     sql: ${TABLE}.email ;;
@@ -72,26 +48,10 @@ view: users {
     type: string
     sql: ${TABLE}.first_name ;;
   }
-##COMMENTS
-  dimension: full_name {
-    type: string
-   sql: ${first_name} || ' ' || ${last_name} ;;
-  }
 
   dimension: gender {
     type: string
     sql: ${TABLE}.gender ;;
-  }
-
-  dimension: is_email_source {
-    description: "Is the traffic source email or not for a user."
-    type: yesno
-    sql: ${traffic_source} = 'Email' ;;
-  }
-
-  dimension: is_new_customer {
-    type: yesno
-    sql: ${days_since_signup} <= 90 ;;
   }
 
   dimension: last_name {
