@@ -151,4 +151,10 @@ view: order_items {
     sql: ${sale_price} ;;
     filters: [users.traffic_source: "Website"]
   }
+
+  measure: pct_sales_web {
+    type: number
+    sql: 1.0 *  total_sales_web/nullif(${total_sales}, 0);;
+    value_format_name: percent_2
+  }
 }
