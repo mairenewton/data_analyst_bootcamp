@@ -70,6 +70,7 @@ dimension: days_since_signup {
   sql: datedif(day, ${created_date}, current_date) ;;
 }
 
+
 dimension: days_since_signup_v2 {
   type: duration_day
   sql_start: ${created_date};;
