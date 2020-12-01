@@ -88,4 +88,27 @@ view: users {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
+
+  dimension: name {
+    type:  string
+    sql:  ${first_name} || ' ' || ${last_name} ;;
+  }
+
+  dimension: city_and_state {
+    type:  string
+    sql: ${city}  || '-' || ${state};;
+  }
+
+  dimension: age_buckets {
+    type:  tier
+    tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+    style: integer
+    sql: ${age} ;;
+  }
+
+  dimension: traffic_source_is_email {
+    type: yesno
+    sql: lower(${traffic_source}) = lower('email') ;;
+  }
+
 }

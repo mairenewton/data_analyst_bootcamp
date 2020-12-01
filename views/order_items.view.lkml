@@ -112,4 +112,11 @@ view: order_items {
       inventory_items.product_name
     ]
   }
+
+  dimension: shipping_days {
+    type:  duration_day
+    sql_end: ${delivered_date} ;;
+    sql_start: ${shipped_date} ;;
+  }
+
 }
