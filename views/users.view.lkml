@@ -140,6 +140,7 @@ dimension: days_since_signup_bucket {
     type: count
     filters: [gender: "Female"]
   }
+
   measure: pct_femail_users {
     type: number
     sql: 1.0 *  ${count_of_femail_users}/nullif(${count}, 0);;
