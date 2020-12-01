@@ -139,4 +139,10 @@ view: order_items {
       inventory_items.product_name
     ]
   }
+
+  measure: total_sales_new_users {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [users.is_new_user: "Yes"]
+  }
 }

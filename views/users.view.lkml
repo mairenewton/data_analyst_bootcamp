@@ -140,4 +140,5 @@ dimension: days_since_signup_bucket {
     type: count
     filters: [gender: "Female"]
   }
+
 }
