@@ -157,4 +157,9 @@ view: order_items {
     sql: 1.0 *  total_sales_web/nullif(${total_sales}, 0);;
     value_format_name: percent_2
   }
+
+  measure: avg_spend_per_user {
+    type: number
+    sql: ${total_sales}/users.count;;
+  }
 }
