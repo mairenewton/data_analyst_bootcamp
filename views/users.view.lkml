@@ -65,6 +65,17 @@ view: users {
     sql: ${first_name}||' '||${last_name};;
   }
 
+dimension: days_since_signup {
+  type: number
+  sql: datedif(day, ${created_date}, current_date) ;;
+}
+
+dimension: days_since_signup_v2 {
+  type: duration_day
+  sql_start: ${created_date};;
+  sql_end: current_date;;
+}
+
   dimension: latitude {
     type: number
     sql: ${TABLE}.latitude ;;
