@@ -76,6 +76,18 @@ dimension: days_since_signup_v2 {
   sql_end: current_date;;
 }
 
+dimension: is_new_user {
+  type: yesno
+  sql: ${days_since_signup} < 90;;
+}
+
+dimension: days_since_signup_bucket {
+  type: tier
+  tiers: [20, 40, 60, 90, 120]
+  sql: ${days_since_signup} ;;
+  style: integer
+}
+
   dimension: latitude {
     type: number
     sql: ${TABLE}.latitude ;;
