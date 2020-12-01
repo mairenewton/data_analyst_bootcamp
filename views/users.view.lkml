@@ -113,6 +113,24 @@ dimension: days_since_signup_bucket {
     sql: ${TABLE}.zip ;;
   }
 
+  dimension: city_and_state {
+    label: "City and State"
+    type: string
+    sql: ${city}||' '||${state};;
+  }
+
+  dimension: individual_age {
+    type: tier
+    tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+    sql: ${age} ;;
+    style: integer
+  }
+
+  dimension: traffic_cource_email {
+    type: yesno
+    sql: ${traffic_source} = 'Email';;
+  }
+
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
