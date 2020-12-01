@@ -52,6 +52,8 @@ view: order_items {
     sql: ${sale_price} - ${inventory_items.cost} ;;
   }
 
+
+
   dimension_group: returned {
     type: time
     timeframes: [
