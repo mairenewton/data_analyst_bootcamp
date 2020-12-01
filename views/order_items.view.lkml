@@ -145,4 +145,10 @@ view: order_items {
     sql: ${sale_price} ;;
     filters: [users.is_new_user: "Yes"]
   }
+
+  measure: total_sales_web {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [users.traffic_source: "Website"]
+  }
 }
