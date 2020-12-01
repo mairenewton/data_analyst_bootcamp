@@ -135,4 +135,9 @@ dimension: days_since_signup_bucket {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
+
+  measure: count_of_femail_users {
+    type: count
+    filters: [gender: "Female"]
+  }
 }
