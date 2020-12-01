@@ -147,6 +147,9 @@ view: order_items {
   }
 
   measure: total_sales_web {
+    group_label: "Sales"
+    hidden: yes
+    description: "Best Measure"
     type: sum
     sql: ${sale_price} ;;
     filters: [users.traffic_source: "Website"]
