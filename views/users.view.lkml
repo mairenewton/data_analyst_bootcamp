@@ -83,6 +83,19 @@ view: users {
     type: zipcode
     sql: ${TABLE}.zip ;;
   }
+### new
+  dimension: city_state {
+    type: string
+    sql: ${city}||${state};;
+  }
+
+  dimension: age_buckets{
+    type: tier
+    tiers: [18,25,50]
+    sql: ${age};;
+  }
+##
+
 
   measure: count {
     type: count

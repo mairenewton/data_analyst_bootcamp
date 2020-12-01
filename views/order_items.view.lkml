@@ -96,10 +96,31 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+  # #
+  # dimension: shipping_days {
+  #   type:  duration_day
+  #   sql_start: ${shipped_date}
+  #   sql_end: ${deliver};;
+
+  # }
+
   measure: count {
     type: count
     drill_fields: [detail*]
   }
+
+  measure: orders_items {
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+  # measure: total_sales{
+  #   type: sum_distinct
+  #   sql: ${sale_price}*${orders_items} ;;
+  # }
+  # measure: total_sales {
+  #   type:  number
+  #   sql:  ${total_sales} /${count};;
+  # }
 
   # ----- Sets of fields for drilling ------
   set: detail {
