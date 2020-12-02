@@ -4,6 +4,10 @@ view: fact_user_avg_and_value {
       column: order_id {}
       column: total_revenue {}
       column: order_item_count {}
+      column: country {field:users.country}
+      derived_column: order_revenue_rank {
+        sql: rank() over(order by total_revenue desc);;
+      }
     }
   }
   dimension: order_id {
