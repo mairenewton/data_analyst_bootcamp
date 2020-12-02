@@ -20,7 +20,10 @@ persist_with: data_analyst_bootcamp_default_datagroup
 explore: order_items {
   sql_always_where: ${returned_raw} is NULL ;;
   sql_always_having: ${sale_price} > 200 ;;
-  always_filter: {filters: [inventory_items.created_date: "this year"]}
+  always_filter: {
+    filters: [inventory_items.created_date: "before today"]
+    }
+
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
