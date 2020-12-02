@@ -18,6 +18,9 @@ persist_with: data_analyst_bootcamp_default_datagroup
 
 # This explore contains multiple views
 explore: order_items {
+  always_filter: {
+    filters: [order_items.created_date: "last 30 days"]
+    }
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -41,7 +44,17 @@ explore: order_items {
     sql_on: ${inventory_items.product_distribution_center_id} = ${distribution_centers.id} ;;
     relationship: many_to_one
   }
+  join: user_facts {
+    type: left_outer
+    sql_on: ${inventory_items.product_distribution_center_id} = ${distribution_centers.id} ;;
+    relationship: many_to_one
+  }
 }
-
+explore: users {
+  conditionally_filter: {
+    filters: [users.created_date: "last 90 days"]
+    unless: [id, state]
+  }
+}
 
 # explore: products {}
