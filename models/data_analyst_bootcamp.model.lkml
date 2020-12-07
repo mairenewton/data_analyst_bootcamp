@@ -9,6 +9,16 @@ datagroup: data_analyst_bootcamp_default_datagroup {
   max_cache_age: "1 hour"
 }
 
+datagroup: defatult_user_datagroup {
+  sql_trigger: select cast(now() as date)  ;;
+  max_cache_age: "24 hour"
+}
+
+datagroup: order_items_datagroup {
+  sql_trigger: select max(completed_at) from public.order_items  ;;
+  max_cache_age: "4 hour"
+}
+
 persist_with: data_analyst_bootcamp_default_datagroup
 ###change
 
@@ -18,6 +28,14 @@ persist_with: data_analyst_bootcamp_default_datagroup
 
 # This explore contains multiple views
 explore: order_items {
+  persist_with: order_items_datagroup
+  always_filter: {
+    filters: [order_items.created_date: "last 30 days"]
+  }
+  # conditionally_filter: {
+  #   filters: [order_items.created_date: "last 30 days"]
+  #   unless: [user_id]
+  # }
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -43,5 +61,12 @@ explore: order_items {
   }
 }
 
+explore: users {
+  persist_with: defatult_user_datagroup
+  conditionally_filter: {
+    filters: [users.created_date: "last 90 days"]
+    unless: [id,state]
+  }
+}
 
 # explore: products {}
