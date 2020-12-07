@@ -31,6 +31,7 @@ view: users {
       date,
       week,
       month,
+      month_name,
       quarter,
       day_of_month,
       year
