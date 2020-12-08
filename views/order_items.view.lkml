@@ -96,6 +96,17 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+measure: email_source {
+  type: sum
+  sql: ${sale_price} ;;
+  filters: {
+    field: users.traffic_source
+    value: "Email"
+  }
+  value_format_name: usd
+
+
+}
   measure: count {
     type: count
     drill_fields: [detail*]
