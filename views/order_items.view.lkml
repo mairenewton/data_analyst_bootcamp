@@ -1,6 +1,8 @@
 view: order_items {
   sql_table_name: public.order_items ;;
 
+  #view_label: "Order Items different label"
+
   dimension: order_item_id {
     primary_key: yes
     type: number
@@ -101,6 +103,45 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+  measure: total_sales_email_users {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [users.is_email_source: "Yes"]
+  }
+
+  measure: total_sales_email_users2 {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [users.traffic_source: "Email"] }
+
+
+  measure: percent_of_total_orders {
+    type: percent_of_total
+    sql: ${count} ;;
+  }
+
+  measure: total_sales {
+    type: sum
+    sql: ${sale_price} ;;
+  }
+
+  measure: order_count {
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
+  measure: order_item_count {
+    type: count
+  }
+
+  measure: average_spend_per_user {
+    type: number
+    value_format_name: usd
+    sql: 1.0*${total_sales} / NULLIF(${users.customer_count},0)
+      ;;
+  }
+
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
@@ -111,5 +152,7 @@ view: order_items {
       inventory_items.id,
       inventory_items.product_name
     ]
+
+
   }
 }

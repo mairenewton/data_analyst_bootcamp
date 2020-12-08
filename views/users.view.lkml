@@ -12,6 +12,26 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  dimension: age_tier {
+    type: tier
+    sql: ${age} ;;
+    tiers: [18,40,60]
+    style: integer
+  }
+
+  dimension: days_since_signup {
+    type: number
+    sql: DATEDIFF(day, ${created_date},current_date) ;;
+  }
+
+  dimension_group: as_customer {
+    type: duration
+    intervals: [day,week,month,year]
+    sql_start: ${created_date} ;;
+    sql_end: current_date ;;
+  }
+
+#geography {
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
@@ -22,7 +42,12 @@ view: users {
     map_layer_name: countries
     sql: ${TABLE}.country ;;
   }
+#}
 
+  dimension: is_email_source {
+    type: yesno
+    sql: ${traffic_source}='Email' ;;
+  }
   dimension_group: created {
     type: time
     timeframes: [
@@ -38,6 +63,7 @@ view: users {
     ]
     sql: ${TABLE}.created_at ;;
   }
+
 
   dimension: email {
     type: string
@@ -84,8 +110,18 @@ view: users {
     sql: ${TABLE}.zip ;;
   }
 
-  measure: count {
+  measure: customer_count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
+  }
+
+  measure: customer_growth {
+    type: percent_of_previous
+    sql: ${customer_count} ;;
+  }
+
+
+  set: show_in_order_items {
+    fields: [age,age_tier,state]
   }
 }
