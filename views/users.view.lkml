@@ -68,6 +68,11 @@ view: users {
   dimension: email {
     type: string
     sql: ${TABLE}.email ;;
+    link: {
+      label: "Category Detail Dashboard"
+      url: "/dashboards/1813?Email={{value}}"
+    }
+
   }
 
   dimension: first_name {

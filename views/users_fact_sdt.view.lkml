@@ -1,12 +1,11 @@
-view: user_facts {
+view: users_fact_sdt {
   derived_table: {
-    sql:
-    SELECT
-       order_items.user_id as user_id
-      ,COUNT(distinct order_items.order_id) as lifetime_order_count
+    sql: SELECT
+         order_items.user_id as user_id
+        ,COUNT(distinct order_items.order_id) as lifetime_order_count
         ,SUM(order_items.sale_price) as lifetime_revenue
-      ,MIN(order_items.created_at) as first_order_date
-      ,MAX(order_items.created_at) as latest_order_date
+        ,MIN(order_items.created_at) as first_order_date
+        ,MAX(order_items.created_at) as latest_order_date
       FROM public.order_items
       GROUP BY user_id
        ;;
@@ -41,16 +40,6 @@ view: user_facts {
   dimension_group: latest_order_date {
     type: time
     sql: ${TABLE}.latest_order_date ;;
-  }
-
-  measure: average_lifetime_value {
-    type: average
-    sql:  ${lifetime_revenue};;
-  }
-
-  measure: average_lifetime_order_count {
-    type: average
-    sql:  ${lifetime_order_count};;
   }
 
   set: detail {

@@ -4,12 +4,23 @@ connection: "events_ecommerce"
 include: "/views/*.view"
 
 
-datagroup: data_analyst_bootcamp_default_datagroup {
-  # sql_trigger: SELECT MAX(id) FROM etl_log;;
-  max_cache_age: "1 hour"
+# datagroup: data_analyst_bootcamp_default_datagroup {
+#   # sql_trigger: SELECT MAX(id) FROM etl_log;;
+#   sql_trigger:
+#   max_cache_age: "1 hour"
+# }
+
+datagroup: default_dg {
+  sql_trigger: select current_date ;;
+  max_cache_age: "24 hours"
 }
 
-persist_with: data_analyst_bootcamp_default_datagroup
+datagroup: order_items_dg {
+   sql_trigger: SELECT MAX(create_ts) FROM order_items;;
+  max_cache_age: "4 hours"
+}
+
+persist_with: default_dg
 ###change
 
 ### Whitespaces ####
@@ -18,6 +29,36 @@ persist_with: data_analyst_bootcamp_default_datagroup
 
 # This explore contains multiple views
 explore: order_items {
+  persist_with: order_items_dg
+  # #1
+  # # sql_always_where: ${order_items.returned_date} IS NULL ;;
+
+  # # sql_always_having: ${order_items.total_sales} > 200 ;;
+
+  # #2
+  # sql_always_where: ${order_items.status} = 'Complete' ;;
+
+  # sql_always_having: ${order_items.count} > 5 ;;
+
+  #3
+  # conditionally_filter: {
+  #   filters: {
+  #     field: order_items.created_date
+  #     value: "last 2 years"
+  #   }
+  #   unless: [users.state]
+  # }
+
+  #4
+  # always_filter: {
+  #   filters: {
+  #     field: order_items.created_date
+  #     value: "last 30 days"
+  #   }
+  # }
+
+
+
   #group_label: "Developer Bootcamp"
   #label: "Training Order Items"
   #view_label: "Something Else"
@@ -65,6 +106,51 @@ explore: order_items {
     relationship: one_to_one
   }
 }
+
+
+
+
+explore: users {
+  group_label: "Data Analyst Bootcamp 2"
+  # always_filter: {
+  #   filters: {
+  #     field: order_items.created_date
+  #     value: "before today"
+  #   }
+  # }
+
+  #4
+  conditionally_filter: {
+    filters: {
+      field: users.created_date
+      value: "last 90 days"
+      }
+  unless: [users.id, users.state]
+}
+
+  join: order_items {
+    type: left_outer
+    sql_on: ${users.id} = ${order_items.user_id} ;;
+    relationship: one_to_many
+    fields: [-order_items.profit]
+  }
+ }
+
+# Place in `data_analyst_bootcamp` model
+explore: +order_items {
+  aggregate_table: rollup__created_date__products_brand {
+    query: {
+      dimensions: [created_date, products.brand]
+      measures: [total_sales]
+      timezone: "UTC"
+    }
+
+    materialization: {
+      datagroup_trigger: order_items_dg
+    }
+  }
+}
+
 
 #explore: orders {}
 

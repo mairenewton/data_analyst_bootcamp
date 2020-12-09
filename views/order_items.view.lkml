@@ -142,6 +142,12 @@ view: order_items {
   }
 
 
+##testing stuff
+dimension: random_number {
+  type: number
+  view_label: "zz Testing Stuff"
+  sql: random() ;;
+}
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [

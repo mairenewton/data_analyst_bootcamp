@@ -11,15 +11,12 @@ view: brand_order_facts_ndt {
         sql: row_number() over (order by total_sales desc) ;;
       }
       #filters: [order_items.created_date: "365 days"]
-      #{
-      #  field: order_items.created_date
-      #  value: "365 days"
-      #}
+
       # bind_filters: {
       #   from_field: order_items.created_date
       #   to_field: order_items.created_date
       # }
-      #bind_all_filters: yes
+      bind_all_filters: yes
     }
   }
   dimension: brand {

@@ -1,5 +1,9 @@
 view: orders_ndt {
   derived_table: {
+    # distribution: "order_id"
+    # sortkeys: ["order_id"]
+    # datagroup_trigger: order_items
+
     explore_source: order_items {
       column: order_id {}
       column: total_sales {}
