@@ -47,6 +47,11 @@ view: order_items {
     sql: ${TABLE}.order_id ;;
   }
 
+  measure: num_orders {
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
   dimension: profit {
     type: number
     sql: ${sale_price} - ${inventory_items.cost} ;;
@@ -69,6 +74,18 @@ view: order_items {
   dimension: sale_price {
     type: number
     sql: ${TABLE}.sale_price ;;
+  }
+
+  measure: total_sales {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: eur
+  }
+
+  measure: avg_sales {
+    type: average
+    sql: ${sale_price} ;;
+    value_format_name: eur
   }
 
   dimension_group: shipped {
