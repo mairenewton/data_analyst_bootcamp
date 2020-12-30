@@ -22,6 +22,11 @@ view: order_items {
     sql: ${TABLE}.created_at ;;
   }
 
+  measure: min_created_date {
+    type: date_date
+    sql: MIN(${created_date})  ;;
+  }
+
   dimension_group: delivered {
     type: time
     timeframes: [

@@ -11,12 +11,25 @@ datagroup: data_analyst_bootcamp_default_datagroup {
 
 persist_with: data_analyst_bootcamp_default_datagroup
 
+
+datagroup: midnight {
+  sql_trigger: CURRENT_DATE ;;
+  max_cache_age: "24 hour"
+}
+
+datagroup: order_items_datagroup {
+  sql_trigger: MAX(${TABLE}.created_at) ;;
+  max_cache_age: "4 hour"
+}
+
 # explore: inventory_items {}
 
 # This explore contains multiple views
 explore: order_items {
-  sql_always_where: ${status} = 'Complete';;
-  sql_always_having: ${count} > 5000;;
+  persist_with: order_items_datagroup
+  always_filter: {
+    filters: [order_items.created_date: "30 days"]
+  }
 
   join: users {
     type: left_outer
@@ -44,13 +57,23 @@ explore: order_items {
 }
 
 
-# explore: users {
-#   join: order_items {
-#     type:  left_outer
-#     relationship: one_to_many
-#     sql_on: ${users.id} = ${order_items.user_id} ;;
-#   }
-# }
+explore: users {
+  persist_with: midnight
+  always_filter: {
+    filters: [order_items.created_date: "before today"]
+  }
+  join: order_items {
+    type:  left_outer
+    relationship: one_to_many
+    sql_on: ${users.id} = ${order_items.user_id} ;;
+  }
+
+  join: inventory_items {
+    type: left_outer
+    sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;
+    relationship: one_to_many
+  }
+}
 
 
 # explore: products {}
