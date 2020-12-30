@@ -82,6 +82,30 @@ view: order_items {
     value_format_name: eur
   }
 
+  measure: total_sales_email {
+    type: sum
+    label: "Total sales from Email-Users"
+    description: "filtered on traffic source Email respective to the user"
+    filters: [users.is_email: "Yes"]
+    value_format_name: eur
+    sql: ${sale_price} ;;
+  }
+
+  measure: total_sales_email_pct {
+    type: number
+    label: "Total Sales Email Percentage"
+    description: "Total Sales from Email-Users / Total Sales"
+    value_format_name: percent_2
+    sql: 1.0 * ${total_sales_email} / NULLIF(${total_sales}, 0) ;;
+  }
+
+  measure: avg_spent_per_user {
+    type: number
+    description: "total sales by users count"
+    sql: 1.0 * ${total_sales} / NULLIF(users.count,0) ;;
+    value_format_name: eur
+  }
+
   measure: avg_sales {
     type: average
     sql: ${sale_price} ;;
