@@ -15,6 +15,9 @@ persist_with: data_analyst_bootcamp_default_datagroup
 
 # This explore contains multiple views
 explore: order_items {
+  sql_always_where: ${status} = 'Complete';;
+  sql_always_having: ${count} > 5000;;
+
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -39,6 +42,15 @@ explore: order_items {
     relationship: many_to_one
   }
 }
+
+
+# explore: users {
+#   join: order_items {
+#     type:  left_outer
+#     relationship: one_to_many
+#     sql_on: ${users.id} = ${order_items.user_id} ;;
+#   }
+# }
 
 
 # explore: products {}
