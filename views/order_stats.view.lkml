@@ -29,4 +29,17 @@ dimension: total_sales {
   label: "Order Value"
   value_format_name: eur
 }
+
+measure: avg_items_per_order {
+  description: "Avg. number of items purchased per order"
+  type: average
+  sql: ${count} ;;
+}
+
+measure: aov {
+  description: "Average Order Value"
+  type: average
+  sql: ${total_sales} ;;
+  value_format_name: eur
+}
  }
