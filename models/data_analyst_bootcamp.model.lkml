@@ -27,9 +27,7 @@ datagroup: order_items_datagroup {
 # This explore contains multiple views
 explore: order_items {
   persist_with: order_items_datagroup
-  always_filter: {
-    filters: [order_items.created_date: "30 days"]
-  }
+
 
   join: users {
     type: left_outer
@@ -59,9 +57,7 @@ explore: order_items {
 
 explore: users {
   persist_with: midnight
-  always_filter: {
-    filters: [order_items.created_date: "before today"]
-  }
+
   join: order_items {
     type:  left_outer
     relationship: one_to_many
@@ -73,7 +69,23 @@ explore: users {
     sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;
     relationship: one_to_many
   }
+
+  join: customers_lifetime {
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${users.id} = ${customers_lifetime.user_id} ;;
+  }
 }
 
+
+explore: order_stats {
+  persist_with: order_items_datagroup
+
+  join: users {
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${users.id} = ${order_stats.user_id} ;;
+  }
+}
 
 # explore: products {}
