@@ -2,7 +2,7 @@ connection: "events_ecommerce"
 
 # include all the views
 include: "/views/*.view"
-
+# added comment
 
 datagroup: data_analyst_bootcamp_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
@@ -16,9 +16,11 @@ persist_with: data_analyst_bootcamp_default_datagroup
  # sql_trigger: SELECT max(${age} from ${TABLE}.users ;;
 #}
 
+
+
 ### Whitespaces ####
 
-explore: inventory_items {}
+# explore: inventory_items {}
 
 # This explore contains multiple views
 explore: order_items {
@@ -45,6 +47,12 @@ explore: order_items {
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
     relationship: many_to_one
   }
+
+  join: distribution_centers {
+    type: left_outer
+    sql_on: ${inventory_items.product_distribution_center_id} = ${distribution_centers.id} ;;
+    relationship: many_to_one
+  }
 }
 
 
@@ -52,13 +60,14 @@ explore: order_items {
 
 
 
-explore: users {
+
+#explore: users {
 #  persist_with: users
 
 
-join: order_items  {
-  type: left_outer
-  sql_on: ${users.id} = ${order_items.user_id};;
-  relationship: one_to_many
-}
-}
+#join: order_items  {
+ # type: left_outer
+#  sql_on: ${users.id} = ${order_items.user_id};;
+#  relationship: one_to_many
+#}
+#}
