@@ -12,6 +12,8 @@ view: order_items {
     timeframes: [
       raw,
       time,
+      hour_of_day,
+      day_of_week,
       date,
       week,
       month,
@@ -148,6 +150,27 @@ view: order_items {
     filters: [users.is_email_source:"Yes"]
     value_format_name: usd
   }
+
+  parameter: date_granularity {
+    type: string
+    allowed_value: { value: "Day" }
+    allowed_value: { value: "Month" }
+    allowed_value: { value: "Quarter" }
+    allowed_value: { value: "Year" }
+  }
+
+  dimension: date {
+    label_from_parameter: date_granularity
+    sql:
+            CASE
+             WHEN {% parameter date_granularity %} = 'Day' THEN ${created_date}
+             WHEN {% parameter date_granularity %} = 'Month' THEN ${created_month}
+             WHEN {% parameter date_granularity %} = 'Quarter' THEN ${created_quarter}
+             WHEN {% parameter date_granularity %} = 'Year' THEN ${created_year}
+             ELSE NULL
+            END ;;
+  }
+
 
   # ----- Sets of fields for drilling ------
   set: detail {
