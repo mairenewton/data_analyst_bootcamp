@@ -6,7 +6,10 @@ view: users {
     type: number
     sql: ${TABLE}.id ;;
   }
-
+measure: age_group {
+  type: average
+  sql: ${age} ;;
+}
   dimension: age {
     type: number
     sql: ${TABLE}.age ;;
@@ -57,6 +60,8 @@ view: users {
     type: string
     sql: ${TABLE}.last_name ;;
   }
+
+
 
   dimension: latitude {
     type: number
