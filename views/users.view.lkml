@@ -34,6 +34,7 @@ measure: age_group {
       date,
       week,
       month,
+      month_name,
       quarter,
       day_of_month,
       year
