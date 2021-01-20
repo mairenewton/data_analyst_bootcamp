@@ -7,6 +7,19 @@ view: users {
     sql: ${TABLE}.id ;;
   }
 
+
+
+dimension: email_or_not {
+  type: yesno
+  sql: ${traffic_source} ='Email';;
+
+
+}
+dimension: place {
+  type: string
+  sql: ${city} || ',' || ${state};;
+
+}
   dimension: age {
     type: number
     sql: ${TABLE}.age ;;
