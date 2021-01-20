@@ -112,4 +112,12 @@ view: order_items {
       inventory_items.product_name
     ]
   }
+ ## Brad Add
+
+  dimension_group: shipping {
+    type: duration
+    intervals: [day]
+    sql_start:  ${shipped_date} ;;
+  sql_end:  ${delivered_date} ;;
+  }
 }

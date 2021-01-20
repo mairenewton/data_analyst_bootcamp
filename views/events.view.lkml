@@ -99,4 +99,13 @@ view: events {
   measure: count {
     type: count
   }
+
+  ## BRAD Stuff for training here
+
+  dimension:  traffic_source_is_email {
+    type:  yesno
+    sql:  ${traffic_source} = 'Email' ;;
+  }
+
+
 }
