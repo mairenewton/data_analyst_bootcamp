@@ -6,7 +6,7 @@ view: order_items {
     type: number
     sql: ${TABLE}.id ;;
   }
-
+###
   dimension_group: created {
     type: time
     timeframes: [

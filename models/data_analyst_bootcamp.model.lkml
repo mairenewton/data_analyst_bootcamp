@@ -18,6 +18,7 @@ persist_with: data_analyst_bootcamp_default_datagroup
 
 # This explore contains multiple views
 explore: order_items {
+  view_label: "Orders"
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -25,12 +26,15 @@ explore: order_items {
   }
 
   join: inventory_items {
+    view_label: "Orders"
+
     type: left_outer
     sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;
     relationship: many_to_one
   }
 
   join: products {
+    view_label: "Orders"
     type: left_outer
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
     relationship: many_to_one
