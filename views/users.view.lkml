@@ -98,4 +98,11 @@ view: users {
     type: yesno
     sql: ${traffic_source} = 'Email' ;;
   }
+
+  dimension: age_tier {
+    type: tier
+    style: integer
+    tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+    sql: ${age} ;;
+  }
 }
