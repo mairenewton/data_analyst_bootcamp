@@ -93,4 +93,9 @@ view: users {
     type: string
     sql: ${city} || ','||${state} ;;
   }
+
+  dimension: Source_Email {
+    type: yesno
+    sql: ${traffic_source} = 'Email' ;;
+  }
 }
