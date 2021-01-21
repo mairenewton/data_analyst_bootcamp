@@ -154,13 +154,19 @@ view: order_items {
     value_format_name: usd
     type:  sum
     sql:  ${sale_price} ;;
-    filters: [ users.is_new_customer: "yes"]
+    filters: [ users.is_new_customer: "yes" ]
   }
 
   measure: total_sales_email_users {
     value_format_name: usd
     type:  sum
     sql:  ${sale_price} ;;
-    filters: [ users.traffic_source: "Email"]
+    filters: [ users.is_email_source: "yes"]
+  }
+
+  measure: pct_sales_email_source {
+    type:  number
+    value_format_name: percent_2
+    sql:  1.0 * ${total_sales_email_users} / NULLIF( ${total_sales}, 0) ;;
   }
 }

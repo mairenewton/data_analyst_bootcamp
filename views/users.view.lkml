@@ -39,11 +39,6 @@ view: users {
     sql: ${TABLE}.created_at ;;
   }
 
-  dimension: is_new_customer {
-    type: yesno
-    sql:  ${traffic_source} = "Email" ;;
-  }
-
   dimension: email {
     type: string
     sql: ${TABLE}.email ;;
@@ -95,6 +90,16 @@ view: users {
   }
 
   ## BRAD Add
+
+  dimension: is_new_customer {
+    type: yesno
+    sql:  ${traffic_source} = 'Facebook' ;;
+  }
+
+  dimension: is_email_source {
+    type:  yesno
+    sql:  ${traffic_source} = 'Email' ;;
+  }
 
   measure: count_female_users {
     type:  count
