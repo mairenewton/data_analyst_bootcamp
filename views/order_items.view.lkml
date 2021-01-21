@@ -47,10 +47,10 @@ view: order_items {
     sql: ${TABLE}.order_id ;;
   }
 
-  dimension: profit {
-    type: number
-    sql: ${sale_price} - ${inventory_items.cost} ;;
-  }
+  # dimension: profit {
+  #   type: number
+  #   sql: ${sale_price} - ${inventory_items.cost} ;;
+  # }
 
   dimension_group: returned {
     type: time
@@ -168,5 +168,11 @@ view: order_items {
     type:  number
     value_format_name: percent_2
     sql:  1.0 * ${total_sales_email_users} / NULLIF( ${total_sales}, 0) ;;
+  }
+
+  measure: avg_sales_per_user {
+    type:  number
+    value_format_name: usd
+    sql:  1.0 * ${total_sales} / NULLIF( ${users.count}, 0) ;;
   }
 }

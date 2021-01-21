@@ -9,6 +9,14 @@ datagroup: data_analyst_bootcamp_default_datagroup {
   max_cache_age: "1 hour"
 }
 
+
+## BRAD Add
+datagroup: default_midnight_daily {
+  sql_trigger: select current_date ;;
+  max_cache_age: "24 hours"
+
+  }
+
 persist_with: data_analyst_bootcamp_default_datagroup
 ###change
 
@@ -41,7 +49,39 @@ explore: order_items {
     sql_on: ${inventory_items.product_distribution_center_id} = ${distribution_centers.id} ;;
     relationship: many_to_one
   }
-}
 
+  ## BRAD Add
+  # sql_always_where:  ${order_items.returned_date} IS NULL;;
+  # sql_always_having:  ${order_items.total_sales} > 200 ;;
+
+    # sql_always_where: ${order_items.status} = 'Complete' AND  ${order_items.returned_date} IS NULL ;;
+    # sql_always_having:  ${order_items.count} > 5 AND ${order_items.total_sales} > 200;;
+
+  # always_filter: {
+  #   filters: [ order_items.created_date: "before today" ]
+  # }
+  # conditionally_filter: {
+  #   filters: [ order_items.created_date: "last 2 years" ]
+  #   unless: [ user_id ]
+  # }
+
+  always_filter: {
+    filters: [order_items.created_date: "last 30 days"] }
+
+  # conditionally_filter: {
+  #   filters: [ order_items.]
+  # }
+  }
+
+## BRAD add
 
 # explore: products {}
+
+  explore: users {
+    persist_with: default_midnight_daily
+    join: order_items {
+      type:  left_outer
+      sql_on:  ${users.id} = ${order_items.user_id} ;;
+      relationship: one_to_many
+    }
+  }
