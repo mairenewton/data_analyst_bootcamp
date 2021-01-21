@@ -112,12 +112,55 @@ view: order_items {
       inventory_items.product_name
     ]
   }
- ## Brad Add
+
+  ## BRAD Add
 
   dimension_group: shipping {
     type: duration
     intervals: [day]
     sql_start:  ${shipped_date} ;;
-  sql_end:  ${delivered_date} ;;
+    sql_end:  ${delivered_date} ;;
+  }
+
+  measure: total_items_ordered {
+    type: count
+  }
+
+  measure: total_users {
+    type:  count_distinct
+    sql:  ${user_id} ;;
+  }
+
+  measure: total_orders{
+    type: count_distinct
+    sql:  ${order_id} ;;
+  }
+
+  measure: total_sales {
+    value_format_name: usd
+    description: "Sum of sale price"
+    type: sum
+    sql:  ${sale_price};;
+  }
+
+  measure: average_sales {
+    value_format_name: usd
+    description: "average sale price"
+    type: average
+    sql:  ${sale_price};;
+  }
+
+  measure: total_sales_new_users {
+    value_format_name: usd
+    type:  sum
+    sql:  ${sale_price} ;;
+    filters: [ users.is_new_customer: "yes"]
+  }
+
+  measure: total_sales_email_users {
+    value_format_name: usd
+    type:  sum
+    sql:  ${sale_price} ;;
+    filters: [ users.traffic_source: "Email"]
   }
 }

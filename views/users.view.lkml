@@ -39,6 +39,11 @@ view: users {
     sql: ${TABLE}.created_at ;;
   }
 
+  dimension: is_new_customer {
+    type: yesno
+    sql:  ${traffic_source} = "Email" ;;
+  }
+
   dimension: email {
     type: string
     sql: ${TABLE}.email ;;
@@ -88,4 +93,12 @@ view: users {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
+
+  ## BRAD Add
+
+  measure: count_female_users {
+    type:  count
+    filters: [ gender: "Female" ]
+  }
+
 }
