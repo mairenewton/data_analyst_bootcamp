@@ -17,10 +17,12 @@ view: order_items {
       month,
       month_name,
       quarter,
-      year
+      year,
+      month_num
     ]
     sql: ${TABLE}.created_at ;;
   }
+  #this is comment
 
   dimension_group: delivered {
     type: time
