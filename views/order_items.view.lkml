@@ -22,7 +22,7 @@ view: order_items {
     ]
     sql: ${TABLE}.created_at ;;
   }
-  #this is comment
+
 
   dimension_group: delivered {
     type: time
