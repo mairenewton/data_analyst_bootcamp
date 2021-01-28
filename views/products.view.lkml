@@ -29,7 +29,7 @@ view: products {
 
   dimension: distribution_center_id {
     type: number
-    hidden: yes
+    # hidden: yes
     sql: ${TABLE}.distribution_center_id ;;
   }
 

@@ -8,6 +8,7 @@ view: inventory_items {
   }
 
   dimension: cost {
+#    hidden: yes
     type: number
     sql: ${TABLE}.cost ;;
   }
@@ -82,52 +83,7 @@ view: inventory_items {
   }
 
   measure: count {
-    label: "Number of Inventory Items"
     type: count
     drill_fields: [id, product_name, products.id, products.name, order_items.count]
   }
-
-  measure: number_of_product_skus {
-    type: count_distinct
-    sql: ${product_sku} ;;
-  }
-
-  measure: total_cost {
-    type: sum
-    sql: ${cost} ;;
-    value_format_name: usd
-  }
-
-  measure: average_cost {
-    type: average
-    sql: ${cost} ;;
-    value_format_name: usd
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
