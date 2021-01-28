@@ -1,6 +1,12 @@
 view: order_items {
   sql_table_name: public.order_items ;;
 
+
+  dimension: test {
+    sql: case when ${order_item_id} > 5 then 'greater than 5'
+    else null end ;;
+  }
+
   dimension: order_item_id {
     primary_key: yes
     type: number
