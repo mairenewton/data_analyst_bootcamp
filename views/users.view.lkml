@@ -76,7 +76,7 @@ view: users {
 
   dimension: traffic_source {
     type: string
-    sql: ${TABLE}.traffic_source ;;
+    sql: UPPER(${TABLE}.traffic_source) ;;
   }
 
   dimension: zip {
