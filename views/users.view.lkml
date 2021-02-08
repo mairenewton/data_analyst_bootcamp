@@ -16,7 +16,7 @@ view: users {
     type: string
     sql: ${TABLE}.city ;;
   }
-#refer to
+#this is a sample git flow
   dimension: country {
     type: string
     map_layer_name: countries
@@ -66,6 +66,10 @@ view: users {
     sql: ${TABLE}.last_name ;;
   }
 
+ dimension: full_name {
+   type: string
+   sql: ${first_name} ||' '||${last_name} ;;
+ }
   dimension: latitude {
     type: number
     sql: ${TABLE}.latitude ;;
