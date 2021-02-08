@@ -6,7 +6,7 @@ view: order_items {
     type: number
     sql: ${TABLE}.id ;;
   }
-#refer to
+
   dimension_group: created {
     type: time
     timeframes: [
@@ -52,10 +52,6 @@ view: order_items {
     sql: ${TABLE}.order_id ;;
   }
 
- measure: count_of_items {
-   type: count_distinct
-  sql:  ${order_id} ;;
- }
   dimension: profit {
     type: number
     sql: ${sale_price} - ${inventory_items.cost} ;;
