@@ -48,3 +48,5 @@ explore: order_items {
 explore: events {
 
 }
+
+explore: users {}
