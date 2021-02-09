@@ -11,13 +11,16 @@ datagroup: data_analyst_bootcamp_default_datagroup {
 
 persist_with: data_analyst_bootcamp_default_datagroup
 ###change
-
+##adding comments
 ### Whitespaces ####
 
 # explore: inventory_items {}
 
 # This explore contains multiple views
 explore: order_items {
+  group_label: "CNA Training"
+  label: "Orders"
+  description: "Use this for the CNA developer training"
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -43,5 +46,7 @@ explore: order_items {
   }
 }
 
+# explore: products {
+#   group_label: "Advanced Data Analyst Bootcamp"
 
-# explore: products {}
+# }

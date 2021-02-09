@@ -12,12 +12,26 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  dimension: age_tier {
+    type: tier
+    tiers: [18,25,35,45,55,65,75,90]
+    sql: ${age} ;;
+    style: integer
+  }
+
   dimension: city {
+    group_label: "Location Details"
     type: string
     sql: ${TABLE}.city ;;
   }
 
+  dimension: city_state {
+    type: string
+    sql: ${city} || ',' ||${state};;
+  }
+
   dimension: country {
+    group_label: "Location Details"
     type: string
     map_layer_name: countries
     sql: ${TABLE}.country ;;
@@ -32,12 +46,28 @@ view: users {
       week,
       month,
       month_name,
+      month_num,
       quarter,
       day_of_month,
       year
     ]
     sql: ${TABLE}.created_at ;;
   }
+
+  dimension: days_since_signup {
+    label: "Days a Customer"
+    description: "The number of days since user signed up"
+    type: number
+    sql: DATEDIFF(day, ${created_date}, current_date);;
+  }
+
+  dimension: days_since_signup_tier{
+    type: tier
+    sql: ${days_since_signup} ;;
+    tiers: [0,30,90,180,360,720]
+    style: integer
+  }
+
 
   dimension: email {
     type: string
@@ -49,9 +79,19 @@ view: users {
     sql: ${TABLE}.first_name ;;
   }
 
+  dimension: full_name {
+    type: string
+    sql: ${first_name} || ' ' || ${last_name} ;;
+  }
+
   dimension: gender {
     type: string
     sql: ${TABLE}.gender ;;
+  }
+
+  dimension: is_new_customer {
+    type: yesno
+    sql: ${days_since_signup} <= 90 ;;
   }
 
   dimension: last_name {
