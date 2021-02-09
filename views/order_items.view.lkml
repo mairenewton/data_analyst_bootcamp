@@ -96,6 +96,14 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+  dimension: shipping_interval {
+    type:  number
+    sql:  ;;
+
+
+  }
+
+
   measure: count {
     type: count
     drill_fields: [detail*]

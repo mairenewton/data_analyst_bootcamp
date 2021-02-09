@@ -12,12 +12,27 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  dimension: age_tier {
+    type: tier
+    tiers: [18,25,35,45,55,65,75,90]
+    sql: ${age} ;;
+    style: integer
+  }
+
   dimension: city {
+    group_label: "Location Details"
     type: string
     sql: ${TABLE}.city ;;
   }
 
+dimension: city_state {
+  type: string
+  sql: ${city}|| ',' ||${state};;
+}
+
+
   dimension: country {
+    group_label: "Location Details"
     type: string
     map_layer_name: countries
     sql: ${TABLE}.country ;;
@@ -43,6 +58,12 @@ view: users {
     type: string
     sql: ${TABLE}.email ;;
   }
+
+  dimension: is_email_traffic {
+    type: yesno
+    sql: ${traffic_source} = 'Email' ;;
+  }
+
 
   dimension: first_name {
     type: string
@@ -70,6 +91,7 @@ view: users {
   }
 
   dimension: state {
+    group_label: "Location Details"
     type: string
     sql: ${TABLE}.state ;;
   }
