@@ -85,6 +85,11 @@ view: order_items {
     sql: DATEDIFF(day, ${shipped_date},${delivered_date}) ;;
   }
 
+  dimension: shipping_daysMR {
+    type: duration_day
+    sql_start: ${shipped_date};;
+    sql_end: ${delivered_date} ;;
+  }
 #   dimension_group: shipping_days {
 #     type: duration
 #     sql_start: ${shipped_date};;

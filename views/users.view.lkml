@@ -9,9 +9,16 @@ view: users {
 
   dimension: age {
     type: number
-    sql: ${TABLE}.age ;;
+        sql: ${TABLE}.age ;;
   }
 
+dimension: age_tier
+{
+  type: tier
+  tiers: [18,25,35,45,55,65,75,90]
+  sql: ${age} ;;
+  style: integer
+}
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
@@ -21,11 +28,6 @@ view: users {
     type: string
     sql: ${city} || ',' || ${state} ;;
   }
-
-#   dimension: city_state {
-#     type: string
-#     sql: CONCAT(${city}, ‘, ‘, ${state});;
-#   }
 
 
   dimension: country {
@@ -78,10 +80,13 @@ view: users {
     sql: ${TABLE}.first_name ;;
   }
 
-  dimension: full_name {
+  dimension: Full_name {
     type: string
+    description: "first and last name of consultant"
     sql: ${first_name} || ${last_name} ;;
   }
+
+
 
   dimension: gender {
     type: string
@@ -113,7 +118,7 @@ view: users {
     sql: ${TABLE}.state ;;
   }
 
-  dimension: traffic_source {
+    dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
   }
