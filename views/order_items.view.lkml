@@ -27,6 +27,12 @@ view: order_items {
       current_date) ;;
       }
 
+dimension: days_since_ordered_tiers {
+  type: tier
+  sql: ${days_since_ordered} ;;
+  tiers: [0, 30, 90, 180, 360, 720]
+  style: integer
+}
   dimension_group: delivered {
     type: time
     timeframes: [
