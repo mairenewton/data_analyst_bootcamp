@@ -116,6 +116,13 @@ view: order_items {
     type: count
     drill_fields: [detail*]
   }
+
+  measure: Average_sales {
+    type: average
+    sql: ${sale_price} ;;
+    value_format_name: usd_0
+  }
+
 measure: Total_Sales {
   type: sum
   sql: ${sale_price} ;;
