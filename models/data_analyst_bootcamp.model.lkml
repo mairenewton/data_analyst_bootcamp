@@ -46,6 +46,11 @@ explore: order_items {
   }
 }
 
+explore: users {
+group_label: "CNA Training"
+
+}
+
 # explore: products {
 #   group_label: "Advanced Data Analyst Bootcamp"
 
