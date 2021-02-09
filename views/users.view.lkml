@@ -6,7 +6,7 @@ view: users {
     type: number
     sql: ${TABLE}.id ;;
   }
-
+#This is a sample git flow
   dimension: age {
     type: number
     sql: ${TABLE}.age ;;
