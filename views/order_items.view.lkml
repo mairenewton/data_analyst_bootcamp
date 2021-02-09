@@ -21,6 +21,11 @@ view: order_items {
     ]
     sql: ${TABLE}.created_at ;;
   }
+  dimension: days_since_ordered {
+    type: number
+    sql: DATEDIFF(day, ${created_date},
+      current_date) ;;
+      }
 
   dimension_group: delivered {
     type: time
