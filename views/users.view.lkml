@@ -84,6 +84,13 @@ view: users {
     type: yesno
     sql: ${TABLE}.traffic_source = 'Email' ;;
   }
+
+  measure: total_sales_email_users {
+    type: number
+    sql: ${TABLE}.id ;;
+    filters: [users.traffic_source: "Email"]
+  }
+
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
