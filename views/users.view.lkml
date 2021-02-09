@@ -69,6 +69,12 @@ view: users {
     sql: ${TABLE}.longitude ;;
   }
 
+  dimension: new_Customer {
+    type: yesno
+    sql: ${created_date} <= 90;;
+  }
+
+
   dimension: state {
     type: string
     sql: ${TABLE}.state ;;
