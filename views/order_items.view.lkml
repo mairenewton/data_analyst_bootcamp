@@ -121,6 +121,14 @@ measure: total_sales {
   value_format_name: usd
 }
 
+measure: average_sales_Price {
+  type: average
+  description: "average of sale prices"
+  sql: ${sale_price} ;;
+  value_format_name: usd_0
+}
+
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
