@@ -86,8 +86,8 @@ view: users {
   }
 
   measure: total_sales_email_users {
-    type: number
-    sql: ${TABLE}.id ;;
+    type: sum
+    sql: ${TABLE}.sales_price ;;
     filters: [users.traffic_source: "Email"]
   }
 
