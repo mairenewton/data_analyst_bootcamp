@@ -52,10 +52,7 @@ view: order_items {
     sql: ${TABLE}.order_id ;;
   }
 
-  measure: count_of_orders {
-    type: count_distinct
-    sql: ${order_id} ;;
-  }
+
 
   dimension: profit {
     type: number

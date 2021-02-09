@@ -6,12 +6,12 @@ view: users {
     type: number
     sql: ${TABLE}.id ;;
   }
-#This is a sample git flow
+
   dimension: age {
     type: number
     sql: ${TABLE}.age ;;
   }
-  #This is a sample
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
@@ -66,10 +66,7 @@ view: users {
     sql: ${TABLE}.last_name ;;
   }
 
-  dimension: full_name {
-    type: string
-    sql: ${first_name} ||' '|| ${last_name} ;;
-  }
+
 
   dimension: latitude {
     type: number
