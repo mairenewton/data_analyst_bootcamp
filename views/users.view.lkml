@@ -6,7 +6,7 @@ view: users {
     type: number
     sql: ${TABLE}.id ;;
   }
-  #this is a test
+
   dimension: age {
     type: number
     sql: ${TABLE}.age ;;
@@ -66,10 +66,7 @@ view: users {
     sql: ${TABLE}.last_name ;;
   }
 
-  dimension: full_name {
-    type: string
-    sql: ${first_name} ||' '|| ${last_name} ;;
-  }
+
 
   dimension: latitude {
     type: number
