@@ -78,7 +78,7 @@ view: events {
 
   dimension: city_state {
   type: string
-  sql: CONCAT(${city},',',${state};;
+  sql: ${city} || ',' ||${state};;
   }
 
   dimension: traffic_source {
