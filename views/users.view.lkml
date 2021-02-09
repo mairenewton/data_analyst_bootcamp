@@ -16,7 +16,7 @@ view: users {
     type: string
     sql: ${TABLE}.city ;;
   }
-
+#this is a sample git flow
   dimension: country {
     type: string
     map_layer_name: countries
