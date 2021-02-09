@@ -76,6 +76,10 @@ view: events {
     sql: ${TABLE}.state ;;
   }
 
+  dimension: city_state {}
+  type: string
+  sql: CONCAT(${city},',',${state}
+
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
