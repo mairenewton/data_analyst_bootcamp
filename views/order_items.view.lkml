@@ -47,6 +47,8 @@ view: order_items {
     sql: ${TABLE}.order_id ;;
   }
 
+
+
   dimension_group: returned {
     type: time
     timeframes: [
@@ -110,10 +112,20 @@ view: order_items {
   }
 
   measure: count {
+    hidden: yes
     type: count
     drill_fields: [detail*]
   }
-
+measure: Total_Sales {
+  type: sum
+  sql: ${sale_price} ;;
+ value_format_name: usd
+}
+  measure: Order_Count {
+    description: "number of distinct orders"
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
