@@ -13,6 +13,7 @@ view: users {
   }
 
   dimension: city {
+    hidden:  yes
     type: string
     sql: ${TABLE}.city ;;
   }
@@ -70,8 +71,14 @@ view: users {
   }
 
   dimension: state {
+    hidden:  yes
     type: string
     sql: ${TABLE}.state ;;
+  }
+
+  dimension: city_state {
+    type: string
+    sql: ${TABLE}.city || ', ' || ${TABLE}.state ;;
   }
 
   dimension: traffic_source {
@@ -83,6 +90,7 @@ view: users {
     type: zipcode
     sql: ${TABLE}.zip ;;
   }
+
 
   measure: count {
     type: count
