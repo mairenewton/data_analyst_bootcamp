@@ -4,13 +4,14 @@ connection: "events_ecommerce"
 include: "/views/*.view"
 # added comment
 
-datagroup: data_analyst_bootcamp_default_datagroup {
-  # sql_trigger: SELECT MAX(id) FROM etl_log;;
-  max_cache_age: "1 hour"
+datagroup: default {
+sql_trigger: SELECT MAX(id) FROM etl_log;;
+  max_cache_age: "24 hours"
 }
 
-persist_with: data_analyst_bootcamp_default_datagroup
-###change
+explore: users{
+  persist_with: default
+}
 
 ### Whitespaces ####
 
