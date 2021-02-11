@@ -13,6 +13,7 @@ view: users {
   }
 
   dimension: city {
+    hidden:  yes
     type: string
     sql: ${TABLE}.city ;;
   }
@@ -44,7 +45,15 @@ view: users {
     sql: ${TABLE}.email ;;
   }
 
+  dimension: is_email_source {
+    type: yesno
+    sql: ${traffic_source} = 'Email' ;;
+  }
+
+
+
   dimension: first_name {
+    hidden:  yes
     type: string
     sql: ${TABLE}.first_name ;;
   }
@@ -57,6 +66,23 @@ view: users {
   dimension: last_name {
     type: string
     sql: ${TABLE}.last_name ;;
+  }
+
+  dimension: name {
+    type: string
+    sql: ${first_name} || ' ' || ${last_name} ;;
+  }
+
+  dimension: age_tier {
+    type: tier
+    tiers: [18,25,35,45,55,65,75,90]
+    sql: ${age};;
+    style: integer
+  }
+
+  dimension: city_state {
+    type: string
+    sql: ${city} || ' (' || ${state} || ')' ;;
   }
 
   dimension: latitude {
