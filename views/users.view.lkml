@@ -58,6 +58,10 @@ view: users {
     type: string
     sql: ${TABLE}.last_name ;;
   }
+dimension: name{
+  type:  string
+  sql: ${TABLE}.city_state;;
+}
 
   dimension: latitude {
     type: number
