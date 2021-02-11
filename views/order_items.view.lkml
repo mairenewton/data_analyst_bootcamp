@@ -7,6 +7,12 @@ view: order_items {
     sql: ${TABLE}.id ;;
   }
 
+measure: count_orders {
+  label: "Distinct Orders"
+  type: count_distinct
+  sql: ${order_id} ;;
+}
+
   dimension_group: created {
     type: time
     timeframes: [
