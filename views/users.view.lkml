@@ -45,6 +45,7 @@ view: users {
   }
 
   dimension: first_name {
+    hidden: yes
     type: string
     sql: ${TABLE}.first_name ;;
   }
@@ -55,9 +56,20 @@ view: users {
   }
 
   dimension: last_name {
+    hidden: yes
     type: string
     sql: ${TABLE}.last_name ;;
   }
+
+  dimension: name {
+    type: string
+    sql: ${TABLE}.first_name || ',' sql: ${TABLE}.last_name ;;
+  }
+
+  dimension: mailid  {
+  type: yesno
+  sql: ${traffic_source} = 'Email' ;;
+}
 
   dimension: latitude {
     type: number
