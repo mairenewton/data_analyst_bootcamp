@@ -7,6 +7,11 @@ view: order_items {
     sql: ${TABLE}.id ;;
   }
 
+dimension: order_id {
+  type: number
+  sql: ${TABLE}.id ;;
+}
+
   dimension_group: created {
     type: time
     timeframes: [
@@ -42,9 +47,10 @@ view: order_items {
     sql: ${TABLE}.inventory_item_id ;;
   }
 
-  dimension: order_id {
-    type: number
-    sql: ${TABLE}.order_id ;;
+  measure: total_sales_by_email {
+    type: sum
+    sql: $(${sale_price} ;;
+
   }
 
   dimension: profit {

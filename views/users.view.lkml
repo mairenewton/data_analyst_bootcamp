@@ -48,7 +48,10 @@ view: users {
     type: string
     sql: ${TABLE}.first_name ;;
   }
-
+  dimension: city_state {
+    type: string
+    sql: ${city} || ‘, ‘ || ${state};;
+  }
   dimension: gender {
     type: string
     sql: ${TABLE}.gender ;;
@@ -67,6 +70,12 @@ view: users {
   dimension: longitude {
     type: number
     sql: ${TABLE}.longitude ;;
+  }
+  dimension:location
+  { type: location
+    sql_latitude: ${latitude} ;;
+    sql_longitude: (${longitude};;
+
   }
 
   dimension: state {
