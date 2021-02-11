@@ -1,5 +1,4 @@
 connection: "events_ecommerce"
-# greg test comment
 
 # include all the views
 include: "/views/*.view"
