@@ -36,6 +36,17 @@ view: order_items {
     sql: ${TABLE}.delivered_at ;;
   }
 
+  dimension: days_to_ship {
+    type:  duration_day
+    sql_start: ${shipped_raw} ;;
+    sql_end: ${delivered_raw} ;;
+  }
+
+  measure: distinct_items{
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
   dimension: inventory_item_id {
     type: number
     # hidden: yes
