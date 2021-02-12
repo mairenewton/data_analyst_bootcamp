@@ -42,10 +42,42 @@ view: order_items {
     sql_end: ${delivered_raw} ;;
   }
 
-  measure: distinct_items{
+  measure: count_orders{
     type: count_distinct
     sql: ${order_id} ;;
   }
+
+  measure: total_sales {
+    type: sum
+    sql:  ${sale_price} ;;
+    value_format_name: usd
+  }
+
+  measure: total_sales_by_email {
+    type: sum
+    sql:  ${sale_price} ;;
+    value_format_name: usd
+    filters: [users.traffic_source: "Email"]
+  }
+
+  measure: avg_sales {
+    type: number
+    sql:  1.0*${total_sales_by_email}/NULLIF(${total_sales},0) ;;
+    value_format_name: percent_0
+  }
+
+  measure: average_spend_per_user {
+    type: number
+    sql:  1.0*${total_sales}/NULLIF(${users.count},0);;
+    value_format_name: usd
+  }
+
+  measure: percent_of_sales_email_source{
+    type: number
+    sql:  ${total_sales} / ${total_sales_by_email} ;;
+    value_format: "usd"
+  }
+
 
   dimension: inventory_item_id {
     type: number

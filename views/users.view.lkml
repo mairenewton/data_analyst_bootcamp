@@ -51,7 +51,7 @@ view: users {
     sql: ${TABLE}.email ;;
   }
 
-  dimension: is_email {
+  dimension: is_email_source {
     type: yesno
     sql: Upper(${traffic_source}) = 'EMAIL' ;;
   }
