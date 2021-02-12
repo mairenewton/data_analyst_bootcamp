@@ -14,10 +14,10 @@ view: users {
 
   dimension: age_bandings {
     type: tier
-    tier: [10,20,30,40,50,60,70,80]
+    tiers: [10,20,30,40,50,60,70,80]
     style: integer
     sql: ${age} ;;
-
+  }
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
