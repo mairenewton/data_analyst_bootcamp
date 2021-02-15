@@ -17,6 +17,7 @@ view: users_fact {
   }
 
   dimension: user_id {
+    hidden: yes
     type: number
     sql: ${TABLE}.user_id ;;
   }
@@ -27,7 +28,6 @@ view: users_fact {
   }
 
   dimension: lifetime_revenue {
-    hidden: yes
     type: number
     sql: ${TABLE}.lifetime_revenue ;;
   }

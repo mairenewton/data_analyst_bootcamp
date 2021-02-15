@@ -1,4 +1,4 @@
-view: product_fact {
+view: products_fact {
   derived_table: {
     sql: SELECT
       product_sku AS product_sku
@@ -16,6 +16,7 @@ view: product_fact {
   }
 
   dimension: product_sku {
+    hidden: yes
     type: string
     sql: ${TABLE}.product_sku ;;
   }
