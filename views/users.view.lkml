@@ -30,7 +30,7 @@ view: users {
       time,
       date,
       week,
-      month,
+      month_num,
       month_name,
       quarter,
       day_of_month,
