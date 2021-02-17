@@ -67,6 +67,7 @@ view: order_items {
   }
 
   dimension: sale_price {
+    label: "Price $"
     type: number
     sql: ${TABLE}.sale_price ;;
     value_format_name: usd
@@ -123,7 +124,7 @@ view: order_items {
   }
 
   measure: count {
-    hidden: yes
+   hidden: yes
     type: count
     drill_fields: [detail*]
   }
@@ -132,6 +133,7 @@ view: order_items {
     description: "A count of unique orders"
     type: count_distinct
     sql: ${order_id} ;;
+    drill_fields: [detail*]
   }
 
   measure: total_sales {
