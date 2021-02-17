@@ -19,6 +19,7 @@ persist_with: data_analyst_bootcamp_default_datagroup
 
 # This explore contains multiple views
 explore: order_items {
+##  group_label: "CNA Training"
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;

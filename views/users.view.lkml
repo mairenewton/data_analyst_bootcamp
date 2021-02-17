@@ -69,9 +69,9 @@ view: users {
     sql: ${TABLE}.longitude ;;
   }
 
-  dimension: new_Customer {
+  dimension: new_customer {
     type: yesno
-    sql: ${created_date} <= 90;;
+    sql: ${created_date} <= 180;;
   }
 
 
@@ -80,10 +80,29 @@ view: users {
     sql: ${TABLE}.state ;;
   }
 
+  dimension: city_state {
+    type: string
+    sql: ${TABLE}.city ||' '||${state};;
+  }
+
+  dimension: age_groups {
+    type: tier
+    sql: ${TABLE}.age;;
+    tiers: [18,25,35,45,55,65,75,85]
+    style: integer
+  }
+
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
   }
+
+  dimension: email_traffic_source {
+    type: yesno
+    sql: ${TABLE}.traffic_source = ${email} ;;
+  }
+
+
 
   dimension: zip {
     type: zipcode
