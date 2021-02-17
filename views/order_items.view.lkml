@@ -116,6 +116,12 @@ view: order_items {
     value_format_name: usd_0
   }
 
+  measure: average_spend_per_user {
+    type: number
+    value_format_name: usd
+    sql: 1.0*${total_sales}/NULLIF(${users.count},0) ;;
+  }
+
   measure: count {
     hidden: yes
     type: count
@@ -133,6 +139,28 @@ view: order_items {
     sql: ${sale_price} ;;
     value_format_name: usd
   }
+
+  measure: total_sales_email_users{
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [users.is_email_source: "Yes"]
+    value_format_name: usd
+  }
+
+  measure: total_sales_new_users {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [users.is_new_user: "Yes"]
+  }
+
+  measure: pecentage_sales_email_source {
+    description: "Percentage of Sales from Email traffic source"
+    type: number
+    sql: 1.0*${total_sales_email_users}/NULLIF(${total_sales},0);;
+    value_format_name: percent_2
+  }
+
+
 
   # ----- Sets of fields for drilling ------
   set: detail {

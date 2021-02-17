@@ -69,6 +69,7 @@ view: inventory_items {
     sql: ${TABLE}.product_sku ;;
   }
 
+
   dimension_group: sold {
     type: time
     timeframes: [
