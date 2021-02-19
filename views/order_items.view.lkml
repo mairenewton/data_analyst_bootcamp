@@ -1,7 +1,7 @@
 view: order_items {
   sql_table_name: public.order_items ;;
 
-  dimension: id {
+  dimension: order_item_id {
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
@@ -15,6 +15,7 @@ view: order_items {
       date,
       week,
       month,
+      month_name,
       quarter,
       year
     ]
@@ -46,9 +47,9 @@ view: order_items {
     sql: ${TABLE}.order_id ;;
   }
 
-  dimension: sale_price {
+  dimension: profit {
     type: number
-    sql: ${TABLE}.sale_price;;
+    sql: ${sale_price} - ${inventory_items.cost} ;;
   }
 
   dimension_group: returned {
@@ -63,6 +64,11 @@ view: order_items {
       year
     ]
     sql: ${TABLE}.returned_at ;;
+  }
+
+  dimension: sale_price {
+    type: number
+    sql: ${TABLE}.sale_price ;;
   }
 
   dimension_group: shipped {
@@ -95,21 +101,10 @@ view: order_items {
     drill_fields: [detail*]
   }
 
-  measure: total_revenue {
-    type: sum
-    sql: ${sale_price} ;;
-  }
-
-  measure: average_sale_price {
-    type: average
-    sql: ${sale_price} ;;
-  }
-
-
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
-      id,
+      order_item_id,
       users.id,
       users.first_name,
       users.last_name,
