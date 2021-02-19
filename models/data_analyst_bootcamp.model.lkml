@@ -19,6 +19,12 @@ persist_with: data_analyst_bootcamp_default_datagroup
 
 # This explore contains multiple views
 explore: order_items {
+#  sql_always_where: ${order_items.created_date} >= '2012-01-01' ;;
+conditionally_filter: {
+  filters: [created_date: "1 month"]
+  unless: [user_id, users.state]
+}
+
   group_label: "CNA Training"
   label: "Orders"
   description: "Use this for the CNA developer training"
@@ -51,6 +57,19 @@ explore: order_items {
 
 explore: users {
 group_label: "CNA Training"
+description: "This is for the user and order details"
+join: order_items {
+  type: left_outer
+  sql_on: ${users.id} = ${order_items.user_id} ;;
+  relationship: one_to_many
+}
+join: inventory_items {
+  view_label: "Order Items"
+  type: left_outer
+  sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;
+  relationship: many_to_one
+  fields: [inventory_items.cost]
+}
 
 }
 

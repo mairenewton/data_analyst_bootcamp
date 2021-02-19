@@ -8,7 +8,7 @@ view: inventory_items {
   }
 
   dimension: cost {
-    label: "Revenue"
+#    label: "Revenue"
 #    hidden: yes
     type: number
     sql: ${TABLE}.cost ;;
