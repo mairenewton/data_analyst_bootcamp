@@ -85,6 +85,11 @@ view: order_items {
     sql: ${TABLE}.shipped_at ;;
   }
 
+  dimension: shipping_days {
+    type:  number
+    sql: DATEDIFF(day, ${shipped_date}, ${delivered_date}) ;;
+  }
+
   dimension: status {
     type: string
     sql: ${TABLE}.status ;;
@@ -112,4 +117,16 @@ view: order_items {
       inventory_items.product_name
     ]
   }
+
+  measure: order_count {
+    type: count_distinct
+    sql: ${order_id} ;;
+    value_format_name: decimal_0
+  }
+  measure: total_Sales {
+    type:  sum
+    sql: ${sale_price}  ;;
+    value_format_name: decimal_2
+  }
+
 }
