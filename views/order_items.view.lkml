@@ -129,10 +129,28 @@ view: order_items {
     value_format_name: decimal_2
   }
 
+  measure: total_email_sales {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [users.is_traffic_source_email: "Yes"]
+  }
+
+  measure: email_sales_ratio {
+    type:  number
+    sql:  ${total_email_sales} / ${total_Sales} ;;
+    value_format_name: percent_2
+  }
+
   measure: average_sales {
     type: average
     sql: ${sale_price} ;;
     value_format_name: decimal_2
+  }
+
+  measure: average_user_spent {
+    type:  number
+    sql:  ${total_Sales}/${users.count} ;;
+    value_format_name: usd
   }
 
 
