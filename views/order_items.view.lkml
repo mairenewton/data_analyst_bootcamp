@@ -63,8 +63,10 @@ measure: count_of_orders {
   dimension: profit {
     type: number
     sql: ${sale_price} - ${inventory_items.cost} ;;
+    value_format_name: usd
 
   }
+
 
   dimension_group: returned {
     type: time
@@ -120,6 +122,22 @@ measure: count_of_orders {
     sql:  ${sale_price} ;;
     value_format: "usd"
   }
+
+  dimension: total_sales_from_mails {
+    type: yesno
+    sql:  ;;
+
+  }
+
+  measure: total_email_price_sales {
+    type:  sum
+    sql:  ${sale_price};;
+    filters: [users.traffic_source: "Email"]
+  }
+
+
+
+
 
   # ----- Sets of fields for drilling ------
   set: detail {
