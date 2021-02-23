@@ -42,6 +42,19 @@ view: order_items {
     sql: ${TABLE}.inventory_item_id ;;
   }
 
+
+  dimension: order_items_tier{
+  type:tier
+  tiers: [10,50,100]
+    sql: ${TABLE}.order_id;;
+  }
+
+
+
+measure: count_of_orders {
+  type: count_distinct
+  sql: ${TABLE}.order_id;;
+}
   dimension: order_id {
     type: number
     sql: ${TABLE}.order_id ;;
