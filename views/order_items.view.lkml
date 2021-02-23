@@ -63,6 +63,7 @@ measure: count_of_orders {
   dimension: profit {
     type: number
     sql: ${sale_price} - ${inventory_items.cost} ;;
+
   }
 
   dimension_group: returned {
@@ -112,6 +113,12 @@ measure: count_of_orders {
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: average_sales {
+    type: average
+    sql:  ${sale_price} ;;
+    value_format: "usd"
   }
 
   # ----- Sets of fields for drilling ------
