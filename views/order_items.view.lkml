@@ -96,6 +96,28 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+  measure: count_orders {
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+  measure: total_sales {
+    type: sum
+    sql: ${sale_price} ;;
+  }
+
+  measure: total_sales_average {
+    type: average
+    sql: ${sale_price} ;;
+    value_format: "usd"
+  }
+
+  measure: test {
+    type: number
+    sql: ${total_sales}/${sale_price} WHEN *${count_orders}>3 ;;
+
+  }
+
+
   measure: count {
     type: count
     drill_fields: [detail*]
