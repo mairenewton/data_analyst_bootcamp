@@ -129,4 +129,12 @@ view: order_items {
     value_format_name: decimal_2
   }
 
+  measure: average_sales {
+    type: average
+    sql: ${sale_price} ;;
+    value_format_name: decimal_2
+  }
+
+
+
 }
