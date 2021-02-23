@@ -17,8 +17,10 @@ persist_with: data_analyst_bootcamp_default_datagroup
 
 # This explore contains multiple views
 explore: order_items {
-  sql_always_where: ${status} <> 'Returned' ;;
-  sql_always_having: ${total_Sales} > 200 ;;
+  # sql_always_where: ${returned_date} is null ;;
+  sql_always_where: ${status} = 'Complete' ;;
+  # sql_always_having: ${total_Sales} > 200 ;;
+  sql_always_having: ${count} > 5  ;;
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
