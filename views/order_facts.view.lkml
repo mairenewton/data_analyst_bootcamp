@@ -11,11 +11,6 @@ view: order_facts {
        ;;
   }
 
-  measure: count {
-    type: count
-    drill_fields: [detail*]
-  }
-
   dimension: order_id {
     primary_key: yes
     type: number
@@ -27,12 +22,14 @@ view: order_facts {
     sql: ${TABLE}.user_id ;;
   }
 
-  dimension: count_ {
+  measure: count_ {
+    label: "Order Count"
     type: number
     sql: ${TABLE}.count ;;
   }
 
   measure: sum {
+    label: "Total Revenue"
     type: sum
     sql: ${TABLE}.sum ;;
   }

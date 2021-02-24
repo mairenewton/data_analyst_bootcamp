@@ -11,11 +11,6 @@ view: user_facts {
        ;;
   }
 
-  measure: count {
-    type: count
-    drill_fields: [detail*]
-  }
-
   dimension: user_id {
     primary_key: yes
     type: number
