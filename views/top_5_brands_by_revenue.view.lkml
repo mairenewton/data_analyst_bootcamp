@@ -4,7 +4,7 @@ view: top_5_brands_by_revenue {
         column: brand { field: products.brand }
         column: sum { field: order_facts.sum }
         derived_column: brand_rank {
-          sql: row_number() over (order by total_revenue desc) ;; }
+          sql: row_number() over (order by sum desc) ;; }
       }
     }
 
