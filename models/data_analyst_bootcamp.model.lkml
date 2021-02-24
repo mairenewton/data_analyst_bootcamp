@@ -40,6 +40,12 @@ explore: order_items {
     sql_on: ${inventory_items.product_distribution_center_id} = ${distribution_centers.id} ;;
     relationship: many_to_one
   }
+
+  join: order_facts {
+    type: left_outer
+    sql_on: ${order_items.order_id} = ${order_facts.order_id} ;;
+    relationship: one_to_one
+  }
 }
 
 
