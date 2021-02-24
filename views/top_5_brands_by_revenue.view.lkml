@@ -1,12 +1,14 @@
 view: top_5_brands_by_revenue {
     derived_table: {
       explore_source: order_items {
+        bind_all_filters: yes
         column: brand { field: products.brand }
         column: sum { field: order_facts.sum }
         derived_column: brand_rank {
           sql: row_number() over (order by sum desc) ;; }
       }
     }
+
 
     dimension: brand {primary_key: yes}
 
