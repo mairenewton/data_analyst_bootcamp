@@ -8,7 +8,7 @@ view: top_5_brands_by_revenue {
       }
     }
 
-    dimension: brand {}
+    dimension: brand {primary_key: yes}
 
     measure: sum {
       type: sum
