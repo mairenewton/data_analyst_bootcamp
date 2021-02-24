@@ -46,6 +46,12 @@ explore: order_items {
     sql_on: ${order_items.order_id} = ${order_facts.order_id} ;;
     relationship: one_to_one
   }
+
+  join: top_5_brands_by_revenue {
+    type: left_outer
+    sql_on: ${products.brand} = ${top_5_brands_by_revenue.brand} ;;
+    relationship: many_to_one
+  }
 }
 
 
