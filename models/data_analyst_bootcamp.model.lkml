@@ -10,7 +10,7 @@ datagroup: data_analyst_bootcamp_default_datagroup {
 
 datagroup: daily_schedule {
   max_cache_age: "24 hours"
-  sql_trigger: SELECT CURRENT_DATE() ;;
+  sql_trigger: SELECT CURRENT_DATE ;;
 }
 
 datagroup: order_items_schedule {
