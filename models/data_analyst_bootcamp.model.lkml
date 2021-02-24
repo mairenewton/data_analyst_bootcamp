@@ -63,7 +63,7 @@ explore: order_items {
 
   join: user_facts {
     type: left_outer
-    sql_on: ${order_items.user_id} = ${user_facts.user_id};;
+    sql_on: ${users.id} = ${user_facts.user_id};;
     relationship: one_to_one
   }
 }
