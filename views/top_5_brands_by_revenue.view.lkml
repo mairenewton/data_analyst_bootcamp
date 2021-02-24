@@ -6,6 +6,7 @@ view: top_5_brands_by_revenue {
         column: sum { field: order_facts.sum }
         derived_column: brand_rank {
           sql: row_number() over (order by sum desc) ;; }
+      # filters: [order_items.created_date: "365 days"]
       }
     }
 
