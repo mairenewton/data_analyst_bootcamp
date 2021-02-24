@@ -10,8 +10,8 @@ view: top_5_brands_by_revenue {
 
     dimension: brand {}
 
-    dimension: sum {
-      type: number
+    measure: sum {
+      type: sum
     }
 
     dimension: brand_rank {}
