@@ -9,9 +9,7 @@ datagroup: data_analyst_bootcamp_default_datagroup {
 }
 
 persist_with: data_analyst_bootcamp_default_datagroup
-###change
-#Another Change
-### Whitespaces ####
+#comment
 
 # explore: inventory_items {}
 
