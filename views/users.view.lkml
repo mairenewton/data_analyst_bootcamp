@@ -96,9 +96,9 @@ view: users {
     style: integer
   }
 
-  dimension: email_Yes_No {
+  dimension: emailSource {
     type: yesno
-    sql:  ${email} is not null;;
+    sql:  ${traffic_source} = ${email} ;;
   }
 
   measure: count {
