@@ -98,7 +98,7 @@ view: users {
 
   dimension: emailSource {
     type: yesno
-    sql:  ${traffic_source} = ${email} ;;
+    sql:  ${traffic_source} = 'Email' ;;
   }
 
   measure: count {
