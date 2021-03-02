@@ -104,7 +104,7 @@ view: order_items {
   measure: count_distinct  {
     description: "A count of unique orders"
     type: count_distinct
-    drill_fields: [detail*]
+    drill_fields: [order_id]
   }
 
 
