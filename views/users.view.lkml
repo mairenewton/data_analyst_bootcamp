@@ -96,6 +96,11 @@ view: users {
     style: integer
   }
 
+  dimension: email_Yes_No {
+    type: yesno
+    sql:  ${email} is not null;;
+  }
+
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
