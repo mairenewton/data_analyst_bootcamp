@@ -103,7 +103,7 @@ view: order_items {
 
   measure: count_distinct  {
     description: "A count of unique orders"
-    type: count_distinct
+    type: count
     sql_distinct_key: ${order_item_id} ;;
   }
 
