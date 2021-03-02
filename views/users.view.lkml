@@ -76,7 +76,7 @@ view: users {
 
   dimension: city_and_state {
     type: string
-    sql:  $(${city} || ', ' || ${state} ;;
+    sql:  CONCAT(${city}, ', ', ${state} ;;
   }
 
   dimension: traffic_source {
