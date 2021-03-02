@@ -62,6 +62,7 @@ view: order_items {
   }
 
   dimension: sale_price {
+    hidden: yes
     type: number
     sql: ${TABLE}.sale_price ;;
   }
@@ -91,16 +92,90 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+
+
+  # SHIPPING DAYS
+
+  # dimension_group: shipping_days {
+  #   type: duration
+  #   sql_start: ${shipped_date};;
+  #   sql_end: ${delivered_date};;
+  #   intervals: [day]
+  # }
+
+  # dimension: shipping_days {
+  #   type: number
+  #   sql: DATEDIFF(day, ${shipped_date}  ,${delivered_date});;
+  # }
+
+
   measure: count {
     type: count
     drill_fields: [detail*]
   }
 
-  measure: total_sales {
+  # COUNT OF UNIQUE ORDERS
+
+  # measure: order_count {
+  #   description: "A count of unique orders"
+  #   type:count_distinct
+  #   sql: ${order_id};;
+  # }
+
+
+
+  # TOTAL SALES
+
+  # measure: total_sales{
+  #   type: sum
+  #   sql: ${sale_price} ;;
+  #   value_format_name: usd
+  # }
+
+
+
+
+  # AVERAGE SALES
+
+
+  # measure: average_sales {
+  #   type: average
+  #   sql: ${sale_price} ;;
+  #   value_format_name: usd
+  # }
+
+
+  # TOTAL SALES EMAIL USERS
+
+  measure: total_sales_email_users {
     type: sum
     sql: ${sale_price} ;;
-    value_format_name: usd
+    filters: [users.is_email_source: "Yes"]
   }
+
+
+
+  # Percentage of sales that are attributed to users coming from the email traffic source
+
+  # measure: percentage_sales_email_source {
+  #   type: number
+  #   value_format_name: percent_2
+  #   sql: 1.0*${total_sales_email_users}
+  #     /NULLIF(${total_sales}, 0) ;;
+  # }
+
+
+
+  # Average spend per user by dividing the total sales measure by the user count measure
+
+  # measure: average_spend_per_user {
+  #   type: number
+  #   value_format_name: usd
+  #   sql: 1.0*${total_sales} / NULLIF(${users.count},0)
+  #     ;;
+  # }
+
+
 
   # ----- Sets of fields for drilling ------
   set: detail {
