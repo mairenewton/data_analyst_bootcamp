@@ -14,15 +14,12 @@ persist_with: data_analyst_bootcamp_default_datagroup
 ##adding comments
 ### Whitespaces ####
 
-# explore: inventory_items {}
+ explore: brand_order_facts_ndt {}
+
+
 
 # This explore contains multiple views
 explore: order_items {
-#  sql_always_where: ${order_items.created_date} >= '2012-01-01' ;;
-conditionally_filter: {
-  filters: [created_date: "1 month"]
-  unless: [user_id, users.state]
-}
 
   group_label: "CNA Training"
   label: "Orders"
@@ -55,6 +52,14 @@ conditionally_filter: {
 }
 
 explore: users {
+# conditionally_filter: {
+#     filters: [order_items.created_date: "last 2 years"]
+#     unless: [users.id]
+#   }
+  conditionally_filter: {
+    filters: [order_items.created_date: "last 90 days"]
+    unless: [users.id, users.state]
+  }
 group_label: "CNA Training"
 description: "This is for the user and order details"
 join: order_items {
