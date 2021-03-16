@@ -12,9 +12,21 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  dimension: age_tier {
+    type: tier
+    tiers: [18,25,50]
+    style: integer
+    sql: ${age} ;;
+  }
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
+  }
+
+  dimension: city_state {
+    type: string
+    sql: ${city}|| ', ' || ${state} ;;
   }
 
   dimension: country {
@@ -29,6 +41,8 @@ view: users {
       raw,
       time,
       date,
+      day_of_week,
+      week_of_year,
       week,
       month,
       month_name,
@@ -39,6 +53,30 @@ view: users {
     sql: ${TABLE}.created_at ;;
   }
 
+  dimension: days_since_signup {
+    type: number
+    sql: DATEDIFF(day, ${created_raw}, CURRENT_DATE) ;;
+  }
+
+  dimension_group: since_signup_2 {
+    type: duration
+    sql_start: ${created_date} ;;
+    sql_end: CURRENT_DATE ;;
+    intervals: [day, week, month]
+  }
+
+  dimension: days_since_signup_tier {
+    type: tier
+    sql: ${days_since_signup} ;;
+    style: integer
+    tiers: [5,50,90,150]
+  }
+
+  dimension: is_new_customer {
+    type: yesno
+    sql: ${days_since_signup} <= 90 ;;
+  }
+
   dimension: email {
     type: string
     sql: ${TABLE}.email ;;
@@ -46,7 +84,7 @@ view: users {
 
   dimension: first_name {
     type: string
-    sql: ${TABLE}.first_name ;;
+    sql: INITCAP(${TABLE}.first_name) ;;
   }
 
   dimension: gender {
@@ -57,6 +95,11 @@ view: users {
   dimension: last_name {
     type: string
     sql: ${TABLE}.last_name ;;
+  }
+
+  dimension: full_name {
+    type: string
+    sql: ${first_name} || ' ' || ${last_name} ;;
   }
 
   dimension: latitude {
@@ -74,6 +117,11 @@ view: users {
     sql: ${TABLE}.state ;;
   }
 
+  dimension: is_email {
+    type: yesno
+    sql: UPPER(${traffic_source}) = 'EMAIL';;
+  }
+
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
@@ -84,7 +132,22 @@ view: users {
     sql: ${TABLE}.zip ;;
   }
 
-  measure: count {
+  measure: count_cities {
+    type: count_distinct
+    sql: ${city_state} ;;
+  }
+
+  measure: is_new_user {
+    type: count
+    filters: [is_new_customer: "Yes"]
+  }
+
+  measure: usa_users {
+    type: count
+    filters: [country: "USA"]
+  }
+
+  measure: count_users {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }

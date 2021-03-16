@@ -1,8 +1,8 @@
 view: order_items {
   sql_table_name: public.order_items ;;
 
-  dimension: order_item_id {
-    primary_key: yes
+  dimension: order_item_id { #MANY order items per order
+    primary_key: yes #STEP 1
     type: number
     sql: ${TABLE}.id ;;
   }
@@ -42,7 +42,7 @@ view: order_items {
     sql: ${TABLE}.inventory_item_id ;;
   }
 
-  dimension: order_id {
+  dimension: order_id { #shopping cart ID
     type: number
     sql: ${TABLE}.order_id ;;
   }
@@ -96,9 +96,28 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
-  measure: count {
+  measure: count_order_items {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: count_orders {
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
+  measure: total_sale_price {
+    type: sum
+    sql: ${sale_price} ;;
+    description: "Sum of sale price"
+    value_format_name: usd
+  }
+
+  measure: avg_sale_price {
+    type: average
+    sql: ${sale_price} ;;
+    description: "Average of sale price"
+    value_format_name: usd
   }
 
   # ----- Sets of fields for drilling ------
