@@ -67,6 +67,7 @@ view: order_items {
   }
 
   dimension: sale_price {
+    hidden: yes
     type: number
     sql: ${TABLE}.sale_price ;;
   }
@@ -111,6 +112,7 @@ view: order_items {
     sql: ${sale_price} ;;
     description: "Sum of sale price"
     value_format_name: usd
+    drill_fields: [order_id, user_id, users.city, count_orders, avg_sale_price]
   }
 
   measure: avg_sale_price {
@@ -119,6 +121,25 @@ view: order_items {
     description: "Average of sale price"
     value_format_name: usd
   }
+
+  measure: total_sales_email_users {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [ users.traffic_source: "Email"]
+  }
+
+  measure: percentage_sales_email_source {
+    type: number
+    value_format_name: percent_2
+    sql: 1.0*${total_sales_email_users}/${total_sale_price} ;;
+  }
+
+  measure: avg_spend_per_user {
+    type: number
+    value_format_name: usd
+    sql: ${total_sale_price}/ ${users.count_users} ;;
+  }
+
 
   # ----- Sets of fields for drilling ------
   set: detail {

@@ -22,6 +22,7 @@ view: users {
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
+    drill_fields: [city, state, country]
   }
 
   dimension: city_state {
@@ -33,6 +34,8 @@ view: users {
     type: string
     map_layer_name: countries
     sql: ${TABLE}.country ;;
+
+    drill_fields: [city, state, country]
   }
 
   dimension_group: created {
@@ -115,6 +118,8 @@ view: users {
   dimension: state {
     type: string
     sql: ${TABLE}.state ;;
+
+    drill_fields: [city, state, country]
   }
 
   dimension: is_email {
@@ -145,6 +150,19 @@ view: users {
   measure: usa_users {
     type: count
     filters: [country: "USA"]
+  }
+
+  measure: count_of_female_users {
+    type: count
+    filters: [gender: "Female"]
+  }
+
+  measure: pct_of_female_users {
+    label: "Percent of Female Users"
+    description: "Count of Female Users/Total Users"
+    type: number
+    sql: 1.0*${count_of_female_users}/${count_users} ;;
+    value_format_name: percent_1
   }
 
   measure: count_users {
