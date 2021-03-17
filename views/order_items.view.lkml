@@ -96,6 +96,21 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+  measure: total_price {
+    type: sum
+    sql: ${sale_price} ;;
+  }
+
+  measure: price_per_person {
+    type: number
+    sql: ${total_price}*1.0/nullif(${users.count},0) ;;
+  }
+
+  measure: first_order_date {
+    type: date
+    sql: min(${created_raw}) ;;
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [

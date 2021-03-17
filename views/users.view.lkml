@@ -1,5 +1,12 @@
 view: users {
   sql_table_name: public.users ;;
+  # derived_table: {
+  #   sql:
+  #   select * from (
+  #   select *, row_number(created_at) over(partition by users.id) as row_number from public.users
+  #   )raw_data where row_number=1
+  #   ;;
+  # }
 
   dimension: id {
     primary_key: yes
@@ -26,6 +33,12 @@ view: users {
     type: string
     map_layer_name: countries
     sql: ${TABLE}.country ;;
+    drill_fields: [state]
+  }
+
+  dimension: state_is_new_york {
+    type: yesno
+    sql: ${state} = 'New York' ;;
   }
 
   dimension_group: created {
@@ -43,9 +56,17 @@ view: users {
     sql: ${TABLE}.created_at ;;
   }
 
+  dimension: age_tier {
+    type: tier
+    tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+    sql: ${age} ;;
+    style: integer
+  }
+
+
   dimension: email {
     type: string
-    sql: ${TABLE}.email +;;
+    sql: ${TABLE}.email;;
   }
 
   dimension: first_name {
@@ -94,7 +115,18 @@ view: users {
   }
 
   measure: count {
+    label: "User Count"
+    # hidden: yes
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
+
+  measure: sum_age {
+    type: sum
+    sql: ${age} ;;
+  }
+
+
+
+  # measure:  {}
 }
