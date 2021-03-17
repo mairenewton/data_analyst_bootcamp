@@ -4,8 +4,8 @@ connection: "events_ecommerce"
 include: "/views/*.view"
 
 datagroup: data_analyst_bootcamp_default_datagroup {
-  # sql_trigger: SELECT MAX(id) FROM etl_log;;
-  max_cache_age: "1 hour"
+  sql_trigger: SELECT date(now()) FROM ${TABLE};;
+  max_cache_age: "24 hour"
 }
 
 persist_with: data_analyst_bootcamp_default_datagroup
@@ -15,6 +15,11 @@ persist_with: data_analyst_bootcamp_default_datagroup
 
 # This explore contains multiple views
 explore: order_items {
+  persist_with: data_analyst_bootcamp_default_datagroup
+  conditionally_filter: {
+    filters: [inventory_items.created_date: "after 2 years ago"]
+    unless: [users.id]
+  }
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -39,6 +44,5 @@ explore: order_items {
     relationship: many_to_one
   }
 }
-
 
 # explore: products {}
