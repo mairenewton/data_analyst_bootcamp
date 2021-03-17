@@ -45,5 +45,12 @@ explore: order_items {
   }
 }
 
-explore: user_facts {}
+explore: users {
+  join: user_facts {
+    type: left_outer
+    sql_on: ${users.id} = ${user_facts.id} ;;
+    relationship: one_to_one
+    }
+  }
+
 # explore: products {}
