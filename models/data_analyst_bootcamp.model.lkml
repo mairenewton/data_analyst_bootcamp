@@ -45,4 +45,5 @@ explore: order_items {
   }
 }
 
+explore: user_facts {}
 # explore: products {}
