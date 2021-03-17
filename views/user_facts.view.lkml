@@ -12,12 +12,8 @@ view: user_facts {
          ;;
     }
 
-    measure: count {
-      type: count
-      drill_fields: [detail*]
-    }
-
     dimension: id {
+      primary_key: yes
       type: number
       sql: ${TABLE}.id ;;
     }
@@ -35,6 +31,16 @@ view: user_facts {
     dimension: lifetime_revenue {
       type: number
       sql: ${TABLE}.lifetime_revenue ;;
+    }
+
+    measure: avg_lifetime_orders {
+      type: average
+      sql: ${lifetime_orders} ;;
+    }
+
+    measure: avg_lifetime_revenue {
+      type: average
+      sql:  ${lifetime_revenue} ;;
     }
 
     set: detail {
