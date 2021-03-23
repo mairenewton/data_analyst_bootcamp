@@ -79,9 +79,26 @@ view: users {
     sql: ${TABLE}.traffic_source ;;
   }
 
+  dimension: is_email_source {
+    type: yesno
+    sql: ${traffic_source} = 'Email' ;;
+  }
+
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
+  }
+
+  dimension: city_state {
+    type: string
+    sql: ${city} || ', ' || ${state} ;;
+  }
+
+  dimension: age_groups {
+    type: tier
+    tiers: [18,25,35,45,55,65,75,90]
+    sql: ${age} ;;
+    style: integer
   }
 
   measure: count {
