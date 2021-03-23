@@ -24,7 +24,7 @@ view: users {
   }
   dimension: state_city {
     type: string
-    sql: concat (${state} , ${city});;
+    sql: concat (${state} ," ", ${city});;
   }
 
   dimension_group: created {
