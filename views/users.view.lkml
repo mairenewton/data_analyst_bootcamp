@@ -66,7 +66,7 @@ dimension: age_tier {
     sql: ${TABLE}.gender ;;
   }
 
-dimension: is_email_source {
+  dimension: is_email_source {
   type: yesno
   sql: ${traffic_source} = 'Email';;
 }
