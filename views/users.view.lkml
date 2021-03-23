@@ -44,6 +44,11 @@ view: users {
     sql: ${TABLE}.created_at ;;
   }
 
+  dimension: days_since_signup {
+    type:  number
+    sql: DATEDIFF(day, ${created_raw}, current_date) ;;
+  }
+
   dimension: email {
     type: string
     sql: ${TABLE}.email ;;
@@ -62,6 +67,11 @@ view: users {
   dimension: gender {
     type: string
     sql: ${TABLE}.gender ;;
+  }
+
+  dimension: is_new_customer {
+    type: yesno
+    sql: ${days_since_signup} < 90 ;;
   }
 
   dimension: last_name {
