@@ -1,4 +1,4 @@
-view: users {
+  view: users {
   sql_table_name: public.users ;;
 
   dimension: id {
@@ -12,10 +12,22 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+dimension: age_tier {
+  type: tier
+  tiers: [18,25,35,45,55,65,75,95]
+  sql: ${age} ;;
+  style: integer
+}
+
   dimension: city {
     type: string
-    sql: ${TABLE}.city ;;
+    sql:${TABLE}.city ;;
   }
+
+  dimension: city_state {
+    type: string
+    sql: ${city}||','||${state};;
+    }
 
   dimension: country {
     type: string
@@ -54,6 +66,11 @@ view: users {
     sql: ${TABLE}.gender ;;
   }
 
+dimension: is_email_source {
+  type: yesno
+  sql: ${traffic_source} = 'Email';;
+}
+
   dimension: last_name {
     type: string
     sql: ${TABLE}.last_name ;;
@@ -87,5 +104,5 @@ view: users {
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
-  }
+    }
 }
