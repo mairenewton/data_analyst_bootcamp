@@ -89,6 +89,10 @@ dimension: age_tier {
     sql: ${TABLE}.traffic_source ;;
   }
 
+dimension: email_yesno {
+  type: yesno
+  sql: ${traffic_source}= 'Email' ;;
+}
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
