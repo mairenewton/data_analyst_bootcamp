@@ -127,10 +127,10 @@ view: order_items {
   }
 
   measure: percentage_sales_email_source {
-    type: number
-    value_format_name: percent_2
-    sql: 1.0*${total_sales_email_users}/NULLIF{${total_sales},0} ;;
-  }
+type: number
+value_format_name: percent_2
+sql: 1.0*${total_sales_email_users}/NULLIF(${total_sales}, 0) ;;
+}
 
   measure: total_sales {
     description: "Total Sales"
