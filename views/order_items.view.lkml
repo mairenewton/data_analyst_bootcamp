@@ -119,18 +119,31 @@ view: order_items {
     sql: ${order_id} ;;
   }
 
-  measure: total_sales {
-    description: "Total Sales"
-    type: sum
-    sql: ${sale_price} ;;
-  }
-
   measure: average_sales {
     description: "Average Sales Price"
     type: average
     sql: ${sale_price} ;;
     value_format_name:usd
   }
+
+  measure: percentage_sales_email_source {
+    type: number
+    value_format_name: percent_2
+    sql: 1.0*${total_sales_email_users}/NULLIF{${total_sales},0} ;;
+  }
+
+  measure: total_sales {
+    description: "Total Sales"
+    type: sum
+    sql: ${sale_price} ;;
+  }
+
+  measure: total_sales_email_users {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [users.is_email_source: "Yes"]
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
