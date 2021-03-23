@@ -111,7 +111,7 @@ view: order_items {
     type: count_distinct
     sql: ${order_item_id} ;;
   }
-  measure: total_sales_price {
+  measure: total_sales {
     type: sum
     sql: ${sale_price} ;;
     value_format_name: usd
