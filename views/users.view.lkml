@@ -55,7 +55,7 @@ view: users {
   dimension: date_since_signup_tiers {
     type:tier
     sql: ${days_since_signup} ;;
-    tiers: [0,30,90,150,360,450]
+    tiers: [0,30,90,150,360]
     style: integer
   }
 
