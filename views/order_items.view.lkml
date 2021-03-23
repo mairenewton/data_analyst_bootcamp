@@ -7,6 +7,11 @@ view: order_items {
     sql: ${TABLE}.id ;;
   }
 
+  measure: count_order {
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
   dimension_group: created {
     type: time
     timeframes: [
@@ -71,6 +76,37 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
+  measure: total_sales {
+    type: sum
+    sql: ${sale_price};;
+    value_format_name: usd
+  }
+
+  measure: avg_sales {
+    type: average
+    sql: ${sale_price};;
+    value_format_name: usd
+  }
+
+  measure: total_sales_email_users{
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [users.is_email:"Yes"]
+    value_format_name: usd
+  }
+
+  measure: percentage_sales_email_source {
+    type: number
+    value_format_name: percent_2
+    sql: 1.0*${total_sales_email_users}/NULLIF(${total_sales},0) ;;
+  }
+
+  measure: average_spend_per_user {
+    type: number
+    value_format_name: usd
+    sql: 1.0*${total_sales}/NULLIF(${users.count},0) ;;
+  }
+
   dimension_group: shipped {
     type: time
     timeframes: [
@@ -83,6 +119,11 @@ view: order_items {
       year
     ]
     sql: ${TABLE}.shipped_at ;;
+  }
+
+  dimension: shipping_days{
+    type: number
+    sql:DATEDIFF(day, ${shipped_date}, ${delivered_date}) ;;
   }
 
   dimension: status {
