@@ -84,6 +84,12 @@ view: users {
     sql: ${days_since_signup} <= 90 ;;
   }
 
+  dimension: is_email_source {
+    type: yesno
+    sql: ${traffic_source} = 'Email' ;;
+  }
+
+
   dimension: last_name {
     type: string
     sql: ${TABLE}.last_name ;;

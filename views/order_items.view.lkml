@@ -85,6 +85,16 @@ view: order_items {
     sql: ${TABLE}.shipped_at ;;
   }
 
+  # dimension_group: shipping_days {
+  #   type:
+  # }
+
+  dimension: shipping_days {
+    type: number
+    description: "Days between Shipped Date and Delivered Date"
+    sql: DATEDIFF(day, ${shipped_date}, ${delivered_date}) ;;
+  }
+
   dimension: status {
     type: string
     sql: ${TABLE}.status ;;
@@ -96,10 +106,49 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
-  measure: count {
-    type: count
-    drill_fields: [detail*]
+  measure: average_sales {
+    type: average
+    # value_format: "$#,##0.00"
+    value_format_name: usd
+    sql: ${sale_price} ;;
   }
+
+  measure: average_spend_per_user {
+    type:  number
+    value_format_name: usd
+    sql: 1.0*${total_sales}/NULLIF(${users.count},0) ;;
+  }
+
+  measure: percentage_sales_email_source {
+    type: number
+    value_format_name: percent_2
+    sql: 1.0*${total_sales_email_users}/NULLIF(${total_sales},0) ;;
+  }
+
+  measure: counts_of_orders {
+    description: "Count of Unique Orders"
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
+  measure: total_sales {
+    type: sum
+   # value_format: "$#,##0.00"
+    value_format_name: usd
+    sql: ${sale_price} ;;
+  }
+
+  measure: total_sales_email_users {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+    filters: [users.is_email_source: "Yes"]
+  }
+
+  # measure: count {
+  #   type: count
+  #   drill_fields: [detail*]
+  # }
 
   # ----- Sets of fields for drilling ------
   set: detail {
