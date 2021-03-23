@@ -107,6 +107,12 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+  measure: average_sales {
+    type: average
+    sql: ${sale_price};;
+    value_format_name: usd
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
