@@ -6,10 +6,7 @@ view: order_items {
     type: number
     sql: ${TABLE}.id ;;
   }
-  measure:total_orders  {
-    type: count_distinct
-    sql: ${order_item_id} ;;
-  }
+
   dimension_group: created {
     type: time
     timeframes: [
@@ -76,6 +73,11 @@ view: order_items {
   measure: total_sale_price {
     type: sum
     sql: ${sale_price} ;;
+  }
+  measure:count_of_orders  {
+    description: "Count of unique orders"
+    type: count_distinct
+    sql: ${order_id} ;;
   }
 
   dimension_group: shipped {
