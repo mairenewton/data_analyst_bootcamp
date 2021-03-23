@@ -113,6 +113,18 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+  measure: order_count {
+    description: "A count of unique order"
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
+  measure: total_sales {
+    description: "Total Sales"
+    type: sum
+    sql: ${sale_price} ;;
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
