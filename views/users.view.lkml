@@ -90,7 +90,7 @@ view: users {
     sql: ${TABLE}.traffic_source ;;
   }
 
-  dimension: isSourceEmail {
+  dimension: is_email_source {
     type: yesno
     sql: ${TABLE}.traffic_source='Email' ;;
   }
