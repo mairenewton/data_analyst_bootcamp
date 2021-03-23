@@ -11,3 +11,5 @@ view: foo {
     drill_fields: []
   }
 }
+
+##comment test
