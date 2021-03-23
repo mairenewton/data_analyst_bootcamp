@@ -46,6 +46,7 @@ view: users {
 
 
   }
+
   dimension: days_since_signup {
     type: number
     sql: DATEDIFF(day, ${created_date},current_date ;;
