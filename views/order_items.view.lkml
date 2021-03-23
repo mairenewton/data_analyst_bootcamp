@@ -90,6 +90,7 @@ view: order_items {
    type: duration
    sql_start: ${shipped_date} ;;
    sql_end: ${delivered_date} ;;
+   intervals: [day]
  }
 
   dimension: status {
