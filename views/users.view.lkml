@@ -24,9 +24,15 @@ view: users {
   }
   dimension: state_city {
     type: string
-    sql: concat (${state} ," ", ${city});;
+    sql: ${state} ||" " ||${city};;
   }
 
+dimension: age_tier {
+  type: tier
+  tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+  sql: ${age} ;;
+
+}
   dimension_group: created {
     type: time
     timeframes: [
