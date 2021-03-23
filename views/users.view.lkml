@@ -66,6 +66,11 @@ view: users {
     sql: ${TABLE}.gender ;;
   }
 
+  dimension: is_email_sourced {
+    type: yesno
+    sql: ${traffic_source} = 'Email';;
+  }
+
   dimension: last_name {
     type: string
     sql: ${TABLE}.last_name ;;
@@ -80,6 +85,13 @@ view: users {
     type: number
     sql: ${TABLE}.longitude ;;
   }
+
+
+  # dimension: shipping_days{
+  #   type: number
+  #   sql: DATEDIFF(day, ${order_items.shipped_date}, ${order_items.delivered_date});;
+  # }
+
 
   dimension: state {
     type: string
