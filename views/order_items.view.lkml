@@ -126,6 +126,11 @@ view: order_items {
     value_format_name:usd
   }
 
+  measure: average_spend_per_user {
+    type: number
+    value_format_name: usd
+    sql: 1.0*${total_sales}/NULLIF(${users.count},0) ;;
+  }
   measure: percentage_sales_email_source {
 type: number
 value_format_name: percent_2
