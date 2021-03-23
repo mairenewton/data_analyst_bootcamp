@@ -47,6 +47,12 @@ view: order_items {
     sql: ${TABLE}.order_id ;;
   }
 
+  measure: orders {
+    type: count_distinct
+    sql: ${order_id} ;;
+    value_format_name: decimal_0
+    }
+
   dimension: profit {
     type: number
     sql: ${sale_price} - ${inventory_items.cost} ;;
@@ -69,6 +75,12 @@ view: order_items {
   dimension: sale_price {
     type: number
     sql: ${TABLE}.sale_price ;;
+  }
+
+  measure: total_sale {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
   }
 
   dimension_group: shipped {
@@ -102,6 +114,12 @@ view: order_items {
     type: number
     # hidden: yes
     sql: ${TABLE}.user_id ;;
+  }
+
+  measure: avg_sale {
+    type: average
+    sql: ${sale_price} ;;
+    value_format_name: usd
   }
 
   measure: count {
