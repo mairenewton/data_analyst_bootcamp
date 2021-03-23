@@ -21,11 +21,19 @@ view: users {
   }
 
   dimension: city {
+    group_label: "Location Details"
     type: string
     sql: ${TABLE}.city ;;
   }
 
+  dimension: city_state {
+    group_label: "Location Details"
+    type: string
+    sql: ${city} || ', ' || ${state} ;;
+  }
+
   dimension: country {
+    group_label: "Location Details"
     type: string
     map_layer_name: countries
     sql: ${TABLE}.country ;;
@@ -96,21 +104,19 @@ view: users {
   }
 
   dimension: latitude {
+    group_label: "Location Details"
     type: number
     sql: ${TABLE}.latitude ;;
   }
 
-  dimension: city_state {
-    type: string
-    sql: ${city} || ', ' || ${state} ;;
-  }
-
   dimension: longitude {
+    group_label: "Location Details"
     type: number
     sql: ${TABLE}.longitude ;;
   }
 
   dimension: state {
+    group_label: "Location Details"
     type: string
     sql: ${TABLE}.state ;;
   }
@@ -121,6 +127,7 @@ view: users {
   }
 
   dimension: zip {
+    group_label: "Location Details"
     type: zipcode
     sql: ${TABLE}.zip ;;
   }
