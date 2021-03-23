@@ -18,6 +18,12 @@ view: users {
     sql:${age} ;;
   }
 
+  dimension: email_traffic_source  {
+    type: yesno
+    sql: ${traffic_source} = 'Email' ;;
+  }
+
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
