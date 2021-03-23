@@ -6,7 +6,7 @@ view: users {
     type: number
     sql: ${TABLE}.id ;;
   }
-
+# add a commment
   dimension: age {
     type: number
     sql: ${TABLE}.age ;;
