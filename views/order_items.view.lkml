@@ -116,7 +116,7 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
-  measure: avg_sale {
+  measure: avg_sale_price {
     type: average
     sql: ${sale_price} ;;
     value_format_name: usd
