@@ -6,7 +6,10 @@ view: order_items {
     type: number
     sql: ${TABLE}.id ;;
   }
-
+  measure:total_orders  {
+    type: count_distinct
+    sql: ${order_item_id} ;;
+  }
   dimension_group: created {
     type: time
     timeframes: [
