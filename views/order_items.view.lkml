@@ -87,7 +87,11 @@ view: order_items {
 
   dimension_group: since_shipping {
     type: duration
-    intervals: [day]
+    intervals: [
+      hour,
+      day,
+      week
+      ]
     sql_start:  ${shipped_raw};;
     sql_end: ${delivered_raw} ;;
 }
