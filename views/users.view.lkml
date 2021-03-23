@@ -24,7 +24,7 @@ view: users {
   }
   dimension: state_city {
     type: string
-    sql: ${state} ||" " ||${city};;
+    sql: ${state} ||" " || ${city};;
   }
 
 dimension: age_tier {
