@@ -80,6 +80,12 @@ view: users {
     sql: ${days_since_signup} < 90 ;;
   }
 
+  dimension: is_traffic_source_email {
+    type: yesno
+    sql: ${traffic_source} = "Email" ;;
+  }
+
+
   dimension: last_name {
     type: string
     sql: ${TABLE}.last_name ;;
@@ -107,13 +113,13 @@ view: users {
     ]
     sql_start: ${created_raw} ;;
     sql_end: now() ;;
-
   }
 
   dimension: state {
     type: string
     sql: ${TABLE}.state ;;
   }
+
 
   dimension: traffic_source {
     type: string

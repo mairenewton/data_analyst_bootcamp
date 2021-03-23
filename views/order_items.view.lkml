@@ -85,6 +85,13 @@ view: order_items {
     sql: ${TABLE}.shipped_at ;;
   }
 
+  dimension_group: since_shipping {
+    type: duration
+    intervals: [day]
+    sql_start:  ${shipped_raw};;
+    sql_end: now() ;;
+}
+
   dimension: status {
     type: string
     sql: ${TABLE}.status ;;
