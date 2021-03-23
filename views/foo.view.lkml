@@ -5,7 +5,7 @@ view: foo {
     type: number
     sql: ${TABLE}.i ;;
   }
-##added a comment
+
   measure: count {
     type: count
     drill_fields: []
