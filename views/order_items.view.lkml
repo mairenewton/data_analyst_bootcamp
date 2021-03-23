@@ -115,6 +115,13 @@ view: order_items {
     value_format_name: usd_0
   }
 
+  measure: average_sales {
+    type: average
+    description: "Average sales based off sale price"
+    value_format_name: usd_0
+    sql: ${sale_price} ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
