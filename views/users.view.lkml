@@ -52,10 +52,10 @@ view: users {
     sql: DATEDIFF(day, ${created_date},current_date ;;
 
   }
-  dimension: date_since_signup_tiers {
+  dimension:date_since_signup_tiers {
     type:tier
     sql: ${days_since_signup} ;;
-    tiers: [0,30,90,150,360]
+    tiers:[0,30,90,150,360]
     style: integer
   }
 
@@ -106,6 +106,12 @@ view: users {
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
+  }
+
+  dimension: traffic_source_email {
+  type:yesno
+  sql: ${traffic_source} = 'Email';;
+
   }
 
   dimension: zip {
