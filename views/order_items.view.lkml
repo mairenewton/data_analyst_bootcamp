@@ -70,7 +70,7 @@ view: order_items {
     type: number
     sql: ${TABLE}.sale_price ;;
   }
-  measure: total_sale_price {
+  measure: total_sales {
     type: sum
     sql: ${sale_price} ;;
     value_format_name: usd
@@ -81,6 +81,19 @@ view: order_items {
     sql: ${sale_price};;
     value_format_name: usd
   }
+
+  measure: total_sales_email_users {
+    type:  sum
+    sql:  ${sale_price} ;;
+    filters: [users.is_email_source: "Yes"]
+  }
+
+  measure: percentage_sales_email_cource {
+    type: number
+    value_format_name: percent_2
+    sql:  1.0*${total_sales_email_users}/NULLIF(${total_sales}, 0);;
+  }
+
   measure:count_of_orders  {
     description: "Count of unique orders"
     type: count_distinct
