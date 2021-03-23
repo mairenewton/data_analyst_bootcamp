@@ -18,6 +18,11 @@ view: users {
     sql: ${TABLE}.city ;;
   }
 
+  dimension: city_state {
+    type: string
+    sql:  ${city} || ', ' || ${state} ;;
+  }
+
   dimension: country {
     type: string
     map_layer_name: countries
@@ -40,10 +45,6 @@ view: users {
     sql: ${TABLE}.created_at ;;
   }
 
-  dimension: days_since_signup {
-    type: number
-    sql: DATEDIFF(day, ${created_date}, current_date) ;;
-  }
 
   dimension: email {
     type: string
@@ -64,6 +65,11 @@ view: users {
   dimension: gender {
     type: string
     sql: ${TABLE}.gender ;;
+  }
+
+  dimension: is_new_customer {
+    type:  yesno
+    sql:   ;;
   }
 
   dimension: last_name {
