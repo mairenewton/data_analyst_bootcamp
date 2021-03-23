@@ -74,6 +74,18 @@ view: users {
     sql: ${TABLE}.state ;;
   }
 
+  dimension: city_state {
+    type: string
+    sql: ${city} ||', '|| ${state} ;;
+  }
+
+  dimension: age_tier {
+    type: tier
+    sql: ${age};;
+    tiers: [18,25,35,45,55,65,75,90]
+    style: integer
+  }
+
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
