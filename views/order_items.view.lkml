@@ -104,10 +104,22 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+  measure: count_unique {
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
+  measure: total_sales {
+    type: sum
+    sql: ${sale_price};;
+    value_format_name: usd_0
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
   }
+
 
   # ----- Sets of fields for drilling ------
   set: detail {
