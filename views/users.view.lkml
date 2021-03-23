@@ -22,6 +22,10 @@ view: users {
     map_layer_name: countries
     sql: ${TABLE}.country ;;
   }
+  dimension: state_city {
+    type: string
+    sql: ${state} || " "|| ${city};;
+  }
 
   dimension_group: created {
     type: time
