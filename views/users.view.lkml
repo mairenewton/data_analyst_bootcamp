@@ -23,6 +23,17 @@ view: users {
     sql: ${TABLE}.country ;;
   }
 
+  dimension: cityAndState {
+    type: string
+    sql: ${city} || ' ' || ${state} ;;
+  }
+
+  dimension: ageBuckets {
+    type: tier
+    sql: ${age} ;;
+    tiers: [18,25,35,45,55,65,75,90]
+  }
+
   dimension_group: created {
     type: time
     timeframes: [
@@ -77,6 +88,11 @@ view: users {
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
+  }
+
+  dimension: isSourceEmail {
+    type: yesno
+    sql: ${TABLE}.traffic_source='Email' ;;
   }
 
   dimension: zip {
