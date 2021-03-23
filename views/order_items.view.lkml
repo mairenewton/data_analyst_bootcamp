@@ -113,6 +113,12 @@ view: order_items {
     value_format_name: usd
   }
 
+  measure: average_spend_per_user {
+    type: number
+    sql: 1.0 * ${total_sales}/NULLIF(${users.count},0) ;;
+    value_format_name: usd
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
@@ -122,11 +128,23 @@ view: order_items {
     type: count_distinct
     sql:  ${order_id} ;;
   }
+  measure: percentage_of_sales_email_source {
+    type:  number
+    sql: 1.0 * ${total_sales_email_users}/NULLIF(${total_sales},0) ;;
+    value_format_name: percent_2
+  }
 
   measure: total_sales {
     type: sum
     sql: ${sale_price};;
     value_format_name: usd
+  }
+
+  measure: total_sales_email_users {
+    type: sum
+    sql: ${sale_price};;
+    value_format_name: usd
+    filters: [users.is_email_source: "Yes"]
   }
 
   # ----- Sets of fields for drilling ------
