@@ -66,11 +66,6 @@ view: order_items {
     sql: ${TABLE}.returned_at ;;
   }
 
-  dimension: sale_price {
-    type: number
-    sql: ${TABLE}.sale_price ;;
-  }
-
   dimension_group: shipped {
     type: time
     timeframes: [
@@ -97,6 +92,11 @@ view: order_items {
     sql: ${TABLE}.status ;;
   }
 
+  dimension: sale_price {
+    type: number
+    sql: ${TABLE}.sale_price ;;
+  }
+
   dimension: user_id {
     type: number
     # hidden: yes
@@ -104,8 +104,48 @@ view: order_items {
   }
 
   measure: count {
+    label: "Count of Order Items"
+    hidden: yes
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: count_of_orders {
+    description: "A count of unique orders"
+    label: "Order Count"
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
+  measure: average_sales {
+    type: average
+    sql:  sale_price ;;
+    value_format_name: usd
+  }
+
+  measure: average_spend_per_user {
+    type: number
+    value_format_name: usd
+    sql: 1.0*${total_sales}/nullif(${users.count},0) ;;
+  }
+
+  measure: percentage_sales_email_source {
+    type: number
+    value_format_name: percent_2
+    sql: 1.0*${total_sales_email_users}/nullif(${total_sales},0) ;;
+  }
+
+  measure: total_sales {
+    type: sum
+    sql:  sale_price ;;
+    value_format_name: usd
+  }
+
+  measure: total_sales_email_users {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+    filters: [users.is_email_source: "Yes"]
   }
 
   # ----- Sets of fields for drilling ------
