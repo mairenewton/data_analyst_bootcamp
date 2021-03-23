@@ -12,11 +12,21 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  dimension: age_groups {
+    type:  tier
+    sql:  ${age} ;;
+    tiers: [0,10,20,30,40,50]
+    style:  integer
+  }
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
   }
 
+dimension: city_state {
+  type: string
+  sql:  ${city} || '' || ${state} ;;
+}
   dimension: country {
     type: string
     map_layer_name: countries
@@ -77,6 +87,11 @@ view: users {
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
+  }
+
+  dimension: traffic_on {
+    type:  yesno
+    sql:  ${traffic_source} = 'Email' ;;
   }
 
   dimension: zip {
