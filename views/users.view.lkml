@@ -12,6 +12,12 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+ dimension: age_bucket_tiers {
+  type: tier
+  sql: ${age} ;;
+  tiers: [18,25,35,45,55,65,75,90]
+  style: integer
+ }
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
@@ -42,6 +48,14 @@ view: users {
   }
   dimension: days_since_signup {
     type: number
+    sql: DATEDIFF(day, ${created_date},current_date ;;
+
+  }
+  dimension: date_since_signup_tiers {
+    type:tier
+    sql: ${days_since_signup} ;;
+    tiers: [0,30,90,150,360,450]
+    style: integer
   }
 
   dimension: email {
@@ -82,6 +96,10 @@ view: users {
   dimension: state {
     type: string
     sql: ${TABLE}.state ;;
+  }
+  dimension: city_state {
+    type: string
+    sql: ${city}||','||${state};;
   }
 
   dimension: traffic_source {

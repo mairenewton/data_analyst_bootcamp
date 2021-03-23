@@ -89,7 +89,9 @@ view: order_items {
     type: string
     sql: ${TABLE}.status ;;
   }
+dimension: status_bucket {
 
+}
   dimension: user_id {
     type: number
     # hidden: yes
