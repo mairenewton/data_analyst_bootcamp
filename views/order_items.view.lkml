@@ -88,6 +88,25 @@ view: order_items {
     value_format_name: usd
   }
 
+  measure: total_sales_of_email_users {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+    filters: [users.traffic_source_is_email: "Yes"]
+  }
+
+  measure: percentage_sales_of_email_users {
+    type: number
+    sql: 1.0*${total_sales_of_email_users}/nullif(${total_sales},0);;
+    value_format_name: percent_2
+  }
+
+  measure: average_spend_per_user {
+    type: number
+    value_format_name: usd
+    sql: 1.0*${total_sales}/nullif(${users.count},0) ;;
+  }
+
   dimension_group: shipped {
     type: time
     timeframes: [
