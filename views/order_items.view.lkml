@@ -129,6 +129,7 @@ view: order_items {
     description: "Average Sales Price"
     type: average
     sql: ${sale_price} ;;
+    value_format_name:usd
   }
   # ----- Sets of fields for drilling ------
   set: detail {
