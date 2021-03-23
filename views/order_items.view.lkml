@@ -85,10 +85,11 @@ view: order_items {
     sql: ${TABLE}.shipped_at ;;
   }
 
-  dimension: days_between_ship_deliver{
-    type:  duration_day
+  dimension_group: days_between_ship_deliver{
+    type:  duration
     sql_start: ${shipped_date};;
     sql_end: ${delivered_date} ;;
+    intervals: [hour,day]
   }
   dimension: status {
     type: string
