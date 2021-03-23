@@ -95,9 +95,7 @@ view: order_items {
     type: string
     sql: ${TABLE}.status ;;
   }
-dimension: status_bucket {
 
-}
   dimension: user_id {
     type: number
     # hidden: yes
@@ -107,6 +105,15 @@ dimension: status_bucket {
   measure: count {
     type: count
     drill_fields: [detail*]
+
+  }
+  measure: count_distinct_oder_items {
+    type: count_distinct
+    sql: ${order_item_id} ;;
+  }
+  measure: total_sales_price {
+    type: sum
+    sql: ${sale_price} ;;
   }
 
   # ----- Sets of fields for drilling ------
