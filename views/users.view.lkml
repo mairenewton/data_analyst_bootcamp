@@ -71,6 +71,11 @@ view: users {
     sql: ${TABLE}.gender ;;
   }
 
+  dimension: is_source_email {
+    type:yesno
+    sql: ${traffic_source} = 'Email' ;;
+  }
+
   dimension: last_name {
     type: string
     sql: ${TABLE}.last_name ;;
