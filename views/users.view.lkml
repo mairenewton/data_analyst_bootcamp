@@ -44,10 +44,10 @@ view: users {
     sql: ${TABLE}.created_at ;;
   }
 
-  dimension: days_since_signup {
-    type:  number
-    sql: DATEDIFF(day, ${created_raw}, current_date) ;;
-  }
+#  dimension: days_since_signup {
+#    type:  number
+#    sql: DATEDIFF(day, ${created_raw}, current_date) ;;
+#  }
 
   dimension: email {
     type: string
@@ -87,6 +87,21 @@ view: users {
   dimension: longitude {
     type: number
     sql: ${TABLE}.longitude ;;
+  }
+
+  dimension_group: since_signup {
+    type:  duration
+    intervals: [
+      hour,
+      day,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql_start: ${created_raw} ;;
+    sql_end: now() ;;
+
   }
 
   dimension: state {
