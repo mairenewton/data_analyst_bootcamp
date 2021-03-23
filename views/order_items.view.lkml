@@ -89,7 +89,7 @@ view: order_items {
     type: duration
     intervals: [day]
     sql_start:  ${shipped_raw};;
-    sql_end: now() ;;
+    sql_end: ${delivered_raw} ;;
 }
 
   dimension: status {
