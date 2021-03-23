@@ -85,7 +85,7 @@ view: order_items {
     sql: ${TABLE}.shipped_at ;;
   }
 
-  dimension_group: since_shipping {
+  dimension_group: shipping_time {
     type: duration
     intervals: [
       hour,
