@@ -37,6 +37,11 @@ view: users {
       year
     ]
     sql: ${TABLE}.created_at ;;
+
+
+  }
+  dimension: days_since_signup {
+    type: number
   }
 
   dimension: email {
@@ -61,7 +66,7 @@ view: users {
 
   dimension: full_name{
     type: string
-    sql: ${first_name}-||''||${last_name} ;;
+    sql: ${first_name}-||' '||${last_name} ;;
 
 }
   dimension: latitude {
