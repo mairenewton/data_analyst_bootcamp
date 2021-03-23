@@ -59,9 +59,9 @@ view: users {
   }
 
   dimension: is_email_source {
-    type: yesno
-    sql: ${traffic_source} = ‘Email’ ;;
-  }
+type: yesno
+sql: ${traffic_source} = ‘Email’ ;;
+}
 
   dimension: first_name {
     type: string
