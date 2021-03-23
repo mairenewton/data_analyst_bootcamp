@@ -39,6 +39,18 @@ view: users {
     sql: ${TABLE}.created_at ;;
   }
 
+  dimension: days_since_signup {
+    type:  number
+    sql:  DATEDIFF(day, ${created_date}, current_date) ;;
+  }
+
+  dimension: age_tier {
+    type:  tier
+    sql:  ${age} ;;
+    tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+    style: integer
+  }
+
   dimension: email {
     type: string
     sql: ${TABLE}.email ;;
@@ -51,7 +63,7 @@ view: users {
 
   dimension: full_name {
     type:  string
-    sql: ${first_name} || ' ' ${last_name} ;;
+    sql: ${first_name} || ' ' || ${last_name} ;;
   }
 
   dimension: gender {
@@ -59,6 +71,11 @@ view: users {
     sql: ${TABLE}.gender ;;
   }
 
+  dimension: is_new_customer {
+    type:  yesno
+    sql: ${days_since_signup} < 90;;
+
+  }
   dimension: last_name {
     type: string
     sql: ${TABLE}.last_name ;;
@@ -77,6 +94,11 @@ view: users {
   dimension: state {
     type: string
     sql: ${TABLE}.state ;;
+  }
+
+  dimension: city_and_state {
+    type:  string
+    sql: ${city} || ', ' || ${state} ;;
   }
 
   dimension: traffic_source {
