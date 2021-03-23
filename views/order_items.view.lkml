@@ -100,6 +100,16 @@ view: order_items {
     type: count
     drill_fields: [detail*]
   }
+  measure: order_count {
+    type: count_distinct
+    value_format: "0.00"
+    sql:  ${order_id} ;;
+  }
+  measure: total_sales {
+    type: number
+    value_format_name: usd
+    sql: sum(${sale_price}) ;;
+  }
 
   # ----- Sets of fields for drilling ------
   set: detail {
