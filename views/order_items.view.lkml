@@ -100,10 +100,16 @@ view: order_items {
     type: count
     drill_fields: [detail*]
   }
- dimension: shipping_days{
-   type:  number
-  sql: DATEDIFF(day,${shipped_date},${delivered_date}) ;;
- }
+ #dimension: shipping_days{
+ #  type:  number
+  #sql: DATEDIFF(day,${shipped_date},${delivered_date}) ;;
+ #}
+  dimension_group: shipping_days {
+    type: duration
+    sql_start: ${shipped_date};;
+    sql_end: ${delivered_date};;
+    intervals: [day]
+  }
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
