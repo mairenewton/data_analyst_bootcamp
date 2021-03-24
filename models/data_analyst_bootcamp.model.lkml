@@ -10,6 +10,16 @@ datagroup: data_analyst_bootcamp_default_datagroup {
   max_cache_age: "1 hour"
 }
 
+
+datagroup: default_dg {
+  sql_trigger: SELECT current_date;;
+  max_cache_age: "24 hour"
+}
+ datagroup: order_items {
+   sql_trigger: select max(create_at) from order_items;;
+   max_cache_age: "4 hours"
+ }
+
 persist_with: data_analyst_bootcamp_default_datagroup
 #comment
 
@@ -44,6 +54,7 @@ explore: order_items {
 }
 
 explore: users {
+  persist_with: default_dg
   conditionally_filter: {
     filters: [order_items.created_date: "last 2 years"]
     unless: [users.id]
