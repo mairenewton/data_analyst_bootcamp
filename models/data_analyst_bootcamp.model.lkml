@@ -10,6 +10,11 @@ datagroup: data_analyst_bootcamp_default_datagroup {
   max_cache_age: "1 hour"
 }
 
+datagroup: default_dg {
+  sql_trigger: SELECT current_dt;;
+  max_cache_age: "24 hour"
+}
+
 persist_with: data_analyst_bootcamp_default_datagroup
 #comment
 
@@ -17,7 +22,18 @@ persist_with: data_analyst_bootcamp_default_datagroup
 
 # This explore contains multiple views
 explore: order_items {
+
+  sql_always_where: ${order_items.status}= 'Complete' ;;
+  always_filter: {
+
+    filters: [count_of_orders: ">5"]
+  }
+
+
+
+
   join: users {
+
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
     relationship: many_to_one
@@ -44,7 +60,10 @@ explore: order_items {
 
 
 
+
 explore: users {
+
+  persist_with: default_dg
   join: order_items {
     type:  left_outer
     sql_on: ${users.id} = ${order_items.user_id} ;;
