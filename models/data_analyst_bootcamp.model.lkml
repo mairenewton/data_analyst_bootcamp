@@ -6,8 +6,23 @@ include: "/views/*.view"
 
 
 datagroup: data_analyst_bootcamp_default_datagroup {
-  # sql_trigger: SELECT MAX(id) FROM etl_log;;
-  max_cache_age: "1 hour"
+   sql_trigger: SELECT MAX(id) FROM etl_log;;
+  #max_cache_age: "1 hour"
+}
+
+# datagroup: data_analyst_bootcamp2 {
+#   sql_trigger: SELECT MAX(id) FROM etl_log;;
+#   max_cache_age: "12 hour"
+# }
+
+datagroup: default_datagroup_midnight {
+  sql_trigger: SELECT current_date ;;
+  max_cache_age: "24 hours"
+}
+
+datagroup:  order_items_datagroup{
+  sql_trigger: SELECT MAX(created_at) FROM order_items ;;
+  max_cache_age: "4 hours"
 }
 
 persist_with: data_analyst_bootcamp_default_datagroup
@@ -17,6 +32,30 @@ persist_with: data_analyst_bootcamp_default_datagroup
 
 # This explore contains multiple views
 explore: order_items {
+  persist_with: order_items_datagroup
+
+
+  # always_filter: {
+  #   filters: [status: "Complete", users.country: "USA"]
+  # }
+  # conditionally_filter: {
+  #   filters: [created_date: "1 month"]
+  #   unless: [users.id, users.state]
+  # }
+  # sql_always_where: ${order_items.returned_date} IS NULL ;;
+  # sql_always_having: ${order_items.total_sales} > 200  ;;
+  # sql_always_where: ${order_items.status} = "Complete" ;;
+  # sql_always_having: ${order_items.orders} > 5 ;;
+  # always_filter: {
+  #   filters: [orders: ">5"]
+  # }
+
+  # conditionally_filter: {
+  #   filters: [order_items.created_date: "last 2 years"]
+  #   unless: [users.id]
+  # }
+
+
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -39,6 +78,26 @@ explore: order_items {
     type: left_outer
     sql_on: ${inventory_items.product_distribution_center_id} = ${distribution_centers.id} ;;
     relationship: many_to_one
+  }
+}
+
+explore: users {
+    persist_with: default_datagroup_midnight
+
+  # always_filter: {
+  #   filters: [users.created_date: "before today"]
+  # }
+
+  join: order_items {
+    type: left_outer
+    relationship: one_to_many
+    sql_on: ${order_items.user_id} = ${users.id} ;;
+  }
+  join: inventory_items {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;
+    fields: []
   }
 }
 
