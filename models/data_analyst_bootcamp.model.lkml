@@ -21,9 +21,7 @@ explore: order_items {
 
 # sql_always_where: ${order_items.status}='Complete' ;;
 # sql_always_having: ${order_items.count_of_orders} >5 ;;
-always_filter: {
-  filters: [order_items.created_date: "before today"]
-}
+
 
 # filter order create date to last 2 years unless user id has been slected
 conditionally_filter: {
@@ -65,6 +63,10 @@ conditionally_filter: {
 # }
 
 explore: users {
+  # filter date to before today
+  always_filter: {
+    filters: [order_items.created_date: "before today"]
+  }
   join: order_items {
     type: left_outer
     sql_on: ${users.id} = ${order_items.user_id} ;;
