@@ -31,6 +31,12 @@ view: sold_facts {
     sql: ${TABLE}.cost_of_goods_sold ;;
   }
 
+  measure: percentage_of_inventory_sold {
+    type: number
+    sql: 1.0 * ${cost_of_goods_sold}/NULLIF(${total_cost},0);;
+    value_format_name: percent_0
+  }
+
   set: detail {
     fields: [product_sku, total_cost, cost_of_goods_sold]
   }
