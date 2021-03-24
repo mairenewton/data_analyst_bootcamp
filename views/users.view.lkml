@@ -77,7 +77,7 @@ view: users {
 
   dimension: is_email_source {
     type: yesno
-    sql: ${traffic_source} = "Email" ;;
+    sql: ${traffic_source} = 'Email' ;;
   }
 
   dimension: is_new_customer {
