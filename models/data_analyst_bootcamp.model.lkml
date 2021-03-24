@@ -10,6 +10,16 @@ datagroup: data_analyst_bootcamp_default_datagroup {
   max_cache_age: "1 hour"
 }
 
+datagroup: everyday_datagroup{
+  sql_trigger: SELECT CURRENT_DATE  ;;
+  max_cache_age: "24 hours"
+}
+
+datagroup: everyday_4h_datagroup{
+  sql_trigger: SELECT MAX(created_at) FROM order_items  ;;
+  max_cache_age: "4 hours"
+}
+
 persist_with: data_analyst_bootcamp_default_datagroup
 #comment
 
@@ -17,6 +27,7 @@ persist_with: data_analyst_bootcamp_default_datagroup
 
 # This explore contains multiple views
 explore: order_items {
+  persist_with: everyday_4h_datagroup
   sql_always_where: ${status} != 'Returned' ;;
   sql_always_having: ${total_sales} > 200 ;;
   always_filter: {
@@ -52,6 +63,7 @@ explore: order_items {
 }
 
 explore: users {
+  persist_with: everyday_datagroup
   always_filter: {
     filters: [order_items.created_date: "before today"]
   }
