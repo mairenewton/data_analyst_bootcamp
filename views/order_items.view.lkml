@@ -139,6 +139,8 @@ view: order_items {
     sql_end: ${delivered_date};;
     intervals: [day, week, month]
   }
+
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
