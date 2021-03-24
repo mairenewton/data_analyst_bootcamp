@@ -6,8 +6,8 @@ include: "/views/*.view"
 
 
 datagroup: data_analyst_bootcamp_default_datagroup {
-  # sql_trigger: SELECT MAX(id) FROM etl_log;;
-  max_cache_age: "1 hour"
+  sql_trigger: SELECT current_date;;
+  max_cache_age: "24 hours"
 }
 
 persist_with: data_analyst_bootcamp_default_datagroup
@@ -15,8 +15,21 @@ persist_with: data_analyst_bootcamp_default_datagroup
 
 # explore: inventory_items {}
 
+datagroup: order_items {
+  sql_trigger:  max(created_time) FROM order_items;;
+  max_cache_age: "4 hours"
+}
+
 # This explore contains multiple views
 explore: order_items {
+
+persist_with: order_items
+
+
+  conditionally_filter: {
+    filters: [inventory_items.created_year: "last 2 years"]
+    unless: [users.id]
+  }
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -42,5 +55,12 @@ explore: order_items {
   }
 }
 
-
+explore: users {
+  persist_with: data_analyst_bootcamp_default_datagroup
+  join: order_items {
+    type: left_outer
+    sql_on: ${users.id}= ${order_items.user_id} =  ;;
+    relationship: one_to_many
+  }
+}
 # explore: products {}
