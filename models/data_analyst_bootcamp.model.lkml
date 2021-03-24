@@ -10,16 +10,35 @@ datagroup: data_analyst_bootcamp_default_datagroup {
   max_cache_age: "1 hour"
 }
 
-persist_with: data_analyst_bootcamp_default_datagroup
+##triggers at midnight with date change
+datagroup: default_dg {
+ sql_trigger: SELECT current_date;;
+  max_cache_age: "24 hour"
+}
+
+## triggered anytime max created_at changes
+datagroup: order_item_dg {
+  sql_trigger: SELECT MAX(created_at) FROM order_items;;
+  max_cache_age: "4 hour"
+}
+
+persist_with: default_dg
 #comment
 
 # explore: inventory_items {}
 
 # This explore contains multiple views
 explore: order_items {
-  group_label: "LookML Developer Bootcamp"
-  label: "Orders"
-  description: "This is used for order details"
+persist_with: order_item_dg
+  # sql_always_where: ${order_items.status} = 'Complete';;
+  # sql_always_having: ${counts_of_orders} > 5;;
+  conditionally_filter: {
+    filters: [order_items.created_date: "last 2 years"]
+    unless: [users.id]
+  }
+  # group_label: "LookML Developer Bootcamp"
+  # label: "Orders"
+  # description: "This is used for order details"
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -48,6 +67,10 @@ explore: order_items {
 
 
 explore: users {
+  persist_with: default_dg
+  always_filter: {
+    filters: [order_items.created_date: "before today"]
+  }
   join: order_items {
     type: left_outer
     relationship: one_to_many

@@ -143,6 +143,7 @@ view: order_items {
     sql: ${sale_price} ;;
     value_format_name: usd
     filters: [users.is_email_source: "Yes"]
+    drill_fields: [detail*,average_sales,-user_id]
   }
 
   # measure: count {
