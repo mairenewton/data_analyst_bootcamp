@@ -19,8 +19,17 @@ explore: order_items {
 #sql_always_where: ${order_items.returned_date} IS Null ;;
 #sql_always_having: ${order_items.total_sales}>200 ;;
 
-sql_always_where: ${order_items.status}='Complete' ;;
-sql_always_having: ${order_items.count_of_orders} >5 ;;
+# sql_always_where: ${order_items.status}='Complete' ;;
+# sql_always_having: ${order_items.count_of_orders} >5 ;;
+always_filter: {
+  filters: [order_items.created_date: "before today"]
+}
+
+# filter order create date to last 2 years unless user id has been slected
+conditionally_filter: {
+    filters: [order_items.created_date: "last 2 years"]
+    unless: [ users.id]
+  }
 
   join: users {
     type: left_outer
