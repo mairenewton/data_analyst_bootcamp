@@ -44,6 +44,13 @@ explore: order_items {
 }
 
 explore: users {
+  always_filter: {
+    filters: [order_items.created_date: "before today"]
+  }
+  conditionally_filter: {
+    filters: [order_items.created_date: "last 2 years"]
+    unless: [users.id]
+  }
   join: order_items {
   type: left_outer
   sql_on: ${users.id} = ${order_items.user_id};;
