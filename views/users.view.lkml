@@ -1,6 +1,11 @@
 view: users {
   sql_table_name: public.users ;;
 ## comment
+  dimension: city_state {
+    type: string
+    sql: ${city} || ' ' || ${state} ;;
+  }
+
   dimension: id {
     primary_key: yes
     type: number
@@ -21,6 +26,11 @@ view: users {
     type: string
     map_layer_name: countries
     sql: ${TABLE}.country ;;
+  }
+
+  dimension: traffic_type_email{
+    type: yesno
+    sql: ${traffic_source} ='Email';;
   }
 
   dimension_group: created {
