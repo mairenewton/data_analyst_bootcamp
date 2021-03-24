@@ -9,6 +9,15 @@ datagroup: data_analyst_bootcamp_default_datagroup {
   max_cache_age: "1 hour"
 }
 
+datagroup: default_dg{
+  sql_trigger:  Select current_date ;;
+  max_cache_age: "24 hours"
+}
+
+datagroup: order_items{
+  sql_trigger: select max(created_at) from order_items;;
+  max_cache_age: "4 hours"
+}
 persist_with: data_analyst_bootcamp_default_datagroup
 #comment
 
@@ -16,11 +25,13 @@ persist_with: data_analyst_bootcamp_default_datagroup
 
 # This explore contains multiple views
 explore: order_items {
+  persist_with: order_items
 #sql_always_where: ${order_items.returned_date} IS Null ;;
 #sql_always_having: ${order_items.total_sales}>200 ;;
 
 # sql_always_where: ${order_items.status}='Complete' ;;
 # sql_always_having: ${order_items.count_of_orders} >5 ;;
+
 
 
 # filter order create date to last 2 years unless user id has been slected
@@ -63,6 +74,7 @@ conditionally_filter: {
 # }
 
 explore: users {
+  persist_with: default_dg
   # filter date to before today
   always_filter: {
     filters: [order_items.created_date: "before today"]
