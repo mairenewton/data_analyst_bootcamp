@@ -17,6 +17,10 @@ persist_with: data_analyst_bootcamp_default_datagroup
 
 # This explore contains multiple views
 explore: order_items {
+  # sql_always_having: ${total_sales}>200;;
+  # sql_always_where: ${order_items.returned_date} is null ;;
+  sql_always_where: ${order_items.status}= 'Complete';;
+
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -42,11 +46,16 @@ explore: order_items {
   }
 }
 
-# explore: users {
-#   join: order_items {
-#     type: left_outer
-#     sql_on: ${users.id} = ${order_items.user_id};;
-#     relationship: one_to_many
-#   }
-# }
-# explore: products {}
+explore: users {
+  join: order_items {
+    type: left_outer
+    sql_on: ${users.id} = ${order_items.user_id} ;;
+    relationship: one_to_many
+  }
+  join: inventory_items {
+    type: left_outer
+    sql_on: ${order_items.inventory_item_id} = ${inventory_items.id}  ;;
+    relationship: many_to_one
+    fields: []
+  }
+}
