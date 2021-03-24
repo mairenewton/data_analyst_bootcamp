@@ -44,9 +44,6 @@ explore: order_items {
 }
 
 explore: users {
-  always_filter: {
-    filters: [order_items.created_date: "before today"]
-  }
   conditionally_filter: {
     filters: [order_items.created_date: "last 2 years"]
     unless: [users.id]
