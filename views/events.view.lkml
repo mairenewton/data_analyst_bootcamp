@@ -100,3 +100,86 @@ view: events {
     type: count
   }
 }
+
+view: events_by_date {
+  derived_table: {
+    datagroup_trigger: default
+    distribution_style: all
+    explore_source: events {
+      column: created_date {}
+      column: event_type {}
+      column: count {}
+    }
+  }
+  dimension: created_date {
+    type: date
+  }
+  dimension: event_type {}
+  dimension: count {
+    type: number
+  }
+}
+
+view: events_by_month {
+  derived_table: {
+    datagroup_trigger: default # will persist each version of the table
+    distribution_style: all
+    explore_source: events {
+      column: created_date {field: events.created_month}
+      column: event_type {}
+      column: count {}
+    }
+  }
+  dimension: created_date {
+    type: date
+  }
+  dimension: event_type {}
+  dimension: count {
+    type: number
+  }
+}
+
+view: events_by_year {
+  derived_table: {
+    datagroup_trigger: default
+    distribution_style: all
+    explore_source: events {
+      column: created_date {field: events.created_year}
+      column: event_type {}
+      column: count {}
+    }
+  }
+  dimension: created_date {
+    type: date
+  }
+  dimension: event_type {}
+  dimension: count {
+    type: number
+  }
+}
+
+view: events_rollup {
+  derived_table: {
+    sql:
+    SELECT *
+    FROM
+    --Toggle between teh different tables
+    {% if created_date._in_query %} ${events_by_date.SQL_TABLE_NAME}
+    {% elsif created_month._in_query %} ${events_by_date.SQL_TABLE_NAME}
+    {% else %} ${events_by_date.SQL_TABLE_NAME}
+    {% endif %}
+    ;;
+  }
+  dimension_group: created {
+    type: time
+    datatype: date
+    timeframes: [raw,date,month,year]
+    sql: ${TABLE}.created_date ;;
+  }
+
+
+  dimension: event_type {}
+  dimension: count {
+    type: number
+  }
+}
