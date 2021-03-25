@@ -10,11 +10,25 @@ view: products {
   dimension: brand {
     type: string
     sql: ${TABLE}.brand ;;
+    link: {
+      label: "Google"
+      url: "https://www.google.com/search?q={{value | encode_uri}}"
+      icon_url: "https://www.google.com/favicon.ico"
+    }
+    link: {
+      label: "Order Details {{value}}"
+      url: "/dashboards/694?Brand={{value | encode_uri}}&States=&Date=30%20days"
+      icon_url: "https://www.looker.com/favicon.ico"
+    }
   }
 
   dimension: category {
     type: string
     sql: ${TABLE}.category ;;
+    link: {
+      label: "View Category Details"
+      url: "/explore/data_analyst_bootcamp/order_items?fields=products.category,products.name,inventory_items.count&f[products.category]={{value | uri_encode}}&sorts=inventory_items.count+desc&limit=500"
+    }
   }
 
   dimension: cost {

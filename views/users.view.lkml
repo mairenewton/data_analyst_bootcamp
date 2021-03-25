@@ -42,6 +42,12 @@ view: users {
   dimension: email {
     type: string
     sql: ${TABLE}.email ;;
+    link: {
+      label: "Link to a dashboard"
+      url: "/dashboards/1813?Email={{value | encode_uri}}"
+      icon_url: "https://www.looker.com/favicon.ico"
+
+    }
   }
 
   dimension: first_name {
@@ -92,6 +98,34 @@ view: users {
   dimension: city_state {
     type: string
     sql: ${city} || ', ' || ${state} ;;
+    link: {
+      label: "Link to a dashboard"
+      url: "/dashboards/1813?Email={{email._value}}"  ### links the email now (will filter on this name's email)
+      icon_url: "https://www.looker.com/favicon.ico"
+    }
+    link: {
+      label: "Link to a dashboard"
+      url: "https://teach.corp.looker.com/explore/advanced_data_analyst_bootcamp/order_items?fields=order_items.order_id,order_items.status,order_items.profit_margin&f[users.id]={{id._value}}&sorts=order_items.profit_margin+desc&limit=10"
+    }
+  }
+
+  dimension: name {
+    type: string
+    sql: ${first_name} || ', ' || ${last_name} ;;
+    link: {
+      label: "Link to a dashboard"
+      url: "/dashboards/1813?Email={{email._value}}"  ### links the email now (will filter on this name's email)
+      icon_url: "https://www.looker.com/favicon.ico"
+    }
+    link: {
+      label: "Link to an Explore"
+      url: "https://teach.corp.looker.com/explore/advanced_data_analyst_bootcamp/order_items?fields=order_items.order_id,order_items.status,order_items.profit_margin&f[users.id]={{id._value}}&f[users.state]={{_filters['users.state']}}&sorts=order_items.profit_margin+desc&limit=10"
+    }
+    ### checks if brand is selected then also filter on that otherwise doesn't filter
+    # link: {
+    #   label: "Link to an Explore"
+    #   url: "https://teach.corp.looker.com/explore/advanced_data_analyst_bootcamp/order_items?fields=order_items.order_id,order_items.status,order_items.profit_margin&f[users.id]={{id._value}}&f[users.state]={{ _filters['users.state'] }}{% if products.brand._is_selected %}&f[products.brand]={{ products.brand | encode_uri }}{% endif %}&sorts=order_items.profit_margin+desc&limit=10"
+    # }
   }
 
   dimension: age_groups {

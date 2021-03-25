@@ -79,6 +79,36 @@ explore: order_items {
     sql_on: ${inventory_items.product_distribution_center_id} = ${distribution_centers.id} ;;
     relationship: many_to_one
   }
+
+  join: ldt_order_facts {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${order_items.order_id} = ${ldt_order_facts.order_id} ;;
+  }
+
+  join: user_facts {
+    type: left_outer
+    sql_on: ${order_items.user_id} = ${user_facts.user_id} ;;
+    relationship: many_to_one
+  }
+
+  join: ndt_user_facts {
+    type: left_outer
+    sql_on: ${order_items.user_id} = ${ndt_user_facts.user_id} ;;
+    relationship: many_to_one
+  }
+
+  join: inventory_facts {
+    type: left_outer
+    sql_on: ${products.sku} = ${inventory_facts.product_sku} ;;
+    relationship: many_to_one
+  }
+
+  join: brand_order_facts_ndt {
+    type: left_outer
+    sql_on: ${products.brand} = ${brand_order_facts_ndt.brand} ;;
+    relationship: many_to_one
+  }
 }
 
 explore: users {
@@ -99,6 +129,8 @@ explore: users {
     sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;
     fields: []
   }
+
+
 }
 
 

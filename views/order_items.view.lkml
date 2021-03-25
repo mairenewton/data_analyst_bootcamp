@@ -148,6 +148,22 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+  measure: total_profit {
+    type: sum
+    sql: ${profit} ;;
+  }
+
+  measure: profit_margin {
+    type: number
+    sql: ${total_profit}/NULLIF(${total_sales},0) ;;
+    value_format_name: percent_2
+    html: {% if value > 0.5 %}
+    <p style="color: green;"> {{rendered_value}} </p>
+    {% else %}
+    <p style="color: red;"> {{rendered_value}} </p>
+    {% endif %};;
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
