@@ -17,6 +17,31 @@ view: users {
     sql: ${TABLE}.city ;;
   }
 
+  dimension: city_state {
+    description: "city, state"
+    type: string
+    sql: ${city} || ', ' || ${state};;
+  }
+
+  dimension: age_group {
+    type: tier
+    tiers: [18,25,35,45,55,65,75,90]
+    style: integer
+    sql: ${age} ;;
+  }
+
+  dimension: is_email  {
+    type: yesno
+    sql: ${traffic_source} = 'Email';;
+  }
+
+
+  measure: count_female_users {
+    type: count
+    filters: [gender: "Female"]
+  }
+
+
   dimension: country {
     type: string
     map_layer_name: countries
