@@ -100,6 +100,10 @@ view: order_items {
     type: count
     drill_fields: [detail*]
   }
+  measure: total_sales {
+  type: sum
+  sql: ${TABLE}.sale_price ;;
+}
 
   # ----- Sets of fields for drilling ------
   set: detail {
