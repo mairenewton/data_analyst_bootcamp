@@ -1,6 +1,7 @@
 view: users {
   sql_table_name: public.users ;;
 
+# add a cooment
   dimension: id {
     primary_key: yes
     type: number
@@ -54,6 +55,7 @@ view: users {
     sql: ${TABLE}.gender ;;
   }
 
+
   dimension: last_name {
     type: string
     sql: ${TABLE}.last_name ;;
@@ -88,4 +90,6 @@ view: users {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
+
+
 }
