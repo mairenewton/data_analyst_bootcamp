@@ -1,7 +1,7 @@
 view: users {
   sql_table_name: public.users ;;
 
-# add a cooment
+# add comment
   dimension: id {
     primary_key: yes
     type: number
@@ -54,6 +54,11 @@ view: users {
     type: string
     sql: ${TABLE}.gender ;;
   }
+
+dimension: Full_name {
+  type: string
+  sql: ${first_name}||' '||${last_name} ;;
+}
 
 
   dimension: last_name {
