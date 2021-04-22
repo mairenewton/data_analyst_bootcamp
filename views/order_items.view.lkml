@@ -101,10 +101,11 @@ view: order_items {
     drill_fields: [detail*]
   }
 
-  measure: count_of_items{
-    type: count_distinct
-    sql: ${order_id} ;;
-  }
+ measure:count_of_items{
+   type: count_distinct
+  sql: ${order_item_id} ;;}
+
+
 
   # ----- Sets of fields for drilling ------
   set: detail {

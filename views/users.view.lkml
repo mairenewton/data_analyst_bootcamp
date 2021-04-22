@@ -55,10 +55,6 @@ view: users {
     sql: ${TABLE}.gender ;;
   }
 
-dimension: Full_name {
-  type: string
-  sql: ${first_name}||' '||${last_name} ;;
-}
 
 
   dimension: last_name {
