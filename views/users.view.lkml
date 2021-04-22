@@ -1,7 +1,7 @@
 view: users {
   sql_table_name: public.users ;;
 
-# add comment
+# add commemt
   dimension: id {
     primary_key: yes
     type: number
