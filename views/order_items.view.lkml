@@ -7,7 +7,7 @@ view: order_items {
     sql: ${TABLE}.id ;;
   }
 
-  measure: distict_items {
+  measure: distict_orders {
     type: count_distinct
     sql: ${order_id} ;;
   }
