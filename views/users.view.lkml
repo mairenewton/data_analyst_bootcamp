@@ -23,6 +23,17 @@ view: users {
     sql: ${TABLE}.country ;;
   }
 
+  dimension: location {
+    type:  string
+    sql:  ${city} || ', ' || ${state};;
+  }
+
+  dimension: age_groups {
+    type: tier
+    tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+    sql:  ${age} ;;
+  }
+
   dimension_group: created {
     type: time
     timeframes: [
