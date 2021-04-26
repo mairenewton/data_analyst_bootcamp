@@ -119,6 +119,12 @@ view: order_items {
     value_format_name: usd
   }
 
+  measure: total_sales_email_user {
+    type: sum
+    sql:  ${sale_price};;
+    filters: [users.traffic_source: "Email"]
+  }
+
   measure: average_sales {
     type: average
     sql: ${sale_price} ;;
