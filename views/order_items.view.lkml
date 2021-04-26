@@ -7,6 +7,11 @@ view: order_items {
     sql: ${TABLE}.id ;;
   }
 
+  measure: distict_items {
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
   dimension_group: created {
     type: time
     timeframes: [
