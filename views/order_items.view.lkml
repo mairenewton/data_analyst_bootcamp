@@ -108,6 +108,7 @@ view: order_items {
   }
 
   measure: count_orders {
+    description: "a count of unique orders"
     type: count_distinct
     sql: ${order_id} ;;
   }
@@ -115,11 +116,13 @@ view: order_items {
   measure: total_sales {
     type: sum
     sql: ${sale_price} ;;
+    value_format_name: usd
   }
 
   measure: average_sales {
     type: average
     sql: ${sale_price} ;;
+    value_format_name: usd
   }
 
   # ----- Sets of fields for drilling ------
