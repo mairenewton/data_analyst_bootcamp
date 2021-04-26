@@ -28,7 +28,7 @@ view: users {
     sql:  ${city} || ', ' || ${state};;
   }
 
-  dimension: age_groups {
+  dimension: age_group {
     type: tier
     tiers: [18, 25, 35, 45, 55, 65, 75, 90]
     sql:  ${age} ;;
