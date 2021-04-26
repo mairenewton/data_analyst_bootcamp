@@ -39,6 +39,7 @@ view: users {
     sql: ${TABLE}.created_at ;;
   }
 
+
   dimension: email {
     type: string
     sql: ${TABLE}.email ;;
@@ -77,6 +78,11 @@ view: users {
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
+  }
+
+  dimension: is_email {
+    type: yesno
+    sql: ${TABLE}.traffic_source=='Email' ;;
   }
 
   dimension: zip {
