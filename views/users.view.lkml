@@ -84,6 +84,27 @@ view: users {
     sql: ${TABLE}.zip ;;
   }
 
+  dimension: city_state {
+    type: string
+    sql: concat(${city}, ${state}) ;;
+  }
+
+  dimension: age_bucket {
+    type: string
+    sql: case
+          when ${age}<=18 then '18'
+          when ${age}<=25 then '25'
+          when ${age}<=35 then '35'
+          when ${age}<=45 then '45'
+          when ${age}<=55 then '55'
+          when ${age}<=65 then '65'
+          when ${age}<=75 then '75'
+          when ${age}<=90 then '90'
+          else '90+'
+          end
+          ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
