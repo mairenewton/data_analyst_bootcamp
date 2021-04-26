@@ -121,6 +121,11 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+  measure: total_sales_by_email_users {
+    type: sum
+    filters: [users.is_email_user: "Yes"]
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
@@ -128,6 +133,7 @@ view: order_items {
       users.id,
       users.first_name,
       users.last_name,
+      users.is_email_user,
       inventory_items.id,
       inventory_items.product_name
     ]
