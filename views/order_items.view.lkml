@@ -125,6 +125,12 @@ view: order_items {
     filters: [users.traffic_source: "Email"]
   }
 
+  measure: sales_percent_email {
+    type: number
+    value_format_name: percent_0
+    sql: 1.0*${total_sales_email_user}/NULLIF(${total_sales},0) ;;
+  }
+
   measure: average_sales {
     type: average
     sql: ${sale_price} ;;
