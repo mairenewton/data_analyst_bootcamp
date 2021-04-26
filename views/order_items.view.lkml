@@ -49,6 +49,7 @@ view: order_items {
 
   dimension: profit {
     type: number
+    value_format_name: usd
     sql: ${sale_price} - ${inventory_items.cost} ;;
   }
 
@@ -85,6 +86,14 @@ view: order_items {
     sql: ${TABLE}.shipped_at ;;
   }
 
+  dimension_group: shipping_days {
+    type: duration
+    intervals: [day, month, year]
+    sql_start: ${shipped_date} ;;
+    sql_end: ${delivered_date} ;;
+
+  }
+
   dimension: status {
     type: string
     sql: ${TABLE}.status ;;
@@ -99,6 +108,28 @@ view: order_items {
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: count_of_orders {
+    description: "Count of unique orders"
+    type:  count_distinct
+    sql: ${order_id}  ;;
+  }
+
+  measure: total_sales {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: "usd"
+  }
+
+  measure: average_sales {
+    type: average
+    sql: ${sale_price} ;;
+    value_format_name: "usd"
+  }
+
+  measure: sales_by_email {
+    type: average
   }
 
   # ----- Sets of fields for drilling ------
