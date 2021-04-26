@@ -125,6 +125,13 @@ view: order_items {
     type: sum
     sql: ${sale_price} ;;
     filters: [users.is_email_user: "Yes"]
+    value_format_name: usd
+  }
+
+  measure: sales_percentage_by_email_users {
+    type: number
+    sql: 1.0*${total_sales_by_email_users}/NULLIF(${total_sales},0) ;;
+    value_format_name: percent_2
   }
 
   # ----- Sets of fields for drilling ------
