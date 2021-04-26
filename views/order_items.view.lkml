@@ -123,6 +123,7 @@ view: order_items {
 
   measure: total_sales_by_email_users {
     type: sum
+    sql: ${sale_price} ;;
     filters: [users.is_email_user: "Yes"]
   }
 
@@ -133,7 +134,6 @@ view: order_items {
       users.id,
       users.first_name,
       users.last_name,
-      users.is_email_user,
       inventory_items.id,
       inventory_items.product_name
     ]
