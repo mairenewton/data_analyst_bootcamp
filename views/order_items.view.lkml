@@ -80,6 +80,10 @@ view: order_items {
     type: sum
     sql:  ${sale_price} ;;
   }
+  measure: avg_sales {
+    type: average
+    sql:  ${sale_price} ;;
+  }
 
   dimension_group: shipped {
     type: time
