@@ -12,11 +12,23 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  dimension: age_tier {
+    type: tier
+    sql: ${age} ;;
+    tiers:[18,25,35,45,55,65,75,90]
+    style: integer
+  }
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
   }
 
+  dimension: city_state {
+    type: string
+    sql: ${city} || ',' || ${state} ;;
+
+  }
   dimension: country {
     type: string
     map_layer_name: countries
@@ -83,6 +95,9 @@ view: users {
     type: zipcode
     sql: ${TABLE}.zip ;;
   }
+
+
+
 
   measure: count {
     type: count
