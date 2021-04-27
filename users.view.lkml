@@ -12,6 +12,18 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  dimension: is_an_adult {
+    type: yesno
+    sql: ${age} > 18 ;;
+  }
+
+  dimension: age_tier {
+    type: tier
+    tiers: [18, 25, 35, 45, 55, 75, 90]
+    sql: ${age} ;;
+    style: integer
+  }
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
@@ -30,6 +42,8 @@ view: users {
       time,
       date,
       week,
+      week_of_year,
+      day_of_week,
       month,
       quarter,
       year
@@ -72,9 +86,20 @@ view: users {
     sql: ${TABLE}.state ;;
   }
 
+
+  dimension: city_state {
+    type: string
+    sql: ${city} || ', ' || ${state} ;;
+  }
+
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
+  }
+
+  dimension: is_email_source {
+    type: yesno
+    sql: ${traffic_source} LIKE '%Email%' ;;
   }
 
   dimension: zip {

@@ -7,6 +7,13 @@ view: order_items {
     sql: ${TABLE}.id ;;
   }
 
+  dimension: shipping_days {
+    description: "Use this to get the difference between shipped and delivered dates."
+    type: number
+    sql: DATEDIFF(day, ${shipped_date}, ${delivered_date}) ;;
+  }
+
+
   dimension_group: created {
     type: time
     timeframes: [
@@ -47,6 +54,14 @@ view: order_items {
     sql: ${TABLE}.order_id ;;
   }
 
+  measure: count_of_orders {
+    description: "A count of unique orders"
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
+
+
   dimension_group: returned {
     type: time
     timeframes: [
@@ -62,9 +77,34 @@ view: order_items {
   }
 
   dimension: sale_price {
+    hidden: yes
     type: number
     sql: ${TABLE}.sale_price ;;
   }
+
+  measure: total_sales {
+    group_label: "All Measures"
+    drill_fields: [id, created_month]
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
+  measure: total_sales_email_users {
+    group_label: "All Measures"
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [users.is_email_source: "Yes"]
+  }
+
+  measure: percentage_sales_email_source {
+    group_label: "All Measures"
+    type: number
+    value_format_name: percent_2
+    sql: 1.0 * ${total_sales_email_users} / NULLIF(${total_sales}, 0) ;;
+  }
+
+
 
   dimension_group: shipped {
     type: time

@@ -4,20 +4,40 @@ connection: "events_ecommerce"
 include: "*.view"
 
 
-datagroup: data_analyst_bootcamp_default_datagroup {
-  # sql_trigger: SELECT MAX(id) FROM etl_log;;
-  max_cache_age: "1 hour"
+# datagroup: data_analyst_bootcamp_default_datagroup {
+#   sql_trigger: SELECT MAX(id) FROM etl_log;;
+#   max_cache_age: "1 hour"
+# }
+
+
+
+datagroup: default_datagroup {
+  sql_trigger: select current_date ;;
+  max_cache_age: "24 hours"
 }
 
-persist_with: data_analyst_bootcamp_default_datagroup
+# persist_with: data_analyst_bootcamp_default_datagroup
 
 explore: inventory_items {}
 
 # This explore contains multiple views
 explore: order_items {
+  # persist_with: default_datagroup
+  persist_for: "2 hours"
+  sql_always_where: ${returned_date} is null ;;
+  sql_always_having: ${total_sales} > 200 ;;
+  # always_filter: {
+  #   filters: [users.age: "12"]
+  # }
+  # conditionally_filter: {
+  #   filters: [users.age: "12"]
+  #   unless: [users.city]
+  # }
+  # fields: [users.age_tier]
+  description: "Use this Explore for X, Y, Z"
   join: users {
-    type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
+    type: left_outer
     relationship: many_to_one
   }
 
@@ -35,7 +55,24 @@ explore: order_items {
 }
 
 
-explore: products {}
+explore: products {
+  persist_with: default_datagroup
+}
+
+explore: lifetime_orders {}
 
 
-explore: users {}
+explore: users {
+  label: "Test"
+  persist_with: default_datagroup
+  join: order_items {
+    type: left_outer
+    sql_on: ${order_items.user_id} = ${users.id} ;;
+    relationship: one_to_many
+  }
+  join: lifetime_orders {
+    type: left_outer
+    sql_on: ${lifetime_orders.user_id} = ${users.id} ;;
+    relationship: one_to_many
+  }
+}
