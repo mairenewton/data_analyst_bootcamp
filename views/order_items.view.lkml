@@ -49,6 +49,7 @@ view: order_items {
 
   dimension: profit {
     type: number
+    group_label: "Sales Metrics"
     value_format_name: usd
     sql: ${sale_price} - ${inventory_items.cost} ;;
   }
@@ -117,12 +118,14 @@ view: order_items {
   }
 
   measure: total_sales {
+    group_label: "Sales Metrics"
     type: sum
     sql: ${sale_price} ;;
     value_format_name: "usd"
   }
 
   measure: average_sales {
+    group_label: "Sales Metrics"
     type: average
     sql: ${sale_price} ;;
     value_format_name: "usd"

@@ -40,6 +40,33 @@ explore: order_items {
     sql_on: ${inventory_items.product_distribution_center_id} = ${distribution_centers.id} ;;
     relationship: many_to_one
   }
+  # sql_always_where: ${status} = 'Complete' ;;
+
+  conditionally_filter: {
+    filters: [order_items.created_year: "last 2 year"]
+    unless: [user_id]
+  }
+
+}
+
+explore: users {
+
+  always_filter: {
+    filters: [order_items.created_date: "before today"]
+  }
+  join: order_items {
+    type: left_outer
+    sql_on: ${users.id} = ${order_items.user_id};;
+    relationship: one_to_many
+  }
+
+  join: inventory_items {
+    type: left_outer
+    sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;
+    relationship: many_to_one
+    fields: []
+  }
+
 }
 
 
