@@ -10,6 +10,16 @@ datagroup: data_analyst_bootcamp_default_datagroup {
   max_cache_age: "1 hour"
 }
 
+datagroup: data_analyst_bootcamp_users {
+  max_cache_age: "24 hours"
+  sql_trigger:  select current_date ;;
+}
+
+datagroup: data_analyst_bootcamp_orders {
+  max_cache_age: "4 hours"
+  sql_trigger: select max(created_at) from order_items ;;
+}
+
 persist_with: data_analyst_bootcamp_default_datagroup
 #comment
 
@@ -17,8 +27,13 @@ persist_with: data_analyst_bootcamp_default_datagroup
 
 # This explore contains multiple views
 explore: order_items {
+  persist_with: data_analyst_bootcamp_orders
   sql_always_where: ${returned_date} is null;;
   sql_always_having: ${total_sales} > 200 && ${status} = "Complete" && ${count} > 5;;
+  conditionally_filter: {
+    filters: [inventory_items.created_date: "last 2 years"]
+    unless: [users.id]
+  }
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -45,6 +60,10 @@ explore: order_items {
 }
 
 explore: users {
+  persist_with: data_analyst_bootcamp_users
+  always_filter: {
+    filters: [order_items.created_date: "before today"]
+  }
   join: order_items {
     type: left_outer
     sql_on: ${users.id} = ${order_items.user_id} ;;
