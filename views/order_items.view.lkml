@@ -101,30 +101,6 @@ view: order_items {
     drill_fields: [detail*]
   }
 
-  measure: count_orders {
-    type: count_distinct
-    sql: ${order_id} ;;
-  }
-
-  measure: total_sales {
-    description: "Sum of sale price"
-    type: sum
-    sql: ${sale_price} ;;
-    value_format_name: usd
-  }
-
-  measure: avg_sales {
-    type: average
-    sql: ${sale_price} ;;
-    value_format_name: usd
-  }
-
-  measure: total_sales_by_email_source {
-    type: sum
-    sql: ${sale_price} ;;
-    filters: [users.traffic_source: "Email"]
-  }
-
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
