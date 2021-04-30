@@ -96,7 +96,7 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
-  measure: count {
+  measure: count_items_ordered {
     type: count
     drill_fields: [detail*]
   }
