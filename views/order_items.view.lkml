@@ -108,6 +108,11 @@ view: order_items {
     value_format_name: usd
   }
 
+  measure: total_profit {
+    type: sum
+    sql: ${sale_price} - ${products.cost} ;;
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
