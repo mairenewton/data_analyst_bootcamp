@@ -118,6 +118,7 @@ view: order_items {
     type: sum
     sql: ${sale_price} ;;
     filters: [status: "Complete"]
+    value_format_name: usd
   }
 
   # ----- Sets of fields for drilling ------
