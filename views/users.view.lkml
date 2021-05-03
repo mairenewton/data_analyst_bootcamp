@@ -88,4 +88,10 @@ view: users {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
+
+  measure: avg_age {
+    type: average
+    sql: ${age} ;;
+    value_format_name: decimal_0
+  }
 }
