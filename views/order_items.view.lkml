@@ -111,6 +111,13 @@ view: order_items {
   measure: total_profit {
     type: sum
     sql: ${sale_price} - ${products.cost} ;;
+    value_format_name: usd
+  }
+
+  measure: total_revenue_completed_orders {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [status: "Complete"]
   }
 
   # ----- Sets of fields for drilling ------
