@@ -86,6 +86,13 @@ view: order_items {
     sql: ${TABLE}.shipped_at ;;
   }
 
+  dimension_group: shipping_days {
+    type: duration
+    sql_start: ${shipped_date} ;;
+    sql_end: ${delivered_date} ;;
+    intervals: [day, month, year]
+  }
+
   dimension: status {
     type: string
     sql: ${TABLE}.status ;;
@@ -97,16 +104,28 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+  measure: average_sales {
+    type: average
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
   }
 
-  measure: total_revenue {
-    type: sum
-    sql: ${sale_price} ;;
-    value_format_name: usd
+  measure: count_of_orders {
+    description: "A count of unique orders"
+    type: count_distinct
+    sql: ${order_id} ;;
   }
+
+  # measure: total_revenue {
+  #   type: sum
+  #   sql: ${sale_price} ;;
+  #   value_format_name: usd
+  # }
 
   measure: total_profit {
     type: sum
@@ -120,6 +139,30 @@ view: order_items {
     filters: [status: "Complete"]
     value_format_name: usd
   }
+
+  measure: total_sales{
+    group_label: "Sales Metrics"
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
+  measure: total_sales_email_users {
+    group_label: "Sales Metrics"
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [users.is_email_source: "Yes"]
+    value_format_name: usd
+  }
+
+  measure: percentage_sales_email_source {
+    group_label: "Sales Metrics"
+    type: number
+    value_format_name: percent_2
+    sql: 1.0*${total_sales_email_users}/NULLIF(${total_sales},0) ;;
+  }
+
+
 
   # ----- Sets of fields for drilling ------
   set: detail {
