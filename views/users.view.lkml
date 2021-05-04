@@ -84,6 +84,11 @@ view: users {
     sql: ${TABLE}.gender ;;
   }
 
+  dimension: is_email_source {
+    type: yesno
+    sql: ${traffic_source} = 'Email' ;;
+  }
+
   dimension: is_new_customer {
     type: yesno
     sql: ${days_since_signup} <= 90 ;;
