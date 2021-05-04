@@ -39,6 +39,18 @@ view: users {
     sql: ${TABLE}.created_at ;;
   }
 
+  dimension: city_state {
+    type: string
+    sql: ${city} || ', ' || ${state} ;;
+  }
+
+  dimension: age_group {
+    type: tier
+    tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+    style: integer
+    sql: ${age} ;;
+  }
+
   dimension: email {
     type: string
     sql: ${TABLE}.email ;;
