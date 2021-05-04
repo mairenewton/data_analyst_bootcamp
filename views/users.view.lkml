@@ -96,6 +96,11 @@ view: users {
     sql:  ${TABLE}.age;;
   }
 
+  dimension: is_email {
+    type: yesno
+    sql: CASE WHEN ${traffic_source} = 'Email' THEN 1 ELSE 0 END;;
+  }
+
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
