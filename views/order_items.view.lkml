@@ -113,6 +113,16 @@ view: order_items {
     value_format_name: usd
   }
 
+  measure: unique_orders {
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
+  measure: total_sales {
+    type: sum
+    sql: ${sale_price} ;;
+  }
+
   measure: total_profit {
     type: sum
     sql: ${sale_price} - ${products.cost} ;;
