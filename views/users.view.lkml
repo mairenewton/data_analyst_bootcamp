@@ -17,6 +17,28 @@ view: users {
     sql: ${TABLE}.city ;;
   }
 
+  dimension: city_and_state {
+    type:  string
+    sql: ${city} || ', ' || ${state} ;;
+  }
+
+  dimension: age_group {
+    type: tier
+    sql:  ${age} ;;
+    tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+    style:  integer
+  }
+
+  dimension: is_email {
+    type: yesno
+    sql:  ${traffic_source} = "Email" ;;
+  }
+
+  dimension: days_since_signup {
+    type:  number
+    sql:  DATEDIFF(day, ${created_date}, current_date) ;;
+  }
+
   dimension: country {
     type: string
     map_layer_name: countries
