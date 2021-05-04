@@ -56,6 +56,7 @@ view: users {
     sql: ${TABLE}.email ;;
   }
 
+
   dimension: first_name {
     type: string
     sql: ${TABLE}.first_name ;;
@@ -89,6 +90,11 @@ view: users {
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
+  }
+
+  dimension: is_email_traffic_source {
+    type: yesno
+    sql: ${traffic_source}='Email' ;;
   }
 
   dimension: zip {
