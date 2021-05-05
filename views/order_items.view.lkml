@@ -18,6 +18,7 @@ view: order_items {
       week,
       month,
       month_name,
+      month_num,
       quarter,
       year
     ]
@@ -87,6 +88,13 @@ view: order_items {
     sql: ${TABLE}.shipped_at ;;
   }
 
+  dimension_group: shipping_days {
+    type: duration
+    sql_start: ${shipped_date} ;;
+    sql_end: ${delivered_date} ;;
+    intervals: [day, month, year]
+  }
+
   dimension: status {
     type: string
     sql: ${TABLE}.status ;;
@@ -96,6 +104,12 @@ view: order_items {
     type: number
     # hidden: yes
     sql: ${TABLE}.user_id ;;
+  }
+
+  measure: average_sales {
+    type: average
+    sql: ${sale_price} ;;
+    value_format_name: usd
   }
 
   measure: count {
@@ -109,12 +123,6 @@ view: order_items {
     sql: 1.0*${total_sales}/NULLIF(${users.count},0) ;;
   }
 
-  measure: average_sales {
-    group_label: "Sales Metrics"
-    type: average
-    sql: ${sale_price} ;;
-    value_format_name: usd
-  }
 
   measure: order_count {
     label: "Total Orders"
@@ -163,6 +171,7 @@ view: order_items {
              ELSE NULL
             END ;;
   }
+
 
 
   # ----- Sets of fields for drilling ------
