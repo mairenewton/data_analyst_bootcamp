@@ -123,7 +123,7 @@ view: order_items {
 
   measure: total_profit {
     type: sum
-    sql: ${sale_price} - ${products.cost} ;;
+    sql: ${sale_price} - ${inventory_items.cost} ;;
     value_format_name: usd
   }
 
@@ -162,6 +162,12 @@ view: order_items {
     type: average
     sql:  ${sale_price} ;;
     value_format_name: usd
+  }
+
+  measure: average_spend_per_user {
+    type: number
+    value_format_name: usd
+    sql: 1.0*${total_sales}/NULLIF(${users.count},0);;
   }
 
 

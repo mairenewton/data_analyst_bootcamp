@@ -17,6 +17,14 @@ persist_with: data_analyst_bootcamp_default_datagroup
 
 # This explore contains multiple views
 explore: order_items {
+  always_filter: {
+    filters: [order_items.created_date: "last 30 days"]
+  }
+  # always_filter: {
+  #   filters: [order_items.created_date: "before today"]
+  # }
+  # sql_always_where: ${returned_date} is NULL ;;
+  # sql_always_having: ${email_total_sales} > 200 ;;
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -41,6 +49,36 @@ explore: order_items {
     relationship: many_to_one
   }
 }
+
+# users explore custom
+explore: users {
+  conditionally_filter: {
+    filters: [inventory_items.created_date: "past 90 days"]
+    unless: [users.id, users.state]
+  }
+  # conditionally_filter: {
+  #   filters: [order_items.created_date: "last 2 years"]
+  # }
+  join: order_items {
+    type: left_outer
+    sql_on: ${users.id} = ${order_items.user_id} ;;
+    relationship: one_to_many
+  }
+  join: inventory_items {
+  type: left_outer
+  sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;
+  relationship: many_to_one
+  fields: []
+  }
+}
+
+
+
+
+
+
+
+
 
 
 # explore: products {}
