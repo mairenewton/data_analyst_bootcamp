@@ -50,6 +50,11 @@ view: order_items {
     sql: ${TABLE}.order_id ;;
   }
 
+  dimension: shipping_days {
+    type: number
+    sql: DATEDIFF(day,${shipped_date}, ${delivered_date}) ;;
+  }
+
   dimension: profit {
     type: number
     sql: ${sale_price} - ${inventory_items.cost} ;;
