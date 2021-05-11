@@ -79,6 +79,11 @@ view: users {
     sql: ${TABLE}.traffic_source ;;
   }
 
+  dimension: source_is_email {
+    type: yesno
+    sql:  ${TABLE}.traffic_source == 'email' ;;
+  }
+
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
