@@ -111,6 +111,11 @@ measure: count_of_orders {
   sql: ${order_id} ;;
 }
 
+measure: total_sales {
+  type: sum
+  sql: ${sale_price} ;;
+}
+
   measure: count {
     type: count
     drill_fields: [detail*]
