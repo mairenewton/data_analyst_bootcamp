@@ -108,4 +108,9 @@ dimension:  full_name{
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
 
+  measure: count_female_users {
+    type:  count
+    filters: [gender: "female"]
+  }
+
 }

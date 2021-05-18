@@ -132,7 +132,11 @@ measure: avg_saleprice {
 
 }
 
-
+measure: averagespent_per_user {
+  type:number
+  value_format_name: usd
+  sql:  1.0 *${total_sales}/nullif(($users.count),0) ;;
+}
 
   # ----- Sets of fields for drilling ------
   set: detail {
