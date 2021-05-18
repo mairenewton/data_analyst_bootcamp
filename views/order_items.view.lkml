@@ -118,7 +118,19 @@ view: order_items {
     desciption: 'A count of unique orders';;
 
   }
+measure: total_sales {
+  type: sum
+  sql:  ${sale_price} ;;
+  value_format_name: usd
 
+}
+measure: avg_saleprice {
+  type:  average
+  sql:  ${sale_price} ;;
+  value_format_name: usd
+
+
+}
 
 
 
