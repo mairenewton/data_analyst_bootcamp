@@ -128,7 +128,7 @@ measure: avg_saleprice {
   type:  average
   sql:  ${sale_price} ;;
   value_format_name: usd
-
+  drill_fields: [status]
 
 }
 
