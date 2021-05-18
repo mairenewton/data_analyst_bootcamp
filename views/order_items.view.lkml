@@ -112,8 +112,10 @@ view: order_items {
   }
 
   measure:  distinct_orders{
+    label: "count of unique oders"
     type: count_distinct
-    drill_fields: [order_id]
+    sql: ${order_id}
+    desciption: 'A count of unique orders';;
 
   }
 
