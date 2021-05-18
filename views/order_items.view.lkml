@@ -106,6 +106,11 @@ view: order_items {
     intervals: [day]
   }
 
+measure: count_of_orders {
+  type: count_distinct
+  sql: ${order_id} ;;
+}
+
   measure: count {
     type: count
     drill_fields: [detail*]
