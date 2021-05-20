@@ -107,6 +107,8 @@ view: order_items {
   }
 
 measure: count_of_orders {
+  label: "Count of Unique Orders"
+  description: "A count of unique orders"
   type: count_distinct
   sql: ${order_id} ;;
 }
@@ -114,7 +116,34 @@ measure: count_of_orders {
 measure: total_sales {
   type: sum
   sql: ${sale_price} ;;
+  value_format_name: usd
+  drill_fields: [detail*, users.full_name, -users.id]
 }
+
+measure: avg_sales {
+  label: "Average Sales"
+  type: average
+  sql: ${sale_price} ;;
+  value_format_name: usd
+  drill_fields: [status]
+}
+
+  measure: total_sales_email_users {
+  type: sum
+  sql: ${sale_price} ;;
+  filters: [users.is_email_source: "Yes"]
+}
+
+measure: percentage_email_sales{
+  type: number
+  sql:  1.0*${total_sales_email_users} / NULLIF(${total_sales},0) ;;
+  }
+
+  measure: average_spend_per_user{
+    type: number
+    value_format_name: usd
+    sql: 1.0*${total_sales}/nullif(${users.count},0) ;;
+  }
 
   measure: count {
     type: count
