@@ -106,6 +106,15 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+  parameter: date_granularity {
+    type: string
+    allowed_value: { value: "Day" }
+    allowed_value: { value: "Week"}
+    allowed_value: { value: "Month" }
+    allowed_value: { value: "Quarter" }
+    allowed_value: { value: "Year" }
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
@@ -129,7 +138,7 @@ measure: avg_saleprice {
   sql:  ${sale_price} ;;
   value_format_name: usd
   drill_fields: [status]
-
+  hidden: no
 }
 
 measure: averagespent_per_user {
