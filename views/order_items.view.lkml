@@ -74,6 +74,31 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
+  measure: total_sales {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: eur_0
+  }
+
+  measure: total_sales_new_users {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [users.is_new_user: "Yes"]
+  }
+
+  measure: new_user_pct_sales {
+    type: number
+    sql: ${total_sales_new_users}/${total_sales} ;;
+    value_format_name: percent_2
+  }
+
+
+  measure: average_sale_price {
+    type: average
+    sql: ${sale_price} ;;
+    value_format_name: eur
+  }
+
   dimension_group: shipped {
     type: time
     timeframes: [

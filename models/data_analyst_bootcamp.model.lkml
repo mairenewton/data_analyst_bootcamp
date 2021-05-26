@@ -16,10 +16,20 @@ persist_with: data_analyst_bootcamp_default_datagroup
 # explore: inventory_items {}
 
 # This explore contains multiple views
+# explore:  order_items_v2 {
+#   from: order_items
+#   fields: [ALL_FIELDS*, -order_items_v2.total_sales_new_users, -order_items_v2.profit]
+
+# }
+
 explore: order_items {
+  label: "Order Items Brendan"
+  group_label: "Brendan's Group"
+  description: "This is a description"
   join: users {
+    view_label: "Users Brendan"
     type: left_outer
-    sql_on: ${order_items.user_id} = ${users.id} ;;
+    sql_on: ${order_items.user_id} = ${users.id};;
     relationship: many_to_one
   }
 
@@ -40,6 +50,19 @@ explore: order_items {
     sql_on: ${inventory_items.product_distribution_center_id} = ${distribution_centers.id} ;;
     relationship: many_to_one
   }
+  # sql_always_having: ${total_sales} > 1000 ;;
+  # sql_always_where: ${users.state}='Texas' ;;
+
+  # always_filter: {
+  #   filters: [users.state: "New York"]
+  #   filters: [order_items.created_date: "30 days"]
+  # }
+
+  conditionally_filter: {
+    filters: [users.state: "New York"]
+    unless: [users.city]
+  }
+
 }
 
 
