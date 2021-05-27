@@ -25,6 +25,13 @@ view: order_items {
     sql: ${TABLE}.created_at ;;
   }
 
+  dimension_group: shippingz {
+    type: duration
+    intervals: [day]
+    sql_start: ${shipped_date} ;;
+    sql_end: ${delivered_date};;
+}
+
   dimension_group: delivered {
     type: time
     timeframes: [
