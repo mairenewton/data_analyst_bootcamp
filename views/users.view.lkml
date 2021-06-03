@@ -12,7 +12,7 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
-  dimension: age_tier {
+  dimension: age_tier_rocks {
     type: tier
     tiers: [18,25,35,45]
     style: classic
