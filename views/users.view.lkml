@@ -80,7 +80,7 @@ view: users {
   }
   dimension: isTrafficSourceEmail {
     type: yesno
-    sql: ${traffic_source} ;;
+    sql: ${traffic_source} =${email} ;;
   }
 
   dimension: zip {
