@@ -44,9 +44,9 @@ view: users {
     sql: ${TABLE}.email ;;
   }
 
-  dimension: email_bhup {
-    type: string
-    sql: ${traffic_source} ;;
+  dimension: i_email_source {
+    type: yesno
+    sql: ${traffic_source} = 'Email';;
   }
 
   dimension: first_name {
