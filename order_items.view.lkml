@@ -96,17 +96,17 @@ view: order_items {
 
   # SHIPPING DAYS
 
-  # dimension_group: shipping_days {
-  #   type: duration
-  #   sql_start: ${shipped_date};;
-  #   sql_end: ${delivered_date};;
-  #   intervals: [day]
-  # }
+  dimension_group: shipping_days {
+    type: duration
+    sql_start: ${shipped_date};;
+    sql_end: ${delivered_date};;
+    intervals: [day]
+  }
 
-  # dimension: shipping_days {
-  #   type: number
-  #   sql: DATEDIFF(day, ${shipped_date}  ,${delivered_date});;
-  # }
+  dimension: shipping_days {
+    type: number
+    sql: DATEDIFF(day, ${shipped_date}  ,${delivered_date});;
+  }
 
 
   measure: count {
@@ -116,21 +116,21 @@ view: order_items {
 
   # COUNT OF UNIQUE ORDERS
 
-  # measure: order_count {
-  #   description: "A count of unique orders"
-  #   type:count_distinct
-  #   sql: ${order_id};;
-  # }
+  measure: order_count {
+    description: "A count of unique orders"
+    type:count_distinct
+    sql: ${order_id};;
+  }
 
 
 
   # TOTAL SALES
 
-  # measure: total_sales{
-  #   type: sum
-  #   sql: ${sale_price} ;;
-  #   value_format_name: usd
-  # }
+  measure: total_revenue{
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
 
 
 
@@ -138,11 +138,11 @@ view: order_items {
   # AVERAGE SALES
 
 
-  # measure: average_sales {
-  #   type: average
-  #   sql: ${sale_price} ;;
-  #   value_format_name: usd
-  # }
+  measure: average_sales {
+    type: average
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
 
 
   # TOTAL SALES EMAIL USERS
@@ -157,23 +157,23 @@ view: order_items {
 
   # Percentage of sales that are attributed to users coming from the email traffic source
 
-  # measure: percentage_sales_email_source {
-  #   type: number
-  #   value_format_name: percent_2
-  #   sql: 1.0*${total_sales_email_users}
-  #     /NULLIF(${total_sales}, 0) ;;
-  # }
+  measure: percentage_sales_email_source {
+    type: number
+    value_format_name: percent_2
+    sql: 1.0*${total_sales_email_users}
+      /NULLIF(${total_revenue}, 0) ;;
+  }
 
 
 
   # Average spend per user by dividing the total sales measure by the user count measure
 
-  # measure: average_spend_per_user {
-  #   type: number
-  #   value_format_name: usd
-  #   sql: 1.0*${total_sales} / NULLIF(${users.count},0)
-  #     ;;
-  # }
+  measure: average_spend_per_user {
+    type: number
+    value_format_name: usd
+    sql: 1.0*${total_revenue} / NULLIF(${users.count},0)
+      ;;
+  }
 
 
 

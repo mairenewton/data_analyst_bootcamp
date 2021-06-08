@@ -1,5 +1,6 @@
 view: users {
   sql_table_name: public.users ;;
+  label: "All Users"
 
   dimension: id {
     primary_key: yes
@@ -11,6 +12,28 @@ view: users {
     type: number
     sql: ${TABLE}.age ;;
   }
+
+  # dimension: website_links {
+  #   type: string
+
+  #   sql: CONCAT(${state},${city}) ;;
+
+  #   html:
+  #   <a href="https://www.google.com/search?q={{ users.state._value}}&{{users.city._value}}"> Search </a>
+
+  #   ;;
+  # }
+
+
+  # dimension: website_links {
+  #   type: string
+
+  #   sql: COALESCE(${state},${city},NULL) ;;
+
+  #   html: {% if value != 'NULL' %} <a href=https://ivp.lightning.force.com/lightning/r/Account/{{ users.state._value }}/view><img src=https://www.salesforce.com/favicon.ico alt="image" style="width:20px;height:20px;"/></a>
+  #   {% elsif value == 'NULL' %} <a href=https://ivp.lightning.force.com/lightning/r/Account/{{ users.city._value }}/view><img src=https://www.google.com/favicon.ico alt="image" style="width:20px;height:20px;"/></a>
+  #   {% endif %};;
+  # }
 
   # Age Tier
 
