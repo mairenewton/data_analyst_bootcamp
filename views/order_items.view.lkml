@@ -133,8 +133,9 @@ view: order_items {
   }
 
   measure: percentage_sales_email_source {
-    type: percent_of_total
-    sql: ${total_sales_of_email_users}/${totalSales} ;;
+    type: number
+    sql:1.0* (${total_sales_of_email_users}/NULLIF(${totalSales}, 0)) ;;
+
   }
 
   # ----- Sets of fields for drilling ------
