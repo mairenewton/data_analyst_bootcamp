@@ -12,10 +12,13 @@ view: order_items {
     timeframes: [
       raw,
       time,
+      hour_of_day,
+      day_of_week,
       date,
       week,
       month,
       month_name,
+      month_num,
       quarter,
       year
     ]
@@ -37,8 +40,8 @@ view: order_items {
   }
 
   dimension: inventory_item_id {
+    #hidden: yes
     type: number
-    # hidden: yes
     sql: ${TABLE}.inventory_item_id ;;
   }
 

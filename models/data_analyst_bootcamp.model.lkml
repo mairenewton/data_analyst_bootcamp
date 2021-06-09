@@ -2,7 +2,8 @@ connection: "events_ecommerce"
 
 # include all the views
 include: "/views/*.view"
-# added comment
+
+
 
 datagroup: data_analyst_bootcamp_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
@@ -10,9 +11,7 @@ datagroup: data_analyst_bootcamp_default_datagroup {
 }
 
 persist_with: data_analyst_bootcamp_default_datagroup
-###change
-
-### Whitespaces ####
+#comment
 
 # explore: inventory_items {}
 
