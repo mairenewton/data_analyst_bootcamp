@@ -51,7 +51,6 @@ explore: order_items {
   query: orders_by_date{
     dimensions: [order_items.created_date]
     measures: [order_items.total_revenue]
-
     filters: [order_items.created_date: "last 30 days"]
   }
 }
