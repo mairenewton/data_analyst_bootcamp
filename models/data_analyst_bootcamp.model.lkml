@@ -42,5 +42,16 @@ explore: order_items {
   }
 }
 
+datagroup: default_dg{
+  sql_trigger: select current_date ;;
+  max_cache_age: "1 hours"
+}
+
+
+
+
+
+
+
 
 # explore: products {}
