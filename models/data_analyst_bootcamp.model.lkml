@@ -60,6 +60,10 @@ explore: order_items {
     filters: [order_items.created_date: "last 30 days"]
   }
 
+  always_filter: {
+    filters: [order_items.status: "Complete",users.country: "USA"]
+  }
+
 }
 
 # explore: products {}
