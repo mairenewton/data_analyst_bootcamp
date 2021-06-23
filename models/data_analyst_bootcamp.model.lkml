@@ -53,7 +53,13 @@ explore: order_items {
     measures: [order_items.total_revenue]
     filters: [order_items.created_date: "last 30 days"]
   }
-}
 
+  query: count_by_date{
+    dimensions: [order_items.created_date]
+    measures: [order_items.count]
+    filters: [order_items.created_date: "last 30 days"]
+  }
+
+}
 
 # explore: products {}
