@@ -41,6 +41,12 @@ explore: order_items {
     relationship: many_to_one
   }
 
+  join: user_summary {
+    type: left_outer
+    sql_on: ${order_items.user_id} = ${user_summary.id} ;;
+    relationship: many_to_one
+  }
+
   query: order_status_by_date{
     dimensions: [order_items.created_date, order_items.status]
     measures: [order_items.total_revenue]
