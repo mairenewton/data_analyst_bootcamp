@@ -1,5 +1,5 @@
 view: user_summary {
-  sql_table_name: public.events ;;
+  sql_table_name: public.users ;;
 
   dimension: id {
     primary_key: yes
@@ -7,9 +7,9 @@ view: user_summary {
     sql: ${TABLE}.id ;;
   }
 
-  dimension: browser {
-    type: string
-    sql: ${TABLE}.browser ;;
+  dimension: age {
+    type: number
+    sql: ${TABLE}.age ;;
   }
 
   dimension: city {
@@ -19,6 +19,7 @@ view: user_summary {
 
   dimension: country {
     type: string
+    map_layer_name: countries
     sql: ${TABLE}.country ;;
   }
 
@@ -30,20 +31,32 @@ view: user_summary {
       date,
       week,
       month,
+      month_name,
       quarter,
+      day_of_month,
       year
     ]
     sql: ${TABLE}.created_at ;;
   }
 
-  dimension: event_type {
+  dimension: email {
     type: string
-    sql: ${TABLE}.event_type ;;
+    sql: ${TABLE}.email ;;
   }
 
-  dimension: ip_address {
+  dimension: first_name {
     type: string
-    sql: ${TABLE}.ip_address ;;
+    sql: ${TABLE}.first_name ;;
+  }
+
+  dimension: gender {
+    type: string
+    sql: ${TABLE}.gender ;;
+  }
+
+  dimension: last_name {
+    type: string
+    sql: ${TABLE}.last_name ;;
   }
 
   dimension: latitude {
@@ -56,21 +69,6 @@ view: user_summary {
     sql: ${TABLE}.longitude ;;
   }
 
-  dimension: os {
-    type: string
-    sql: ${TABLE}.os ;;
-  }
-
-  dimension: sequence_number {
-    type: number
-    sql: ${TABLE}.sequence_number ;;
-  }
-
-  dimension: session_id {
-    type: string
-    sql: ${TABLE}.session_id ;;
-  }
-
   dimension: state {
     type: string
     sql: ${TABLE}.state ;;
@@ -81,16 +79,6 @@ view: user_summary {
     sql: ${TABLE}.traffic_source ;;
   }
 
-  dimension: uri {
-    type: string
-    sql: ${TABLE}.uri ;;
-  }
-
-  dimension: user_id {
-    type: number
-    sql: ${TABLE}.user_id ;;
-  }
-
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
@@ -98,5 +86,7 @@ view: user_summary {
 
   measure: count {
     type: count
+    drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
+
 }
