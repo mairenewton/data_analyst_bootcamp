@@ -12,9 +12,26 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  dimension: age_group {
+    type: number
+    sql: CASE WHEN ${age} <= 18 THEN 18
+          WHEN ${age} > 18 AND <= 25 THEN 25
+          WHEN ${age} > 25 AND <= 35 THEN 35
+          WHEN ${age} > 35 AND <= 45 THEN 45
+          WHEN ${age} > 45 AND <= 55 THEN 55
+          WHEN ${age} > 55 AND <= 65 THEN 65
+          WHEN ${age} > 65 AND <= 75 THEN 75
+          ELSE 90 END;;
+  }
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
+  }
+
+  dimension: city_state {
+    type: string
+    sql: ${city} || ', ' || ${state} ;;
   }
 
   dimension: country {

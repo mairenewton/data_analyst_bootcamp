@@ -1,6 +1,11 @@
 view: order_items {
   sql_table_name: public.order_items ;;
 
+  measure: average_sales{
+    type: average
+    sql: ${TABLE}.sale_price ;;
+  }
+
   dimension: order_item_id {
     primary_key: yes
     type: number
