@@ -41,18 +41,18 @@ explore: order_items {
     relationship: many_to_one
   }
 
-  query: order_status_by_date{
-    dimensions: [order_items.created_date, order_items.status]
-    measures: [order_items.total_revenue]
+  # query: order_status_by_date{
+  #   dimensions: [order_items.created_date, order_items.status]
+  #   measures: [order_items.total_revenue]
 
-    filters: [order_items.created_date: "last 30 days"]
-  }
+  #   filters: [order_items.created_date: "last 30 days"]
+  # }
 
-  query: orders_by_date{
-    dimensions: [order_items.created_date]
-    measures: [order_items.total_revenue]
-    filters: [order_items.created_date: "last 30 days"]
-  }
+  # query: orders_by_date{
+  #   dimensions: [order_items.created_date]
+  #   measures: [order_items.total_revenue]
+  #   filters: [order_items.created_date: "last 30 days"]
+  # }
 }
 
 

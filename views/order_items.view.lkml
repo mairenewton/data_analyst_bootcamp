@@ -88,6 +88,13 @@ view: order_items {
     sql: ${TABLE}.shipped_at ;;
   }
 
+  dimension_group: shipping_days {
+    type: duration
+    sql_start: ${shipped_date} ;;
+    sql_end: ${delivered_date} ;;
+    intervals: [day, month, year]
+  }
+
   dimension: status {
     type: string
     sql: ${TABLE}.status ;;
@@ -104,11 +111,38 @@ view: order_items {
     drill_fields: [detail*]
   }
 
-  measure: total_revenue {
+  measure: count_of_orders {
+ #   label: "Order Count"
+    description: "A count of unique orders"
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
+  measure: total_sales {
     type: sum
-    sql:  ${sale_price} ;;
+    sql: ${sale_price} ;;
     value_format_name: usd
   }
+
+  # measure: total_revenue {
+  #   type: sum
+  #   sql:  ${sale_price} ;;
+  #   value_format_name: usd
+  # }
+
+  measure: average_sales {
+    type: average
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
+  measure: total_sales_new_users {
+    type: sum
+    sql: ${sale_price} ;;
+    filters:  [users.is_new_customer: "Yes"]
+  }
+
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [

@@ -11,13 +11,30 @@ view: users {
     type: number
     sql: ${TABLE}.age ;;
   }
+
+  dimension: age_tier {
+    type: tier
+    tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+    sql: ${age} ;;
+    style: integer
+  }
+
+
 ##commments
   dimension: city {
+    group_label: "Geography"
     type: string
     sql: ${TABLE}.city ;;
   }
 
+  dimension: city_state {
+    group_label: "Geography"
+    type: string
+    sql: ${city} || ', ' || ${state};;
+  }
+
   dimension: country {
+    group_label: "Geography"
     type: string
     map_layer_name: countries
     sql: ${TABLE}.country ;;
@@ -39,14 +56,33 @@ view: users {
     sql: ${TABLE}.created_at ;;
   }
 
+  dimension: days_since_signup {
+    type: number
+    sql: DATEDIFF(day, ${created_date}, current_date) ;;
+  }
+
+  dimension: days_since_signup_tier {
+    type: tier
+    sql: ${days_since_signup} ;;
+    tiers: [0,30,90,180,360,720]
+    style: integer
+  }
+
   dimension: email {
     type: string
     sql: ${TABLE}.email ;;
   }
 
-  dimension: first_name {
+  dimension: first_name{
+    hidden: yes
     type: string
     sql: ${TABLE}.first_name ;;
+  }
+
+  dimension: full_name {
+    label: "First & Last Name"
+    type: string
+    sql: ${first_name} || ' ' || ${last_name} ;;
   }
 
   dimension: gender {
@@ -54,22 +90,36 @@ view: users {
     sql: ${TABLE}.gender ;;
   }
 
+  dimension: is_email_source {
+    type: yesno
+    sql: ${traffic_source} = 'Email' ;;
+  }
+
+  dimension: is_new_customer {
+    type: yesno
+    sql: ${days_since_signup} <= 90 ;;
+  }
+
   dimension: last_name {
+    hidden: yes
     type: string
     sql: ${TABLE}.last_name ;;
   }
 
   dimension: latitude {
+    group_label: "Geography"
     type: number
     sql: ${TABLE}.latitude ;;
   }
 
   dimension: longitude {
+    group_label: "Geography"
     type: number
     sql: ${TABLE}.longitude ;;
   }
 
   dimension: state {
+    group_label: "Geography"
     type: string
     sql: ${TABLE}.state ;;
   }
@@ -80,6 +130,7 @@ view: users {
   }
 
   dimension: zip {
+    group_label: "Geography"
     type: zipcode
     sql: ${TABLE}.zip ;;
   }
@@ -88,5 +139,21 @@ view: users {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
+
+  measure: count_female_users {
+    type: count
+    filters: [gender: "Female"]
+  }
+
+
+
+
+
+
+
+
+
+
+
 
 }
