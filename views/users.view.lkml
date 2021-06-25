@@ -13,11 +13,13 @@ view: users {
   }
 
   dimension: city {
+    group_label: "Geography"
     type: string
     sql: ${TABLE}.city ;;
   }
 
   dimension: country {
+    group_label: "Geography"
     type: string
     map_layer_name: countries
     sql: ${TABLE}.country ;;
@@ -45,8 +47,14 @@ view: users {
   }
 
   dimension: first_name {
+#    hidden: yes
     type: string
     sql: ${TABLE}.first_name ;;
+  }
+
+  dimension: full_name {
+    type: string
+    sql: ${first_name} || ‘ ‘ || ${last_name} ;;
   }
 
   dimension: gender {
@@ -54,22 +62,31 @@ view: users {
     sql: ${TABLE}.gender ;;
   }
 
+  dimension: is_email_source {
+    type: yesno
+    sql: ${traffic_source} = ‘Email’ ;;
+  }
+
   dimension: last_name {
+    hidden: yes
     type: string
     sql: ${TABLE}.last_name ;;
   }
 
   dimension: latitude {
+    group_label: "Geography"
     type: number
     sql: ${TABLE}.latitude ;;
   }
 
   dimension: longitude {
+    group_label: "Geography"
     type: number
     sql: ${TABLE}.longitude ;;
   }
 
   dimension: state {
+    group_label: "Geography"
     type: string
     sql: ${TABLE}.state ;;
   }
@@ -80,6 +97,7 @@ view: users {
   }
 
   dimension: zip {
+    group_label: "Geography"
     type: zipcode
     sql: ${TABLE}.zip ;;
   }
