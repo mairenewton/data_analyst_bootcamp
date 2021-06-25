@@ -129,8 +129,14 @@ view: order_items {
     type: sum
     sql: ${sale_price} ;;
     value_format_name: usd
-
   }
+
+  measure: total_sales_new_users {
+    type: sum
+    sql: ${sale_price} ;;
+    filters:  [users.is_new_customer: "Yes"]
+  }
+
 
   measure: total_revenue {
     type: sum

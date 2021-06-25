@@ -41,6 +41,19 @@ view: users {
     sql: ${TABLE}.created_at ;;
   }
 
+  dimension: days_since_signup {
+    type: number
+    sql: DATEDIFF(day, ${created_date},current_date) ;;
+  }
+
+
+  dimension: days_since_signup_tier {
+    type: tier
+    sql: ${days_since_signup} ;;
+    tiers: [0, 30, 90, 180, 360, 720]
+    style: integer
+  }
+
   dimension: email {
     type: string
     sql: ${TABLE}.email ;;
@@ -65,6 +78,11 @@ view: users {
   dimension: is_email_source {
     type: yesno
     sql: ${traffic_source} = ‘Email’ ;;
+  }
+
+  dimension: is_new_customer {
+    type: yesno
+    sql: ${days_since_signup} <= 90 ;;
   }
 
   dimension: last_name {
@@ -106,5 +124,11 @@ view: users {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
+
+  measure: count_female_users {
+    type: count
+    filters:  [gender: "Female"]
+  }
+
 
 }
