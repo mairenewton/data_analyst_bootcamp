@@ -99,6 +99,18 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+ # dimension: sale_price {
+ #   type: number
+ #   sql: ${TABLE}.sale_price ;;
+ # }
+
+ # measure: average_sale_price {
+ #   type: average
+ #   sql: ${sale_price} ;;
+ # }
+
+
+
   measure: count {
     type: count
     drill_fields: [detail*]
