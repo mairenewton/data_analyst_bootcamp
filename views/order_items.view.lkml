@@ -89,6 +89,7 @@ view: order_items {
   }
 
   dimension: status {
+    label: "Order Status"
     type: string
     sql: ${TABLE}.status ;;
   }
@@ -98,6 +99,12 @@ view: order_items {
     # hidden: yes
     sql: ${TABLE}.user_id ;;
   }
+
+  dimension: sale_prices {
+    type: number
+    sql: ${TABLE}.sale_price ;;
+  }
+
 
  # dimension: sale_price {
  #   type: number
@@ -109,7 +116,10 @@ view: order_items {
  #   sql: ${sale_price} ;;
  # }
 
-
+  measure: avg_sale_price {
+    type: average
+    sql: ${sale_prices} ;;
+  }
 
   measure: count {
     type: count
