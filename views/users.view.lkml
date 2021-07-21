@@ -23,6 +23,24 @@ view: users {
     sql: ${TABLE}.country ;;
   }
 
+dimension: email{
+  type: yesno
+  sql: ${traffic_source} = Email
+  ;;
+}
+
+  measure: count_female_users {
+    type: count
+    filters: [gender: "Female"]
+  }
+
+
+dimension: city_state
+{ type:string
+  sql:$city || ' '|| $state
+  }
+
+
   dimension_group: created {
     type: time
     timeframes: [
@@ -39,10 +57,7 @@ view: users {
     sql: ${TABLE}.created_at ;;
   }
 
-  dimension: email {
-    type: string
-    sql: ${TABLE}.email ;;
-  }
+
 
   dimension: first_name {
     type: string

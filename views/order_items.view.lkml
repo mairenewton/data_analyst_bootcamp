@@ -104,6 +104,19 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+measure: orders{
+  type:count_distinct
+  sql: $order ID  ;;
+
+}
+measure: average_revenue{
+  type: average
+  sql: ${sale_price}
+;;
+value_format_name: usd
+}
+
+
   measure: total_revenue {
     type: sum
     sql:  ${sale_price} ;;
