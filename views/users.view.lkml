@@ -57,7 +57,10 @@ dimension: city_state
     sql: ${TABLE}.created_at ;;
   }
 
-
+measure: perc_user_f
+{type:number
+sql:${count_female_users}/${count}${id}
+}
 
   dimension: first_name {
     type: string
@@ -101,7 +104,8 @@ dimension: city_state
 
   measure: count {
     type: count
-    drill_fields: [id, first_name, last_name, events.count, order_items.count]
+    drill_fields: [id,
+      last_name, events.count, order_items.count]
   }
 
 }
