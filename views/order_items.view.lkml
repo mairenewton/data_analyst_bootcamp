@@ -116,6 +116,14 @@ measure: average_revenue{
 value_format_name: usd
 }
 
+measure: sales_by_email {
+  type: sum
+  sql: ${sale_price} ;;
+  value_format_name: usd
+
+}
+
+
 
   measure: total_revenue {
     type: sum

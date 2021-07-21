@@ -41,6 +41,9 @@ dimension: city_state
   }
 
 
+
+
+
   dimension_group: created {
     type: time
     timeframes: [
