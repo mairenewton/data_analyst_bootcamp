@@ -121,8 +121,38 @@ view: order_items {
     ]
   }
 
-  dimension: delivery_days {
+  dimension: shipping_days {
   type: number
   sql: DATEDIFF(day, ${shipped_date},${delivered_date}) ;;
   }
-}
+
+  dimension_group: shipped_to_delivered {
+    type: duration
+    sql_start: ${shipped_date};;
+    sql_end: ${delivered_date} ;;
+    intervals: [day, week, month]
+  }
+
+  measure: count_distinct_orders{
+    type: count_distinct
+    sql: ${order_id} ;;
+
+  }
+  measure: total_sales_from_new_users {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+    filters: [users.is_new_customer: "Yes"]
+  }
+
+  measure: total_sales_from_email_source {
+    type: sum
+    sql: ${sale_price};;
+    filters: [users.is_from_email_traffic_source: "Yes"]
+  }
+  measure: percentage_sales_email_source {
+    type: number
+    value_format_name: percent_2
+    sql: 1 * ${total_sales_from_email_source}/ NULLIF(${total_revenue},0) ;;
+  }
+  }

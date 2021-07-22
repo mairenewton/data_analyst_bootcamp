@@ -86,11 +86,54 @@ view: users {
 
   dimension: city_state {
     type: string
-    sql: ${city}  ¦¦ ${state} ;;
+    sql: ${city}  || ', ' || ${state} ;;
   }
+
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
 
+ dimension: is_from_email_traffic_source{
+  type: yesno
+  sql: ${traffic_source} = 'Email' ;;
+ }
+
+dimension: days_since_signup {
+  type:  number
+  sql: DATEFIFF (day, ${created_date},current_date) ;;
+}
+
+dimension: is_new_customer {
+  type: yesno
+  sql: ${days_since_signup} <= 90 ;;
+}
+
+dimension: days_since_signup_tier {
+  type: tier
+  tiers: [0,30,90,180,360,720]
+  style: integer
+}
+
+dimension: full_name {
+  type: string
+  sql:  ${first_name} || ' ' || ${last_name} ;;
+}
+dimension: age_buckets {
+  type: tier
+  sql: ${age} ;;
+  tiers: [18,25,35,45,55,65,75,90]
+  style: integer
+}
+
+measure: count_female_users {
+  type: count
+  filters: [gender: "Female"]
+  }
+
+measure: percentage_users_female {
+  type: number
+  value_format_name: percent_2
+  sql: 1.0 * ${count_female_users}/ NULLIF(${count},0) ;;
+}
 }

@@ -52,6 +52,3 @@ explore: order_items {
   #   filters: [order_items.created_date: "last 30 days"]
   # }
 }
-
-
-# explore: products {}
