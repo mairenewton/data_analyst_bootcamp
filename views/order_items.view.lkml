@@ -120,4 +120,9 @@ view: order_items {
       inventory_items.product_name
     ]
   }
+
+  dimension: delivery_days {
+  type: number
+  sql: DATEDIFF(day, ${shipped_date},${delivered_date}) ;;
+  }
 }
