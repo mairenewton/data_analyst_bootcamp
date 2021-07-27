@@ -1,5 +1,8 @@
 view: order_items {
-  sql_table_name: public.order_items ;;
+
+  sql_table_name: public.order_items
+  sql_always_where:returned IS Null;;
+
 
   dimension: order_item_id {
     primary_key: yes

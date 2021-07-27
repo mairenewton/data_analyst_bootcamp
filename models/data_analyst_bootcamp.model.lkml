@@ -17,7 +17,8 @@ persist_with: data_analyst_bootcamp_default_datagroup
 explore: order_items {
   join: users {
     type: left_outer
-    sql_on: ${order_items.user_id} = ${users.id} ;;
+    sql_on: ${order_items.user_id} = ${users.id}
+    sql_always_where: ${order_items.status} = 'Complete';;
     relationship: many_to_one
   }
 
