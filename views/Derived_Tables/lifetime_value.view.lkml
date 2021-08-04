@@ -1,4 +1,4 @@
-view: sql_runner_query {
+view: lifetime_value {
   derived_table: {
     sql: select
       order_items.user_id,

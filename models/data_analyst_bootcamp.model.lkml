@@ -67,6 +67,7 @@ sql_always_where: ${created_date} >= current_date-30 ;;
   }
 
 
+
   # query: order_status_by_date{
   #   dimensions: [order_items.created_date, order_items.status]
   #   measures: [order_items.total_revenue]
