@@ -66,7 +66,11 @@ sql_always_where: ${created_date} >= current_date-30 ;;
     relationship: many_to_one
   }
 
-
+join: lifetime_value {
+  type: left_outer
+  sql_on: ${lifetime_value.user_id} = ${users.id} ;;
+  relationship: many_to_one
+}
 
   # query: order_status_by_date{
   #   dimensions: [order_items.created_date, order_items.status]
