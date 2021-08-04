@@ -2,6 +2,7 @@ connection: "events_ecommerce"
 
 # include all the views
 include: "/views/*.view"
+include: "/views/Derived_Tables/*.view"
 
 #datagroup: data_analyst_bootcamp_default_datagroup {
 #  # sql_trigger: SELECT MAX(id) FROM etl_log;;
@@ -64,6 +65,7 @@ sql_always_where: ${created_date} >= current_date-30 ;;
     sql_on: ${inventory_items.product_distribution_center_id} = ${distribution_centers.id} ;;
     relationship: many_to_one
   }
+
 
   # query: order_status_by_date{
   #   dimensions: [order_items.created_date, order_items.status]
