@@ -81,6 +81,11 @@ view: events {
     sql: ${TABLE}.traffic_source ;;
   }
 
+  dimension: email_trafic_source {
+    type: yesno
+    sql: ${TABLE}.traffic_source = 'email' ;;
+  }
+
   dimension: uri {
     type: string
     sql: ${TABLE}.uri ;;
@@ -99,4 +104,5 @@ view: events {
   measure: count {
     type: count
   }
+
 }
