@@ -15,6 +15,9 @@ persist_with: data_analyst_bootcamp_default_datagroup
 
 # This explore contains multiple views
 explore: order_items {
+  sql_always_where: ${returned_date} is null ;;
+  sql_always_having: ${Total_Sales} > 200 ;;
+
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -55,3 +58,13 @@ explore: order_items {
 
 
 # explore: products {}
+
+
+explore: users {
+  fields: [ALL_FIELDS*,-order_items.profit]
+  join: order_items {
+    type: left_outer
+    sql_on:  ${users.id} = ${order_items.user_id};;
+    relationship: one_to_many
+  }
+  }

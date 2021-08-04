@@ -7,6 +7,30 @@ view: users {
     sql: ${TABLE}.id ;;
   }
 
+
+
+  dimension: combined_city_state {
+    type:  string
+    sql: ${city} || ', ' || ${state}  ;;
+  }
+
+
+  dimension: age_buckets {
+    type: tier
+    tiers: [18,25,35,45,55,65,75,90]
+    sql:  ${age} ;;
+    style: integer
+  }
+
+
+  dimension: Email_source {
+    type:  yesno
+    sql: ${traffic_source} = 'Email' ;;
+  }
+
+
+
+
   dimension: age {
     type: number
     sql: ${TABLE}.age ;;
