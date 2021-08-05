@@ -13,6 +13,7 @@ include: "/views/Derived_Tables/*.view"
 
 access_grant: PII_grant {
   user_attribute: is_pii_viewer
+  allowed_values: ["Yes"]
 }
 
 datagroup: daily_datagroup {
