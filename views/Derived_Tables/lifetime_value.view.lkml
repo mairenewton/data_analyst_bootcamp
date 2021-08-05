@@ -1,5 +1,9 @@
 view: lifetime_value {
   derived_table: {
+    datagroup_trigger: order_items_datagroup
+    distribution: "order_id"
+    sortkeys: ["order_id"]
+
     sql: select
       order_items.user_id,
       sum(order_items.sale_price) as lifetime_orders_value,
@@ -11,6 +15,7 @@ view: lifetime_value {
 
        ;;
   }
+
 
   measure: count {
     type: count

@@ -91,6 +91,10 @@ join: lifetime_value {
 
 
 explore: users {
+  access_filter: {
+    field: users.state
+    user_attribute: state
+  }
   persist_with: daily_datagroup
   fields: [ALL_FIELDS*,-order_items.profit]
   #sql_always_where: ${created_raw} < current_date ;;
