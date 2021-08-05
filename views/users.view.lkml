@@ -64,6 +64,11 @@ view: users {
   }
 
   dimension: email {
+    link: {
+      label: "eCommerce sample user dashboard"
+      url: "https://teach.corp.looker.com/dashboards/1813?Email={{value}}&filter_config=%7B%22Email%22:%5B%7B%22type%22:%22%3D%22,%22values%22:%5B%7B%22constant%22:%22%22%7D,%7B%7D%5D,%22id%22:2%7D%5D%7D"
+      icon_url: "https://www.google.com/s2/favicons?domain=looker.com"
+    }
     required_access_grants: [PII_grant]
     type: string
     sql: ${TABLE}.email ;;
