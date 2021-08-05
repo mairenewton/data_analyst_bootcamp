@@ -11,7 +11,9 @@ include: "/views/Derived_Tables/*.view"
 
 #persist_with: data_analyst_bootcamp_default_datagroup
 
-
+access_grant: PII_grant {
+  user_attribute: is_pii_viewer
+}
 
 datagroup: daily_datagroup {
   max_cache_age: "24 hours"
