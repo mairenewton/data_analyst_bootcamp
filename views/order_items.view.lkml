@@ -185,6 +185,19 @@ parameter: DateParameter {
 }
 
 
+dimension: Date_hierarchy {
+  label_from_parameter: DateParameter
+  type: string
+  sql:
+  {% if DateParameter._parameter_value == 'Date' %}
+  ${created_date}
+  {% elsif DateParameter._parameter_value == 'Week'%}
+  ${created_week}
+   {% else%}
+  ${created_month}
+  {%endif%}
+  ;;
+}
 
 
 
