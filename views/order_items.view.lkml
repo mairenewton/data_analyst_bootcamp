@@ -167,4 +167,25 @@ measure: average_spend_per_user {
       inventory_items.product_name
     ]
   }
+
+parameter: DateParameter {
+  type: unquoted
+  allowed_value: {
+    value: "Date"
+    label: "Date"
+  }
+  allowed_value: {
+    value: "Week"
+    label: "Week"
+  }
+  allowed_value: {
+    value: "Month"
+    label: "Month"
+  }
+}
+
+
+
+
+
 }
