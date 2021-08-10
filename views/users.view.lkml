@@ -93,7 +93,7 @@ view: users {
 
   dimension: is_source_email {
     type: yesno
-    sql: ${TABLE}.traffic_source = 'email' ;;
+    sql: ${TABLE}.traffic_source = 'Email' ;;
   }
 
   dimension: zip {
