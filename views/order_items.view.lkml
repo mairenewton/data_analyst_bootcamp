@@ -135,7 +135,7 @@ view: order_items {
   measure: average_spend_per_user {
     type: number
     value_format_name: usd
-    sql: 1.0*${sale_price}.sum/NULLif(${user_id}.count,0) ;;
+    sql: 1.0*sum(${sale_price})/count(NULLif(${user_id},0)) ;;
   }
 
   # ----- Sets of fields for drilling ------
