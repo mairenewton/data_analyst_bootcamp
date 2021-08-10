@@ -139,6 +139,12 @@ view: order_items {
     value_format: "0.0"
   }
 
+  measure: pct_sales_email_source {
+    type: number
+    value_format_name: percent_2
+    sql: 1.0*${email_total_sales}/nullif(total_sales, 0) ;;
+  }
+
 
   # ----- Sets of fields for drilling ------
   set: detail {
