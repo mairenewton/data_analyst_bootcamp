@@ -55,6 +55,7 @@ view: order_items {
     sql: ${sale_price} - ${inventory_items.cost} ;;
   }
 
+
   dimension_group: returned {
     type: time
     timeframes: [
@@ -68,6 +69,7 @@ view: order_items {
     ]
     sql: ${TABLE}.returned_at ;;
   }
+
 
   dimension: sale_price {
     type: number
@@ -110,9 +112,9 @@ view: order_items {
     sql: ${order_id} ;;
   }
 
-  measure: avg_sale_price {
-    type: average
-    description: "avg of sale price"
+  measure: total_sale_price {
+    type: sum
+    description: "total of sale price"
     sql: ${sale_price} ;;
   }
 
