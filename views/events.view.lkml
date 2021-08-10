@@ -22,6 +22,11 @@ view: events {
     sql: ${TABLE}.country ;;
   }
 
+  dimension: citystate {
+    type: string
+    sql: ${TABLE}.city || ',' || ${TABLE}.state  ;;
+  }
+
   dimension_group: created {
     type: time
     timeframes: [
