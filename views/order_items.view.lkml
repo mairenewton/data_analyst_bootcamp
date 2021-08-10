@@ -104,6 +104,13 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+  measure: uniquecount {
+    type: count_distinct
+    description: "A count of unique orders"
+    sql: ${order_id} ;;
+  }
+
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
