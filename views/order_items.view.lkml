@@ -89,17 +89,11 @@ view: order_items {
   }
 
   dimension_group: shipping_days {
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: datediff(${TABLE}.shipped_at, delivered_at, day) ;;
+    type: duration
+    intervals: [day, week, month, year]
+    sql_start: ${shipped_raw} ;;  # often this is a single database column
+    sql_end: ${delivered_raw} ;;  # often this is a single database column
+
   }
 
   dimension: status {
