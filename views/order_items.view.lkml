@@ -121,6 +121,7 @@ view: order_items {
     type: sum
     description: "Sum of sale price"
     sql: ${sale_price} ;;
+    value_format: "$0.0"
   }
 
 
