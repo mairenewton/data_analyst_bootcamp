@@ -110,7 +110,27 @@ view: order_items {
     sql: ${order_id} ;;
   }
 
+  measure: avg_sale_price {
+    type: average
+    description: "avg of sale price"
+    sql: ${sale_price} ;;
+  }
 
+  measure: email_source_total_sales {
+    type: sum
+    sql: ${sale_price} ;;
+    filters:[
+      users.traffic_source: "Email"
+    ]
+
+  }
+
+  measure: percentage_sales_email_source {
+    type: number
+    sql: if(email_source_total_sales)/NULLif(${sale_price},0) ;;
+
+
+  }
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
