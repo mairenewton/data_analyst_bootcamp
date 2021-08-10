@@ -148,7 +148,7 @@ view: order_items {
   measure: avg_spend_per_user {
     type: number
     value_format_name: usd
-    sql: 1.0*${total_sales}/count_distinct(${user_id}) ;;
+    sql: 1.0*${total_sales}/count_distinct(cast(${user_id} as string) ;;
   }
 
   # ----- Sets of fields for drilling ------
