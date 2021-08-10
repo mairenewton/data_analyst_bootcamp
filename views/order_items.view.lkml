@@ -124,6 +124,13 @@ view: order_items {
     value_format: "$0.0"
   }
 
+  measure: average_sales {
+    type: average
+    description: "Average of sale price"
+    sql: ${sale_price} ;;
+    value_format: "0.0"
+  }
+
 
   # ----- Sets of fields for drilling ------
   set: detail {
