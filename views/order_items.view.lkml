@@ -114,7 +114,7 @@ view: order_items {
 
   measure: n_orders {
     type: count_distinct
-    sql: ${order_item_id} ;;
+    sql: ${order_id} ;;
   }
 
 
