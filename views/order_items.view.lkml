@@ -127,10 +127,17 @@ view: order_items {
 
   measure: percentage_sales_email_source {
     type: number
-    sql: if(email_source_total_sales)/NULLif(${sale_price},0) ;;
+    sql: if(${email_source_total_sales})/NULLif(${sale_price},0) ;;
 
 
   }
+
+  measure: average_spend_per_user {
+    type: number
+    value_format_name: usd
+    sql: 1.0*${sale_price}.sum/NULLif(${user_id}.count,0) ;;
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
