@@ -88,6 +88,20 @@ view: order_items {
     sql: ${TABLE}.shipped_at ;;
   }
 
+  dimension_group: shipping_days {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: datediff(${TABLE}.shipped_at, delivered_at, day) ;;
+  }
+
   dimension: status {
     type: string
     sql: ${TABLE}.status ;;
