@@ -12,6 +12,12 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  dimension: age_bucket {
+    type: tier
+    tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+    sql: ${TABLE}.age ;;
+  }
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
@@ -21,6 +27,11 @@ view: users {
     type: string
     map_layer_name: countries
     sql: ${TABLE}.country ;;
+  }
+
+  dimension: city_and_state {
+    type: string
+    sql: concat(${TABLE}.country, '_', ${TABLE}.city) ;;
   }
 
   dimension_group: created {
