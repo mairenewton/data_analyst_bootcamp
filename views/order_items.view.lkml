@@ -131,6 +131,14 @@ view: order_items {
     value_format: "0.0"
   }
 
+  measure: email_total_sales {
+    type: sum
+    description: "Sum of sale prices for user coming from email source"
+    sql: ${sale_price} ;;
+    filters: [users.traffic_source: "Email"]
+    value_format: "0.0"
+  }
+
 
   # ----- Sets of fields for drilling ------
   set: detail {
