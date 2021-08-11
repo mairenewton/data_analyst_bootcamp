@@ -3,8 +3,6 @@ connection: "events_ecommerce"
 # include all the views
 include: "/views/*.view"
 
-
-
 datagroup: data_analyst_bootcamp_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
   max_cache_age: "1 hour"
@@ -40,6 +38,19 @@ explore: order_items {
     sql_on: ${inventory_items.product_distribution_center_id} = ${distribution_centers.id} ;;
     relationship: many_to_one
   }
+
+  # query: order_status_by_date{
+  #   dimensions: [order_items.created_date, order_items.status]
+  #   measures: [order_items.total_revenue]
+
+  #   filters: [order_items.created_date: "last 30 days"]
+  # }
+
+  # query: orders_by_date{
+  #   dimensions: [order_items.created_date]
+  #   measures: [order_items.total_revenue]
+  #   filters: [order_items.created_date: "last 30 days"]
+  # }
 }
 
 
