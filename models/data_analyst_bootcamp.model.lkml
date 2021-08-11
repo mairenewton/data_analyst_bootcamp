@@ -18,18 +18,17 @@ datagroup: user_dg {
 persist_with: user_dg
 
 datagroup: order_items_dg {
-  sql_trigger: select max(created_at_timestamp) from order_items;;
+  sql_trigger: select max(created_at) from order_items;;
   max_cache_age: "4 hours"
 }
 
 persist_with: order_items_dg
 
-#comment
-
-# explore: inventory_items {}
 
 # This explore contains multiple views
 explore: order_items {
+
+  persist_with: order_items_dg
 
   sql_always_where: ${status} = 'Complete';;
   sql_always_having: ${count} > 5 ;;
