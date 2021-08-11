@@ -17,9 +17,16 @@ datagroup: order_items_datagroup {
 persist_with: data_analyst_bootcamp_default_datagroup
 #comment
 
-explore: order_summary {}
 
 
+explore: users {
+
+  access_filter: {
+    field: users.state
+    user_attribute: state
+  }
+
+}
 # This explore contains multiple views
 explore: order_items {
 
@@ -33,6 +40,8 @@ persist_with: order_items_datagroup
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
     relationship: many_to_one
+
+
   }
 
   join: inventory_items {
