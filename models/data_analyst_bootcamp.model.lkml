@@ -19,6 +19,7 @@ explore: order_items {
   sql_always_where: ${status} = 'Complete';;
   sql_always_having: ${count} > 5 ;;
 
+
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -58,5 +59,19 @@ explore: order_items {
   # }
 }
 
+explore: users {
+  fields: [ALL_FIELDS*,-order_items.profit]
 
+  sql_always_where: ${order_items.created_raw} < current_date;;
+  conditionally_filter: {
+    filters: [order_items.created_date: "2 years"]
+    unless: [users.id]
+  }
+
+  join: order_items {
+    type:  left_outer
+    sql_on: ${users.id} = ${order_items.user_id};;
+    relationship: one_to_many
+  }
+  }
 # explore: products {}
