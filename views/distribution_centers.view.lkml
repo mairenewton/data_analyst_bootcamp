@@ -8,6 +8,8 @@ view: distribution_centers {
     sql: ${TABLE}.id ;;
   }
 
+  # fdjhsfga;kguh;dsg
+
   dimension: latitude {
     type: number
     sql: ${TABLE}.latitude ;;
