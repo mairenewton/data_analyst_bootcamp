@@ -118,6 +118,12 @@ view: order_items {
     sql: ${sale_price} ;;
   }
 
+  measure: average_sale_price {
+    type: number
+    description: "total of sale price"
+    sql: ${sale_price}/${count} ;;
+  }
+
   measure: email_source_total_sales {
     type: sum
     sql: ${sale_price} ;;

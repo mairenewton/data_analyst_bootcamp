@@ -19,6 +19,7 @@ persist_with: data_analyst_bootcamp_default_datagroup
 
 # explore: inventory_items {}
 
+
 # This explore contains multiple views
 explore: order_items {
 
