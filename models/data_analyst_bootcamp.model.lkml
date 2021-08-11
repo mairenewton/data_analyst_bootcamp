@@ -17,7 +17,7 @@ datagroup: order_items_datagroup {
 persist_with: data_analyst_bootcamp_default_datagroup
 #comment
 
-# explore: inventory_items {}
+explore: order_summary {}
 
 
 # This explore contains multiple views
