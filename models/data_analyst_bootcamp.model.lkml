@@ -9,6 +9,13 @@ datagroup: data_analyst_bootcamp_default_datagroup {
 }
 
 persist_with: data_analyst_bootcamp_default_datagroup
+
+datagroup: user_dg {
+  sql_trigger: select max(id) from order_items;;
+  max_cache_age: "24 hours"
+}
+
+
 #comment
 
 # explore: inventory_items {}
@@ -16,6 +23,7 @@ persist_with: data_analyst_bootcamp_default_datagroup
 # This explore contains multiple views
 explore: order_items {
 
+  persist_with: user_dg
   sql_always_where: ${status} = 'Complete';;
   sql_always_having: ${count} > 5 ;;
 
