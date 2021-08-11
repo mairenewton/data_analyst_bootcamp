@@ -120,8 +120,8 @@ view: order_items {
 
   measure: average_sale_price {
     type: number
-    description: "total of sale price"
-    sql: ${sale_price}/${count} ;;
+    description: "AVERAGE of sale price"
+    sql: ${sale_price}/count(${order_item_id}) ;;
   }
 
   measure: email_source_total_sales {
