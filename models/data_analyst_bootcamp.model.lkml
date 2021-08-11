@@ -4,8 +4,13 @@ connection: "events_ecommerce"
 include: "/views/*.view"
 
 datagroup: data_analyst_bootcamp_default_datagroup {
-  # sql_trigger: SELECT MAX(id) FROM etl_log;;
-  max_cache_age: "1 hour"
+  sql_trigger: SELECT current_timestamp;;
+  max_cache_age: "24 hour"
+}
+
+datagroup: order_items_datagroup {
+  sql_trigger: SELECT max(created_at) from order_items;;
+  max_cache_age: "4 hour"
 }
 
 persist_with: data_analyst_bootcamp_default_datagroup
@@ -15,8 +20,12 @@ persist_with: data_analyst_bootcamp_default_datagroup
 
 # This explore contains multiple views
 explore: order_items {
-  sql_always_where: ${status} ='completed' ;;
-  sql_always_having: COUNT(${order_item_id}) >5 ;;
+
+
+persist_with: order_items_datagroup
+
+
+
 
   join: users {
     type: left_outer
