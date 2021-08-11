@@ -11,10 +11,18 @@ datagroup: data_analyst_bootcamp_default_datagroup {
 persist_with: data_analyst_bootcamp_default_datagroup
 
 datagroup: user_dg {
-  sql_trigger: select max(id) from order_items;;
+  sql_trigger: select current_date();;
   max_cache_age: "24 hours"
 }
 
+persist_with: user_dg
+
+datagroup: order_items_dg {
+  sql_trigger: select max(created_at_timestamp) from order_items;;
+  max_cache_age: "4 hours"
+}
+
+persist_with: order_items_dg
 
 #comment
 
@@ -23,7 +31,6 @@ datagroup: user_dg {
 # This explore contains multiple views
 explore: order_items {
 
-  persist_with: user_dg
   sql_always_where: ${status} = 'Complete';;
   sql_always_having: ${count} > 5 ;;
 
@@ -68,6 +75,8 @@ explore: order_items {
 }
 
 explore: users {
+  persist_with: user_dg
+
   fields: [ALL_FIELDS*,-order_items.profit]
 
   sql_always_where: ${order_items.created_raw} < current_date;;
