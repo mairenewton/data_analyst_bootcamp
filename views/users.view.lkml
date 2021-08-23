@@ -105,6 +105,12 @@ sql:${count_female_users}/${count}${id}
     sql: ${TABLE}.zip ;;
   }
 
+dimension: CityState
+{
+  type: string
+  sql: ${city} || ${state} ;;
+}
+
   measure: count {
     type: count
     drill_fields: [id,
