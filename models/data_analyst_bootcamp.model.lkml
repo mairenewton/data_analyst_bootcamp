@@ -1,4 +1,4 @@
-connection: "events_ecommerce"
+connection: "events_ecommerce" ## this is my comment
 
 # include all the views
 include: "/views/*.view"
