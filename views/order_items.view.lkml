@@ -39,6 +39,15 @@ view: order_items {
     sql: ${TABLE}.delivered_at ;;
   }
 
+  dimension_group: between_shipped_and_delivered {
+    type: duration
+    sql_start: ${shipped_date} ;;
+    sql_end: ${delivered_date};;
+    intervals : [
+      day
+    ]
+  }
+
   dimension: inventory_item_id {
     #hidden: yes
     type: number
@@ -102,6 +111,21 @@ view: order_items {
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure : distinct_number_orders {
+    type: count_distinct
+    sql:  ${order_id} ;;
+  }
+
+  measure: total_sales {
+    type: sum
+    sql: ${sale_price} ;;
+  }
+
+  measure: average_sales {
+    type: average
+    sql: ${sale_price} ;;
   }
 
   # ----- Sets of fields for drilling ------

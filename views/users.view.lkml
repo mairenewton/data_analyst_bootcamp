@@ -17,6 +17,11 @@ view: users {
     sql: ${TABLE}.city ;;
   }
 
+  dimension: city_state {
+    type: string
+    sql: ${TABLE}.city || ' ' || ${TABLE}.state ;;
+  }
+
   #comment
 
   dimension: country {
@@ -40,6 +45,13 @@ view: users {
     ]
     sql: ${TABLE}.created_at ;;
   }
+
+  dimension: age_group {
+    type:  tier
+    sql:  ${age} ;;
+    tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+  }
+
 
   dimension: email {
     type: string
