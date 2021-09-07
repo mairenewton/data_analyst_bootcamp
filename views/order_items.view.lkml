@@ -7,6 +7,15 @@ view: order_items {
     sql: ${TABLE}.id ;;
   }
 
+  dimension_group: shipping_days {
+    type: duration
+    sql_start:${shipped_date};;
+    sql_end: ${delivered_date};;
+    intervals: [
+      day
+    ]
+  }
+
   dimension_group: created {
     type: time
     timeframes: [
@@ -103,6 +112,23 @@ view: order_items {
     type: count
     drill_fields: [detail*]
   }
+
+
+  measure: distinct_orders {
+    type: count_distinct
+    sql: ${TABLE}.order_id;;
+  }
+
+  measure: total_sales {
+    type: sum
+    sql: ${TABLE}.sale_price;;
+  }
+
+  measure: average_sale {
+    type: average
+    sql: ${TABLE}.sale_price;;
+  }
+
 
   # ----- Sets of fields for drilling ------
   set: detail {
