@@ -12,6 +12,12 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+
+  measure: count_female_users {
+    type: count
+    filters:  [gender: "Female"]
+  }
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
