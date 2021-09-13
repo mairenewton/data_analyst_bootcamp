@@ -93,6 +93,11 @@ view: order_items {
     sql: ${TABLE}.status ;;
   }
 
+  dimension: is_new_customer {
+    type: yesno
+    sql: ${created_date} <= 90  ;;
+  }
+
   dimension: user_id {
     type: number
     # hidden: yes
