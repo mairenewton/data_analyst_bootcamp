@@ -32,6 +32,14 @@ view: order_items {
     sql_end: ${delivered_date};;
     intervals: [day,week,month]
   }
+
+
+  measure: count_of_orders {
+    description: "A count of unique orders"
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
   dimension_group: delivered {
     type: time
     timeframes: [
