@@ -81,6 +81,11 @@ view: users {
     sql: ${TABLE}.traffic_source ;;
   }
 
+  dimension: full_name {
+    type: string
+    sql: CONCAT(INITCAP(${first_name}), CONCAT(' ', INITCAP(${last_name}))) ;;
+  }
+
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
