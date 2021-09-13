@@ -17,6 +17,10 @@ view: users {
     sql: ${TABLE}.city ;;
   }
 
+  dimension: city_state {
+    type: string
+    sql: CONCAT(${city}, CONCAT(', ', ${state}));;
+  }
   #comment
 
   dimension: country {
