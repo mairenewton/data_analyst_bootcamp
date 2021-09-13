@@ -25,6 +25,12 @@ view: order_items {
     sql: ${TABLE}.created_at ;;
   }
 
+  measure: total_sales_email_source {
+    type: sum
+    sql: ${sale_price} ;;
+    filters:  [users.is_email_source: "Yes"]
+    value_format_name: usd
+  }
 
   dimension_group: shipping_days {
     type: duration
