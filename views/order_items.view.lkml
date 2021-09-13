@@ -95,14 +95,20 @@ view: order_items {
 
   dimension: is_new_customer {
     type: yesno
-    sql: ${created_date} <= 90  ;;
+    sql: ${created_date}  <= 90  ;;
   }
 
+
+  dimension: days_since_signup {
+    type: number
+    sql: DATEDIFF(day, ${created_date}, current_date) ;;
+  }
   dimension: user_id {
     type: number
     # hidden: yes
     sql: ${TABLE}.user_id ;;
   }
+
 
   measure: count {
     type: count
