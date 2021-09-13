@@ -105,10 +105,14 @@ view: order_items {
     style: integer
   }
 
-  dimension: days_since_signup {
-    type: number
-    sql: DATEDIFF(day, ${created_date}, current_date) ;;
+  dimension_group: since_signup {
+    type: duration
+    intervals: [second, minute, hour,
+      day, week, month, quarter, year]
+    sql_start: ${created_date} ;;
+    sql_end: current_date ;;
   }
+
   dimension: user_id {
     type: number
     # hidden: yes
