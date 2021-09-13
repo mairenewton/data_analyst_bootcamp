@@ -95,9 +95,15 @@ view: order_items {
 
   dimension: is_new_customer {
     type: yesno
-    sql: ${created_date}  <= 90  ;;
+    sql: ${days_since_signup}  <= 90  ;;
   }
 
+  dimension: days_since_signup_tier {
+    type: tier
+    sql: ${days_since_signup} ;;
+    tiers: [0, 30, 90, 180, 360, 720]
+    style: integer
+  }
 
   dimension: days_since_signup {
     type: number
