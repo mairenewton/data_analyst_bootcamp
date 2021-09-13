@@ -86,6 +86,11 @@ view: users {
     sql: CONCAT(INITCAP(${first_name}), CONCAT(' ', INITCAP(${last_name}))) ;;
   }
 
+  dimension: city_state {
+    type: string
+    sql: CONCAT(${city}, CONCAT(', ', ${state}));;
+  }
+
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
