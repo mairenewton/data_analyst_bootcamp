@@ -99,6 +99,14 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+  dimension_group: since_signup {
+    type: duration
+    intervals: [second, minute, hour,
+      day, week, month, quarter, year]
+    sql_start: ${created_date} ;;
+    sql_end: current_date ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
