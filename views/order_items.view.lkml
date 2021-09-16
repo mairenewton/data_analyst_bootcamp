@@ -133,6 +133,11 @@ view: order_items {
   value_format_name:  percent_2
   }
 
+  measure: average_sales_per_user {
+    type: number
+    sql: 1.0*${total_sales} / NULLIF(${users.count},0) ;;
+    value_format_name: usd
+  }
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
