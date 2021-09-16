@@ -124,7 +124,13 @@ view: order_items {
   measure: total_sales_from_email_traffic_source {
     type: sum
     sql:  ${sale_price} ;;
-    filters: [users.is_email_traffic_source: "Email"]
+    filters: [users.is_email_traffic_source: "Yes"]
+  }
+
+  measure: percent_sales_from_email_traffic_source {
+    type:  number
+    sql: ${total_sales_from_email_traffic_source}/${total_sales}  ;;
+  value_format_name:  percent_2
   }
 
   # ----- Sets of fields for drilling ------
