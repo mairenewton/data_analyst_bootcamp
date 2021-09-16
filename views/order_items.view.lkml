@@ -99,6 +99,11 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+  dimension:  LeadTime{
+    type: duration_day
+    sql: DATE_DIFF(${delivered_date}, ${shipped_date}, DAY) AS days_diff; ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
