@@ -115,10 +115,16 @@ view: order_items {
     drill_fields: [detail*]
   }
 
-  measure: total_sales{
+  measure: total_sales {
     type: sum
     sql:  ${sale_price} ;;
     value_format_name: usd
+  }
+
+  measure: total_sales_from_email_traffic_source {
+    type: sum
+    sql:  ${sale_price} ;;
+    filters: [users.is_email_traffic_source: "Email"]
   }
 
   # ----- Sets of fields for drilling ------
