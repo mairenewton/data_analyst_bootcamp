@@ -56,6 +56,11 @@ view: order_items {
     sql: ${TABLE}.order_id ;;
   }
 
+  measure: count_orders {
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
   dimension: profit {
     type: number
     sql: ${sale_price} - ${inventory_items.cost} ;;
