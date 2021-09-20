@@ -17,6 +17,11 @@ view: users {
     sql: ${TABLE}.city ;;
   }
 
+dimension: City_State{
+  type: string
+  sql: ${city} ' ' ${state} ;;
+
+}
   #comment
 
   dimension: country {
@@ -40,6 +45,10 @@ view: users {
     ]
     sql: ${TABLE}.created_at ;;
   }
+  dimension: days_since_signup{
+    type: number
+    sql: dateiff(day,${created_date}, current_date);;
+  }
 
   dimension: email {
     type: string
@@ -50,6 +59,11 @@ view: users {
     type: string
     sql: ${TABLE}.first_name ;;
   }
+
+  dimension: full_name {
+    type:string
+    sql:${first_name} ' ' ${last_name} ;;
+    }
 
   dimension: gender {
     type: string
