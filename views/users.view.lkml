@@ -17,6 +17,11 @@ view: users {
     sql: ${TABLE}.city ;;
   }
 
+  dimension: city_state {
+    type:  string
+    sql: ${city} || ', ' || ${state} ;;
+  }
+
   #comment
 
   dimension: country {
