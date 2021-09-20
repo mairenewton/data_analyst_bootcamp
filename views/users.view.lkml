@@ -58,6 +58,12 @@ view: users {
     sql: ${TABLE}.email ;;
   }
 
+  dimension: email_inbound_source {
+    type:  yesno
+    sql: ${traffic_source} = 'Email';;
+
+  }
+
   dimension: first_name {
     type: string
     sql: ${TABLE}.first_name ;;
