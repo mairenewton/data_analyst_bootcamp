@@ -93,6 +93,14 @@ view: order_items {
     sql: DATEDIFF('d', ${shipped_date}, ${delivered_date}) ;;
   }
 
+  dimension_group: shipping_days_dur {
+    type:  duration
+    label: "Shipping Days"
+    sql_start: ${shipped_date} ;;
+    sql_end: ${delivered_date} ;;
+    intervals: [day, month, hour]
+  }
+
   dimension: status {
     type: string
     sql: ${TABLE}.status ;;
