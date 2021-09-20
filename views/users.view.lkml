@@ -12,6 +12,8 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
@@ -24,6 +26,24 @@ view: users {
     map_layer_name: countries
     sql: ${TABLE}.country ;;
   }
+
+dimension: City_State {
+  type:  string
+  sql:  ${city} || ', ' || ${state};;
+}
+
+# dimension: Age_Tier {
+#   type: tier
+#   tiers:  [0,15,55,25,65]
+#   sql: ${age} ;;
+# }
+
+
+
+dimension: IsEmailSource {
+  type: yesno
+  sql: ${traffic_source} = 'email';;
+}
 
   dimension_group: created {
     type: time
