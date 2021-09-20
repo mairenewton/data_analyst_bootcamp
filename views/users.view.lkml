@@ -20,7 +20,6 @@ view: users {
 dimension: City_State{
   type: string
   sql: ${city} ' ' ${state} ;;
-
 }
   #comment
 
