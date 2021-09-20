@@ -123,6 +123,13 @@ view: order_items {
     value_format_name: usd
   }
 
+  # measure: total_sales_new_users {
+  #   type:  sum
+  #   sql:  ${sale_price} ;;
+  #   filters: [users.is_new_customer: "Yes"]
+  #   value_format_name:  usd
+  # }
+
   measure: avg_sales {
     type:  average
     sql:  ${sale_price} ;;
