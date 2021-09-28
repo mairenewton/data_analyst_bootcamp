@@ -96,11 +96,18 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
-  measure: count {
+  measure: count_of_items {
     type: count
     drill_fields: [detail*]
   }
 
+  measure: count_of_orders {
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
+
+#jkkk
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
