@@ -17,7 +17,6 @@ view: users {
     sql: ${TABLE}.city ;;
   }
 
-  #comment
 
   dimension: country {
     type: string
