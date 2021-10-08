@@ -99,10 +99,18 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+  dimension: days_since_signup {
+    type: number
+    sql: DATEDIFF(day, ${delivered_date},
+      ${shipped_date}) ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
   }
+
+
 
   # ----- Sets of fields for drilling ------
   set: detail {
