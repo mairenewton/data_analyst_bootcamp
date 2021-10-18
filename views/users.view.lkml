@@ -78,7 +78,7 @@ view: users {
 
   dimension: citystate {
     type: string
-    sql: ${city} || "‘, '" || ${state};;
+    sql: ${city} || ‘, ' || ${state};;
   }
 
 
