@@ -78,7 +78,7 @@ view: users {
 
   dimension: citystate {
     type: string
-    sql: ${TABLE}.city || "‘, '" || ${TABLE}.state;;
+    sql: ${city} || "‘, '" || ${state};;
   }
 
 
@@ -94,7 +94,7 @@ view: users {
 
   dimension: emailcheck {
     type: yesno
-    sql: ${traffic_source} = ‘${email}’ ;;
+    sql: ${traffic_source} = ‘email’ ;;
   }
 
 
