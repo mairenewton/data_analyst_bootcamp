@@ -7,9 +7,9 @@ view: users {
     sql: ${TABLE}.id ;;
   }
 
-  dimension: city {
+  dimension: citystate {
     type: string
-    sql: ${TABLE}.city || ‘, ‘ || ${TABLE}.state;;
+    sql: CONCAT(${TABLE}.city, ‘, ‘, ${TABLE}.state);;
   }
 
 
@@ -18,7 +18,7 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
-  dimension: city1 {
+  dimension: city {
     type: string
     sql: ${TABLE}.city ;;
   }
