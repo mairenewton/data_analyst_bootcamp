@@ -7,13 +7,7 @@ view: users {
     sql: ${TABLE}.id ;;
   }
 
-  dimension: citystate {
-    type: string
-    sql: CONCAT(${TABLE}.city, ‘, ‘, ${TABLE}.state);;
-  }
-
-
-  dimension: age {
+   dimension: age {
     type: number
     sql: ${TABLE}.age ;;
   }
@@ -81,6 +75,12 @@ view: users {
     type: string
     sql: ${TABLE}.state ;;
   }
+
+  dimension: citystate {
+    type: string
+    sql: CONCAT(${TABLE}.city, ‘, ‘, ${TABLE}.state);;
+  }
+
 
   dimension: traffic_source {
     type: string
