@@ -94,7 +94,7 @@ view: users {
 
   dimension: emailcheck {
     type: yesno
-    sql: ${traffic_source} = ‘email’ ;;
+    sql: ${traffic_source} = ‘EMAIL’ ;;
   }
 
 
