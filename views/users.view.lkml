@@ -7,12 +7,18 @@ view: users {
     sql: ${TABLE}.id ;;
   }
 
+  dimension: city {
+    type: string
+    sql: ${TABLE}.city || ‘, ‘ || ${TABLE}.state;;
+  }
+
+
   dimension: age {
     type: number
     sql: ${TABLE}.age ;;
   }
 
-  dimension: city {
+  dimension: city1 {
     type: string
     sql: ${TABLE}.city ;;
   }
