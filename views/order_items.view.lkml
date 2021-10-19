@@ -116,6 +116,12 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+  measure: total_sales_email_user {
+    type: sum
+    sql:  ${sale_price} ;;
+    filters: [users.Email_or_not: "Yes"]
+    value_format_name: usd_0
+  }
   measure: total_sales_new_user {
     type: sum
     sql:  ${sale_price} ;;
@@ -135,6 +141,13 @@ view: order_items {
     value_format_name: usd_0
 
   }
+  measure: average_spend_per_user {
+  type: number
+  value_format_name: usd
+  sql: 1.0*${total_sales_price}
+  /NULLIF(${users.total_users},0);;
+  }
+
   measure: distinct_orders  {
     description: "count of distinct orders"
     type: count_distinct

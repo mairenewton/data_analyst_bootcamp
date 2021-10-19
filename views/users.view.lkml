@@ -113,7 +113,7 @@ view: users {
     type: yesno
     sql: ${date_diff_day} <= 90 ;;
   }
-  measure: count {
+  measure: total_users {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
