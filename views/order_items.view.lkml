@@ -26,7 +26,14 @@ view: order_items {
   }
   dimension: shipping_days {
     type: number
-    sql: datediff(day,${created_date}-${delivered_date} ;;
+    sql: datediff(day,${created_date},${delivered_date}) ;;
+  }
+
+  dimension_group: shipping_days_grouped {
+  type: duration
+  sql_start: ${created_date} ;;
+  sql_end: ${delivered_date} ;;
+  intervals: [week]
   }
 
   dimension_group: delivered {
