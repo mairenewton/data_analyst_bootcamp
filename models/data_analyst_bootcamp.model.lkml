@@ -15,21 +15,25 @@ persist_with: data_analyst_bootcamp_default_datagroup
 
 # This explore contains multiple views
 explore: order_items {
-  sql_always_where: ${order_items.returned_raw} is null ;;
-  sql_always_having: ${order_items.total_sales_price} > 200 ;;
+  # sql_always_where: ${order_items.returned_raw} is null ;;
+  # sql_always_having: ${order_items.total_sales_price} > 200 ;;
+  # sql_always_where: ${order_items.status} = 'Complete' ;;
+  # sql_always_having: ${order_items.count} >5  ;;
+  conditionally_filter: {
+    filters: [order_items.created_date: "2 years"]
+      unless:[users.id]
+  }
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
     relationship: many_to_one
 
   }
-
   join: inventory_items {
     type: left_outer
     sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;
     relationship: many_to_one
   }
-
   join: products {
     type: left_outer
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
@@ -45,7 +49,10 @@ explore: order_items {
 
 # This explore is for users to orders - tw
   explore: users {
-    join: order_items {
+    always_filter: {
+      filters: [order_items.created_date: "before today"]
+    }
+        join: order_items {
       type: left_outer
       sql_on: ${order_items.user_id} = ${users.id} ;;
       relationship: one_to_many
