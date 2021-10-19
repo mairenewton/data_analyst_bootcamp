@@ -115,4 +115,51 @@ view: order_items {
       inventory_items.product_name
     ]
   }
+
+  dimension_group: diff_ship_order_date {
+  type: duration
+  intervals: [day,week,month]
+  sql_start: ${created_date} ;;
+  sql_end: ${delivered_date} ;;
+}
+
+measure: count_orders {
+  type: count_distinct
+  description: "A count of unique orders"
+  sql: ${order_id} ;;
+}
+
+measure: total_sales_price {
+  type: sum
+  description: "Total sales price"
+  sql: ${sale_price} ;;
+  value_format_name: usd_0
+}
+
+measure: avg_sales_price {
+  type: average
+  description: "Average sales price"
+  sql: ${sale_price} ;;
+  value_format_name: usd_0
+}
+
+measure: total_sales_new_user {
+  type: sum
+  sql: ${sale_price} ;;
+  filters: [users.is_new_customer:  "Yes"]
+}
+
+measure: sales_email_traffic {
+  type: sum
+  sql: ${sale_price} ;;
+  filters: [users.traffic_source: "Email"]
+}
+
+measure: avg_spend_user {
+  type: number
+  value_format_name: usd
+  sql: 1.0*${total_sales_price}/NULLIF(${users.count},0) ;;
+}
+
+
 }

@@ -29,6 +29,21 @@ view: users {
     style: integer
   }
 
+  measure: email_traffic {
+    type: yesno
+    sql: ${traffic_source} = 'Email' ;;
+  }
+
+  dimension: date_diff_day {
+    hidden: yes
+    type: number
+    sql: datediff('day', ${created_date}, current_date) ;;
+  }
+
+dimension: is_new_customer {
+  type: yesno
+  sql: ${date_diff_day} <= 90 ;;
+}
   #comment
 
   dimension: country {
