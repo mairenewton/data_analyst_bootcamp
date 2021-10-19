@@ -118,8 +118,9 @@ view: order_items {
 
   measure: total_sales_new_user {
     type: sum
-    sql:  $(${sale_price} ;;
+    sql:  ${sale_price} ;;
     filters: [users.is_new_customer: "Yes"]
+    value_format_name: usd_0
   }
   measure: total_sales_price {
     description: "summed value of all orders"
