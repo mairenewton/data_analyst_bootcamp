@@ -62,10 +62,10 @@ view: order_items {
     sql: ${TABLE}.order_id ;;
   }
 
-  dimension: profit {
-    type: number
-    sql: ${sale_price} - ${inventory_items.cost} ;;
-  }
+ # dimension: profit {
+  #  type: number
+   # sql: ${sale_price} - ${inventory_items.cost} ;;
+  #}
 
   dimension_group: returned {
     type: time
@@ -160,8 +160,6 @@ view: order_items {
       users.id,
       users.first_name,
       users.last_name,
-      inventory_items.id,
-      inventory_items.product_name
-    ]
+      ]
   }
 }
