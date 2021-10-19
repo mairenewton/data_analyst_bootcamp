@@ -15,10 +15,13 @@ persist_with: data_analyst_bootcamp_default_datagroup
 
 # This explore contains multiple views
 explore: order_items {
+  sql_always_where: ${order_items.returned_raw} is null ;;
+  sql_always_having: ${order_items.total_sales_price} > 200 ;;
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
     relationship: many_to_one
+
   }
 
   join: inventory_items {
