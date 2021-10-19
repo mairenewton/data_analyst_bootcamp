@@ -36,6 +36,7 @@ view: order_items {
   intervals: [week,day]
   }
 
+
   dimension_group: delivered {
     type: time
     timeframes: [
@@ -115,6 +116,29 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+  measure: total_sales_new_user {
+    type: sum
+    sql:  $(${sale_price} ;;
+    filters: [users.is_new_customer: "Yes"]
+  }
+  measure: total_sales_price {
+    description: "summed value of all orders"
+    type: sum
+    sql: ${sale_price};;
+    value_format_name: usd_0
+  }
+  measure: average_sale_price {
+    description: "average price per order"
+    type: average
+    sql: (${sale_price}) ;;
+    value_format_name: usd_0
+
+  }
+  measure: distinct_orders  {
+    description: "count of distinct orders"
+    type: count_distinct
+    sql: ${order_id} ;;
+      }
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [

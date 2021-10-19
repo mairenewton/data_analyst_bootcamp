@@ -103,7 +103,16 @@ view: users {
     type: zipcode
     sql: ${TABLE}.zip ;;
   }
+  dimension:date_diff_day{
+  hidden: yes
+  type: number
+  sql: DATEDIFF(day,${created_date},current_date) ;;
+ }
 
+  dimension: is_new_customer {
+    type: yesno
+    sql: ${date_diff_day} <= 90 ;;
+  }
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
