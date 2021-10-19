@@ -91,4 +91,12 @@ view: users {
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
 
+  dimension: state_city {
+    type: string
+    sql: concat(${state}, ' ',${city});;
+  }
+
+  dimension: email_source {
+    type:  yesno
+    sql: ${email} ;;}
 }
