@@ -20,6 +20,11 @@ view: users {
   style: integer
   }
 
+  dimension: Email_or_not {
+    type: yesno
+    sql: ${traffic_source}='Email' ;;
+
+  }
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
