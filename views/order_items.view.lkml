@@ -33,7 +33,7 @@ view: order_items {
   type: duration
   sql_start: ${created_date} ;;
   sql_end: ${delivered_date} ;;
-  intervals: [week]
+  intervals: [week,day]
   }
 
   dimension_group: delivered {
