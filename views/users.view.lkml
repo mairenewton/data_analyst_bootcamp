@@ -84,8 +84,13 @@ view: users {
   dimension: age_bucket {
     type:  tier
     tiers: [18, 25, 35, 45, 55, 65, 75, 90]
-    sql: ${age}
-    style: interval;;
+    sql: ${age} ;;
+  }
+
+
+  dimension: is_email_source {
+    type: yesno
+    sql: ${traffic_source} = 'Email' ;;
   }
 
   dimension: traffic_source {
