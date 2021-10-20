@@ -127,7 +127,19 @@ view: order_items {
     value_format_name: usd_0
   }
 
+  measure: total_sales_new_users {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [users.is_new_customer: "Yes"]
+    value_format_name: usd
+  }
 
+
+  measure: total_sales_email_users {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [users.traffic_source: "Email"]
+  }
 
   measure: average_sale_price {
     type:  average
