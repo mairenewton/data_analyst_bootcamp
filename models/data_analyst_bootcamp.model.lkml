@@ -15,6 +15,9 @@ persist_with: data_analyst_bootcamp_default_datagroup
 
 # This explore contains multiple views
 explore: order_items {
+  sql_always_where: ${order_items.returned_date} IS NULL ;;
+  sql_always_having: ${order_items.sum_sale_price} > 200 ;;
+
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -39,6 +42,23 @@ explore: order_items {
     relationship: many_to_one
   }
 
+}
+
+explore: users {
+  always_filter: {
+    filters: [
+      order_items.created_date: "Before today"
+    ]
+  }
+  join: order_items{
+    type: left_outer
+    sql_on:  ${order_items.user_id} = ${users.id} ;;
+    relationship: one_to_many
+  }
+}
+
+
+
   # query: order_status_by_date{
   #   dimensions: [order_items.created_date, order_items.status]
   #   measures: [order_items.total_revenue]
@@ -51,7 +71,7 @@ explore: order_items {
   #   measures: [order_items.total_revenue]
   #   filters: [order_items.created_date: "last 30 days"]
   # }
-}
+
 
 
 # explore: products {}

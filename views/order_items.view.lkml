@@ -39,6 +39,13 @@ view: order_items {
     sql: ${TABLE}.delivered_at ;;
   }
 
+  dimension_group: delivery_time_in_days {
+    type: duration
+    sql_start: ${shipped_date} ;;
+    sql_end: ${delivered_date} ;;
+    intervals: [day]
+  }
+
   dimension: inventory_item_id {
     #hidden: yes
     type: number
@@ -50,10 +57,10 @@ view: order_items {
     sql: ${TABLE}.order_id ;;
   }
 
-  dimension: profit {
-    type: number
-    sql: ${sale_price} - ${inventory_items.cost} ;;
-  }
+  # dimension: profit {
+  #   type: number
+  #   sql: ${sale_price} - ${inventory_items.cost} ;;
+  # }
 
   dimension_group: returned {
     type: time
@@ -102,6 +109,46 @@ view: order_items {
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: distinct_row_count{
+    label: "A count of rows"
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
+  measure: sum_sale_price {
+    label: "Sum of sale price"
+    description: "Sum of sale price"
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
+  measure: average_sale_price {
+    type: average
+    sql: ${sale_price} ;;
+  }
+
+  measure: total_sales_new_users {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [users.is_new_customer: "Yes"]
+    value_format_name: usd
+  }
+
+  measure: total_sales_email_users {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [
+      users.traffic_source: "Email"
+    ]
+  }
+
+  measure: average_spend_per_user {
+    type: number
+    value_format_name: usd
+    sql: 1.0*${sum_sale_price}/NULLIF(${users.count}, 0) ;;
   }
 
   # ----- Sets of fields for drilling ------
