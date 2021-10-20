@@ -103,6 +103,21 @@ view: users {
     sql: ${TABLE}.zip ;;
   }
 
+
+  dimension: date_diff_day {
+    hidden: yes
+    type: number
+    label: "Days since Registration"
+    group_label: "Difference"
+    sql: DATEDIFF( day, ${created_date}, current_date) ;;
+  }
+
+  dimension: is_new_customer {
+    description: "New customer within 90 days"
+    type: yesno
+    sql: ${date_diff_day} <= 90 ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
