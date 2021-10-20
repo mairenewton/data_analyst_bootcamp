@@ -8,6 +8,8 @@ datagroup: data_analyst_bootcamp_default_datagroup {
   max_cache_age: "1 hour"
 }
 
+explore: users {}
+
 persist_with: data_analyst_bootcamp_default_datagroup
 #comment
 
