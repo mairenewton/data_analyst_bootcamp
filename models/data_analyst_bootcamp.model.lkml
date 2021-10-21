@@ -71,6 +71,10 @@ explore: order_items {
 
 explore: users {
   persist_with: midnight_refresh
+  access_filter: {
+    field: users.state
+    user_attribute: state
+  }
   always_filter:  {
     filters: [order_items.created_date : "before today"]
   }
