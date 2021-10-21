@@ -4,10 +4,26 @@ connection: "events_ecommerce" ## this is my comment
 include: "/views/*.view"
 
 datagroup: data_analyst_bootcamp_default_datagroup {
-  # sql_trigger: SELECT MAX(id) FROM etl_log;;
+  sql_trigger: SELECT MAX(id) FROM etl_log;;
   max_cache_age: "1 hour"
 }
 
+datagroup: midnight_refresh {
+  sql_trigger: SELECT CURRENT_DATE ;; # DB TZ
+  max_cache_age: "24 hours"
+}
+
+datagroup: order_items_datagroup {
+  sql_trigger: SELECT max(created_at) FROM order_items ;;
+  max_cache_age: "4 hours"
+}
+
+access_grant: inventory {
+  user_attribute: department
+  allowed_values: ["Inventory", "Marketing"]
+}
+
+# Default on model level, in case there is no perist_with on an explore level
 persist_with: data_analyst_bootcamp_default_datagroup
 #comment
 
@@ -15,6 +31,7 @@ persist_with: data_analyst_bootcamp_default_datagroup
 
 # This explore contains multiple views
 explore: order_items {
+  persist_with: order_items_datagroup
   sql_always_where: ${order_items.returned_date} IS NULL ;;
   sql_always_having: ${order_items.sum_sale_price} > 200 ;;
 
@@ -37,14 +54,26 @@ explore: order_items {
   }
 
   join: distribution_centers {
+    required_access_grants: [inventory]
     type: left_outer
     sql_on: ${inventory_items.product_distribution_center_id} = ${distribution_centers.id} ;;
+    relationship: many_to_one
+  }
+
+  join: user_facts {
+    type: left_outer
+    sql_on: ${order_items.user_id} = ${users.id} ;;
     relationship: many_to_one
   }
 
 }
 
 explore: users {
+  persist_with: midnight_refresh
+  access_filter:{
+    field: users.state
+    user_attribute: user_state
+  }
   always_filter: {
     filters: [
       order_items.created_date: "Before today"
