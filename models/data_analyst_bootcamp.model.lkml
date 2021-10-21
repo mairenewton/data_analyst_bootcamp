@@ -17,6 +17,12 @@ datagroup: last_order_item {
 persist_with: data_analyst_bootcamp_default_datagroup
 #comment
 
+
+access_grant: inventory {
+  user_attribute: department
+  allowed_values: ["Inventory"]
+}
+
 datagroup: midnight_refresh {
   sql_trigger: select current_date ;;
   max_cache_age: "24 hours"
@@ -49,6 +55,7 @@ explore: order_items {
   }
 
   join: distribution_centers {
+    required_access_grants: [inventory]
     type: left_outer
     sql_on: ${inventory_items.product_distribution_center_id} = ${distribution_centers.id} ;;
     relationship: many_to_one
