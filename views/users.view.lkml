@@ -81,7 +81,7 @@ view: users {
     sql: ${TABLE}.traffic_source ;;
   }
 
-  dimension: tas3level3 {
+  dimension: task3level3 {
     type: yesno
     sql: ${traffic_source} = 'Email';;
 
