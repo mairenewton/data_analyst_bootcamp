@@ -83,7 +83,7 @@ view: users {
 
   dimension: tas3level3 {
     type: yesno
-    sql: ${traffic_source} = 'EMAIL';;
+    sql: ${traffic_source} = 'Email';;
 
   }
 
