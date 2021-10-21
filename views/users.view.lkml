@@ -81,6 +81,12 @@ view: users {
     sql: ${TABLE}.traffic_source ;;
   }
 
+  dimension: tas3level3 {
+    type: yesno
+    sql: ${traffic_source} = 'EMAIL';;
+
+  }
+
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
