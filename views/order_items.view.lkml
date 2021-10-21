@@ -50,10 +50,10 @@ view: order_items {
     sql: ${TABLE}.order_id ;;
   }
 
-  dimension: profit {
-    type: number
-    sql: ${sale_price} - ${inventory_items.cost} ;;
-  }
+#  dimension: profit {
+#   type: number
+#    sql: ${sale_price} - ${inventory_items.cost} ;;
+#  }
 
   dimension_group: returned {
     type: time
@@ -99,9 +99,54 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+  dimension: shipping_days {
+    type: number
+    sql: DATEDIFF('d', ${shipped_date}, ${delivered_date}) ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: number_of_orders {
+    description: "A count of unique orders"
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
+  measure: total_sum_sales {
+    description: "Sum of sale price"
+    type: sum
+    sql: ${sale_price} ;;
+  }
+
+  measure: average_sale_price {
+    description: "Average of sale price"
+    type: average
+    sql: ${sale_price} ;;
+  }
+
+  measure: total_sales_new_users {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [users.is_new_customer: "Yes"]
+    value_format_name: usd
+  }
+
+  measure: total_sales_email_users {
+    type:  sum
+    sql: ${sale_price};;
+    filters: [
+      users.traffic_source: "Email"
+      ]
+  }
+
+  measure: average_spend_per_user {
+    type: number
+    value_format_name: usd_0
+    sql: 1.0*$(${total_sum_sales}
+    /NULLIF(${users.count},0);;
   }
 
   # ----- Sets of fields for drilling ------
