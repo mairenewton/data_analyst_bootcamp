@@ -18,10 +18,18 @@ persist_with: data_analyst_bootcamp_default_datagroup
 #comment
 
 
+# Access grant definitions
 access_grant: inventory {
   user_attribute: department
   allowed_values: ["Inventory"]
 }
+
+access_grant: see_pii {
+  user_attribute: is_pii_viewer
+  allowed_values: ["Yes"]
+}
+
+
 
 datagroup: midnight_refresh {
   sql_trigger: select current_date ;;
