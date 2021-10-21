@@ -9,6 +9,11 @@ datagroup: data_analyst_bootcamp_default_datagroup {
 }
 
 
+datagroup: last_order_item {
+  sql_trigger: SELECT MAX(created_at) FROM order_items ;;
+  max_cache_age: "4 hours"
+}
+
 persist_with: data_analyst_bootcamp_default_datagroup
 #comment
 
@@ -20,6 +25,7 @@ datagroup: midnight_refresh {
 
 # This explore contains multiple views
 explore: order_items {
+  persist_with: last_order_item
   sql_always_where: ${order_items.returned_date} is null ;;
   sql_always_having: ${total_sales} > 200 ;;
   join: users {
@@ -72,6 +78,11 @@ explore: users {
     type: left_outer
     sql_on: ${users.id} = ${order_items.user_id} ;;
     relationship: one_to_many
+  }
+  join: user_facts {
+    type: left_outer
+    sql_on: ${users.id} = ${user_facts.user_id} ;;
+    relationship: one_to_one
   }
 }
 
