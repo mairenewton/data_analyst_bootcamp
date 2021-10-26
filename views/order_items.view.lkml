@@ -133,11 +133,20 @@ view: order_items {
     sql:  ${sale_price} ;;
   }
 
-
-
   measure: average_sales {
     type: average
     sql:  ${sale_price} ;;
   }
 
+  measure: filtered_sales_email {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [users.email_user: "yes"]  # use the email user dimension that was created to determine traffic_source is email
+  }
+
+  measure: percentage_sales {
+    type:  number
+    sql: ${filtered_sales_email}/${total_sales} ;;
+    value_format_name: percent_1 # percent with 1 decimal
+  }
 }
