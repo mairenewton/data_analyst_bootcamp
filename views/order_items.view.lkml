@@ -122,4 +122,15 @@ view: order_items {
     sql_start: ${shipped_raw} ;; # want duration from shipped raw date
     sql_end: ${delivered_raw} ;; # want duration until delivered raw date
   }
+
+  measure: orders_count {
+    type: count_distinct
+    sql:  ${order_id} ;;
+  }
+
+  measure: total_sales {
+    type: sum
+    sql:  $(${sale_price} ;;
+  }
+
 }
