@@ -125,28 +125,47 @@ view: order_items {
 
   measure: orders_count {
     type: count_distinct
+    group_label: "My measures"
     sql:  ${order_id} ;;
   }
 
   measure: total_sales {
     type: sum
+    group_label: "My measures"
     sql:  ${sale_price} ;;
   }
 
   measure: average_sales {
     type: average
+    group_label: "My measures"
     sql:  ${sale_price} ;;
   }
 
   measure: filtered_sales_email {
     type: sum
+    group_label: "My measures"
     sql: ${sale_price} ;;
     filters: [users.email_user: "yes"]  # use the email user dimension that was created to determine traffic_source is email
   }
 
   measure: percentage_sales {
     type:  number
+    group_label: "My measures"
     sql: ${filtered_sales_email}/${total_sales} ;;
     value_format_name: percent_1 # percent with 1 decimal
+  }
+
+  measure: distinct_users {
+    type: count_distinct
+    group_label: "My measures"
+    sql: ${user_id} ;;
+  }
+
+  measure: spend_per_user {
+    type: number
+    group_label: "My measures"
+    label: "spendings per user"
+    sql:  ${total_sales}/${distinct_users} ;;
+    value_format_name: usd_0
   }
 }
