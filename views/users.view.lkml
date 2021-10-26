@@ -100,6 +100,10 @@ dimension: state_city {
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
 
-
+  dimension: email_flag {
+    type:  yesno
+    sql: CASE WHEN $(${traffic_source} = 'Email' THEN 'yes'
+      ELSE 'no';;
+  }
 
 }
