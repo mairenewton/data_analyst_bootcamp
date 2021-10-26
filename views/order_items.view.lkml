@@ -168,4 +168,7 @@ view: order_items {
     sql:  ${total_sales}/${distinct_users} ;;
     value_format_name: usd_0
   }
+
+
+
 }
