@@ -102,8 +102,7 @@ dimension: state_city {
 
   dimension: email_flag {
     type:  yesno
-    sql: CASE WHEN $(${traffic_source} = 'Email' THEN 'yes'
-      ELSE 'no';;
+    sql: $(${traffic_source} = 'Email';;
   }
 
 }
