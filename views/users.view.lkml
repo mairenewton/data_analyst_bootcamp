@@ -12,12 +12,17 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  dimension: age_tiers {
+    type: tier
+    style:  integer
+    sql:  ${age} ;;
+    tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+  }
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
   }
-
-  #comment
 
   dimension: country {
     type: string
@@ -25,6 +30,10 @@ view: users {
     sql: ${TABLE}.country ;;
   }
 
+dimension: state_city {
+  type:  string
+  sql: concat( ${state}, ' ', ${city}) ;; # use concat to join two strings together - use empty string to create space inbetween
+}
   dimension_group: created {
     type: time
     timeframes: [
@@ -90,5 +99,7 @@ view: users {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
+
+
 
 }
