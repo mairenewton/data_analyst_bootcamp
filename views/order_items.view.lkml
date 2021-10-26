@@ -115,4 +115,11 @@ view: order_items {
       inventory_items.product_name
     ]
   }
+
+  dimension_group: shipping_days {  # use native functions of sql
+    type: duration   # duration type
+    intervals: [day] # duration = day
+    sql_start: ${shipped_raw} ;; # want duration from shipped raw date
+    sql_end: ${delivered_raw} ;; # want duration until delivered raw date
+  }
 }
