@@ -100,9 +100,9 @@ dimension: state_city {
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
 
-  dimension: email_flag {
+  dimension: email_user {
     type:  yesno
-    sql: $(${traffic_source} = 'Email';;
+    sql: ${traffic_source} = 'Email';;
   }
 
 }
