@@ -114,6 +114,12 @@ view: users {
     sql: ${traffic_source} = 'Email' ;;
   }
 
+  measure: count_female_users {
+    label: "Count of Female Users"
+    type: count
+    filters: [gender: "Female"]
+  }
+
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
