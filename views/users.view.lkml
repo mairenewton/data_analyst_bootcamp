@@ -25,6 +25,11 @@ view: users {
     sql: ${TABLE}.country ;;
   }
 
+  dimension: full_name  {
+    type: string
+    sql: ${first_name} || ' ' || ${last_name};;
+  }
+
   dimension_group: created {
     type: time
     timeframes: [
@@ -79,6 +84,11 @@ view: users {
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
+  }
+
+  dimension: traffic_source_is_email {
+    type:  yesno
+    sql:  ${traffic_source} = 'Email' ;;
   }
 
   dimension: zip {
