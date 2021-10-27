@@ -92,6 +92,13 @@ view: users {
     sql: ${TABLE}.zip ;;
   }
 
+  measure: count_female_users {
+    label: "Count of female users"
+    type: count
+    filters: [gender: "Female"]
+
+  }
+
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
