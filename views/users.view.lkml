@@ -17,6 +17,29 @@ view: users {
     sql: ${TABLE}.city ;;
   }
 
+  dimension: full_name {
+    type: string
+    sql: ${first_name} || ' ' || ${last_name} ;;
+  }
+
+  dimension: days_since_signup {
+    type: number
+    sql: DATEDIFF(day, ${created_date}, current_date) ;;
+  }
+
+  dimension: is_new_customer {
+    type: yesno
+    sql: ${days_since_signup} <= 90 ;;
+  }
+
+  dimension: days_since_signup_tiers {
+    type: tier
+    tiers: [90,180,360]
+    style: integer
+    sql: ${days_since_signup} ;;
+
+  }
+
   #comment
 
   dimension: country {
@@ -84,6 +107,17 @@ view: users {
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
+  }
+
+  dimension: is_email_source {
+    type: yesno
+    sql: ${traffic_source} = 'Email' ;;
+  }
+
+  measure: count_female_users {
+    label: "Count of Female Users"
+    type: count
+    filters: [gender: "Female"]
   }
 
   measure: count {
