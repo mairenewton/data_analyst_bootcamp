@@ -74,6 +74,25 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
+  measure: total_sales {
+    type:  sum
+    sql:  ${sale_price} ;;
+    value_format_name: usd
+  }
+
+  measure: average_sales {
+    type:  average
+    sql:  ${sale_price} ;;
+    value_format_name: usd
+  }
+
+  dimension_group: shipping {
+    type:  duration
+    intervals: [hour, day]
+    sql_start: ${shipped_raw} ;;
+    sql_end:  ${delivered_raw} ;;
+  }
+
   dimension_group: shipped {
     type: time
     timeframes: [
@@ -102,6 +121,17 @@ view: order_items {
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: count_of_order {
+    type:  count_distinct
+    sql:  ${order_id} ;;
+  }
+
+  measure: total_sales_email_traffic_source {
+    type:  sum
+    sql:  ${sale_price} ;;
+    filters: [users.traffic_source: "Email"]
   }
 
   # ----- Sets of fields for drilling ------
