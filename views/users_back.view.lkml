@@ -1,5 +1,6 @@
-view: users {
-  sql_table_name: public.users ;;
+view: users_back {
+  sql_table_name: public.users_back ;;
+  drill_fields: [id]
 
   dimension: id {
     primary_key: yes
@@ -17,31 +18,6 @@ view: users {
     sql: ${TABLE}.city ;;
   }
 
-  dimension: full_name {
-    type: string
-    sql: ${first_name} || ' ' || ${last_name} ;;
-  }
-
-  dimension: days_since_signup {
-    type: number
-    sql: DATEDIFF(day, ${created_date}, current_date) ;;
-  }
-
-  dimension: is_new_customer {
-    type: yesno
-    sql: ${days_since_signup} <= 90 ;;
-  }
-
-  dimension: days_since_signup_tiers {
-    type: tier
-    tiers: [90,180,360]
-    style: integer
-    sql: ${days_since_signup} ;;
-
-  }
-
-  #comment
-
   dimension: country {
     type: string
     map_layer_name: countries
@@ -56,9 +32,7 @@ view: users {
       date,
       week,
       month,
-      month_name,
       quarter,
-      day_of_month,
       year
     ]
     sql: ${TABLE}.created_at ;;
@@ -109,14 +83,8 @@ view: users {
     sql: ${TABLE}.zip ;;
   }
 
-  dimension: is_email_source {
-    type: yesno
-    sql: ${traffic_source} = 'Email' ;;
-  }
-
   measure: count {
     type: count
-    drill_fields: [id, first_name, last_name, events.count, order_items.count]
+    drill_fields: [id, last_name, first_name]
   }
-
 }
