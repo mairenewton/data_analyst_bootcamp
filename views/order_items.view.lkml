@@ -91,6 +91,11 @@ view: order_items {
     ]
     sql: ${TABLE}.shipped_at ;;
   }
+measure:  total_sales {
+  type: sum
+  sql: ${sale_price} ;;
+  value_format_name: usd
+}
 
   dimension: status {
     type: string
