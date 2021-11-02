@@ -97,6 +97,15 @@ measure:  total_sales {
   value_format_name: usd
 }
 
+
+
+measure: average_spend_per_user {
+  type: number
+  value_format_name: usd_0
+  sql:1.0*${total_sales}/NULLIF(${users.count},0)  ;;
+
+}
+
   dimension: status {
     type: string
     sql: ${TABLE}.status ;;
