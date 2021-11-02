@@ -76,6 +76,11 @@ view: users {
     sql: ${TABLE}.state ;;
   }
 
+  dimension: days_since_signup {
+    type: number
+    sql: datediff(days,${created_date},current_date);;
+  }
+
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
