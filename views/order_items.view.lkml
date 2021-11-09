@@ -74,6 +74,18 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
+  measure: total_sales {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: eur_0
+  }
+
+  measure: average_sales_price {
+    type:  average
+    sql: ${sale_price} ;;
+    value_format_name: eur
+  }
+
   dimension_group: shipped {
     type: time
     timeframes: [
@@ -87,6 +99,13 @@ view: order_items {
     ]
     sql: ${TABLE}.shipped_at ;;
   }
+
+  dimension: days_since_shipped {
+    type: duration_day
+    sql_start: ${shipped_date};;
+    sql_end: ${delivered_date} ;;
+  }
+
 
   dimension: status {
     type: string
