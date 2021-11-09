@@ -95,15 +95,47 @@ view: order_items {
 
   dimension: user_id {
     type: number
-    # hidden: yes
+    hidden: yes
     sql: ${TABLE}.user_id ;;
   }
+
+
 
   measure: count {
     type: count
     drill_fields: [detail*]
   }
 
+  measure: total_sales {
+    type: sum
+    sql: ${sale_price}   ;;
+  }
+
+measure: avg_sales {
+  type: average
+  sql: ${sale_price} ;;
+}
+
+
+measure: total_email_sales {
+  type: sum
+  filters: [users.email_traffic_flag: "Yes" ]
+  sql: total_sales ;;
+}
+
+measure: pct_sales_from_email {
+  type: number
+  value_format_name: percent_1
+  sql:  1.0 * ${total_email_sales}
+  /Nullif(${total_sales},0) ;;
+}
+
+measure: avg_user_spend {
+  type: number
+  value_format_name: usd
+  sql: 1.0 * ${total_sales}
+  /nullif(${users.count},0);;
+}
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [

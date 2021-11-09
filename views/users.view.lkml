@@ -12,11 +12,22 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+dimension: age_bucket {
+  type: tier
+  tiers: [18,25,35,45,55,65,75,90]
+  style:  interval
+  sql: ${age} ;;
+
+}
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
   }
 
+dimension: city_state  {
+  type: string
+  sql: ${city} || " " || ${state} ;;
+}
   #comment
 
   dimension: country {
@@ -81,6 +92,10 @@ view: users {
     sql: ${TABLE}.traffic_source ;;
   }
 
+dimension: email_traffic_flag {
+  type: yesno
+  sql: ${traffic_source} = 'Email' ;;
+}
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
