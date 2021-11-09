@@ -55,6 +55,17 @@ view: order_items {
     sql: ${sale_price} - ${inventory_items.cost} ;;
   }
 
+measure: total_sales {
+type: sum
+sql: ${sale_price} ;;
+}
+
+  measure: average_sales {
+    type: average
+    sql: ${sale_price} ;;
+  }
+
+
   dimension_group: returned {
     type: time
     timeframes: [
