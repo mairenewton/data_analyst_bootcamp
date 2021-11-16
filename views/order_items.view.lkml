@@ -111,6 +111,8 @@ measure:  total_sales {
     value_format_name: usd
   }
 
+
+
 measure: average_spend_per_user {
   type: number
   value_format_name: usd_0
