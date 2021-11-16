@@ -17,6 +17,11 @@ view: users {
     sql: ${TABLE}.city ;;
   }
 
+  dimension: email {
+    type:  yesno
+    sql: ${traffic_source} = 'Email' ;;
+  }
+
   #comment
 
   dimension: country {
@@ -49,10 +54,7 @@ view: users {
     sql: ${TABLE}.created_at ;;
   }
 
-  dimension: email {
-    type: string
-    sql: ${TABLE}.email ;;
-  }
+
 
   dimension: first_name {
     type: string

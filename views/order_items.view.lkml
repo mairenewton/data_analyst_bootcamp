@@ -62,6 +62,7 @@ view: order_items {
     sql: ${sale_price} ;;
   }
 
+
   dimension_group: returned {
     type: time
     timeframes: [
@@ -79,6 +80,14 @@ view: order_items {
   dimension: sale_price {
     type: number
     sql: ${TABLE}.sale_price ;;
+  }
+
+  measure: email_sales{
+    type:  sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+    filters:  [users.traffic_source: "Email"
+      ]
   }
 
   dimension_group: shipped {
@@ -108,6 +117,7 @@ view: order_items {
 
 measure: total_sales {
   type:  sum
+  value_format_name: usd
   sql:  ${sale_price} ;;
 }
 
