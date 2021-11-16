@@ -8,13 +8,19 @@ datagroup: data_analyst_bootcamp_default_datagroup {
   max_cache_age: "1 hour"
 }
 
+datagroup: order_items {
+  sql_trigger: SELECT MAX(CREATED_AT) From order_items ;;
+  max_cache_age: "4 hours"
+}
 persist_with: data_analyst_bootcamp_default_datagroup
 #comment
 
 # explore: inventory_items {}
 
+
 # This explore contains multiple views
 explore: order_items {
+  persist_with: order_items
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -38,6 +44,7 @@ explore: order_items {
     sql_on: ${inventory_items.product_distribution_center_id} = ${distribution_centers.id} ;;
     relationship: many_to_one
   }
+
 
   # query: order_status_by_date{
   #   dimensions: [order_items.created_date, order_items.status]
