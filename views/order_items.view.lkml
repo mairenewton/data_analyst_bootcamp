@@ -25,6 +25,7 @@ view: order_items {
     sql: ${TABLE}.created_at ;;
   }
 
+
   dimension_group: delivered {
     type: time
     timeframes: [
@@ -97,6 +98,12 @@ measure:  total_sales {
   value_format_name: usd
 }
 
+  measure: total_sales_via_email{
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [users.traffic_source: "Email"]
+    value_format_name: usd
+  }
 
 
 measure: average_spend_per_user {
