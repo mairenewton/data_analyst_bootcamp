@@ -104,7 +104,12 @@ measure:  total_sales {
     filters: [users.traffic_source: "Email"]
     value_format_name: usd
   }
-
+  measure: total_sales_Completed{
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [status:  "Complete"]
+    value_format_name: usd
+  }
 
 measure: average_spend_per_user {
   type: number
