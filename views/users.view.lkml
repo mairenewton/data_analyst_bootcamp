@@ -25,6 +25,14 @@ view: users {
     sql: ${TABLE}.country ;;
   }
 
+  dimension: age_bucket{
+    type:  bin
+    bins: [18, 28, 35, 45, 55, 65, 75, 90]
+    style:  integer
+    sql:  ${age} ;;
+
+  }
+
   dimension_group: created {
     type: time
     timeframes: [
@@ -84,6 +92,11 @@ view: users {
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
+  }
+
+  measure: unique_users {
+    type:  count_distinct
+    sql:  ${id} ;;
   }
 
   measure: count {

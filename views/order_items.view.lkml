@@ -1,4 +1,5 @@
 view: order_items {
+  label: "1. Orders"
   sql_table_name: public.order_items ;;
 
   dimension: order_item_id {
@@ -55,6 +56,12 @@ view: order_items {
     sql: ${sale_price} - ${inventory_items.cost} ;;
   }
 
+  measure: avg_sales {
+    type:  average
+    value_format_name: eur
+    sql: ${sale_price} ;;
+  }
+
   dimension_group: returned {
     type: time
     timeframes: [
@@ -99,10 +106,22 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+measure: total_sales {
+  type:  sum
+  sql:  ${sale_price} ;;
+}
+
+  measure: avg_spend_per_user {
+    type:  number
+    value_format_name: usd
+    sql:  1.0 * ${total_sales} / NULLIF(${users.count},0) ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
   }
+
 
   # ----- Sets of fields for drilling ------
   set: detail {
