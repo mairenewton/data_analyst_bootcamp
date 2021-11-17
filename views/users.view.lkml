@@ -51,6 +51,11 @@ view: users {
     sql: ${TABLE}.first_name ;;
   }
 
+  dimension: full_name {
+    type: string
+    sql: initcap(${first_name}) || ' ' || initcap(${last_name}) ;;
+  }
+
   dimension: gender {
     type: string
     sql: ${TABLE}.gender ;;
