@@ -132,6 +132,10 @@ measure: total_sales {
     drill_fields: [detail*]
   }
 
+  filter: ex_returns {
+
+  }
+
 
   # ----- Sets of fields for drilling ------
   set: detail {
