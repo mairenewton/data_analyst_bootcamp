@@ -86,6 +86,24 @@ view: users {
     sql: ${TABLE}.zip ;;
   }
 
+  dimension: CityState {
+    type: string
+    sql: Concat (${TABLE}.city, ${TABLE}.state) ;;
+  }
+
+  dimension: AgeGroup {
+    type: number
+    sql: CASE WHEN ${TABLE}.age < 18 THEN 18
+              WHEN ${TABLE}.age between 18 and 25 THEN 25
+              WHEN ${TABLE}.age between 25 and 35 THEN 35
+              WHEN ${TABLE}.age between 35 and 45 THEN 45
+              WHEN ${TABLE}.age between 45 and 55 THEN 55
+              WHEN ${TABLE}.age between 55 and 65 THEN 65
+              WHEN ${TABLE}.age between 65 and 75 THEN 75
+              ELSE 90
+          END;;
+  }
+
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
