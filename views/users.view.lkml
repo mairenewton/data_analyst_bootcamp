@@ -91,4 +91,16 @@ view: users {
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
 
+  dimension: citystate {
+    type: string
+    sql: ${TABLE}.city||${TABLE}.state  ;;
+  }
+
+  dimension: agegroup {
+    type: tier
+    tiers: [0,18,25,35,45,55,65,75,90]
+    sql: ${TABLE}.age ;;
+  }
+
+
 }
