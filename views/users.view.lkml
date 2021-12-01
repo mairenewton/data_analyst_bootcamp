@@ -96,6 +96,19 @@ view: users {
     sql:DATEDIFF(day,${created_date}, current_date) ;;
   }
 
+  dimension: is_new_customer {
+    type: yesno
+    sql: ${days_since_signup <=90} ;;
+  }
+  dimension: days_since_signup_group {
+    type: tier
+    tiers: [0,30,60,90,180,360,720]
+    style: integer
+    sql:  ${days_since_signup}
+      ;;
+  }
+
+
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
