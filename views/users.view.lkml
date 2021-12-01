@@ -93,7 +93,7 @@ view: users {
 
   dimension: days_since_signup {
     type: number
-    sql:DATEDIFF(day, ${created_date}, current_date) ;;
+    sql:DATEDIFF(${created_date}, current_date,day) ;;
   }
 
   measure: count {
