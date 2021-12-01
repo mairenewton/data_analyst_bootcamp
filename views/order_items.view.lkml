@@ -98,10 +98,28 @@ view: order_items {
     # hidden: yes
     sql: ${TABLE}.user_id ;;
   }
+  dimension_group: since_placed {
+    type: duration
+    sql_start: ${created_raw} ;;
+    sql_end: ${delivered_raw} ;;
+    intervals: [minute,hour,day,week,month]
+  }
 
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: total_sales {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
+  measure: average_sales {
+    type: average
+    sql: ${sale_price} ;;
+    value_format_name: usd
   }
 
   # ----- Sets of fields for drilling ------

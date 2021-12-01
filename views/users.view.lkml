@@ -108,6 +108,17 @@ view: users {
       ;;
   }
 
+  dimension: full_location {
+    type: string
+    sql:  ${city} || ' - ' || ${state} ;;
+  }
+
+  dimension: age_group {
+    type: tier
+    tiers: [0,18,25,35,45,55,65,75,90]
+    style: integer
+    sql:  ${age};;
+  }
 
   measure: count {
     type: count
