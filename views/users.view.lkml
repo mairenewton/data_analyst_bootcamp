@@ -91,6 +91,11 @@ view: users {
     sql:  ${first_name} || ' - ' || ${last_name} ;;
   }
 
+  dimension: days_since_signup {
+    type: number
+    sql:DATEDIFF(day, ${created_date}, current_date) ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
