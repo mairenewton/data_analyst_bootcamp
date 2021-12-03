@@ -1,5 +1,5 @@
 view: distribution_centers {
-
+# hello
   sql_table_name: public.distribution_centers ;;
   #######
 

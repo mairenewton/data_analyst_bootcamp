@@ -61,6 +61,17 @@ view: users {
     sql: ${TABLE}.last_name ;;
   }
 
+  dimension: full_name {
+    type: string
+    sql: ${first_name} || ' ' || ${last_name} ;;
+  }
+
+  dimension: full_name_cap {
+    type:  string
+    sql: initcap(${first_name})  ;;
+
+  }
+
   dimension: latitude {
     type: number
     sql: ${TABLE}.latitude ;;
@@ -84,6 +95,11 @@ view: users {
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
+  }
+
+  measure: count_female_user {
+    type: count
+    filters: [gender: "Female"]
   }
 
   measure: count {
