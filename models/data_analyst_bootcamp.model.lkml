@@ -1,9 +1,7 @@
-connection: "events_ecommerce"
+connection: "events_ecommerce" ## this is my comment
 
 # include all the views
 include: "/views/*.view"
-
-
 
 datagroup: data_analyst_bootcamp_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;

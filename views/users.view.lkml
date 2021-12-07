@@ -17,6 +17,8 @@ view: users {
     sql: ${TABLE}.city ;;
   }
 
+  #comment
+
   dimension: country {
     type: string
     map_layer_name: countries
