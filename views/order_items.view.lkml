@@ -121,6 +121,39 @@ view: order_items {
     sql: ${sale_price} ;;
     value_format_name: usd
   }
+  measure: distinct_orders {
+    type: count_distinct
+    label: "Count Distinct Orders"
+    sql: ${order_id} ;;
+  }
+  measure: total_sale_price  {
+    type: sum
+    value_format_name: usd
+    sql: ${sale_price} ;;
+  }
+  measure: average_sale_price  {
+    type: average
+    value_format_name: usd
+    sql: ${sale_price} ;;
+}
+
+measure: sales_from_email {
+  type: sum
+  filters: [users.traffic_source: "Email"]
+  value_format_name: usd
+  sql: ${sale_price}
+  ;;
+}
+
+
+
+
+measure: avg_spent_per_user {
+type: number
+value_format_name: usd
+sql: 1.0 * ${total_sale_price}/ NULLIF(${distinct_orders},0);;
+}
+
 
   # ----- Sets of fields for drilling ------
   set: detail {

@@ -39,6 +39,7 @@ explore: order_items {
     relationship: many_to_one
   }
 
+
   # query: order_status_by_date{
   #   dimensions: [order_items.created_date, order_items.status]
   #   measures: [order_items.total_revenue]
