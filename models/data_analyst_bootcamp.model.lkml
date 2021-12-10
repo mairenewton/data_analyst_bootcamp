@@ -42,7 +42,7 @@ explore: order_items {
   join: brand_total_revenue_ndt {
     type: inner
     relationship: many_to_one
-    sql: ${products.brand} = ${brand_total_revenue_ndt.brand} ;;
+    sql_on: ${products.brand} = ${brand_total_revenue_ndt.brand} ;;
   }
 
 

@@ -10,8 +10,10 @@ view: brand_total_revenue_ndt {
       derived_column: rank
       {
         sql: row_number () over (order by total_sales desc) ;;
-      }
+        }
+#      bind_filters: {from}
     }
+
   }
   dimension: brand {
     primary_key: yes
@@ -34,7 +36,7 @@ view: brand_total_revenue_ndt {
   dimension: grouped_brands {
     type: string
     sql:  CASE WHEN ${top_5_brand} then ${rank} || ') '||${brand}
-    else   '6) '|| "other " END;;
+    else   '6) other' END;;
   }
 
 }
