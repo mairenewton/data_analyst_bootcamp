@@ -89,6 +89,7 @@ view: order_items {
   }
 
   dimension: status {
+    label: "Order Status"
     type: string
     sql: ${TABLE}.status ;;
   }
@@ -103,6 +104,27 @@ view: order_items {
     sql_start: ${created_raw} ;;
     sql_end: ${delivered_raw} ;;
     intervals: [minute,hour,day,week,month]
+  }
+
+  dimension: sale_prices {
+    type: number
+    sql: ${TABLE}.sale_price ;;
+  }
+
+
+ # dimension: sale_price {
+ #   type: number
+ #   sql: ${TABLE}.sale_price ;;
+ # }
+
+ # measure: average_sale_price {
+ #   type: average
+ #   sql: ${sale_price} ;;
+ # }
+
+  measure: avg_sale_price {
+    type: average
+    sql: ${sale_prices} ;;
   }
 
   measure: count {
