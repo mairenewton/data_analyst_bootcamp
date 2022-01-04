@@ -116,10 +116,15 @@ view: order_items {
  #   sql: ${sale_price} ;;
  # }
 
-  measure: avg_sale_price {
-    type: average
+  measure: total_revenue {
+    type: sum
     sql: ${sale_prices} ;;
   }
+
+  # measure: avg_sale_price {
+  #   type: average
+  #   sql: ${sale_prices} ;;
+  # }
 
   measure: count {
     type: count
