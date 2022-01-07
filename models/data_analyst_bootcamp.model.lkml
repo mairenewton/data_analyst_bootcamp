@@ -1,5 +1,7 @@
 connection: "events_ecommerce" ## this is my comment
 
+# change 1
+
 # include all the views
 include: "/views/*.view"
 
