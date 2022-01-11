@@ -42,6 +42,7 @@ explore: order_items {
 }
 
   explore: users {
+
     join: order_items {
       type: left_outer
       relationship: one_to_many
