@@ -91,6 +91,14 @@ view: users {
   #   sql: ${city} || ', ' || ${state} ;;
   # }
 
+  # dimension: age_tier {
+  #   type: tier
+  #   tiers: []
+  #   sql:  ;;
+  #   style: integer
+  # }
+
+
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]

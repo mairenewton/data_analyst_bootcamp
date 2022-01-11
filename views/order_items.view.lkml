@@ -106,10 +106,10 @@ view: order_items {
   }
 
 
- # dimension: sale_price {
- #   type: number
- #   sql: ${TABLE}.sale_price ;;
- # }
+  # dimension: sale_price {
+  #   type: number
+  #   sql: ${TABLE}.sale_price ;;
+  # }
 
  # measure: average_sale_price {
  #   type: average
@@ -121,10 +121,10 @@ view: order_items {
     sql: ${sale_prices} ;;
   }
 
-  # measure: avg_sale_price {
-  #   type: average
-  #   sql: ${sale_prices} ;;
-  # }
+  measure: avg_sale_price {
+    type: average
+    sql: ${sale_prices} ;;
+  }
 
   measure: count {
     type: count
