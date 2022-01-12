@@ -6,7 +6,10 @@ view: order_items {
     type: number
     sql: ${TABLE}.id ;;
   }
-
+ dimension: is_email_source {
+   type:  yesno
+   sql:  ;;
+ }
   dimension_group: created {
     type: time
     timeframes: [
@@ -26,6 +29,20 @@ view: order_items {
   }
 
   dimension_group: delivered {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.delivered_at ;;
+  }
+
+  dimension_group: time_periods {
     type: time
     timeframes: [
       raw,
@@ -121,6 +138,11 @@ view: order_items {
     sql: ${sale_prices} ;;
   }
 
+  measure: distinct_orders {
+    type: count_distinct
+    sql: ${order_id} ;;
+
+ }
   # measure: avg_sale_price {
   #   type: average
   #   sql: ${sale_prices} ;;
