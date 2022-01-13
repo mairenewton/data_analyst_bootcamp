@@ -35,6 +35,14 @@ view: order_items {
     sql: ${TABLE}.delivered_at ;;
   }
 
+  dimension_group: shipping_days_duration {
+    type: duration
+    intervals: [day,week]
+    sql_start:${created_date}  ;;
+    sql_end:${shipped_date} ;;
+    drill_fields: [days_shipping_days_duration]
+  }
+
 
   dimension: shipping_days {
     description: "why we no have prime"
@@ -97,9 +105,52 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+
+
+
+#####MEASURES######
+
+measure: total_sales_price {
+  type: sum
+  sql: ${sale_price};;
+  value_format_name: gbp
+}
+
+
+measure: sales_email {
+  label: "Sales from email source"
+  type: sum
+  sql:${sale_price} ;;
+  filters: [users.traffic_source: "Email "]
+}
+
+
+  measure: avg_sales {
+    type: number
+    sql: ${total_sales_price}/NULLIF{$users.count},0);;
+    value_format_name: usd
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: order_count  {
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
+  measure: order_count_shipped  {
+    type: count_distinct
+    sql: ${order_id} ;;
+    filters: [status: "Shipped"]
+  }
+
+
+  measure: total_profit {
+    type: number
+    sql: ${total_sales_price} - ${inventory_items.total_cost} ;;
   }
 
   # ----- Sets of fields for drilling ------

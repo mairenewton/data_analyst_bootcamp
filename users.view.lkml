@@ -1,6 +1,7 @@
 view: users {
   sql_table_name: public.users ;;
 
+
   dimension: id {
     primary_key: yes
     type: number
@@ -12,9 +13,25 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+
+  dimension: age_tier {
+    type: tier
+    tiers:[18,25,35,45,55,65]
+    style: integer
+    #style: classic
+    sql:${TABLE}.age;;
+  }
+
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
+  }
+
+  dimension: city_state_test  {
+    description: "city and test with underscore in between"
+    type: string
+    sql:  ${city}||,'_'||${state} ;;
   }
 
   dimension: city_state {
@@ -42,6 +59,8 @@ view: users {
     ]
     sql: ${TABLE}.created_at ;;
   }
+
+
 
   dimension: days_since_signup {
     description: "number of days since a user signed up. This is a best practice"
@@ -89,6 +108,7 @@ view: users {
   dimension: state {
     type: string
     sql: ${TABLE}.state ;;
+    drill_fields: [city]
   }
 
   dimension: days_since_signup_tiered {
@@ -112,6 +132,14 @@ view: users {
     sql: ${TABLE}.traffic_source ;;
   }
 
+
+  dimension: is_email_test {
+    case_sensitive: no
+    type: yesno
+    sql: ${traffic_source} like 'Email' ;;
+  }
+
+
   dimension: was_email {
     case_sensitive: no
     description: "was this an email to target the user"
@@ -130,8 +158,16 @@ view: users {
     sql: ${TABLE}.zip ;;
   }
 
+
+  ####MEASURES####
+
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
+  }
+
+  measure: count_females {
+    type: count
+    filters: [gender: "Female"]
   }
 }
