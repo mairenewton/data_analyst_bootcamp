@@ -1,7 +1,7 @@
 view: order_items {
   sql_table_name: public.order_items ;;
 
-  dimension: id {
+  dimension: order_item_id {
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
@@ -12,9 +12,13 @@ view: order_items {
     timeframes: [
       raw,
       time,
+      hour_of_day,
+      day_of_week,
       date,
       week,
       month,
+      month_name,
+      month_num,
       quarter,
       year
     ]
@@ -35,30 +39,20 @@ view: order_items {
     sql: ${TABLE}.delivered_at ;;
   }
 
-  dimension_group: shipping_days_duration {
-    type: duration
-    intervals: [day,week]
-    sql_start:${created_date}  ;;
-    sql_end:${shipped_date} ;;
-    drill_fields: [days_shipping_days_duration]
-  }
-
-
-  dimension: shipping_days {
-    description: "why we no have prime"
-    type: number
-    sql:  datediff(day,${shipped_date},${delivered_date}) ;;
-  }
-
   dimension: inventory_item_id {
+    #hidden: yes
     type: number
-    # hidden: yes
     sql: ${TABLE}.inventory_item_id ;;
   }
 
   dimension: order_id {
     type: number
     sql: ${TABLE}.order_id ;;
+  }
+
+  dimension: profit {
+    type: number
+    sql: ${sale_price} - ${inventory_items.cost} ;;
   }
 
   dimension_group: returned {
@@ -95,6 +89,7 @@ view: order_items {
   }
 
   dimension: status {
+    label: "Order Status"
     type: string
     sql: ${TABLE}.status ;;
   }
@@ -105,30 +100,30 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
-
-
-
-#####MEASURES######
-
-measure: total_sales_price {
-  type: sum
-  sql: ${sale_price};;
-  value_format_name: gbp
-}
-
-
-measure: sales_email {
-  label: "Sales from email source"
-  type: sum
-  sql:${sale_price} ;;
-  filters: [users.traffic_source: "Email "]
-}
-
-
-  measure: avg_sales {
+  dimension: sale_prices {
     type: number
-    sql: ${total_sales_price}/NULLIF{$users.count},0);;
-    value_format_name: usd
+    sql: ${TABLE}.sale_price ;;
+  }
+
+
+  # dimension: sale_price {
+  #   type: number
+  #   sql: ${TABLE}.sale_price ;;
+  # }
+
+ # measure: average_sale_price {
+ #   type: average
+ #   sql: ${sale_price} ;;
+ # }
+
+  measure: total_revenue {
+    type: sum
+    sql: ${sale_prices} ;;
+  }
+
+  measure: avg_sale_price {
+    type: average
+    sql: ${sale_prices} ;;
   }
 
   measure: count {
@@ -136,27 +131,10 @@ measure: sales_email {
     drill_fields: [detail*]
   }
 
-  measure: order_count  {
-    type: count_distinct
-    sql: ${order_id} ;;
-  }
-
-  measure: order_count_shipped  {
-    type: count_distinct
-    sql: ${order_id} ;;
-    filters: [status: "Shipped"]
-  }
-
-
-  measure: total_profit {
-    type: number
-    sql: ${total_sales_price} - ${inventory_items.total_cost} ;;
-  }
-
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
-      id,
+      order_item_id,
       users.id,
       users.first_name,
       users.last_name,

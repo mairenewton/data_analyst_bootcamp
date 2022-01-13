@@ -8,6 +8,7 @@ view: inventory_items {
   }
 
   dimension: cost {
+#    hidden: yes
     type: number
     sql: ${TABLE}.cost ;;
   }
@@ -84,11 +85,5 @@ view: inventory_items {
   measure: count {
     type: count
     drill_fields: [id, product_name, products.id, products.name, order_items.count]
-  }
-
-
-  measure: total_cost {
-    type: sum
-    sql: ${cost} ;;
   }
 }
