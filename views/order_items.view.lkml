@@ -100,10 +100,15 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
-  dimension: sale_prices {
-    type: number
-    sql: ${TABLE}.sale_price ;;
-  }
+  # dimension: sale_prices {
+  #   type: number
+  #   sql: ${TABLE}.sale_price ;;
+  # }
+
+
+##################### Creating new dimensions  #####################
+
+
 
 
   # dimension: sale_price {
@@ -118,15 +123,28 @@ view: order_items {
 
 ################################## MEASURES ######################
 
-  measure: total_revenue {
+  measure: total_sale_price {
     type: sum
-    sql: ${sale_prices} ;;
+    sql: ${TABLE}.sale_price;;
   }
 
-  measure: avg_sale_price {
+  measure: average_sale_price {
     type: average
-    sql: ${sale_prices} ;;
+    sql: ${TABLE}.sale_price ;;
+    value_format_name: usd_0
   }
+
+ measure: total_revenue {
+    type: sum
+    sql: ${sale_price} ;;
+  }
+
+
+
+  # measure: avg_sale_price {
+  #   type: average
+  #   sql: ${sale_prices} ;;
+  # }
 
   measure: count {
     type: count

@@ -51,14 +51,38 @@ view: users {
     sql: ${TABLE}.first_name ;;
   }
 
+  dimension: last_name {
+    type: string
+    sql: ${TABLE}.last_name ;;
+  }
+
+  #AMAZON REDSHIFT SQL syntax
+  dimension: full_name {
+    type: string
+    sql: ${TABLE}.first_name || ' ' || ${TABLE}.last_name ;;
+  }
+
   dimension: gender {
     type: string
     sql: ${TABLE}.gender ;;
   }
 
-  dimension: last_name {
-    type: string
-    sql: ${TABLE}.last_name ;;
+  dimension: days_since_signup {
+    type: number
+    sql: DATEDIFF(day, ${created_date},CURRENT_DATE) ;;
+  }
+
+  dimension: is_new_user {
+   type: yesno
+    sql: ${days_since_signup} < 90 ;;
+  }
+
+  # creating tier diemsion
+  dimension: days_since_sugnup_tier {
+    type: tier
+    tiers: [0,30,90,180,360,720]
+    sql: ${days_since_signup} ;;
+    style: integer
   }
 
   dimension: latitude {
