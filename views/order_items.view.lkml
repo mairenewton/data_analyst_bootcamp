@@ -116,6 +116,8 @@ view: order_items {
  #   sql: ${sale_price} ;;
  # }
 
+################################## MEASURES ######################
+
   measure: total_revenue {
     type: sum
     sql: ${sale_prices} ;;
@@ -129,6 +131,17 @@ view: order_items {
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure:  order_count {
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
+  measure: order_counts_shipped {
+    type: count_distinct
+    sql: ${order_id} ;;
+    filters: [status: "Shipped"]
   }
 
   # ----- Sets of fields for drilling ------
