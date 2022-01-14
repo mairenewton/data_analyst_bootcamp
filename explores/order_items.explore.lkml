@@ -2,9 +2,9 @@ include: "/views/*.view.lkml"
 
 
 explore: order_items {
-  description: "this provide more info about the explore"
+  description: "Order Analysis"
   group_label: "All my explores"
-  label: "orders and items "
+  label: "Orders and Items "
   view_label: "orders and items"
   join: users {
     type: left_outer
