@@ -108,6 +108,10 @@ view: order_items {
 
 ##################### Creating new dimensions  #####################
 
+dimension: shipping_days {
+  type: number
+  sql: DATEDIFF(day, ${shipped_date}, ${delivered_date}) ;;
+}
 
 
 
@@ -156,6 +160,7 @@ view: order_items {
     sql: ${order_id} ;;
   }
 
+###----============== filtering measures
   measure: order_counts_shipped {
     type: count_distinct
     sql: ${order_id} ;;
