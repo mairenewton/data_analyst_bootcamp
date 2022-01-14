@@ -131,6 +131,8 @@ dimension: shipping_days {
   measure: total_sale_price {
     type: sum
     sql: ${TABLE}.sale_price;;
+    value_format_name: usd_0
+    drill_fields: [created_date, status, sale_price, user_id]
   }
 
   measure: average_sale_price {
@@ -156,11 +158,24 @@ dimension: shipping_days {
     sql: ${order_id} ;;
   }
 
+
+  measure: percent_email_sales {
+    type: number
+    sql: ${sales_email_users}/nullif(${total_sale_price},0) ;;
+    value_format_name: percent_0
+  }
+
 ###----============== filtering measures
   measure: order_counts_shipped {
     type: count_distinct
     sql: ${order_id} ;;
     filters: [status: "Shipped"]
+  }
+
+  measure: sales_email_users {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [users.is_email_source : "Yes"]
   }
 
   # ----- Sets of fields for drilling ------
