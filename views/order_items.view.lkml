@@ -125,6 +125,7 @@ dimension: shipping_days {
  #   sql: ${sale_price} ;;
  # }
 
+###----===========================================================
 ################################## MEASURES ######################
 
   measure: total_sale_price {
@@ -145,17 +146,12 @@ dimension: shipping_days {
 
 
 
-  # measure: avg_sale_price {
-  #   type: average
-  #   sql: ${sale_prices} ;;
-  # }
-
   measure: count {
     type: count
     drill_fields: [detail*]
   }
 
-  measure:  order_count {
+  measure:  order_count_distinct {
     type: count_distinct
     sql: ${order_id} ;;
   }
