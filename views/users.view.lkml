@@ -17,8 +17,6 @@ view: users {
     sql: ${TABLE}.city ;;
   }
 
-  #comment
-
   dimension: country {
     type: string
     map_layer_name: countries
@@ -71,19 +69,32 @@ view: users {
     type: number
     sql: DATEDIFF(day, ${created_date},CURRENT_DATE) ;;
   }
-
+   ###----============== yesno dimension
   dimension: is_new_user {
    type: yesno
     sql: ${days_since_signup} < 90 ;;
   }
 
-  # creating tier diemsion
+  dimension: is_email_source {
+    type: yesno
+    sql: ${traffic_source} = 'Email' ;;
+  }
+
+  ###----============== creating tier dimensions
   dimension: days_since_sugnup_tier {
     type: tier
     tiers: [0,30,90,180,360,720]
     sql: ${days_since_signup} ;;
     style: integer
   }
+
+  dimension: age_bucket {
+    type: tier
+    tiers: [18,25,35,45,55,65,75,90]
+    sql: ${age} ;;
+    style: integer
+  }
+
 
   dimension: latitude {
     type: number
