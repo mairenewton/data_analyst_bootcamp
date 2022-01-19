@@ -116,6 +116,12 @@ view: order_items {
  #   sql: ${sale_price} ;;
  # }
 
+  measure: count_of_orders {
+    description: "count of unique orders"
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
   measure: total_revenue {
     type: sum
     sql: ${sale_prices} ;;
