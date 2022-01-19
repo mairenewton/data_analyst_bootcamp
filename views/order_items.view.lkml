@@ -122,6 +122,12 @@ view: order_items {
     sql: ${order_id} ;;
   }
 
+  measure: total_sales {
+    description: "Total Sales in Dollars"
+    type: sum
+    sql: ${sale_prices} ;;
+  }
+
   measure: total_revenue {
     type: sum
     sql: ${sale_prices} ;;
