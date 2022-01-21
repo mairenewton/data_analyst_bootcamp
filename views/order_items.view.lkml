@@ -8,6 +8,7 @@ view: order_items {
   }
 
   dimension_group: created {
+    alias: [registered]
     type: time
     timeframes: [
       raw,
@@ -47,6 +48,12 @@ view: order_items {
 
   dimension: order_id {
     type: number
+    sql: ${TABLE}.order_id ;;
+  }
+
+  measure: orders {
+    description: "count of unique order_ids"
+    type: count_distinct
     sql: ${TABLE}.order_id ;;
   }
 
@@ -91,13 +98,27 @@ view: order_items {
 
   dimension: user_id {
     type: number
-    # hidden: yes
+    hidden: yes
     sql: ${TABLE}.user_id ;;
   }
 
   dimension: sale_price {
     type: number
     sql: ${TABLE}.sale_price ;;
+  }
+
+  measure: total_revenue {
+    description: "sum of sale price"
+    type: sum
+    sql: ${TABLE}.sale_price ;;
+  }
+
+  measure: total_email_revenue {
+    description: "sum of sale price for email traffic"
+    type: sum
+    sql: ${TABLE}.sale_price ;;
+    filters: [users.traffic_source: "Email"]
+    value_format_name: usd
   }
 
   measure: count {
