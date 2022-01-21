@@ -12,6 +12,9 @@ persist_with: data_analyst_bootcamp_default_datagroup
 
 # This explore contains multiple views
 explore: order_items {
+  sql_always_where: ${order_items.returned_date} IS NULL ;;
+  sql_always_having: ${order_items.total_revenue} > 200;;
+
   description: "this provide more info about the explore"
   join: users {
     type: left_outer
