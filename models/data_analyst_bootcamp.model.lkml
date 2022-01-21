@@ -54,7 +54,13 @@ explore: order_items {
 # This Explore only contains a single view
 # explore: products {}
 
-
+explore: inventory_items {
+  join: products {
+    type: left_outer
+    sql_on: ${inventory_items.product_id} = ${products.id} ;;
+    relationship: many_to_one
+  }
+}
 
 
 
