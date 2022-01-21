@@ -17,8 +17,6 @@ view: users {
     sql: ${TABLE}.city ;;
   }
 
-  #comment
-
   dimension: country {
     type: string
     map_layer_name: countries
@@ -85,19 +83,6 @@ view: users {
     type: zipcode
     sql: ${TABLE}.zip ;;
   }
-
-  # dimension: location {
-  #   type: string
-  #   sql: ${city} || ', ' || ${state} ;;
-  # }
-
-  # dimension: age_tier {
-  #   type: tier
-  #   tiers: []
-  #   sql:  ;;
-  #   style: integer
-  # }
-
 
   measure: count {
     type: count

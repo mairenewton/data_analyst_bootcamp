@@ -1,15 +1,12 @@
 view: distribution_centers {
 
   sql_table_name: public.distribution_centers ;;
-  #######
 
   dimension: id {
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
   }
-
-  # fdjhsfga;kguh;dsg
 
   dimension: latitude {
     type: number

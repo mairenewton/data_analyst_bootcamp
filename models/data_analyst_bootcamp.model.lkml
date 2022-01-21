@@ -1,4 +1,4 @@
-connection: "events_ecommerce" ## this is my comment
+connection: "events_ecommerce"
 
 # include all the views
 include: "/views/*.view"
@@ -9,9 +9,6 @@ datagroup: data_analyst_bootcamp_default_datagroup {
 }
 
 persist_with: data_analyst_bootcamp_default_datagroup
-#comment
-
-# explore: inventory_items {}
 
 # This explore contains multiple views
 explore: order_items {
@@ -54,6 +51,8 @@ explore: order_items {
     }
   }
 
+# This Explore only contains a single view
+# explore: products {}
 
 
 
@@ -74,7 +73,6 @@ explore: order_items {
   # query: order_status_by_date{
   #   dimensions: [order_items.created_date, order_items.status]
   #   measures: [order_items.total_revenue]
-
   #   filters: [order_items.created_date: "last 30 days"]
   # }
 
@@ -83,7 +81,3 @@ explore: order_items {
   #   measures: [order_items.total_revenue]
   #   filters: [order_items.created_date: "last 30 days"]
   # }
-
-
-
-# explore: products {}

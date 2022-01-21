@@ -69,11 +69,6 @@ view: order_items {
     sql: ${TABLE}.returned_at ;;
   }
 
-  dimension: sale_price {
-    type: number
-    sql: ${TABLE}.sale_price ;;
-  }
-
   dimension_group: shipped {
     type: time
     timeframes: [
@@ -100,30 +95,9 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
-  dimension: sale_prices {
+  dimension: sale_price {
     type: number
     sql: ${TABLE}.sale_price ;;
-  }
-
-
-  # dimension: sale_price {
-  #   type: number
-  #   sql: ${TABLE}.sale_price ;;
-  # }
-
- # measure: average_sale_price {
- #   type: average
- #   sql: ${sale_price} ;;
- # }
-
-  measure: total_revenue {
-    type: sum
-    sql: ${sale_prices} ;;
-  }
-
-  measure: avg_sale_price {
-    type: average
-    sql: ${sale_prices} ;;
   }
 
   measure: count {
