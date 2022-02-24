@@ -23,6 +23,18 @@ view: users {
     sql: ${TABLE}.country ;;
   }
 
+  dimension: city_and_state {
+   type: string
+    sql: CONCAT(${city},'',${state});;
+  }
+
+  dimension: age_groups {
+    type: tier
+    tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+    style: integer
+    sql: ${age} ;;
+  }
+
   dimension_group: created {
     type: time
     timeframes: [
