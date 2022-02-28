@@ -89,4 +89,22 @@ view: users {
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
 
+  dimension: city_state {
+    type: string
+    sql: ${city}+'_'+${state} ;;
+  }
+  dimension: age_groups {
+    type: tier
+    sql: ${age} ;;
+    tiers: [0,18,25,35,45,55,65,75,90]
+    style: integer
+  }
+
+  dimension: source_verification {
+    type: yesno
+    sql: ${traffic_source}='Email' ;;
+
+  }
+
+
 }

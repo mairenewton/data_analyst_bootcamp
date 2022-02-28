@@ -105,6 +105,40 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+
+  dimension_group: Shipping_days {
+    type: duration
+    sql_start: ${created_date} ;;  # often this is a single database column
+    sql_end: ${delivered_date} ;;  # often this is a single database column
+    intervals: [day] # valid intervals described below
+  }
+
+  measure: nb_distinct_orders {
+    type: count_distinct
+    sql:  ${order_id} ;;
+  }
+
+  measure: total_sales {
+    type: sum
+    sql:  ${sale_price} ;;
+    value_format_name: eur
+
+  }
+
+  measure: total_sales_from_src_email {
+    type: sum
+    sql:  ${sale_price} ;;
+    value_format_name: eur
+    filters: [ users.source_verification: "Yes"]
+
+  }
+
+  measure: percentage_total_sales_from_src_email {
+    type: number
+    sql:  (${total_sales_from_src_email}/${total_sales}) ;;
+    value_format_name: percent_2
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
