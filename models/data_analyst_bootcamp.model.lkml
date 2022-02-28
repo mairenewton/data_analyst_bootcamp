@@ -10,8 +10,19 @@ datagroup: data_analyst_bootcamp_default_datagroup {
 
 persist_with: data_analyst_bootcamp_default_datagroup
 
+datagroup: my_users_datagroup {
+  sql_trigger: SELECT current_date();;
+  max_cache_age: "24 hour"
+}
+
+datagroup: order_items_datagroup {
+  sql_trigger: SELECT max(created_at) from public.order_items;;
+  max_cache_age: "4 hour"
+}
+
 # This explore contains multiple views
 explore: order_items {
+  persist_with: order_items_datagroup
   description: "this provide more info about the explore"
   join: users {
     type: left_outer
@@ -38,6 +49,7 @@ explore: order_items {
   }
 }
 
+
   explore: users {
     join: order_items {
       type: left_outer
@@ -51,10 +63,28 @@ explore: order_items {
     }
   }
 
+
 # This Explore only contains a single view
 # explore: products {}
 
+explore: order_value{}
 
+#explore: users{
+#  persist_with: my_users_datagroup
+#  label: "users exercice"
+#  join: order_items {
+#    type: left_outer
+#    relationship: one_to_many
+#    sql_on: ${users.id}=${order_items.user_id} ;;
+
+#  }
+#  sql_always_where: ${order_items.status}!='Returned'  ;;
+#  sql_always_having: ${order_items.total_sales}>200 ;;
+#  always_filter: {
+#    filters: [order_items.status: "Complete"]
+#   filters: [order_items.count: ">5"]
+#  }
+#}
 
 
 
