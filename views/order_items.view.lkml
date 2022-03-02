@@ -1,6 +1,11 @@
 view: order_items {
   sql_table_name: public.order_items ;;
 
+  # measure: count_orders {
+  #   type: count_distinct
+  #   sql: ${order_id} ;;
+  # }
+
   dimension: order_item_id {
     primary_key: yes
     type: number
