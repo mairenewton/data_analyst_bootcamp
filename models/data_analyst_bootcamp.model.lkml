@@ -69,6 +69,8 @@ explore: order_items {
 
 explore: order_value{}
 
+explore: native_table1 {}
+
 #explore: users{
 #  persist_with: my_users_datagroup
 #  label: "users exercice"
