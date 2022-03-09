@@ -9,14 +9,10 @@ datagroup: data_analyst_bootcamp_default_datagroup {
 }
 
 persist_with: data_analyst_bootcamp_default_datagroup
-###change
-
-### Whitespaces ####
-
-# explore: inventory_items {}
 
 # This explore contains multiple views
 explore: order_items {
+  description: "this provide more info about the explore"
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -25,8 +21,8 @@ explore: order_items {
 
   join: inventory_items {
     type: left_outer
-    sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;
     relationship: many_to_one
+    sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;
   }
 
   join: products {
@@ -42,5 +38,46 @@ explore: order_items {
   }
 }
 
+  explore: users {
+    join: order_items {
+      type: left_outer
+      relationship: one_to_many
+      sql_on: ${users.id} = ${order_items.user_id} ;;
+      }
+    join: inventory_items {
+      type: left_outer
+      relationship: many_to_one
+      sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;
+    }
+  }
 
+# This Explore only contains a single view
 # explore: products {}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  # query: order_status_by_date{
+  #   dimensions: [order_items.created_date, order_items.status]
+  #   measures: [order_items.total_revenue]
+  #   filters: [order_items.created_date: "last 30 days"]
+  # }
+
+  # query: orders_by_date{
+  #   dimensions: [order_items.created_date]
+  #   measures: [order_items.total_revenue]
+  #   filters: [order_items.created_date: "last 30 days"]
+  # }

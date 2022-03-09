@@ -12,10 +12,13 @@ view: order_items {
     timeframes: [
       raw,
       time,
+      hour_of_day,
+      day_of_week,
       date,
       week,
       month,
       month_name,
+      month_num,
       quarter,
       year
     ]
@@ -37,8 +40,8 @@ view: order_items {
   }
 
   dimension: inventory_item_id {
+    #hidden: yes
     type: number
-    # hidden: yes
     sql: ${TABLE}.inventory_item_id ;;
   }
 
@@ -66,11 +69,6 @@ view: order_items {
     sql: ${TABLE}.returned_at ;;
   }
 
-  dimension: sale_price {
-    type: number
-    sql: ${TABLE}.sale_price ;;
-  }
-
   dimension_group: shipped {
     type: time
     timeframes: [
@@ -86,6 +84,7 @@ view: order_items {
   }
 
   dimension: status {
+    label: "Order Status"
     type: string
     sql: ${TABLE}.status ;;
   }
@@ -94,6 +93,11 @@ view: order_items {
     type: number
     # hidden: yes
     sql: ${TABLE}.user_id ;;
+  }
+
+  dimension: sale_price {
+    type: number
+    sql: ${TABLE}.sale_price ;;
   }
 
   measure: count {
