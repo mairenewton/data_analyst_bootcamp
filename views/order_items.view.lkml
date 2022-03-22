@@ -100,6 +100,11 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
+  dimension: shipping_time {
+    type:  number
+    sql: DATEDIFF(day, ${shipped_date}, ${delivered_date})  ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
