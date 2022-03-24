@@ -5,6 +5,7 @@ include: "/views/*.view"
 
 datagroup: data_analyst_bootcamp_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
+  sql_trigger:  SELECT MAX(completed_at) from etl_jobs ;;
   max_cache_age: "1 hour"
 }
 
