@@ -2,6 +2,7 @@ connection: "events_ecommerce"
 
 # include all the views
 include: "/views/*.view"
+include: "/views/*/*.view"
 
 datagroup: data_analyst_bootcamp_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
@@ -54,6 +55,12 @@ explore: order_items {
     sql_on: ${inventory_items.product_distribution_center_id} = ${distribution_centers.id} ;;
     relationship: many_to_one
   }
+
+  join: ndt_order_fcts {
+    type: left_outer
+    sql_on: ${order_items.order_id} = ${ndt_order_fcts.order_id} ;;
+    relationship: many_to_one
+  }
 }
 
   explore: users {
@@ -67,6 +74,11 @@ explore: order_items {
       type: left_outer
       relationship: many_to_one
       sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;
+    }
+    join: user_facts {
+      type: left_outer
+      relationship: one_to_one
+      sql_on: ${users.id} = ${user_facts.user_id} ;;
     }
   }
 
