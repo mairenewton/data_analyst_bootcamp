@@ -26,12 +26,6 @@ persist_with: data_analyst_bootcamp_default_datagroup
 explore: order_items {
   persist_with:  order_items
   description: "this provide more info about the explore"
-  sql_always_where: ${returned_date} is null AND ${status} = 'Complete' ;;
-  sql_always_having:  ${total_sales} > 200 AND ${order_count} > 5;;
-  conditionally_filter: {
-    filters: [order_items.created_date: "last 2 years"]
-    unless: [users.id]
-  }
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
