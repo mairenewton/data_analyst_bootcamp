@@ -13,6 +13,7 @@ persist_with: data_analyst_bootcamp_default_datagroup
 
 # This explore contains multiple views
 explore: order_items {
+
   description: "this provide more info about the explore"
   join: users {
     type: left_outer
