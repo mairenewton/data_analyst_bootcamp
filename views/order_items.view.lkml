@@ -39,6 +39,13 @@ view: order_items {
     sql: ${TABLE}.delivered_at ;;
   }
 
+  dimension_group: shipping_days {
+    type: duration
+    sql_start: ${shipped_raw} ;;
+    sql_end:  ${delivered_raw};;
+    intervals: [day]
+  }
+
   dimension: inventory_item_id {
     #hidden: yes
     type: number
@@ -104,6 +111,38 @@ view: order_items {
     type: count
     drill_fields: [detail*]
   }
+
+  measure: distinct_orders {
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
+  measure: total_sales {
+    type: sum
+    sql: ${sale_price} ;;
+  }
+
+  measure: total_sales_from_email {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [
+      users.is_source_email: "Yes"
+      ]
+  }
+
+  measure: percentage_sales_from_email {
+    type: number
+    value_format_name: percent_2
+    sql: 1.0*${total_sales_from_email} / NULLIF(${total_sales}, 0) ;;
+  }
+
+  measure: average_spend_per_user {
+    type:  number
+    value_format_name: usd
+    sql:  1.0*${total_sales}/NULLIF(${users.count},0) ;;
+  }
+
+
 
   # ----- Sets of fields for drilling ------
   set: detail {

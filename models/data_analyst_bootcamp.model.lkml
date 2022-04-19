@@ -13,6 +13,9 @@ persist_with: data_analyst_bootcamp_default_datagroup
 
 # This explore contains multiple views
 explore: order_items {
+  sql_always_where: ${status} = 'Complete';;
+  sql_always_having: ${order_items.count} > 5;;
+
 
   description: "this provide more info about the explore"
   join: users {
@@ -41,6 +44,9 @@ explore: order_items {
 }
 
   explore: users {
+    always_filter: {
+      filters: [order_items.created_date: "before today"]
+    }
     join: order_items {
       type: left_outer
       relationship: one_to_many

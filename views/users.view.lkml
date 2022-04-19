@@ -23,6 +23,23 @@ view: users {
     sql: ${TABLE}.country ;;
   }
 
+  dimension: city_and_state {
+    type: string
+    sql: ${TABLE}.city || ' - ' || ${TABLE}.state ;;
+  }
+
+  dimension: age_group_buckets {
+    type: tier
+    tiers: [0, 10, 20, 90]
+    style: integer
+    sql: ${TABLE}.age ;;
+  }
+
+  dimension: is_source_email {
+    type: yesno
+    sql: ${traffic_source} = 'Email';;
+  }
+
   dimension_group: created {
     type: time
     timeframes: [
