@@ -17,10 +17,32 @@ view: users {
     sql: ${TABLE}.city ;;
   }
 
+  dimension: state {
+    type: string
+    sql: ${TABLE}.state ;;
+  }
+
+  dimension: city_state {
+    type: string
+    sql: ${city} || ', ' || ${state} ;;
+  }
+
+  dimension: zip {
+    type: zipcode
+    sql: ${TABLE}.zip ;;
+  }
+
   dimension: country {
     type: string
     map_layer_name: countries
     sql: ${TABLE}.country ;;
+  }
+
+  dimension: age_group {
+    type: tier
+    tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+    sql:  ${age};;
+    style: integer
   }
 
   dimension_group: created {
@@ -69,20 +91,16 @@ view: users {
     sql: ${TABLE}.longitude ;;
   }
 
-  dimension: state {
-    type: string
-    sql: ${TABLE}.state ;;
-  }
-
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
   }
 
-  dimension: zip {
-    type: zipcode
-    sql: ${TABLE}.zip ;;
+  dimension: traffic_source_is_email {
+    type: yesno
+    sql:  ${traffic_source} = 'Email';;
   }
+
 
   measure: count {
     type: count

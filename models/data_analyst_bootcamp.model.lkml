@@ -5,15 +5,37 @@ include: "/views/*.view"
 
 datagroup: data_analyst_bootcamp_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
-  sql_trigger:  SELECT MAX(completed_at) from etl_jobs ;;
-  max_cache_age: "1 hour"
+  #sql_trigger:  SELECT MAX(completed_at) from etl_jobs ;;
+  #max_cache_age: "1 hour"
+  sql_trigger: SELECT  ;;
+  max_cache_age: "24 hours"
 }
 
 persist_with: data_analyst_bootcamp_default_datagroup
 
+datagroup: data_analyst_bootcamp_24hours_datagroup {
+  sql_trigger: SELECT CURRENT_DATE ;;
+  max_cache_age: "24 hours"
+}
+
 # This explore contains multiple views
 explore: order_items {
   description: "this provide more info about the explore"
+  #sql_always_where: ${returned_date} IS NULL;;
+  #sql_always_having: ${total_sales} > 200;;
+  # sql_always_where: ${status} = 'Complete';;
+  # sql_always_having: ${count} > 5;;
+  # conditionally_filter:{
+  #   filters: [
+  #     order_items.created_date: "2 years"
+  #   ]
+  #   unless: [user_id]
+  # }
+  # conditionally_filter: {
+  #   filters: [
+  #     order_items.created_date: "last 30 days"
+  #   ]
+  #}
   join: users {
     type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
@@ -23,7 +45,9 @@ explore: order_items {
   join: inventory_items {
     type: left_outer
     relationship: many_to_one
+
     sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;
+
   }
 
   join: products {
@@ -40,6 +64,18 @@ explore: order_items {
 }
 
   explore: users {
+    persist_with: data_analyst_bootcamp_24hours_datagroup
+    # always_filter:{
+    #   filters: [
+    #     order_items.created_date: "before today"
+    #   ]
+    # }
+    conditionally_filter:{
+    filters: [
+      users.created_date: "90 days"
+    ]
+    unless: [users.id, users.state]
+  }
     join: order_items {
       type: left_outer
       relationship: one_to_many
@@ -54,12 +90,6 @@ explore: order_items {
 
 # This Explore only contains a single view
 # explore: products {}
-
-
-
-
-
-
 
 
 
