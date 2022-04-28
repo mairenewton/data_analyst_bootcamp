@@ -89,4 +89,15 @@ view: users {
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
 
+
+  dimension: age_tier {
+    type: tier
+    tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+    sql: ${age} ;;
+    style: integer
+  }
+
+
+
+
 }
