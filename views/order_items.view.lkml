@@ -55,6 +55,12 @@ view: order_items {
     sql: ${sale_price} - ${inventory_items.cost} ;;
   }
 
+  dimension_group: shipping_days {
+    type: duration
+    sql_start: ${shipped_date} ;;
+    sql_end: ${delivered_date} ;;
+    intervals:  [day]
+  }
   dimension_group: returned {
     type: time
     timeframes: [
