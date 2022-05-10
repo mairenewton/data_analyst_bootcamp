@@ -105,6 +105,26 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+
+dimension_group: shipping_days {
+  type:  duration
+  sql_start: ${shipped_date};;
+  sql_end: ${delivered_date} ;;
+  intervals: [day, month]
+}
+
+measure: count_of_orders {
+  view_label: "Orders"
+  type:  count_distinct
+  sql: ${order_id} ;;
+
+}
+
+measure: total_sales {
+  type:  sum
+  sql: ${sale_price} ;;
+}
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
