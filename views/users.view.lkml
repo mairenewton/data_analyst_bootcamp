@@ -89,4 +89,13 @@ view: users {
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
 
+  ## Derived dimensions
+
+  dimension: is_email_sourced {
+    type:  yesno
+    sql:  ${traffic_source} = 'Email' ;;
+  }
+
+
+
 }
