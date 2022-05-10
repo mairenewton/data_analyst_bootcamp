@@ -9,6 +9,7 @@ view: distribution_centers {
   }
 
   dimension: latitude {
+    hidden: yes
     type: number
     sql: ${TABLE}.latitude ;;
   }
