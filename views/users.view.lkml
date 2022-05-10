@@ -83,6 +83,10 @@ view: users {
     type: zipcode
     sql: ${TABLE}.zip ;;
   }
+  dimension: is_email_sourced {
+    type: yesno
+    sql: ${traffic_source} = 'Email';;
+  }
 
   measure: count {
     type: count
