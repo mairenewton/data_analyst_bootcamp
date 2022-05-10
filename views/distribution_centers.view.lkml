@@ -23,11 +23,6 @@ view: distribution_centers {
     sql: ${TABLE}.name ;;
   }
 
-  dimension: has_name {
-    type: string
-    sql: ${name} IS NOT NULL  ;;
-  }
-
   measure: count {
     type: count
     drill_fields: [id, name]
