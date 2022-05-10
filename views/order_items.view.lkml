@@ -123,6 +123,13 @@ measure: count_of_orders {
 measure: total_sales {
   type:  sum
   sql: ${sale_price} ;;
+  value_format: ""
+}
+
+measure: average_sales {
+  type:  average
+  sql: ${sale_price} ;;
+  value_format_name: decimal_2
 }
 
   # ----- Sets of fields for drilling ------
