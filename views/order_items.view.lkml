@@ -100,6 +100,12 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
+measure: count_of_orders {
+  type: count_distinct
+  sql: ${TABLE}.order_id ;;
+  }
+
+
   measure: count {
     type: count
     drill_fields: [detail*]

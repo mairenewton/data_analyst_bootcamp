@@ -6,17 +6,17 @@ view: users {
     type: number
     sql: ${TABLE}.id ;;
   }
-
+## add a comment
   dimension: age {
     type: number
     sql: ${TABLE}.age ;;
   }
-
+### ADD A COMMENT
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
   }
-
+## add a comment
   dimension: country {
     type: string
     map_layer_name: countries
@@ -48,15 +48,20 @@ view: users {
     type: string
     sql: ${TABLE}.first_name ;;
   }
-
-  dimension: gender {
-    type: string
-    sql: ${TABLE}.gender ;;
-  }
+  #adding a comment
 
   dimension: last_name {
     type: string
     sql: ${TABLE}.last_name ;;
+  }
+dimension: full_name {
+  type: string
+  sql: ${first_name}|| '  ' ||${last_name} ;;
+}
+
+  dimension: gender {
+    type: string
+    sql: ${TABLE}.gender ;;
   }
 
   dimension: latitude {
