@@ -8,14 +8,33 @@ view: users {
   }
 
   dimension: age {
+    group_label: "age information"
     type: number
     sql: ${TABLE}.age ;;
   }
+
+
+  dimension: groups_age {
+    group_label: "age information"
+    type: tier
+    sql: ${age} ;;
+    tiers: [18,25,35,45,55,65,75,90]
+  }
+
+
 
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
   }
+
+
+  dimension: city_state {
+    type: string
+    sql:  ${city} || ' ' ||  ${state};;
+  }
+
+
 
   dimension: country {
     type: string
@@ -43,6 +62,13 @@ view: users {
     type: string
     sql: ${TABLE}.email ;;
   }
+
+
+  dimension: email_traffic {
+    type: yesno
+    sql: ${traffic_source} = 'Email'  ;;
+  }
+
 
   dimension: first_name {
     type: string
