@@ -12,6 +12,20 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  dimension: age_tier {
+    type:  tier
+    tiers: [18, 25, 35, 45, 55, 65, 75, 90 ]
+  }
+
+  dimension: city_state {
+    type: string
+    sql: (concat(${TABLE}.city,"-",${TABLE}.state)) ;;
+  }
+
+  dimension: state_city {
+    type: string
+    sql: (concat(${TABLE}.state,"-",${TABLE}.city)) ;;
+  }
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
@@ -38,6 +52,8 @@ view: users {
     ]
     sql: ${TABLE}.created_at ;;
   }
+
+
 
   dimension: email {
     type: string
@@ -78,6 +94,7 @@ view: users {
     type: string
     sql: ${TABLE}.traffic_source ;;
   }
+
 
   dimension: zip {
     type: zipcode

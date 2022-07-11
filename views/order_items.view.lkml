@@ -1,3 +1,4 @@
+include: "users.view"
 view: order_items {
   sql_table_name: public.order_items ;;
 
@@ -25,7 +26,16 @@ view: order_items {
     sql: ${TABLE}.created_at ;;
   }
 
-  dimension_group: delivered {
+
+  dimension: shippedTime{
+    type: duration_day
+    sql_start: ${delivered_raw} ;;
+    sql_end:  ${shipped_raw} ;;
+  }
+
+
+
+   dimension_group: delivered {
     type: time
     timeframes: [
       raw,
@@ -39,6 +49,7 @@ view: order_items {
     sql: ${TABLE}.delivered_at ;;
   }
 
+
   dimension: inventory_item_id {
     #hidden: yes
     type: number
@@ -48,6 +59,12 @@ view: order_items {
   dimension: order_id {
     type: number
     sql: ${TABLE}.order_id ;;
+  }
+
+  measure: distinct_orders {
+    label: "unique orders"
+    type: count_distinct
+    sql: ${order_id} ;;
   }
 
   dimension: profit {
@@ -94,16 +111,19 @@ view: order_items {
     # hidden: yes
     sql: ${TABLE}.user_id ;;
   }
-
   dimension: sale_price {
     type: number
     sql: ${TABLE}.sale_price ;;
   }
 
-  measure: count {
-    type: count
-    drill_fields: [detail*]
+
+  measure: total_sales {
+    type: number
+    sql: sum(${sale_price}) ;;
   }
+
+
+
 
   # ----- Sets of fields for drilling ------
   set: detail {
