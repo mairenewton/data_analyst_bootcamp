@@ -74,6 +74,21 @@ view: users {
     sql: ${TABLE}.state ;;
   }
 
+  dimension: state_city {
+    type: string
+    sql: (concat(${TABLE}.state,"-",${TABLE}.city)) ;;
+  }
+dimension: age_tier{
+  type: tier
+  tiers: [18,25,35,45,55,65,75,90]
+  sql: ${age} ;;
+  style: integer
+}
+
+dimension: email_trf_source {
+  type: yesno
+  sql: ${traffic_source}='Email' || ${traffic_source}='Organic' ;;
+}
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
