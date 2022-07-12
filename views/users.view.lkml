@@ -56,6 +56,21 @@ view: users {
     sql: ${TABLE}.created_at ;;
   }
 
+  dimension: tenure_in_days {
+    type: number
+    sql: DATEDIFF(day, ${TABLE}.created_at, CURRENT_DATE) ;;
+  }
+
+  dimension: tenure_in_months {
+    type: number
+    sql: DATEDIFF(month, ${TABLE}.created_at, CURRENT_DATE) ;;
+  }
+
+  dimension: tenure_in_years {
+    type: number
+    sql: DATEDIFF(year, ${TABLE}.created_at, CURRENT_DATE) ;;
+  }
+
   dimension: email {
     type: string
     sql: ${TABLE}.email ;;
@@ -91,6 +106,12 @@ view: users {
     sql: ${TABLE}.state ;;
   }
 
+  dimension: location_lat_long {
+    type: location
+    sql_latitude:${latitude} ;;
+    sql_longitude:${longitude} ;;
+  }
+
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
@@ -103,6 +124,7 @@ view: users {
 
   measure: count {
     type: count
+    description: "Count of users"
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
 

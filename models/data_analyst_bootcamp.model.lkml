@@ -41,7 +41,7 @@ explore: order_items {
 }
 
   explore: users {
-
+    description: "All users (even the ones that have not done any purchase)"
   }
 
 # This Explore only contains a single view
