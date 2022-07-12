@@ -7,10 +7,26 @@ view: users {
     sql: ${TABLE}.id ;;
   }
 
+  dimension: fullname {
+    type: string
+    sql:  ${TABLE}.first_name || ' '  ||  ${TABLE}.last_name   ;;
+
+  }
+
   dimension: age {
     type: number
     sql: ${TABLE}.age ;;
+    value_format_name: decimal_2
   }
+
+  dimension: age_tiered {
+    type: tier
+    sql: ${age} ;;
+    tiers: [10, 20, 30, 40,60,80]
+    style: interval
+
+  }
+
 
   dimension: city {
     type: string
@@ -79,6 +95,12 @@ view: users {
     sql: ${TABLE}.traffic_source ;;
   }
 
+  dimension: traffic_source_email {
+    type: yesno
+    sql: ${traffic_source} = 'Email' ;;
+  }
+
+
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
@@ -89,4 +111,20 @@ view: users {
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
 
+  measure: avg_user_age {
+    type: average
+    sql: ${age} ;;
+
+  }
+  measure: cities {
+    type: count_distinct
+    sql: ${city} ;;
+  }
+
+  measure: email_acquired {
+    type: count
+    filters: [
+      traffic_source: "Email"
+    ]
+  }
 }
