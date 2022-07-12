@@ -12,6 +12,18 @@ view: users {
     sql: ${first_name} || ', ' || ${last_name} ;;
   }
 
+  dimension: age_tiered {
+    type:  tier
+    sql: ${age} ;;
+    tiers: [10, 20, 30, 40, 60, 80]
+    style: interval
+  }
+
+  dimension: is_email_traffic_source {
+    type: yesno
+    sql:  ${traffic_source} = 'Email' ;;
+  }
+
   dimension: age {
     type: number
     sql: ${TABLE}.age ;;
