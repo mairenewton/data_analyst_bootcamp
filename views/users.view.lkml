@@ -106,4 +106,43 @@ view: users {
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
 
+  measure: avg_age {
+    type: average
+    sql: ${age} ;;
+    value_format_name: decimal_2
+  }
+
+  measure: unique_cities {
+    type: count_distinct
+    sql: ${city} ;;
+  }
+
+  measure: count_email_users {
+    type: count
+    filters: [
+      traffic_source: "Email"
+    ]
+  }
+
+  measure: percent_email_users {
+    type: number
+    sql: 1.00 * ${count_email_users}/${count} ;;
+    value_format_name: percent_2
+  }
+
+  measure: count_female_users {
+    type: count
+    filters: [
+      gender: "Female"
+    ]
+  }
+
+  measure: percent_female_users {
+    type: number
+    sql: 1.00 * ${count_female_users}/${count} ;;
+    value_format_name: percent_2
+  }
+
+
+
 }
