@@ -7,9 +7,21 @@ view: users {
     sql: ${TABLE}.id ;;
   }
 
+  dimension: full_name {
+    type: string
+    sql: ${first_name} || ' ' || ${last_name} ;;
+  }
+
   dimension: age {
     type: number
     sql: ${TABLE}.age ;;
+  }
+
+  dimension: age_tiered {
+    type:  tier
+    sql: ${age} ;;
+    tiers: [10, 20, 30, 40, 60, 80]
+    style: integer  # interval
   }
 
   dimension: city {
@@ -79,6 +91,11 @@ view: users {
     sql: ${TABLE}.traffic_source ;;
   }
 
+  dimension: acquired_through_email {
+    type: yesno
+    sql: ${traffic_source} = 'Email';;
+  }
+
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
@@ -87,6 +104,30 @@ view: users {
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
+  }
+
+  measure: count_users_acquired_through_email {
+    type:  count
+    filters: [
+      acquired_through_email: "yes"
+    ]
+  }
+
+  measure: percent_users_acquired_through_email {
+    type:  number
+    sql:  1.0 * ${count_users_acquired_through_email} / ${count} ;;
+    value_format_name: percent_2
+  }
+
+  measure: average_age {
+    type:  average
+    sql:  ${age} ;;
+    value_format_name: decimal_2
+  }
+
+  measure: cities {
+    type: count_distinct
+    sql:  ${city} ;;
   }
 
 }
