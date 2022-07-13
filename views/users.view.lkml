@@ -51,6 +51,19 @@ view: users {
     sql: ${TABLE}.created_at ;;
   }
 
+  dimension_group: tenure {
+    type:  duration
+    intervals: [
+      day,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql_start:  ${created_date} ;;
+    sql_end:  CURRENT_DATE ;;
+  }
+
   dimension: email {
     type: string
     sql: ${TABLE}.email ;;
@@ -81,6 +94,12 @@ view: users {
     sql: ${TABLE}.longitude ;;
   }
 
+  dimension: location {
+    type:  location
+    sql_longitude: ${longitude} ;;
+    sql_latitude: ${latitude} ;;
+  }
+
   dimension: state {
     type: string
     sql: ${TABLE}.state ;;
@@ -94,6 +113,11 @@ view: users {
   dimension: acquired_through_email {
     type: yesno
     sql: ${traffic_source} = 'Email';;
+  }
+
+  dimension: is_new {
+    type:  yesno
+    sql:  ${days_tenure} <= 30 ;;
   }
 
   dimension: zip {
@@ -113,10 +137,23 @@ view: users {
     ]
   }
 
+  measure: count_new_users {
+    type: count
+    filters: [
+      is_new: "yes"
+    ]
+  }
+
   measure: percent_users_acquired_through_email {
     type:  number
     sql:  1.0 * ${count_users_acquired_through_email} / ${count} ;;
     value_format_name: percent_2
+  }
+
+  measure: average_tenure {
+    type: average
+    sql:  ${years_tenure} ;;
+    value_format_name: decimal_2
   }
 
   measure: average_age {
