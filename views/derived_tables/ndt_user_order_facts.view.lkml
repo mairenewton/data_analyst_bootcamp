@@ -4,6 +4,7 @@ view: ndt_user_order_facts {
       column: user_id {}
       column: total_sale_price {}
       column: count {}
+      bind_all_filters: yes
     }
   }
 
