@@ -2,11 +2,17 @@ connection: "events_ecommerce"
 
 # include all the views
 include: "/views/*.view"
+include: "/views/derived_tables/*.view"
 
 datagroup: data_analyst_bootcamp_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
   sql_trigger:  SELECT MAX(completed_at) from etl_jobs ;;
   max_cache_age: "1 hour"
+}
+
+datagroup: daily {
+  sql_trigger: SELECT CURRENT_DATE() ;;
+  max_cache_age: "11 hours"
 }
 
 persist_with: data_analyst_bootcamp_default_datagroup
@@ -38,28 +44,27 @@ explore: order_items {
     sql_on: ${inventory_items.product_distribution_center_id} = ${distribution_centers.id} ;;
     relationship: many_to_one
   }
+
+
 }
 
-  explore: users {
+  explore: all_products {
+    persist_with: daily
+    sql_always_where: ${products.department} = 'Men' ;;
+    view_name: products
 
+    join: inventory_items {
+      type: left_outer
+      relationship: one_to_many
+      sql_on: ${products.id} = ${inventory_items.product_id}  ;;
+    }
+
+    join: order_items {
+      type: left_outer
+      sql_on: ${inventory_items.id} = ${order_items.inventory_item_id} ;;
+      relationship: one_to_many
+    }
   }
-
-# This Explore only contains a single view
-# explore: products {}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

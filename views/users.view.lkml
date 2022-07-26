@@ -55,6 +55,22 @@ view: users {
     sql: ${TABLE}.created_at ;;
   }
 
+  dimension: days_ago_created {
+    type: number
+    sql: DATEDIFF(day, ${created_date}, GETDATE()) ;;
+  }
+
+  dimension_group: since_created {
+    type: duration
+    intervals: [
+      day,
+      week,
+      month,
+      year]
+    sql_start: ${created_raw} ;;
+    sql_end: GETDATE() ;;
+  }
+
   dimension: email {
     type: string
     sql: ${TABLE}.email ;;
@@ -83,6 +99,12 @@ view: users {
   dimension: longitude {
     type: number
     sql: ${TABLE}.longitude ;;
+  }
+
+  dimension: location {
+    type: location
+    sql_latitude: ${latitude};;
+    sql_longitude: ${longitude} ;;
   }
 
   dimension: state {
@@ -125,6 +147,27 @@ view: users {
     type: count
     filters: [
       traffic_source: "Email"
+    ]
+  }
+  measure: avg_time_since_signup {
+    type:  number
+    sql: sum ${days_ago_created} / ${count};;
+  }
+
+  measure: average_years_since_created {
+    type: average
+    sql: ${years_since_created} ;;
+    value_format_name: decimal_2
+  }
+  measure: no_of_new_users {
+    type: number
+    sql: ${days_ago_created} <=30 ;;
+  }
+
+  measure: count_new_users {
+    type: count
+    filters: [
+      created_date: "last 30 days"
     ]
   }
 }
