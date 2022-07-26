@@ -100,6 +100,12 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
+  measure: total_sale_price {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: gbp
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
