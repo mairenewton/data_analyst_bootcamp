@@ -1,4 +1,4 @@
-view: sql_runner_query {
+view: user_order_facts {
   derived_table: {
     sql: SELECT
       user_id,
