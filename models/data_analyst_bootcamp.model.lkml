@@ -41,6 +41,7 @@ explore: order_items {
 }
 
   explore: users {
+<<<<<<< HEAD
     # fields: [ALL_FIELDS*, -order_items.profit]
     join: order_items {
       type: left_outer
@@ -49,6 +50,14 @@ explore: order_items {
       }
     join: inventory_items {
       fields: []
+=======
+    join: order_items {
+      type: left_outer
+      relationship: one_to_many
+      sql_on: ${users.id} = ${order_items.user_id} ;;
+      }
+    join: inventory_items {
+>>>>>>> branch 'master' of git@github.com:mairenewton/data_analyst_bootcamp.git
       type: left_outer
       relationship: many_to_one
       sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;

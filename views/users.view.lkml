@@ -84,6 +84,7 @@ view: users {
     sql: ${TABLE}.zip ;;
   }
 
+<<<<<<< HEAD
   dimension: full_name {
     type: string
     sql:  ${first_name}||  ',' || ${last_name};;
@@ -129,6 +130,11 @@ view: users {
     type:  number
     sql: 1.00* ${count_email_users}/${count} ;;
     value_format_name: percent_2
+=======
+  measure: count {
+    type: count
+    drill_fields: [id, first_name, last_name, events.count, order_items.count]
+>>>>>>> branch 'master' of git@github.com:mairenewton/data_analyst_bootcamp.git
   }
 
 }

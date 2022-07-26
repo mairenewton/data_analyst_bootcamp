@@ -55,11 +55,14 @@ view: order_items {
     sql: ${sale_price} - ${inventory_items.cost} ;;
   }
 
+<<<<<<< HEAD
   measure: profit_measure {
     type: sum
     sql: ${profit} ;;
   }
 
+=======
+>>>>>>> branch 'master' of git@github.com:mairenewton/data_analyst_bootcamp.git
   dimension_group: returned {
     type: time
     timeframes: [
