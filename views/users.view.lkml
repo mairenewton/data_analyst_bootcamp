@@ -89,4 +89,52 @@ view: users {
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
 
+
+#     #--------------------------
+#     #  -------SOLUTION---------
+
+#     dimension: days_since_signup {
+#       type: number
+#       sql:  DATEDIFF(day, ${created_date}, current_date) ;;
+#     }
+
+#     dimension: is_new_customer {
+#       description: "New customer (yes) if sign up less than 90 days (inclusive)"
+#       type: yesno
+#       sql: ${days_since_signup} <= 90  ;;
+#     }
+
+#       dimension: days_since_signup_tier {
+#         type: tier
+#         sql: ${days_since_signup} ;;
+#         tiers: [0, 30, 90, 180, 360, 720]
+#         style: integer
+#       }
+
+#       #note day interval would create the same dimension as days_since_signup
+#       dimension_group: since_signup {
+#         type: duration
+#         intervals: [week, month, quarter, year]
+#         sql_start: ${TABLE}.created_date ;;
+#         sql_end: current_date;;
+#       }
+
+# #2.1 Exercise 1 - Task 1/2 Solutions
+#       dimension: city_state {
+#         type: string
+#         sql: ${city} || '-' || ${state} ;;
+#       }
+
+#       dimension: age_group {
+#         type: tier
+#         tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+#         sql: ${age} ;;
+#         style: integer
+#       }
+
+#       dimension: is_traffic_source_online {
+#         type: yesno
+#         sql: ${traffic_source} = 'Email' ;;
+#       }
+
 }

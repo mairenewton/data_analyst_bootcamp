@@ -116,4 +116,24 @@ view: order_items {
       inventory_items.product_name
     ]
   }
+
+
+  # #2.1 Exercise 1 - Task 4 Solutions
+  # dimension: shipping_took_days {
+  #   type: number
+  #   sql: DATEDIFF(day, ${shipped_date}, ${delivered_date});;
+  # }
+
+  # ##-----OR -------
+
+  # dimension_group:  shipping_took {
+  #   description: "Duration between shipping and item being delivered"
+  #   type: duration
+  #   sql_start: ${shipped_date} ;;
+  #   sql_end: ${delivered_date} ;;
+  #   intervals: [day, month, year]
+  # }
+
+
+
 }
