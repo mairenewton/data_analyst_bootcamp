@@ -116,4 +116,57 @@ view: order_items {
       inventory_items.product_name
     ]
   }
+
+#-----------------------------------
+#----------solutions----------------
+#-----------------------------------
+
+#   measure: distinct_count_orders {
+#     label: "A count of unique orders"
+#     type: count_distinct
+#     sql: ${order_id} ;;
+#   }
+
+#   measure: total_sale {
+#     label: "Total sale"
+#     type: sum
+#     value_format_name: eur
+#     sql: ${sale_price} ;;
+#   }
+
+#   measure: avg_sale_price {
+#     label: "Average of sale price"
+#     type: average
+#     value_format_name: eur
+#     sql: ${sale_price} ;;
+#   }
+
+# #----------Ex3---------------
+#   measure: total_sales_email_users {
+#     description: "Total sales for users through email traffic source"
+#     type: sum
+#     value_format_name: eur
+#     sql: ${sale_price} ;;
+#     filters:  [
+#       users.traffic_source: "Email"
+#     ]
+#   }
+
+#   measure: percentage_sales_email_source {
+#     type: number
+#     value_format_name: percent_2
+#     sql: 1.0*${total_sales_email_users}
+#       /NULLIF(${total_sale}, 0) ;;
+#   }
+
+
+#   measure: average_spend_per_user {
+#     type: number
+#     value_format_name: eur
+#     sql: 1.0*${total_sale}
+#       /NULLIF(${users.count}, 0) ;;
+#   }
+
+
+
 }
