@@ -2,6 +2,7 @@ connection: "events_ecommerce"
 
 # include all the views
 include: "/views/*.view"
+include: "/views/derived_tables/*.view"
 
 
 datagroup: data_analyst_bootcamp_default_datagroup {
@@ -11,8 +12,6 @@ datagroup: data_analyst_bootcamp_default_datagroup {
 }
 
 persist_with: data_analyst_bootcamp_default_datagroup
-
-
 
 
 # This explore contains multiple views
@@ -29,6 +28,12 @@ explore: order_items {
     type: left_outer
     relationship: many_to_one
     sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;
+  }
+
+  join: inventory_facts {
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${inventory_items.product_sku} = ${inventory_facts.product_sku} ;;
   }
 
   join: products {
@@ -70,7 +75,7 @@ explore: order_items {
   }
 
 # This Explore only contains a single view
-# explore: products {}
+ #explore: products {}
 
 
 
@@ -104,13 +109,13 @@ explore: order_items {
 
 ###-------solutions ------
 
-# datagroup: users_daily_datagroup {
-#   sql_trigger: SELECT CURRENT_DATE();;
-#   max_cache_age: "24 hours"
-# }
+datagroup: users_daily_datagroup {
+  sql_trigger: SELECT CURRENT_DATE();;
+  max_cache_age: "24 hours"
+}
 
 
-# datagroup: order_items_change_datagroup {
-#   sql_trigger: SELECT MAX(created_at) FROM order_items ;;
-#   max_cache_age: "4 hours"
-# }
+datagroup: order_items_change_datagroup {
+  sql_trigger: SELECT MAX(created_at) FROM order_items ;;
+  max_cache_age: "4 hours"
+}

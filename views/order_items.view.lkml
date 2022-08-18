@@ -55,6 +55,12 @@ view: order_items {
     sql: ${sale_price} - ${inventory_items.cost} ;;
   }
 
+
+  measure: total_profit {
+    type: sum
+    sql: ${profit} ;;
+  }
+
   dimension_group: returned {
     type: time
     timeframes: [
@@ -101,6 +107,7 @@ view: order_items {
   }
 
   measure: count {
+    label: "Count Order Items"
     type: count
     drill_fields: [detail*]
   }
@@ -122,20 +129,19 @@ view: order_items {
 #-----------------------------------
 
   measure: distinct_count_orders {
-    label: "A count of unique orders"
+    label: "Count of unique orders"
     type: count_distinct
     sql: ${order_id} ;;
   }
 
   measure: total_sale {
-    label: "Total sale"
     type: sum
     value_format_name: eur
     sql: ${sale_price} ;;
   }
 
   measure: avg_sale_price {
-    label: "Average of sale price"
+    label: "Average of Sale Price"
     type: average
     value_format_name: eur
     sql: ${sale_price} ;;
@@ -143,7 +149,7 @@ view: order_items {
 
 #----------Ex3---------------
   measure: total_sales_email_users {
-    description: "Total sales for users through email traffic source"
+    description: "Total Sales for users through email traffic source"
     type: sum
     value_format_name: eur
     sql: ${sale_price} ;;
