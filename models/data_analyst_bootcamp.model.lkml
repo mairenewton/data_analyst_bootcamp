@@ -3,6 +3,7 @@ connection: "events_ecommerce"
 # include all the views
 include: "/views/*.view"
 
+
 datagroup: data_analyst_bootcamp_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
   sql_trigger:  SELECT MAX(completed_at) from etl_jobs ;;
@@ -10,6 +11,9 @@ datagroup: data_analyst_bootcamp_default_datagroup {
 }
 
 persist_with: data_analyst_bootcamp_default_datagroup
+
+
+
 
 # This explore contains multiple views
 explore: order_items {
@@ -38,9 +42,21 @@ explore: order_items {
     sql_on: ${inventory_items.product_distribution_center_id} = ${distribution_centers.id} ;;
     relationship: many_to_one
   }
+
+  # sql_always_where: ${order_items.status} != 'Returned' ;;
+  # sql_always_having: ${order_items.total_sale} > 200 ;;
+  # sql_always_where: ${order_items.status} = 'Complete' ;;
+  # sql_always_having: ${order_items.count} > 5;;
+
 }
 
+
+
+
+
   explore: users {
+
+
     join: order_items {
       type: left_outer
       relationship: one_to_many
@@ -83,3 +99,18 @@ explore: order_items {
   #   measures: [order_items.total_revenue]
   #   filters: [order_items.created_date: "last 30 days"]
   # }
+
+
+
+###-------solutions ------
+
+# datagroup: users_daily_datagroup {
+#   sql_trigger: SELECT CURRENT_DATE();;
+#   max_cache_age: "24 hours"
+# }
+
+
+# datagroup: order_items_change_datagroup {
+#   sql_trigger: SELECT MAX(created_at) FROM order_items ;;
+#   max_cache_age: "4 hours"
+# }
