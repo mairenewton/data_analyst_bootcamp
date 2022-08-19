@@ -10,7 +10,7 @@ view: monthly_profitability_summary {
       column: total_profit {}
       column: count {}
 
-#-------solution-------------------
+#-------solution - average profit per order line item per Created Month -------------------
       derived_column: total_profit_per_item {
         sql: total_profit / nullif(count,0) ;;
       }
@@ -48,7 +48,6 @@ view: monthly_profitability_summary {
     type: average
     sql: ${total_profit_per_item} ;;
     value_format_name: "eur"
-
   }
 
 }
