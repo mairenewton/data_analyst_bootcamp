@@ -50,6 +50,11 @@ view: order_items {
     sql: ${TABLE}.order_id ;;
   }
 
+  measure: count_orders {
+    type: count_distinct
+    sql: ${TABLE}.order_id ;;
+  }
+
   dimension: profit {
     type: number
     sql: ${sale_price} - ${inventory_items.cost} ;;
@@ -107,6 +112,23 @@ view: order_items {
   dimension: sale_price {
     type: number
     sql: ${TABLE}.sale_price ;;
+  }
+
+  measure: total_revenue {
+    type: sum
+    sql: ${TABLE}.sale_price ;;
+  }
+
+  measure: total_revenue_email {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [users.traffic_source : "Email"]
+  }
+
+  measure: poids_email {
+    type: number
+    sql: ${total_revenue_email} / ${total_revenue} ;;
+    value_format_name: percent_1
   }
 
   measure: count {
