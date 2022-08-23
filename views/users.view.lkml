@@ -12,6 +12,12 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  dimension: age_group {
+    type: tier
+    sql: ${age} ;;
+    tiers: [18,25,35,45,55,65,75,90]
+  }
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
@@ -72,6 +78,11 @@ view: users {
   dimension: state {
     type: string
     sql: ${TABLE}.state ;;
+  }
+
+  dimension: city_state {
+    type: string
+    sql: concat(${TABLE}.state, "-", ${TABLE}.city) ;;
   }
 
   dimension: traffic_source {
