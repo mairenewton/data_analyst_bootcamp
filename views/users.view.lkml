@@ -82,12 +82,17 @@ view: users {
 
   dimension: city_state {
     type: string
-    sql: concat(${TABLE}.state, '-', ${TABLE}.city) ;;
+    sql: ${TABLE}.state || '-' || ${TABLE}.city ;;
   }
 
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
+  }
+
+  dimension: traffic_source_email {
+    type: yesno
+    sql: ${traffic_source} = 'Email' ;;
   }
 
   dimension: zip {
