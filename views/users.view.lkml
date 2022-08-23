@@ -84,6 +84,18 @@ view: users {
     sql: ${TABLE}.zip ;;
   }
 
+  dimension: city_state {
+    type: string
+    sql: CONCAT(${city}, '_', ${state}) ;;
+  }
+
+  dimension: age_group {
+    type: tier
+    tiers: [0, 18, 25, 35, 45, 55, 65, 75, 85, 95]
+    style: integer
+    sql: ${age} ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
