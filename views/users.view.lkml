@@ -86,7 +86,12 @@ view: users {
 
   dimension: city_state {
     type: string
-    sql: CONCAT(${city}, '_', ${state}) ;;
+    sql: ${city} || '_'|| ${state} ;;
+  }
+
+  dimension: emailornot {
+    type: yesno
+    sql:${traffic_source} = 'Email' ;;
   }
 
   dimension: age_group {

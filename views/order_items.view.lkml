@@ -83,6 +83,13 @@ view: order_items {
     sql: ${TABLE}.shipped_at ;;
   }
 
+  dimension_group: between_ship_and_order {
+    type: duration
+    sql_start:${created_date} ;;
+    sql_end: ${delivered_date} ;;
+    intervals: [second, hour, day, month]
+  }
+
   dimension: status {
     label: "Order Status"
     type: string
@@ -103,6 +110,32 @@ view: order_items {
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: distinct_orders {
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
+  measure: total_sales {
+    type: sum
+    sql: ${sale_price} ;;
+  }
+
+  measure: total_sales_email {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [users.traffic_source: "Email"]
+  }
+
+  measure: perc_sales_email {
+    type: number
+    sql: ${total_sales_email} / ${total_sales};;
+  }
+
+  measure: avg_sales {
+    type: average
+    sql: ${sale_price} ;;
   }
 
   # ----- Sets of fields for drilling ------
