@@ -39,6 +39,19 @@ view: order_items {
     sql: ${TABLE}.delivered_at ;;
   }
 
+  dimension: days_shipping_diff {
+    type: number
+    sql: DATEDIFF(day, ${shipped_date}, ${delivered_date}) ;;
+  }
+
+  dimension_group: shipping_group_took {
+    type: duration
+    sql_start:  ${shipped_date};;
+    sql_end: ${delivered_date} ;;
+    intervals: [day, week, month, year]
+
+  }
+
   dimension: inventory_item_id {
     #hidden: yes
     type: number
