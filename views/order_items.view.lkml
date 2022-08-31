@@ -116,4 +116,16 @@ view: order_items {
       inventory_items.product_name
     ]
   }
+
+  measure: approx_orders {
+    type: count_distinct
+    approximate: yes
+    sql: ${order_id} ;;
+  }
+
+  measure: total_sales {
+    type: sum
+    sql: coalesce(${sale_price},0);;
+    value_format: "\"€\"#,##0.00"
+  }
 }
