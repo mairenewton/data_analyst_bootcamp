@@ -38,7 +38,8 @@ explore: order_items {
     sql_on: ${inventory_items.product_distribution_center_id} = ${distribution_centers.id} ;;
     relationship: many_to_one
   }
-}
+
+  }
 
   explore: users {
     join: order_items {
@@ -53,25 +54,9 @@ explore: order_items {
     }
   }
 
+
 # This Explore only contains a single view
 # explore: products {}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   # query: order_status_by_date{
   #   dimensions: [order_items.created_date, order_items.status]
   #   measures: [order_items.total_revenue]
