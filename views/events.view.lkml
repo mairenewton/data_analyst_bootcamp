@@ -1,3 +1,4 @@
+#some comments
 view: events {
   sql_table_name: public.events ;;
 
