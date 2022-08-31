@@ -23,10 +23,16 @@ view: users {
     sql: ${TABLE}.country ;;
   }
 
-  dimension: citystate {
-    type: string
-    sql: ${country}||${city}
-  }
+#  dimension: citystate {
+#    type: string
+#    sql: (${country}||${city});
+
+#  dimension: traffic_type {
+#    type: string
+#    sql: case(${traffic_source}  is equal to 'email' then 'yes' else 'no';
+#  }
+
+
   dimension_group: created {
     type: time
     timeframes: [
@@ -87,10 +93,13 @@ view: users {
     type: zipcode
     sql: ${TABLE}.zip ;;
   }
+  measure:  count_fenake{
+    type: count
+    filters: [gender: "female"]
+  }
 
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
-
 }
