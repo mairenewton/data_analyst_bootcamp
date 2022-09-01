@@ -17,6 +17,11 @@ view: users {
     sql: ${TABLE}.city ;;
   }
 
+  dimension: city_and_state {
+    type: string
+    sql: ${TABLE}.city || ' ' || ${TABLE}.state ;;
+  }
+
   dimension: country {
     type: string
     map_layer_name: countries
@@ -84,6 +89,12 @@ view: users {
     sql: ${TABLE}.zip ;;
   }
 
+  dimension: age_buckets {
+    type: tier
+    tiers: [10,20,30,40]
+    style: integer
+    sql: ${TABLE}.age ;;
+  }
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
