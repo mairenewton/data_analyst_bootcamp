@@ -12,6 +12,7 @@ view: events {
     type: string
     sql: ${TABLE}.browser ;;
   }
+  #more comments
 
   dimension: city {
     type: string
