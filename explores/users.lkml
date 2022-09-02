@@ -4,8 +4,6 @@ include: "/views/inventory_items.view"
 include: "/views/derived_tables/user_facts.view"
 
 
-
-
 explore: users {
 
   persist_with: daily_refresh_datagroup

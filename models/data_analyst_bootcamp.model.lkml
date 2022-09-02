@@ -3,6 +3,11 @@ connection: "events_ecommerce"
 # include all the explores
 include: "/explores/order_items.lkml"
 include: "/explores/users.lkml"
+include: "/views/derived_tables/user_facts_ndt.view"
+include: "/views/derived_tables/order_facts_ndt.view"
+
+
+#include: "/views/derived_tables/user_facts_ndt.view"
 
 
 datagroup: data_analyst_bootcamp_default_datagroup {

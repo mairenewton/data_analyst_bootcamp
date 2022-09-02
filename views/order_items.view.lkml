@@ -160,7 +160,7 @@ view: order_items {
   dimension: sale_price {
     type: number
     sql: ${TABLE}.sale_price ;;
-    value_format_name: usd_0
+    value_format_name: usd
     drill_fields: [created_month, shipped_month]
   }
 
@@ -191,13 +191,13 @@ view: order_items {
 
   measure: total_revenue {
     type: sum
-    value_format_name: usd_0
+    value_format_name: usd
     sql: ${sale_price} ;;
   }
 
   measure: average_sale_price {
     type: average
-    value_format_name: usd_0
+    value_format_name: usd
     sql: ${sale_price} ;;
   }
 
