@@ -39,6 +39,12 @@ view: order_items {
     sql: ${TABLE}.delivered_at ;;
   }
 
+  dimension: shipping_days {
+    type: duration_day
+    sql_start: ${created_date} ;;
+    sql_end: ${delivered_date} ;;
+  }
+
   dimension: inventory_item_id {
     #hidden: yes
     type: number
@@ -49,6 +55,7 @@ view: order_items {
     type: number
     sql: ${TABLE}.order_id ;;
   }
+
 
   dimension: profit {
     type: number
@@ -98,6 +105,39 @@ view: order_items {
   dimension: sale_price {
     type: number
     sql: ${TABLE}.sale_price ;;
+  }
+
+  measure: sum_sale_price {
+    label: "Sum Sales Price"
+    type: sum
+    sql: ${sale_price} ;;
+  }
+
+  measure: avg_sale_price {
+    label: "Average Sales Price"
+    type: average
+    sql: ${sale_price} ;;
+  }
+
+
+  measure: count_order_id {
+    label: "Distinct Order IDs"
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
+  measure: total_sales_email {
+    label: "Total Sales for Email"
+    type: sum
+    filters: [users.traffic_source_email: "Yes"]
+    sql: ${sale_price} ;;
+  }
+
+  measure: total_sales_email_pct {
+    label: "Total Sales for Email"
+    type: number
+    value_format_name: percent_2
+    sql: 1* ${total_sales_email}/NULLIF(${sum_sale_price},0) ;;
   }
 
   measure: count {
