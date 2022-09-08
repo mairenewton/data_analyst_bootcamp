@@ -3,63 +3,28 @@ connection: "events_ecommerce"
 # include all the views
 include: "/views/*.view"
 
-datagroup: data_analyst_bootcamp_default_datagroup {
-  # sql_trigger: SELECT MAX(id) FROM etl_log;;
-  sql_trigger:  SELECT MAX(completed_at) from etl_jobs ;;
-  max_cache_age: "1 hour"
+include: "/explores/order_items_explore.lkml"
+include: "/explores/users_explore.lkml"
+
+include: "/explores/x_queries.lkml"
+include: "/explores/extend_explore.lkml"
+
+
+
+persist_with: daily_refresh_datagroup
+
+
+datagroup: daily_refresh_datagroup {
+  max_cache_age: "24 hours"
+  sql_trigger: SELECT CURRENT_DATE() ;;
 }
 
-persist_with: data_analyst_bootcamp_default_datagroup
 
-# This explore contains multiple views
-explore: order_items {
+datagroup: order_items_change_datagroup {
+  max_cache_age: "4 hours"
+  sql_trigger: SELECT MAX(created_date) FROM order_items ;;
 
-  description: "this provide more info about the explore"
-  join: users {
-    type: left_outer
-    sql_on: ${order_items.user_id} = ${users.id} ;;
-    relationship: many_to_one
-  }
-
-  join: inventory_items {
-    type: left_outer
-    relationship: many_to_one
-    sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;
-  }
-
-  join: products {
-    type: left_outer
-    sql_on: ${inventory_items.product_id} = ${products.id} ;;
-    relationship: many_to_one
-  }
-
-  join: distribution_centers {
-    type: left_outer
-    sql_on: ${inventory_items.product_distribution_center_id} = ${distribution_centers.id} ;;
-    relationship: many_to_one
-  }
 }
-
-  explore: users {
-    join: order_items {
-      type: left_outer
-      relationship: one_to_many
-      sql_on: ${users.id} = ${order_items.user_id} ;;
-      }
-    join: inventory_items {
-      type: left_outer
-      relationship: many_to_one
-      sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;
-    }
-  }
-
-# This Explore only contains a single view
-# explore: products {}
-
-
-
-
-
 
 
 
@@ -83,3 +48,14 @@ explore: order_items {
   #   measures: [order_items.total_revenue]
   #   filters: [order_items.created_date: "last 30 days"]
   # }
+
+
+
+
+# datagroup: data_analyst_bootcamp_default_datagroup {
+#   # sql_trigger: SELECT MAX(id) FROM etl_log;;
+#   sql_trigger:  SELECT MAX(completed_at) from etl_jobs ;;
+#   max_cache_age: "1 hour"
+# }
+
+#persist_with: data_analyst_bootcamp_default_datagroup

@@ -52,4 +52,29 @@ view: products {
     type: count
     drill_fields: [id, name, distribution_centers.id, distribution_centers.name, inventory_items.count]
   }
+
+  ##------------------
+
+  parameter: select_product_detail{
+    type: unquoted
+
+    allowed_value: {
+      value: "Department"
+    }
+
+    allowed_value: {
+      value: "Category"
+    }
+
+    allowed_value: {
+      value: "Brand"
+    }
+  }
+
+  measure: dynamic_count {
+    type: count_distinct
+    sql: ${TABLE}.{% parameter select_product_detail %} ;;
+  }
+
+
 }

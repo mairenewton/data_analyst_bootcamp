@@ -1,5 +1,8 @@
-#some comments
+include: "geography_dimensions.view"
+
+
 view: events {
+  extends: [geography_dimensions]
   sql_table_name: public.events ;;
 
   dimension: id {
@@ -14,12 +17,12 @@ view: events {
   }
 
   dimension: city {
-    type: string
+    # type: string
     sql: ${TABLE}.city ;;
   }
 
   dimension: country {
-    type: string
+    # type: string
     sql: ${TABLE}.country ;;
   }
 

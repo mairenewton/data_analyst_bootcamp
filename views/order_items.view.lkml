@@ -84,6 +84,18 @@ view: order_items {
     sql: ${TABLE}.shipped_at ;;
   }
 
+  dimension_group: shipping_took {
+    description: "Duration between shipping and item being delivered"
+    type: duration
+    hidden: yes
+    sql_start: ${shipped_date} ;;
+    sql_end: ${delivered_date} ;;
+    intervals: [day, month, year]
+  }
+
+
+
+
   dimension: status {
     label: "Order Status"
     type: string
@@ -101,10 +113,57 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
-  measure: count {
+  measure: total_sale_new_users {
+    description: "Total revenue by users who signed up in the last 90 days"
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [users.is_new_customer: "Yes"]
+
+  }
+
+  measure: count_order_items_last_2_weeks {
+    type: count_distinct
+    sql: ${order_item_id} ;;
+    filters: [created_date: "14 days", status: "-Returned, -Cancelled"]
+  }
+
+
+
+
+  measure: total_revenue {
+   type: sum
+  value_format_name: usd
+    sql: ${sale_price} ;;
+  }
+
+
+  measure: avg_revenue {
+    description: "Average of the sale price"
+    label: "Average Revenue"
+    type: average
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
+  measure: count_users {
+    type: count_distinct
+    sql: ${user_id} ;;
+  }
+
+  measure: count_orders {
+    description: "Count of orders"
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
+
+  measure: count_items_ordered {
+    description: "Count of order items"
     type: count
     drill_fields: [detail*]
   }
+
+
 
   # ----- Sets of fields for drilling ------
   set: detail {
