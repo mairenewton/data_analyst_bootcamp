@@ -6,7 +6,7 @@ include: "/views/*.view"
 include: "/explores/order_items_explore.lkml"
 include: "/explores/users_explore.lkml"
 
-include: "/explores/x_queries.lkml"
+include: "/explores/refinement_demo.lkml"
 include: "/explores/extend_explore.lkml"
 
 

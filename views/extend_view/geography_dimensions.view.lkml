@@ -17,6 +17,27 @@ view: geography_dimensions {
     label: "City Name"
   }
 
+  dimension: region {
+    group_label: "Location"
+  }
+
+  dimension: state {
+    group_label: "Location"
+  }
+
+  dimension: latitude {
+    group_label: "Location"
+  }
+
+  dimension: longitude {
+    group_label: "Location"
+  }
+
+  dimension: zip {
+    group_label: "Location"
+  }
+
+
 }
 
 

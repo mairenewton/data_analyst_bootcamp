@@ -8,7 +8,7 @@ include: "/views/distribution_centers.view"
 
 # This explore contains multiple views
 explore: order_items {
-  view_name: order_items
+   view_name: order_items
 
   #persist_with: order_items_change_datagroup
 
@@ -43,6 +43,7 @@ explore: order_items {
     relationship: many_to_one
   }
 }
+
 
 
 

@@ -6,7 +6,12 @@ view: order_items {
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
-  }
+    html: <a href="mailto:name@rapidtables.com">Send mail</a> ;;
+    }
+
+
+
+
 
   dimension_group: created {
     type: time
@@ -54,7 +59,9 @@ view: order_items {
   dimension: profit {
     type: number
     sql: ${sale_price} - ${inventory_items.cost} ;;
+    value_format: "@{usd_1}"
   }
+
 
   dimension_group: returned {
     type: time
@@ -100,7 +107,19 @@ view: order_items {
     label: "Order Status"
     type: string
     sql: ${TABLE}.status ;;
+
+    html:
+    {% if value == 'Complete' %}
+      <b><p style="background-color: #49cec1; margin: 0; border_radius: 5px; text-align:center">{{ value }}</p><b>
+    {% elsif value == 'Cancelled' or value == 'Returned' %}
+      <b><p style="background-color: #dc7350; margin: 0; border_radius: 5px; text-align:center">{{ value }}</p><b>
+    {% else %}
+      <b><p style="background-color: #e9b404; margin: 0; border_radius: 5px; text-align:center">{{ value }}</p><b>
+    {% endif %};;
   }
+
+
+
 
   dimension: user_id {
     type: number
@@ -134,7 +153,10 @@ view: order_items {
    type: sum
   value_format_name: usd
     sql: ${sale_price} ;;
+    drill_fields: [detail*]
+    html: <font size= "+1">{{linked_value}}</font> ;;
   }
+
 
 
   measure: avg_revenue {
@@ -152,6 +174,11 @@ view: order_items {
 
   measure: count_orders {
     description: "Count of orders"
+    drill_fields: [created_month, users.age_group, total_revenue]
+    link: {
+      label: "Total Sale Price by month by age Tier"
+      url: "{{link}}&pivots=users.age_group"
+    }
     type: count_distinct
     sql: ${order_id} ;;
   }
@@ -163,7 +190,28 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+  measure: count_returned {
+    type: count_distinct
+    sql: ${order_item_id} ;;
+    filters: [status: "Returned"]
+    drill_fields: [returned_detail*]
+    link: {
+      label: "Explore Top 20 Results"
+      url: "{{ link }}&sorts=order_items.sale_price+desc&limit=20"
+    }
+  }
 
+
+set: returned_detail {
+  fields: [
+    order_id,
+    status,
+    created_date,
+    sale_price,
+    products.brand,
+    products.name
+    ]
+    }
 
   # ----- Sets of fields for drilling ------
   set: detail {

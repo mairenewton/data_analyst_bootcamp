@@ -1,15 +1,16 @@
-include: "geography_dimensions.view"
+include: "/views/extend_view/geography_dimensions.view.lkml"
+include: "/views/extend_view/system_fields.view.lkml"
 
 
 view: users {
-  extends: [geography_dimensions]
+  extends: [geography_dimensions, system_fields]
   sql_table_name: public.users ;;
 
-  dimension: id {
-    primary_key: yes
-    type: number
-    sql: ${TABLE}.id ;;
-  }
+  # dimension: id {
+  #   primary_key: yes
+  #   type: number
+  #   sql: ${TABLE}.id ;;
+  # }
 
   dimension: age {
     type: number
@@ -29,21 +30,21 @@ view: users {
   #   sql: ${TABLE}.country ;;
   # }
 
-  dimension_group: created {
-    type: time
-    timeframes: [
-      raw,
+  # dimension_group: created {
+  #   type: time
+  #   timeframes: [
+  #     raw,
 
-      date,
-      week,
-      month,
-      month_name,
-      quarter,
-      day_of_month,
-      year
-    ]
-    sql: ${TABLE}.created_at ;;
-  }
+  #     date,
+  #     week,
+  #     month,
+  #     month_name,
+  #     quarter,
+  #     day_of_month,
+  #     year
+  #   ]
+  #   sql: ${TABLE}.created_at ;;
+  # }
 
   dimension: email {
     type: string
@@ -170,6 +171,30 @@ view: users {
     sql: 1.0*${count_female_users}/NULLIF(${count},0) ;;
   }
 
+
+
+  dimension: order_history_button {
+    label: "History Button"
+    sql: ${id} ;;
+    html: <a href="/explore/data_analyst_bootcamp/users?fields=order_items.detail*&f[users.id]=
+      {{ value }}"><button>Order History</button></a> ;;
+  }
+
+
+
+
+# ----- Sets of fields for drilling ------
+  set: user_details {
+    fields: [
+
+      users.id,
+      users.first_name,
+      users.last_name,
+      users.count,
+      users.is_new_customer
+
+    ]
+  }
 
 
 

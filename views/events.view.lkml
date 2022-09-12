@@ -1,8 +1,11 @@
-include: "geography_dimensions.view"
+include: "/views/extend_view/geography_dimensions.view.lkml"
+include: "/views/extend_view/system_fields.view.lkml"
 
+
+explore: events {}
 
 view: events {
-  extends: [geography_dimensions]
+  extends: [geography_dimensions, system_fields]
   sql_table_name: public.events ;;
 
   dimension: id {
