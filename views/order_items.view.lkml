@@ -100,14 +100,14 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
-  measure: count_order_items {
-    type:  count_distinct
-    sql: ${order_item_id} ;;
-  }
-  measure: Average_Sales_price {
-    type:  average
-    sql: ${sale_price} ;;
-  }
+  #measure: count_order_items {
+  #  type:  count_distinct
+  #  sql: ${order_item_id} ;;
+  #}
+  #measure: Average_Sales_price {
+  #  type:  average
+  #  sql: ${sale_price} ;;
+  #}
 
   measure: count {
     type: count
@@ -123,7 +123,8 @@ view: order_items {
       users.first_name,
       users.last_name,
       inventory_items.id,
-      inventory_items.product_name
+      inventory_items.product_name,
+      sale_price
     ]
  }
 
