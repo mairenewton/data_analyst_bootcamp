@@ -53,6 +53,7 @@ view: order_items {
   dimension: profit {
     type: number
     sql: ${sale_price} - ${inventory_items.cost} ;;
+    value_format_name: usd
   }
 
   dimension_group: returned {
@@ -83,6 +84,14 @@ view: order_items {
     sql: ${TABLE}.shipped_at ;;
   }
 
+  dimension_group: shipping_took {
+    description: "Duration between shipping and item being delivered"
+    type: duration
+    sql_start: ${shipped_date} ;;
+    sql_end: ${delivered_date} ;;
+    intervals: [day, month, year]
+  }
+
   dimension: status {
     label: "Order Status"
     type: string
@@ -95,10 +104,44 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+  measure: count_users {
+    type: count_distinct
+    sql: ${user_id} ;;
+  }
+
   dimension: sale_price {
     type: number
     sql: ${TABLE}.sale_price ;;
   }
+
+
+  measure: total_revenue {
+    type: sum
+    value_format_name: usd
+    sql: ${sale_price} ;;
+  }
+
+
+
+  measure: avg_revenue {
+    description: "Average of the sale price"
+    label: "Average Revenue"
+    type: average
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
+  measure: count_order {
+    type: count_distinct
+    sql: ${order_id} ;;
+  }
+
+  measure: count_returned {
+    type: count_distinct
+    sql: ${order_item_id} ;;
+    filters: [status: "Returned"]
+  }
+
 
   measure: count {
     type: count
