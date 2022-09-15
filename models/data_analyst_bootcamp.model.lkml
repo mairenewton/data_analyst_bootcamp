@@ -955,7 +955,7 @@ explore: sales {
 
 view: inventory {
   derived_table: {
-    sql: select "1" as inventory_id,  "2" as product_id,  "Held" as status,  94 as condition,  "1" as office_id, union all
+    sql: select "1" as inventory_id,  "2" as product_id,  "Held" as status,  94 as condition,  "1" as office_id /*, union all
       select "2" as inventory_id,  "1" as product_id,  "Open" as status,  51 as condition,  "8" as office_id, union all
       select "3" as inventory_id,  "2" as product_id,  "Open" as status,  55 as condition,  "9" as office_id, union all
       select "4" as inventory_id,  "2" as product_id,  "Open" as status,  58 as condition,  "2" as office_id, union all
@@ -965,7 +965,7 @@ view: inventory {
       select "8" as inventory_id,  "2" as product_id,  "Open" as status,  16 as condition,  "1" as office_id, union all
       select "9" as inventory_id,  "5" as product_id,  "Open" as status,  86 as condition,  "7" as office_id, union all
       select "10" as inventory_id,  "3" as product_id,  "Held" as status,  40 as condition,  "4" as office_id--, union all
-     /* select "11" as inventory_id,  "5" as product_id,  "Open" as status,  94 as condition,  "6" as office_id, union all
+      select "11" as inventory_id,  "5" as product_id,  "Open" as status,  94 as condition,  "6" as office_id, union all
       select "12" as inventory_id,  "11" as product_id,  "Open" as status,  46 as condition,  "2" as office_id, union all
       select "13" as inventory_id,  "3" as product_id,  "Held" as status,  20 as condition,  "5" as office_id, union all
       select "14" as inventory_id,  "4" as product_id,  "Held" as status,  11 as condition,  "5" as office_id, union all
