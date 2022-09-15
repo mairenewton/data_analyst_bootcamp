@@ -955,7 +955,7 @@ explore: sales {
 
 view: inventory {
   derived_table: {
-    sql: select  1  as inventory_id,   2  as product_id,   Held  as status--,  '94' as condition, 1  as office_id
+    sql: select  1  as inventory_id,   2  as product_id,   'Held'  as status--,  '94' as condition, 1  as office_id
     /*  union all
       select "2" as inventory_id,  "1" as product_id,  "Open" as status,  51 as condition,  "8" as office_id union all
       select "3" as inventory_id,  "2" as product_id,  "Open" as status,  55 as condition,  "9" as office_id union all
@@ -1180,24 +1180,24 @@ view: inventory {
     sql: ${TABLE}.office_id ;;
   }
 
-  dimension: condition_bins {
-    type: bin
-    bins: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90]
-    style: integer
-    sql: ${TABLE}.condition ;;
-  }
+  #dimension: condition_bins {
+  #  type: bin
+  #  bins: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90]
+  #  style: integer
+  #  sql: ${TABLE}.condition ;;
+  #}
 
-  dimension: good_condition {
-    type: yesno
-    sql: condition >= 80 ;;
-  }
+  #dimension: good_condition {
+  #  type: yesno
+  #  sql: condition >= 80 ;;
+  #}
 
-  dimension: condition_type {
-    type:  string
-    sql: case when condition between 0 and 29 then 'Poor'
-          when condition between 30 and 79 then 'Moderate'
-          else 'Good' end;;
-  }
+  #dimension: condition_type {
+  #  type:  string
+  #  sql: case when condition between 0 and 29 then 'Poor'
+  #        when condition between 30 and 79 then 'Moderate'
+  #        else 'Good' end;;
+  #}
 
   measure: count {
     type:  count
@@ -1210,12 +1210,12 @@ view: inventory {
     value_format_name: decimal_0
   }
 
-  measure: count_of_good_conditioned_inventory {
-    type:  count
-    filters: [good_condition: "Yes"
-    ]
-    value_format_name: decimal_0
-  }
+  #measure: count_of_good_conditioned_inventory {
+  #  type:  count
+  #  filters: [good_condition: "Yes"
+  #  ]
+  #  value_format_name: decimal_0
+  #}
 
 }
 
@@ -1233,13 +1233,13 @@ explore: inventory {
     sql_on: inventory.product_id = ${product.product_id} ;;
     relationship: many_to_one
   }
-  query: counts_by_condition_type {
-    dimensions: [condition_type]
-    measures: [count]
-    label: "Counts by Condition Type"
-    description: "Counts by Condition Type"
-    limit: 100
-  }
+  #query: counts_by_condition_type {
+   # dimensions: [condition_type]
+  #  measures: [count]
+   # label: "Counts by Condition Type"
+  #  description: "Counts by Condition Type"
+   # limit: 100
+  #}
 }
 
 
