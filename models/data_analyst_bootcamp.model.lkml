@@ -1193,9 +1193,9 @@ view: inventory {
 
   dimension: condition_type {
     type:  string
-    sql: case when condition between 0 and 29 then "Poor"
-          when condition between 30 and 79 then "Moderate"
-          else "Good" end;;
+    sql: case when condition between 0 and 29 then 'Poor'
+          when condition between 30 and 79 then 'Moderate'
+          else 'Good' end;;
   }
 
   measure: count {
