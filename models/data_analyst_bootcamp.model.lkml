@@ -24,8 +24,8 @@ persist_with: data_analyst_bootcamp_default_datagroup
 
 explore: order_items {
 
-  #sql_always_where: ${status} ='Returned! ;;
-  #sql_always_having: ${order_items_total_sales} '>200' ;;
+  #sql_always_where: ${status} ="Returned" ;;
+  #sql_always_having: ${order_items_total_sales} ">200" ;;
   #always_filter: {}
 
   description: "this provide more info about the explore"
@@ -1193,9 +1193,9 @@ view: inventory {
 
   dimension: condition_type {
     type:  string
-    sql: case when condition between 0 and 29 then 'Poor'
-          when condition between 30 and 79 then 'Moderate'
-          else 'Good' end;;
+    sql: case when condition between 0 and 29 then "Poor"
+          when condition between 30 and 79 then "Moderate"
+          else "Good" end;;
   }
 
   measure: count {
