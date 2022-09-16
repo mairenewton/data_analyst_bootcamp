@@ -85,6 +85,11 @@ view: users {
     sql: ${TABLE}.zip ;;
   }
 
+  dimension: is_email {
+    type:  yesno
+    sql:  upper(${traffic_source}) = "email" ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]

@@ -105,6 +105,17 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+  measure: distinct_order {
+    type: count_distinct
+    sql:  ${order_id} ;;
+  }
+
+  measure: total_sale_from_email {
+    type: sum
+    sql:   ${sale_price};;
+    filters: [users.is_email: "Yes"]
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
