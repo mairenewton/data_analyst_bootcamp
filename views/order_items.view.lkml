@@ -127,6 +127,8 @@ view: order_items {
       sale_price
     ]
  }
-
+  set: Item_Details {
+    fields: [order_id, status, created_date,sale_price,products.brand,products.name]
+  }
 
 }
