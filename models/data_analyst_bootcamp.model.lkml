@@ -1155,7 +1155,7 @@ view: inventory {
       select '198' as inventory_id,  '1' as product_id,  'Held' as status,  1 as condition,  '2' as office_id  union all
       select '199' as inventory_id,  '2' as product_id,  'Open' as status,  93 as condition,  '8' as office_id union all
       select '200' as inventory_id,  '8' as product_id,  'Held' as status,  14 as condition,  '4' as office_id union all
-      select '201' as inventory_id,  '7' as product_id,  'Held' as status,  31 as condition,  '2' as office_id */
+      select '201' as inventory_id,  '7' as product_id,  'Held' as status,  31 as condition,  '2' as office_id
        ;;
   }
 
