@@ -955,8 +955,8 @@ explore: sales {
 
 view: inventory {
   derived_table: {
-    sql: select  1  as inventory_id,   2  as product_id,   'Held'  as status,  94 as condition, 1  as office_id union all
-      select '2' as inventory_id,  '1' as product_id,  'Open' as status,  51 as condition,  '8' as office_id union all
+    sql: select  1  as inventory_id,   2  as product_id,   'Held'  as status,  94 as condition, 1  as office_id union
+      select '2' as inventory_id,  '1' as product_id,  'Open' as status,  51 as condition,  '8' as office_id union
       select '3' as inventory_id,  '2' as product_id,  'Open' as status,  55 as condition,  '9' as office_id union all
       select '4' as inventory_id,  '2' as product_id,  'Open' as status,  58 as condition,  '2' as office_id union all
       select '5' as inventory_id,  '4' as product_id,  'Open' as status,  34 as condition,  '3' as office_id union all
