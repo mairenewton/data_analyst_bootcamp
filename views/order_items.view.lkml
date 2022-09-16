@@ -7,6 +7,22 @@ view: order_items {
     sql: ${TABLE}.id ;;
   }
 
+parameter: date_granularity_selector {
+  type:  unquoted
+  default_value: "created_month"
+  allowed_value: {
+    value: "created_date"
+  }
+  allowed_value: {
+    value: " created_week"
+  }
+  allowed_value: {
+    value: "created_month"
+  }
+
+}
+
+
   dimension_group: created {
     type: time
     timeframes: [
