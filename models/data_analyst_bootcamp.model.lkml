@@ -1085,7 +1085,7 @@ view: inventory {
       select '128' as inventory_id,  '8' as product_id,  'Open' as status,  68 as condition,  '3' as office_id union all
       select '129' as inventory_id,  '8' as product_id,  'Held' as status,  35 as condition,  '9' as office_id union all
       select '130' as inventory_id,  '10' as product_id,  'Held' as status,  31 as condition,  '10' as office_id union all
-      select '131' as inventory_id,  '3' as product_id,  'Held' as status,  38 as condition,  '4' as office_id,  union all
+      select '131' as inventory_id,  '3' as product_id,  'Held' as status,  38 as condition,  '4' as office_id  union all
       select '132' as inventory_id,  '10' as product_id,  'Open' as status,  35 as condition,  '9' as office_id union all
       select '133' as inventory_id,  '3' as product_id,  'Held' as status,  64 as condition,  '6' as office_id  union all
       select '134' as inventory_id,  '6' as product_id,  'Open' as status,  65 as condition,  '9' as office_id union all
