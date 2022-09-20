@@ -10,6 +10,23 @@ view: products {
   dimension: brand {
     type: string
     sql: ${TABLE}.brand ;;
+    link: {
+      label: "Search on Google"
+      url: "https://www.google.com/search?q={{ value }}"
+    }
+
+    link: {
+      label: "{{ value }} Dashboard"
+      url: "https://teach.corp.looker.com/dashboards-next/189?Brand= {{value}}"
+      icon_url: "http://www.google.com/s2/favicons?domain=www.looker.com"
+    }
+
+  }
+
+
+  dimension: Link_to_Pulse_dashboard {
+    sql: ${brand} ;;
+    html: <a href= "https://teach.corp.looker.com/dashboards-next/189"> <button> {{value}} <button> </a>;;
   }
 
   dimension: category {
@@ -36,6 +53,7 @@ view: products {
   dimension: name {
     type: string
     sql: ${TABLE}.name ;;
+
   }
 
   dimension: retail_price {
@@ -48,8 +66,26 @@ view: products {
     sql: ${TABLE}.sku ;;
   }
 
-  measure: count {
+  measure: count_products {
     type: count
-    drill_fields: [id, name, distribution_centers.id, distribution_centers.name, inventory_items.count]
+    drill_fields: [category, brand, department]
   }
+
+  parameter: select_product_detail {
+    type: unquoted
+    default_value: "deparment"
+    allowed_value: {
+      value: "department"
+    }
+    allowed_value: {
+      value: "category"
+    }
+
+    allowed_value: {
+      value: "brand"
+    }
+
+  }
+
+
 }

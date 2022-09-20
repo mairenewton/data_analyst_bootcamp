@@ -1,3 +1,5 @@
+
+
 view: inventory_items {
   sql_table_name: public.inventory_items ;;
 
@@ -8,7 +10,6 @@ view: inventory_items {
   }
 
   dimension: cost {
-#    hidden: yes
     type: number
     sql: ${TABLE}.cost ;;
   }

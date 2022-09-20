@@ -4,9 +4,10 @@ include: "/views/order_items.view"
 include: "/views/inventory_items.view"
 
 
-
-
 explore: users {
+  view_name: users
+
+
   join: order_items {
     type: left_outer
     relationship: one_to_many
@@ -17,4 +18,5 @@ explore: users {
     relationship: many_to_one
     sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;
   }
+
 }

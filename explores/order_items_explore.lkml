@@ -8,8 +8,7 @@ include: "/views/distribution_centers.view"
 
 # This explore contains multiple views
 explore: order_items {
-  view_name: order_items
-
+  #view_name: order_items
   description: "Use this explore to analyse information related to order items"
   join: users {
     type: left_outer
@@ -22,6 +21,7 @@ explore: order_items {
     type: left_outer
     relationship: many_to_one
     sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;
+
   }
 
   join: products {

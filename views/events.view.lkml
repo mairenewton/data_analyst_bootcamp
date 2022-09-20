@@ -1,3 +1,5 @@
+
+
 view: events {
   sql_table_name: public.events ;;
 
@@ -6,7 +8,6 @@ view: events {
     type: number
     sql: ${TABLE}.id ;;
   }
-
   dimension: browser {
     type: string
     sql: ${TABLE}.browser ;;
