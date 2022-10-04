@@ -95,4 +95,9 @@ dimension: citystate {
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
 
+  dimension: TraSourEmail {
+   type: yesno
+  sql:${traffic_source} = '' ;;
+  }
+
 }
