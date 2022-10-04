@@ -104,7 +104,7 @@ view: users {
 
   measure: : yesno {
     type:  yesno
-    drill_fields: [traffic_source,email]
+    sql: ${traffic_source}='Email';;
   }
 
 }
