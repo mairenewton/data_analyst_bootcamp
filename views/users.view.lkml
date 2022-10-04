@@ -26,7 +26,7 @@ view: users {
 
 dimension: citystate {
   type:  string
-  sql: ${TABLE}.city || ${TABLE}.state ;;
+  sql: ${city} || ${state} ;;
 }
 
   dimension_group: created {
