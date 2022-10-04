@@ -18,6 +18,18 @@ view: users {
     sql: ${TABLE}.city ;;
   }
 
+  dimension: city_state {
+    type:  string
+    sql:${city}||','||${state} ;;
+  }
+
+  dimension: age_group {
+    type: tier
+    tiers: [18, 25, 40, 55, 70,75,90]
+    sql: ${age} ;;
+    style: integer
+  }
+
   dimension: country {
     type: string
     map_layer_name: countries
