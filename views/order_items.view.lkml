@@ -6,19 +6,53 @@ view: order_items {
     type: number
     sql: ${TABLE}.id ;;
   }
+  dimension: Shiping_Days {
+    type:  duration_day
+    sql_end:${delivered_date};;
+    sql_start:${shipped_date} ;;
+  }
+  #This is better as intervls cn be added , but it doesn't work in RedShift
+  #dimension: Shiping_time {
+   # type:  duration
+    #intervals: [day,hours]
+    #sql_end:${delivered_date};;
+    #sql_start:${shipped_date} ;;
+  #}
+
+
 
 parameter: date_granularity_selector {
   type:  unquoted
   default_value: "created_month"
   allowed_value: {
     value: "created_date"
+    label: "Created date"
   }
   allowed_value: {
-    value: " created_week"
+    value: "created_week"
+    label: "Created week"
   }
   allowed_value: {
     value: "created_month"
+    label: "Created Month"
   }
+#default_value: "created_month"
+}
+
+dimension: dynamic_date{
+  label_from_parameter: date_granularity_selector
+  type: string
+  sql:
+  {%if date_granularity_selector._parameter_value =='created_date' %}
+    ${created_date}
+  {%elsif date_granularity_selector._parameter_value =='created_week' %}
+  ${created_week}
+  {%else %}
+  ${created_month}
+  {%endif%}
+
+    ;;
+
 
 }
 
@@ -113,17 +147,45 @@ parameter: date_granularity_selector {
 
   dimension: sale_price {
     type: number
-    sql: ${TABLE}.sale_price ;;
+    sql: ROUND(${TABLE}.sale_price,2) ;;
+    #hidden: yes
   }
 
-  #measure: count_order_items {
-  #  type:  count_distinct
-  #  sql: ${order_item_id} ;;
-  #}
-  #measure: Average_Sales_price {
-  #  type:  average
-  #  sql: ${sale_price} ;;
-  #}
+  measure: count_distinct_nb_orders {
+    type:  count_distinct
+    sql: ${order_id} ;;
+  }
+  measure: Total_sales {
+    type: sum
+    value_format: "$#.00;($#.00)"
+
+    sql: ${sale_price} ;;
+  }
+  measure: Average_Sales_price {
+    type:  average
+    sql: ${sale_price} ;;
+    value_format: "$#.00;($#.00)"
+    #value_format_name: usd # GGLE predefined formats
+  }
+  measure: Total_sales_Through_Email {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: [users.Email_Yes_No: "yes"]
+  }
+  measure: Total_sales_Through_Email_Pros {
+    type: number
+    sql: ${Total_sales_Through_Email}/NULLIF(${Total_sales},0) ;;
+    value_format_name: percent_1
+  }
+  measure: nb_users {
+    type: number
+    sql: ${user_id} ;;
+  }
+  measure: Avg_Sales_per_user{
+    type: number
+    sql: ${Total_sales}/NULLIF(${nb_users},0) ;;
+    value_format_name: percent_1
+  }
 
   measure: count {
     type: count

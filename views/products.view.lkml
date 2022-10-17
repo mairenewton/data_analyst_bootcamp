@@ -10,7 +10,22 @@ view: products {
   dimension: brand {
     type: string
     sql: ${TABLE}.brand ;;
+    link: {
+      label: " search {{ value }} on google image"
+      url: "https://www.google.com/search?q={{ filterable_value }}&source=lnms&tbm"
+    }
   }
+
+#measure: test_dynamic {
+ # type:  sum
+#  sql:
+  #{% if ${brand}._is_selected %}
+  #  1
+  #{% elsif %}
+  #  2
+  #{% endif %}
+  #;;
+#}
 
   dimension: category {
     type: string

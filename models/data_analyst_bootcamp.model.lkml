@@ -26,7 +26,14 @@ explore: order_items {
 
   #sql_always_where: ${status} ="Returned" ;;
   #sql_always_having: ${order_items_total_sales} ">200" ;;
-  #always_filter: {}
+  #always_filter: {
+   # filters: [order_items.status: "Returned"]
+  #}
+
+ # sql_always_where: ${order_items.status} = 'Complete';;
+
+#  sql_always_having: ${order_items.count} >5 ;;
+
 
   description: "this provide more info about the explore"
   join: users {
@@ -842,7 +849,7 @@ view: sales {
   drill_fields: [detail*]
 
   set: detail {
-    fields: [transaction_id, transaction_date, office_id, salesperson_id, customer_id, state, total_sales, total_hours]
+    fields: [transaction_id,transaction_date,office_id, salesperson_id, customer_id, state, total_sales, total_hours]
   }
 
   dimension: hours {
@@ -880,6 +887,10 @@ view: sales {
     timeframes: [date, week, month, year, raw]
     convert_tz: no
     datatype: date
+    sql: ${TABLE}.date ;;
+  }
+  dimension: transactionNNdete {
+    type: date
     sql: ${TABLE}.date ;;
   }
 
