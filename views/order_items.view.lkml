@@ -117,3 +117,6 @@ view: order_items {
     ]
   }
 }
+
+
+#end of lookml
